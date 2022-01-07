@@ -318,7 +318,7 @@
 						<br><br>
 						
 						<div class="button" align="center">
-							<a href="/bookmall/order2.do"><button style="font-size:18px; background-color: #d3d3d3;">다음단계</button></a>
+							<a href="/bookmall/order2.do"><button style="font-size:18px; background-color: #d3d3d3;">결제하기</button></a>
 						</div>
 			</div>
 	</form>
