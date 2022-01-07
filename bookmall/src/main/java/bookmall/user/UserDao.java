@@ -25,5 +25,24 @@ public class UserDao {
 	public int emailCheck(String email) {
 		return sqlSession.selectOne("user.emailCheck", email);
 	}
-
+	
+	
+	//닉네임 중복체크
+	public int nickCheck(String nickname) {
+		return sqlSession.selectOne("user.nickCheck", nickname);
+	}
+	
+	
+	public UserVo searchId(UserVo vo) {
+		return sqlSession.selectOne("user.searchId", vo);
+	}
+	
+	public UserVo searchPwd(UserVo vo) {
+		return sqlSession.selectOne("user.searchPwd", vo);
+	}
+	
+	public int updateTempPwd(UserVo vo) {
+		return sqlSession.update("user.updateTempPwd", vo);
+	}
+	
 }

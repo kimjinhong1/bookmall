@@ -15,12 +15,15 @@
     <link rel="stylesheet" href="/bookmall/css/contents.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script src="/bookmall/js/common.js"></script>
     <script>
+    
+  		//로그인 버튼 클릭시
     	function loginCheck() {
-    		if ($("#email").val() == '') {
+    		if ($("#email1").val() == '') {
     			alert('이메일을 입력해 주세요');
-    			$("#email").focus();
+    			$("#email1").focus();
     			return false;
     		}
     		if ($("#pwd").val() == '') {
@@ -28,7 +31,36 @@
     			$("#pwd").focus();
     			return false;
     		}
+    		
+    		
+    		if($("#saveEmail").is(":checked")) { //저장 체크시
+    			savelogin
+    		}
+    		
+    		
     	}
+    	
+    	$(function() {
+    		
+    		var cookie_saveEmail = ????
+    		// 쿠키값이 존재하면 쿠키에서 가져온 emailid를 할당, 체크박스를 체크상태로 변경
+    		if(cookie_saveEmail != "") {
+	    		$("#email1").val(cookie_saveEmail);
+	    		$("#saveEmail").attr("checked", true);
+    		}
+    		
+    		$("#saveEmail").on("click", function() {
+    			var _this = this;
+    			var isRemember;
+    			if($(_this).is(":checked")) {
+    				isRemember = confirm("이 PC에 로그인 정보를 저장하시겠습니까? 공공장소에서는 개인정보가 유출될 수 있으니 주의해주십시오.")
+    				if(!isRemember)
+    					$(_this).attr("checked", false);
+    			}
+    		});
+    		
+    	})
+    	
     </script>   
 </head>
 <body>
@@ -43,26 +75,32 @@
                         <div class="box">
                             <fieldset class="login_form">
                                 <ul>
-                                    <li><input type="text" id="email" name="email" placeholder="이메일"></li>
-                                    <li><input type="password" id="pwd" name="pwd" placeholder="비밀번호"></li>
-                                    <li><label><input type="checkbox" name="reg1" id="reg1"/> 아이디저장</label></li>
+                                    <li>
+                                    	<input type="text" id="email" name="email" placeholder="이메일" autocomplete="off">
+                                    </li>
+                                    <li><input type="password" id="pwd" name="pwd" placeholder="비밀번호" autocomplete="off"></li>
+                                    <li><label><input type="checkbox" name="saveEmail" id="saveEmail"/> 아이디저장</label></li>
                                 </ul>
                                 <div class="login_btn"><input type="submit" value="로그인" alt="로그인" /></div>
                             </fieldset>
+                            
+                            
                             <div class="btnSet clear">
                                 <div>
                                     <a href="join.do" class="btn">회원가입</a> 
                                     <a href="searchId.do" class="btn">이메일/비밀번호 찾기</a>
                                 </div>
                             </div>
+                            
                             <div class="btnSet clear">
                             	<div>
-                                <a href="" class="btn">네이버 로그인</a> 
+                                <a href="" class="btn2" >네이버 로그인</a> 
                                 </div>
                             </div>
+                            
                             <div class="btnSet clear">
                             	<div>
-                                <a href="" class="btn">카카오 로그인</a> 
+                                <a href="" class="btn3">카카오 로그인</a> 
                                 </div>
                             </div>                            
                         </div>

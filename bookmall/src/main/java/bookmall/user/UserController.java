@@ -20,6 +20,7 @@ public class UserController {
 	@Autowired
 	UserService service;
 	
+	//로그인 페이지 이동
 	@GetMapping("/user/login.do")
 	public String login() {		
 		return "user/login";
@@ -63,6 +64,12 @@ public class UserController {
 		return "include/result";
 	}
 	
+	// nickname 중복체크
+	@GetMapping("/user/nickCheck.do")
+	public String nickCheck(Model model, @RequestParam String nickname) {
+		model.addAttribute("result", service.nickCheck(nickname));  //0 or 1 이 request에 저장
+		return "include/result";
+	}
 	
 	// 회원가입 정보 삽입
 	@PostMapping("/user/insert.do")
@@ -76,16 +83,34 @@ public class UserController {
 		return "include/return";
 	}
 	
+	// 로그인
+	@PostMapping("/user/login.do")
+	public String loginProcess(Model model, UserVo vo, HttpSession sess) {
+		if (service.login(vo, sess)) {
+			return "redirect:/main.do";
+		} else {
+			model.addAttribute("msg", "이메일, 비밀번호를 확인해 주세요");
+			return "include/return";
+		}		
+	}
 	
-	// 아이디, 비밀번호 찾기 기능 아직X
+	// 로그아웃
+	@GetMapping("/user/logout.do")
+	public String logout(Model model, HttpSession sess) {
+		sess.invalidate();
+		model.addAttribute("msg", "로그아웃이 되었습니다.");
+		model.addAttribute("url", "/bookmall/main.do");
+		return "include/return";
+	}
+	
 	@RequestMapping(value="/user/searchId.do", method=RequestMethod.GET)
 	public String searchId() {
 		return "user/searchId";
 	}
 	@RequestMapping(value="/user/searchId.do", method=RequestMethod.POST)
 	public String searchId(Model model, UserVo vo) {
-		//UserVo uv = service.searchId(vo);
-		//model.addAttribute("result", uv == null ? "" : uv.getEmail());
+		UserVo uv = service.searchId(vo);
+		model.addAttribute("result", uv == null ? "" : uv.getEmail());
 		return "include/result";
 	}
 	
@@ -93,12 +118,14 @@ public class UserController {
 	public String searchPwd() {
 		return "user/searchPwd";
 	}
+	
 	@RequestMapping(value="/user/searchPwd.do", method=RequestMethod.POST)
 	public String searchPwd(Model model, UserVo vo) {
-		//UserVo uv = service.searchPwd(vo);
-		//model.addAttribute("result", uv == null ? "" : "ok");
+		UserVo uv = service.searchPwd(vo);
+		model.addAttribute("result", uv == null ? "" : uv.getEmail());
 		return "include/result";
 	}
+	
 	@GetMapping("/user/mypage.do")
 	public String mypage() {
 		return "user/mypage";
