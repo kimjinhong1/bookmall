@@ -52,11 +52,47 @@
 		<style type="text/css">
 		    label { cursor:pointer; }
 		</style>
-		
-	
+		<script type="text/javascript">
+			$(function(){
+				$('#card').prop("disabled", true);
+				$('#bank').prop("disabled", false);
+			});
+			<!-- 결제수단 -->
+			function showSelect(pay){
+				//alert(pay);
+				
+				if(pay=='100'){
+					//무통장 입금
+					$('#c1').show();
+					$('#c2').hide();
+					$('#c3').hide();
+					$('#bank').prop("disabled", false);//은행이 서버로 넘어가도록
+					$('#card').prop("disabled", true);
+					$('#NPay').prop("disabled", true);
+				}else if(pay=='200'){
+					//카드결제
+					$('#c1').hide();
+					$('#c2').show();
+					$('#c3').hide();
+					$('#bank').prop("disabled", true);
+					$('#card').prop("disabled", false);//카드가 서버로 넘어가도록
+					$('#NPay').prop("disabled", true);
+				}else if(pay=='300'){
+					//네이버페이결제
+					$('#c1').hide();
+					$('#c2').hide();
+					$('#c3').show();
+					$('#bank').prop("disabled", true);
+					$('#card').prop("disabled", true);
+					$('#NPay').prop("disabled", false);//네이버페이가 서버로 넘어가도록
+				}
+				
+			}
+		</script>
 </head>
 
 <body>
+<form name="custF"><!-- method="POST" -->
 	<div class="wrap_orders">
 		<%@ include file="/WEB-INF/view/include/header.jsp"%>
 		<div class="container" align="center">
@@ -80,7 +116,7 @@
 							</tr>
 							<tr>
 								<td class="popup" align="left" width="23%" style="padding-left:14px;"><SPAN class="warning"></SPAN>상품 주문 총액</td>
-								<td align="left" width="77%" bgColor="#ffffff" style="padding-left:14px;">13,320원</td>	 <!--  -->
+								<td align="left" width="77%" bgColor="#ffffff" style="padding-left:14px;">13,320원 ${totalBuy}원</td>	 <!--  -->
 							</tr>
 							<tr>
 								<td class="popup" align="left" width="23%" style="padding-left:14px;"><SPAN class="warning"></SPAN>배송료</td>
@@ -88,7 +124,7 @@
 							</tr>
 							<tr>
 								<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning"></SPAN>결제 총액</td>
-								<td align="left" width="77%" bgColor="#edf5fc" style="padding-left:14px;">13,320원</td>	 <!--  -->
+								<td align="left" width="77%" bgColor="#edf5fc" style="padding-left:14px;" >13,320원 ${totalBuy}원</td>	 <!--  -->
 							</tr>
 						</table>
 						<div>
@@ -101,6 +137,7 @@
 					</div>
 					<br><br>
 					<div>
+						<!-- 결제수단 -->
 						<table style="margin-left: auto; margin-right: auto; width: 1200px;">
 							<tr>
 							    <td>■ 결제 수단 선택</td>
@@ -109,20 +146,39 @@
 						<table style="margin-left: auto; margin-right: auto; width: 1200px; border:1px solid #d3d3d3 ;">
 							<tr>
 								<td bgColor="#ffffff">
-						            <input type=radio name="methodOfPayment" id="methodOfPayment1"  value="1" onclick=""><label for="methodOfPayment1">무통장 입금</label>
-						            <input type=radio name="methodOfPayment" id="methodOfPayment2"  value="2" onclick=""><label for="methodOfPayment2">신용카드</label>
-						            <input type=radio name="methodOfPayment" id="methodOfPayment3"  value="3" onclick=""><label for="methodOfPayment3">N Pay</label>
+						            <input type="radio" name="opayWay" checked value="100" onclick="showSelect(this.value)">무통장 입금
+									<input type="radio" name="opayWay" value="200"  onclick="showSelect(this.value)">신용 카드
+									<input type="radio" name="opayWay" value="300"  onclick="showSelect(this.value)">N Pay
+									
+									<span id="c1">
+										<select name="bank" id="bank">
+											<option value="1">국민</option>
+											<option value="2">우리</option>
+											<option value="3">신한</option>
+										</select>
+									</span>
+									<span id="c2" style="display:none">
+										<select name="card" id="card">
+											<option value="1">국민카드</option>
+											<option value="2">BC카드</option>
+											<option value="3">현대카드</option>
+											<option value="4">농협카드</option>
+										</select>
+									</span>
+									<span id="c3" style="display:none">
+										<select name="NPay" id="NPay">
+											<option value="1">N Pay</option>
+										</select>
+									</span>
 								</td>
 							</tr>		
 						</table>
 					</div>
-					
-					
-					
 				</div>
 			</div>
 		</div>					
 	</div>	
+	</form>
 		 <%@ include file="/WEB-INF/view/include/footer.jsp" %>
 </body>
 </html>

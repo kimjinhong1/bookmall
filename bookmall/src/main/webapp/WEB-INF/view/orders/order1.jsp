@@ -96,25 +96,99 @@
 	
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	                document.getElementById('zipcode').value = data.zonecode; // 우편번호
-	                document.getElementById("address2").value = addr; // 주소
+	                document.getElementById("addr2").value = addr; // 주소
 	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("address3").focus();
+	                document.getElementById("addr3").focus();
 	            }
 	        }).open();
 	    }
 	    
 	    
 	    </script>
+	    <script>
+		    $(function(){
+			$('#uinfo1').click(function(){
+				custF.name.value="${loginUser.name}" 김한나;
+				custF.tel1.value="${loginUser.tel1}" 010;
+				custF.tel2.value="${loginUser.tel2}" 9632;
+				custF.tel3.value="${loginUser.tel3}" 5543;
+				custF.zipcode.value="${loginUser.zipcode}" 21004;
+				custF.addr1.value="${loginUser.addr1}" 인천 황어로115번길;
+				custF.addr2.value="${loginUser.addr2}" xx동 xxx호;
+			});
+			$('#uinfo2').click(function(){
+				custF.name.value="";
+				custF.tel1.value="";
+				custF.tel2.value="";
+				custF.tel3.value="";
+				custF.zipcode.value="";
+				custF.addr1.value="";
+				custF.addr2.value="";
+			});
+			$('#uinfo3').click(function(){
+				custF.name.value="";
+				custF.tel1.value="";
+				custF.tel2.value="";
+				custF.tel3.value="";
+				custF.zipcode.value="";
+				custF.addr1.value="";
+				custF.addr2.value="";
+			});
+		});
+	    </script>
+	    
+	    
+	    
+	    <script type="text/javascript">
+			$(function(){
+				$('#card').prop("disabled", true);
+				$('#bank').prop("disabled", false);
+			});
+			<!-- 결제수단 -->
+			function showSelect(pay){
+				//alert(pay);
+				
+				if(pay=='100'){
+					//무통장 입금
+					$('#c1').show();
+					$('#c2').hide();
+					$('#c3').hide();
+					$('#bank').prop("disabled", false);//은행이 서버로 넘어가도록
+					$('#card').prop("disabled", true);
+					$('#NPay').prop("disabled", true);
+				}else if(pay=='200'){
+					//카드결제
+					$('#c1').hide();
+					$('#c2').show();
+					$('#c3').hide();
+					$('#bank').prop("disabled", true);
+					$('#card').prop("disabled", false);//카드가 서버로 넘어가도록
+					$('#NPay').prop("disabled", true);
+				}else if(pay=='300'){
+					//네이버페이결제
+					$('#c1').hide();
+					$('#c2').hide();
+					$('#c3').show();
+					$('#bank').prop("disabled", true);
+					$('#card').prop("disabled", true);
+					$('#NPay').prop("disabled", false);//네이버페이가 서버로 넘어가도록
+				}
+				
+			}
+		</script>
 </head>
 
 <body>
+<form name="custF" action=""><!-- method="POST" -->
 	<div class="wrap_orders">
 		<%@ include file="/WEB-INF/view/include/header.jsp"%>
 		<div class="container" align="center">
 			<div class="size">
             	<div class="text">
-            		<!--주문과정 Step1 : 주문 상품 내역 -->
-					<img src="/bookmall/img/order_step_t01.gif" width="1200px"><br>
+					<div class="col-md-7 offset-md-1" align="center">
+						<h1 class="text-primary text-center mt-4">${loginUser.name}[ 김한나${loginUser.userid} ]님의 주문정보</h1>
+					</div>
+					<br><br>
 					<p>▶ 주문 상품 정보</p><br>
 
 					<!--상품리스트-->
@@ -139,7 +213,7 @@
 					<!--예상총액/장바구니 이동버튼-->
 					<table style="margin-left: auto; margin-right: auto; width: 1200px;">
 						<tr>
-							<td valign="top" style="padding-top: 8px"><strong>총 결제 예상 금액 : <font color="#cc3333">13,500 원</font></strong>   <!-- total_price -->
+							<td valign="top" style="padding-top: 8px"><strong>총 결제 예상 금액 : <font color="#cc3333">13,500 원 ${totalBuy}</font></strong>   <!-- total_price -->
 						</tr>
 						<tr>
 							<td align="right" style="padding-top: 5px;">
@@ -155,67 +229,99 @@
 						      <td> ▶ 배송지 정보 입력<font color="#f2291f">(*필수 입력 항목)</font></td>
 						</tr>
 					</table>
-					<span id="Wa_Address_Input_wa_order_smartmembership1_lblsmartmembership"></span>
 					<table style="width:100px; align:center; border:0; " ><tr><td><div id="AddressBook" align=center style="margin:30px 0px 0px 330px;position:absolute; vertical-align:top;"></div></td></tr></table>
-					<div id="Wa_Address_Input_KoreaAddr">
-						<div id="DefaultAddr">
 							<table style="cellSpacing:1; cellPadding:3; width:1200px; bgColor:#83b8c2; border:0; align:center; border:1px solid #d3d3d3 ; " >
 								<tr>
 									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;">배송지 선택</td>
 									<td bgColor="#ffffff">
-							            <input type=radio name="AdressInit" id="AdressInit1"  value="1" onclick="AddressInit('DefaultAddress', 0)"><label for="AdressInit1">주문고객 정보와 동일</label>
-							            <input type=radio name="AdressInit" id="AdressInit2"  value="2" onclick="AddressInit('RecentAddress', 0)"><label for="AdressInit2">최근 배송지 주소</label>
-							            <input type=radio name="AdressInit" id="AdressInit3"  value="3" onclick="addrInputClose(); AddressInit('ShowAddressBook', 0)"><label for="AdressInit3">배송주소록에서 선택</label>
-							            <input type=radio name="AdressInit" id="AdressInit4"  value="4" onclick="AddressInit('ClearAddress', 0)"><label for="AdressInit4">새주소 입력</label>
-								</td>
+							            <input type="radio" name="info" id="uinfo1" value="1" checked>주문고객 정보와 동일
+							            <input type="radio" name="info" id="uinfo2" value="2">배송주소록에서 선택
+							            <input type="radio" name="info" id="uinfo2" value="3">새주소 입력
+									</td>
 								</tr>
 								<tr>
 									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning">* </SPAN>주문인</td>
 									<td bgColor="#ffffff">
-									    <input type="text" name="name" class="form" value='' maxlength="20" /> <!-- name -->
-									    
-										 휴대폰 번호 :   <!-- tel --> <br>주문/배송에 관한 문자, 알림톡은 주문인 휴대전화번호로 발송되며,  <a style='color:#386da1' href="" target="_blank">개인정보수정 페이지</a>에서 변경 가능합니다.  
+									    <input type="text" name="name" class="form" value='${loginUser.name}' maxlength="20" /><!-- name -->
 									</td>
 								</tr>
 								<tr>
 									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning">* </SPAN>받으시는 분</td>
-									<td bgColor="#ffffff"><INPUT class=form type=text maxLength=20 value="" name=receiver_name>	 <!-- receiver_name -->
+									<td bgColor="#ffffff"><INPUT class=form type=text maxLength=20 value="${receiver_name}" name=receiver_name>	 <!-- receiver_name -->
 									</td>
 								</tr>
 								<tr>
 		                        	<td rowspan="3" class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning">* </SPAN>주소</td>
 		                        	<td>
-		                        		<input type="text" name="zipcode" id="zipcode" class="inNextBtn" style="float:left;">
+		                        		<input type="text" name="zipcode" id="zipcode" class="inNextBtn" value="${loginUser.zipcode}" style="float:left;">
 		                                <span class="addr_check"><a href="javascript:zipcode();" class="btn bgGray" style="float:left; width:auto; clear:none; border:1px solid #d3d3d3;">주소검색</a></span>   <!-- address1 -->
 		                        	</td>
 		                        </tr>
 		                        <tr>
 		                        	<td>
-		                        		<input type="text" name="address2" id="address2" style="float:left;width:500px;">  <!-- address2 -->
+		                        		<input type="text" name="addr1" id="addr1"  value="${loginUser.addr1}" style="float:left;width:500px;">  <!-- address2 -->
 		                        	</td>
 		                        </tr>
 		                        <tr>
 		                        	<td>
-		                        		<input type="text" name="address3" id="address3" style="float:left;width:500px;">   <!-- address3 -->
+		                        		<input type="text" name="addr2" id="addr2"  value="${loginUser.addr2}" style="float:left;width:500px;">   <!-- address3 -->
 		                        	</td>
 		                        </tr>
 								<tr>
 									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning">* </SPAN>휴대전화번호</TD> <!-- receiver_phone -->
-									<td bgColor="#ffffff"><INPUT class='form' type='text' maxLength='4' size='5' name='Hp1' value='' > - <INPUT class='form' type='text' maxLength='4' size='5' name='Hp2' value='' > - <INPUT class='form' type='text' maxLength='4' size='5' name='Hp3' value=''><FONT face="굴림"></FONT>
+									<td bgColor="#ffffff">
+										<input type="text" name="tel1" value="${loginUser.tel1}"  size="3" maxlength="3" />
+														- <input type="text" name="tel2" value="${loginUser.tel2}" size="4" maxlength="4" />
+														- <input type="text" name="tel3" value="${loginUser.tel3}" size="4" maxlength="4" />
 									</td>
 								</tr>
 						</table>
 						<br><br><br>	
+					</div>	
+				</div>
+				<!-- 결제수단 -->
+						<table style="margin-left: auto; margin-right: auto; width: 1200px;">
+							<tr>
+							    <td>▶ 결제 수단 선택</td>
+							</tr>
+						</table>	
+						<table style="margin-left: auto; margin-right: auto; width: 1200px; border:1px solid #d3d3d3 ;">
+							<tr>
+								<td bgColor="#ffffff">
+						            <input type="radio" name="opayWay" checked value="100" onclick="showSelect(this.value)">무통장 입금
+									<input type="radio" name="opayWay" value="200"  onclick="showSelect(this.value)">신용 카드
+									<input type="radio" name="opayWay" value="300"  onclick="showSelect(this.value)">N Pay
+									
+									<span id="c1">
+										<select name="bank" id="bank">
+											<option value="1">국민</option>
+											<option value="2">우리</option>
+											<option value="3">신한</option>
+										</select>
+									</span>
+									<span id="c2" style="display:none">
+										<select name="card" id="card">
+											<option value="1">국민카드</option>
+											<option value="2">BC카드</option>
+											<option value="3">현대카드</option>
+											<option value="4">농협카드</option>
+										</select>
+									</span>
+									<span id="c3" style="display:none">
+										<select name="NPay" id="NPay">
+											<option value="1">N Pay</option>
+										</select>
+									</span>
+								</td>
+							</tr>		
+						</table>
+						<br><br>
 						
 						<div class="button" align="center">
 							<a href="/bookmall/order2.do"><button style="font-size:18px; background-color: #d3d3d3;">다음단계</button></a>
 						</div>
-						
-					</div>	
-				</div>
 			</div>
-		</div>					
-	</div>	
+	</form>
 		 <%@ include file="/WEB-INF/view/include/footer.jsp" %>
 </body>
 </html>
