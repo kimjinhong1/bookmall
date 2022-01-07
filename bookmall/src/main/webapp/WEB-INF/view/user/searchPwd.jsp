@@ -36,10 +36,13 @@
     				email:$("#email").val()     
     			}, 
     			success:function(res) {      
-    				if (res.trim() == 'ok') {
-    					alert("임시비밀번호를 이메일로 발송하였습니다. 이메일을 확인하세요.")
+    				if (res.trim() == '') {
+    					alert("이메일 또는 이름이 올바르지 않습니다.")
     				} else {
-    					alert("이메일/이름이 올바르지 않습니다.")
+    					$("#name").hide();
+    					$("#email").hide();
+    					$(".login_btn").hide();
+    					$("#pwdArea").text("임시비밀번호를 "+res.trim()+"로 발송하였습니다. 이메일을 확인하세요.");
     				}
     			}
     		});
@@ -61,13 +64,13 @@
                                 <ul>
                                     <li><input type="text" id="email" name="email" placeholder="이메일"></li>
                                     <li><input type="text" id="name" name="name" placeholder="이름"></li>
+                                    <li id="pwdArea" style="text-align : center"></li>
                                 </ul>
                                 <div class="login_btn"><input type="submit" value="비밀번호찾기" alt="비밀번호찾기" /></div>
                             </fieldset>
                             <div class="btnSet clear">
                                 <div>
-                                    <a href="searchId.do" class="btn">이메일찾기</a> 
-                                    <a href="searchPwd.do" class="btn">비밀번호 찾기</a>
+                                    <a href="login.do" class="btn">로그인 하기</a> 
                                 </div>
                             </div>
                         </div>

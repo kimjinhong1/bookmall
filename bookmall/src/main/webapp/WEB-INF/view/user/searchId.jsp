@@ -38,7 +38,10 @@
     			success:function(res) {       
     				if (res.trim() == '') {  
     					$("#emailArea").text("이메일이 존재하지 않습니다."); 
-    				} else {                
+    				} else {
+    					$("#name").hide();
+    					$("#tel").hide();
+    					$(".login_btn").hide();
     					$("#emailArea").text("이메일은 '"+res.trim()+"' 입니다."); 
     				}
     			}
@@ -61,19 +64,18 @@
                                 <ul>
                                     <li><input type="text" id="name" name="name" placeholder="이름"></li>
                                     <li><input type="text" id="tel" name="tel" placeholder="전화번호"></li>
-                                    <li id="emailArea"></li>
+                                    <li id="emailArea" style="text-align : center"></li>
                                 </ul>
                                 <div class="login_btn"><input type="submit" value="이메일찾기" alt="이메일찾기" /></div>
                             </fieldset>
                             <div class="btnSet clear">
                                 <div>
-                                    <a href="searchId.do" class="btn">이메일찾기</a> 
+                                    <a href="login.do" class="btn">로그인 하기</a> 
                                     <a href="searchPwd.do" class="btn">비밀번호 찾기</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-        
                 </div>
             </div>
         </form>

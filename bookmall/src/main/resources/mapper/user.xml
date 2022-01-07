@@ -17,6 +17,10 @@
 		SELECT COUNT(*) FROM user WHERE email = #{email}
 	</select>
 	
+	<select id="nickCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM user WHERE nickname = #{nickname}
+	</select>
+	
 	<select id="login" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
 		SELECT * FROM user WHERE email = #{email} AND pwd = md5(#{pwd})
 	</select>

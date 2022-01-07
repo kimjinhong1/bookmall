@@ -51,13 +51,13 @@ public class SendMail {
 			return 0;
 		}
 	}
-//  6자리( 문자3+ 숫자3)암호 랜덤 생성
+//  6자리 암호 랜덤 생성
 	public static String random() {
 		String tempPwd = "";
-		for (int i=0; i<3; i++) {
-			tempPwd += (char)((Math.random()*26)+65);
-		}
-		for (int i=0; i<3; i++) {
+//		for (int i=0; i<3; i++) {
+//			tempPwd += (char)((Math.random()*26)+65);
+//		}
+		for (int i=0; i<6; i++) {
 			tempPwd += (int)((Math.random()*9));
 		}
 		return tempPwd;
@@ -67,13 +67,12 @@ public class SendMail {
 	
 	// 메일보내기 테스트 메인메서드
 	public static void main(String[] args) {
-		// 임시비밀번호 : 문자3자 + 숫자3
-		// abc123
+		// 임시비밀번호 :  숫자6
 		String tempPwd = "";
-		for (int i=0; i<3; i++) {
-			tempPwd += (char)((Math.random()*26)+65);
-		}
-		for (int i=0; i<3; i++) {
+//		for (int i=0; i<3; i++) {
+//			tempPwd += (char)((Math.random()*26)+65);
+//		}
+		for (int i=0; i<6; i++) {
 			tempPwd += (int)((Math.random()*9));
 		}
 		System.out.println(tempPwd);
