@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user"> <!-- mapper파일의 이름 -->
+
+	<insert id="insert" parameterType="bookmall.user.UserVo" useGeneratedKeys="true">
+		INSERT INTO user (
+			email, pwd, pwd_question, pwd_answer, nickname, name, birthday, tel, gender, regdate, moddate, recently_accessed, user_type, state, identifier, zipcode, addr1, addr2
+		) VALUES (			
+			#{email}, md5(#{pwd}),#{pwd_question},#{pwd_answer},#{nickname},#{name},#{birthday},#{tel},#{gender},NOW(),NOW(),NOW(),#{user_type},#{state},#{identifier},#{zipcode},#{addr1},#{addr2}
+		)
+		<selectKey keyProperty="userno" resultType="int" order="AFTER">
+			SELECT last_insert_id()
+		</selectKey> 
+	</insert>
+	
+	<select id="emailCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM user WHERE email = #{email}
+	</select>
+	
+	<select id="login" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT * FROM user WHERE email = #{email} AND pwd = md5(#{pwd})
+	</select>
+	
+	<select id="searchId" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT * FROM user WHERE name = #{name} AND tel = #{tel}
+	</select>
+	
+	<select id="searchPwd" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT * FROM user WHERE email = #{email} AND name = #{name}
+	</select>
+	
+	<update id="updateTempPwd" parameterType="bookmall.user.UserVo">
+		UPDATE user SET pwd = md5(#{pwd}) WHERE email = #{email} AND name = #{name}
+	</update>
+	
+</mapper>

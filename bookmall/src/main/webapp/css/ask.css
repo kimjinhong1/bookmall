@@ -1,0 +1,125 @@
+.sub {
+	width : 100%;
+	margin : 0 auto;
+}
+.sub > .sub_visual {
+	position:relative;
+	background-size: cover;
+}
+.sub_title h3 {
+	margin-top: 20px;
+}
+.slogan {
+	font-size:35px;
+	text-align:center;
+	line-height:100px;
+	color:#5c5c5c;
+	width:100%;
+}
+.sub {
+	position:relative;
+}
+.sub > .size {
+	width: 1200px;
+	margin : 0 auto;
+	font-size: 10px;
+}
+.sub .sub_title {
+    text-align: center;
+    font-size: 32px;
+	margin :  100px 0 30px 0;    
+
+}
+.sub > .size>.txt {
+	width: 1200px;
+	margin : 0 auto;
+	
+}
+
+.topselect table{
+	width: 80%;
+	height: 100px;
+	border-spacing: 10px;
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+
+.topselect tbody{
+	border: 1px solid #ffffff;
+	padding: 10px 10px 10px 10px;
+}
+.topselect th{
+  	text-align:center;
+    border-bottom : 0.5px solid #808080;
+  	font-size: 20px;
+  	padding-bottom: 0px;
+  	height: 100px;
+  	
+}
+.topselect td{
+   text-align:left;
+   float: center;
+   font-size: 15px;
+}
+
+.sub > .size > .box {
+	padding:0 px;
+	color: #5c5c5c;
+	width: 1200px;
+	font-size:20px;
+}
+
+.sub > .size > .box p {
+	font-size:10px;
+	width: 1200px;
+	text-align:center;
+}
+	
+.sub > .size > .box .title {
+	font-size:25px;
+	color:#808080;
+}
+
+table {
+	width: 1200px;
+	border: 1px solid #ffffff;
+	height: 200px;
+	border-spacing: 10px;
+	table-layout: auto;
+	font-size: 15px;
+}
+
+th{
+  	text-align:center;
+    border-bottom : 1px solid #ffffff;
+    padding: 5px 5px 5px 5px; 
+  	
+}
+td{
+   text-align:center;
+   float: center;
+   vertical-align: middle;
+}
+
+option {
+	 float: left;
+}
+.menual {
+	 float: left;
+	 text-align:left;
+	 color: black;
+}
+.story > p {
+	font-size: 13px;
+}
+details {
+	border-bottom: 0.5px solid #c0c0c0;
+	vertical-align: middle;
+}
+summary {
+	height: 35px;
+	font-size: 15px;
+	color: #808080;
+	vertical-align: middle;
+	float: center;
+}
