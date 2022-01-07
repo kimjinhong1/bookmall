@@ -208,19 +208,14 @@
 						<br><br><br>	
 						
 						<div class="button" align="center">
-							<a href=""><button style="font-size:18px; background-color: #d3d3d3;">다음단계</button></a>
+							<a href="/bookmall/order2.do"><button style="font-size:18px; background-color: #d3d3d3;">다음단계</button></a>
 						</div>
 						
 					</div>	
 				</div>
 			</div>
 		</div>					
-								
 	</div>	
-	<br><br><br>
-	<div align="center">
-		<hr style="border: solid 0.5px #d3d3d3; width: 1200px"   >
-	</div>							
 		 <%@ include file="/WEB-INF/view/include/footer.jsp" %>
 </body>
 </html>

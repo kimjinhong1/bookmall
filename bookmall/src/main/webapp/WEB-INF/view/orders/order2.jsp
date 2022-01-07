@@ -123,10 +123,6 @@
 			</div>
 		</div>					
 	</div>	
-	<br><br><br>
-	<div align="center">
-		<hr style="border: solid 0.5px #d3d3d3; width: 1200px"   >
-	</div>							
 		 <%@ include file="/WEB-INF/view/include/footer.jsp" %>
 </body>
 </html>
