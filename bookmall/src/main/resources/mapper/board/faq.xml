@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="faq"> <!-- mapper파일의 이름 -->
+
+	<sql id = "boardWhere">
+		<where> <!-- 요안에 뭔가 있으면 SQL에 자동으로 WHERE 들어가도록 -->
+			<!-- <![CDATA[ regdate <= now() ]]>  시간이 안지나면 볼 수없게 하는 것 -->
+			<if test ="searchType ==''"> <!-- searchType에 값이 '' 이면(빈문자열이면) 아래 sql이 포함 -->
+			 	(title LIKE '%${searchWord}%' OR content LIKE '%${searchWord}%')
+			 </if>
+			 <if test= "searchType != null and searchType != ''"> <!-- searchType이 널이 아니고(and) 빈문자열이 아니면 아래 sql이 포함 -->
+			 	${searchType} LIKE '%${searchWord}%'
+			 </if>
+			 <if test="searchCategory != null and searchCategory != ''">
+			 	AND categoryno = #{searchCategory}
+			 </if>
+		</where>
+	</sql>
+	
+	<select id="count" resultType="int" parameterType="bookmall.board.faq.FaqVo">
+		SELECT COUNT(*) FROM faq
+		<include refid="boardWhere"/>
+	</select>    
+
+	 <select id="selectList" resultType = "bookmall.board.faq.FaqVo" parameterType="bookmall.board.faq.FaqVo">
+		SELECT * ,
+			(select name from faq_category where no=faq.categoryno) categoryname
+		FROM faq
+			
+		<include refid = "boardWhere"/>
+			 
+		ORDER BY regdate DESC
+		LIMIT ${startIdx},10	
+	</select>
+	
+	<insert id = "insert" parameterType="bookmall.board.faq.FaqVo">
+		INSERT INTO faq (
+			title, regdate, content, categoryno 
+		) values(
+			#{title}, 
+			<if test="sendDate != ''">'${sendDate}'</if>
+			<if test="sendDate == ''">NOW()</if>, 
+			#{content},#{categoryno} 
+		)
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="bookmall.board.faq.FaqVo">
+		SELECT *, 
+			(select name from faq_category where no=faq.categoryno) categoryname
+		FROM faq WHERE no = #{xxx}		
+	</select>
+	
+		<update id="update" parameterType="bookmall.board.faq.FaqVo">
+		UPDATE faq SET 
+		title = #{title}
+		, content=#{content}
+		, categoryno=#{categoryno}
+		WHERE no=#{no}
+	</update>  
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM faq WHERE no=#{no} 
+	</delete>
+
+</mapper>   

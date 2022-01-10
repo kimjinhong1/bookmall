@@ -56,7 +56,7 @@ $(window).load(function(){
 </script>
 <div id="header">
 	<div class="header_inner">
-		<h1>SAMPLE</h1>
+		<h1>관리자 페이지</h1>
 		<p class="login_name"></p>
 		<!-- util : s -->
 		<div class="util">
@@ -71,11 +71,13 @@ $(window).load(function(){
   			<ul class="menu">
   				<li><a href="<%=request.getContextPath()%>/admin/member/index.do" class="parent"><span>회원관리</span></a></li>
 				<li><a href="<%=request.getContextPath()%>/admin/product/index.do" class="parent"><span>상품관리</span></a></li>
-				<li><a href="<%=request.getContextPath()%>/admin/board/index.do" class="parent"><span>게시판</span></a>
+				<li><a href="<%=request.getContextPath()%>/admin/board/notice/index.do" class="parent"><span>고객센터</span></a>
 					<div class="standard_left">
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/admin/board/index.do"><span>공지사항</span></a></li>
-						<li><a href="<%=request.getContextPath()%>/admin/board/index.do"><span>Q&A</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/board/notice/index.do"><span>공지사항</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/board/faq/index.do"><span>FAQ</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/board/faq/category/index.do"><span>FAQ카테고리관리</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/board/suda/index.do"><span>수다게시판</span></a></li>
 					</ul>
 					</div>
 				</li>

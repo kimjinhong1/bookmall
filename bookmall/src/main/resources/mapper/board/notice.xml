@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice"> <!-- mapper파일의 이름 -->
+
+	<sql id = "boardWhere">
+		<where> <!-- 요안에 뭔가 있으면 SQL에 자동으로 WHERE 들어가도록 -->
+			<if test ="searchType ==''"> <!-- searchType에 값이 '' 이면(빈문자열이면) 아래 sql이 포함 -->
+			 	(title LIKE '%${searchWord}%' OR content LIKE '%${searchWord}%')
+			 </if>
+			 <if test= "searchType != null and searchType != ''"> <!-- searchType이 널이 아니고(and) 빈문자열이 아니면 아래 sql이 포함 -->
+			 	${searchType} LIKE '%${searchWord}%'
+			 </if>
+		</where>
+	</sql>
+	
+	<select id="count" resultType="int" parameterType="bookmall.board.notice.NoticeVo">
+		SELECT COUNT(*) FROM notice
+		<include refid="boardWhere"/>
+	</select>    
+
+	 <select id="selectList" resultType = "bookmall.board.notice.NoticeVo" parameterType="bookmall.board.notice.NoticeVo">
+		SELECT * FROM notice
+			
+		<include refid = "boardWhere"/>
+			 
+		ORDER BY regdate DESC
+		LIMIT ${startIdx},10	
+	</select>
+	
+		<insert id = "insert" parameterType="bookmall.board.notice.NoticeVo">
+		INSERT INTO notice (
+			title, regdate, content, filename_org, filename_real
+		) values(
+			#{title}, 
+			<if test="sendDate != ''">'${sendDate}'</if>
+			<if test="sendDate == ''">NOW()</if>, 
+			#{content},#{filename_org},#{filename_real}
+		)
+	</insert>
+	
+		<select id="selectOne" parameterType="int" resultType="bookmall.board.notice.NoticeVo">
+		SELECT * FROM notice WHERE no = #{xxx}		
+	</select>
+	
+	<update id="updateReadcount" parameterType="int">
+		UPDATE notice SET readcount=readcount+1 WHERE no=#{no}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM notice WHERE no=#{no} 
+	</delete>
+	
+	<update id="update" parameterType="bookmall.board.notice.NoticeVo">
+		UPDATE  notice SET 
+		title = #{title}
+		, content=#{content}
+		<if test="filename_org != null">
+		, filename_org=#{filename_org}
+		, filename_real=#{filename_real}
+	    </if>	 
+		WHERE no=#{no}
+	</update>
+</mapper>

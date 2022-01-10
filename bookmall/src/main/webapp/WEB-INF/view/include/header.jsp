@@ -43,7 +43,6 @@
 	        <a href="">게시판</a>
 	        <ul class="depth2">
 	            <li><a href="">수다게시판</a></li>
-	            <li><a href="">리뷰게시판</a></li>
 	        </ul>
 	    </li>
 	    <li>
