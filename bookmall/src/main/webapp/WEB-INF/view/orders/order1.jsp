@@ -14,47 +14,39 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script src="/bookmall/js/orders.js"></script>
 <script src="/bookmall/js/main.js"></script>
-		<script type="text/javascript">
-        <!-- netfunnel 완료 처리 -->
-            window.onload = function () {
-                NetFunnel_Complete();
-            };
 
-            function frmSubmit_Standby() {
-                
-                frmSubmit();
-                
-                return false;
-            }
-        </script>
-        
-        <script type='text/javascript'>
-				$j(document).ready(function() {
-					if (window.gtag) {
-						gtag('event', "checkout_progress", {
-							"event_label" : "order_step1",
-							"items" : [ {
-								"id" : "P284697729",
-								"name" : "검은 황무지",
-								"category" : "소설/시/희곡",
-								"brand" : "네버모어",
-								"variant" : "K612835924",
-								"list_position" : 1,
-								"quantity" : 1,
-								"price" : '13500'
-							},
-
-							]
-						});
-					}
-				});
-			</script>
-		<style type="text/css">
-		    label { cursor:pointer; }
-		</style>
+    <!-- 주소록선택 -->
+    <script>
+	    $(function(){
+		$('#uinfo1').click(function(){
+			custF.tel1.value=/* "${loginUser.tel1}" */ "010";
+			custF.tel2.value=/* "${loginUser.tel2}" */ "9632";
+			custF.tel3.value=/* "${loginUser.tel3}" */ "5543";
+			custF.zipcode.value=/* "${loginUser.zipcode}" */ "21004";
+			custF.addr1.value=/* "${loginUser.addr1}" */ "인천광역시 황어로115번길";
+			custF.addr2.value=/* "${loginUser.addr2}" */ "xx동 xxx호";
+		});
+		$('#uinfo2').click(function(){
+			custF.tel1.value="";
+			custF.tel2.value="";
+			custF.tel3.value="";
+			custF.zipcode.value="";
+			custF.addr1.value="";
+			custF.addr2.value="";
+		});
+		$('#uinfo3').click(function(){
+			custF.tel1.value="";
+			custF.tel2.value="";
+			custF.tel3.value="";
+			custF.zipcode.value="";
+			custF.addr1.value="";
+			custF.addr2.value="";
+		});
+	});
+    </script>
 		
-		<!-- 주소검색 -->
-		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- 주소검색 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 	    function zipcode() {
 	        new daum.Postcode({
@@ -96,49 +88,15 @@
 	
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 	                document.getElementById('zipcode').value = data.zonecode; // 우편번호
-	                document.getElementById("addr2").value = addr; // 주소
+	                document.getElementById("addr1").value = addr; // 주소
 	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("addr3").focus();
+	                document.getElementById("addr2").focus();
 	            }
 	        }).open();
 	    }
-	    
-	    
-	    </script>
-	    <script>
-		    $(function(){
-			$('#uinfo1').click(function(){
-				custF.name.value="${loginUser.name}" 김한나;
-				custF.tel1.value="${loginUser.tel1}" 010;
-				custF.tel2.value="${loginUser.tel2}" 9632;
-				custF.tel3.value="${loginUser.tel3}" 5543;
-				custF.zipcode.value="${loginUser.zipcode}" 21004;
-				custF.addr1.value="${loginUser.addr1}" 인천 황어로115번길;
-				custF.addr2.value="${loginUser.addr2}" xx동 xxx호;
-			});
-			$('#uinfo2').click(function(){
-				custF.name.value="";
-				custF.tel1.value="";
-				custF.tel2.value="";
-				custF.tel3.value="";
-				custF.zipcode.value="";
-				custF.addr1.value="";
-				custF.addr2.value="";
-			});
-			$('#uinfo3').click(function(){
-				custF.name.value="";
-				custF.tel1.value="";
-				custF.tel2.value="";
-				custF.tel3.value="";
-				custF.zipcode.value="";
-				custF.addr1.value="";
-				custF.addr2.value="";
-			});
-		});
 	    </script>
 	    
-	    
-	    
+	   
 	    <script type="text/javascript">
 			$(function(){
 				$('#card').prop("disabled", true);
@@ -189,7 +147,7 @@
 						<h1 class="text-primary text-center mt-4">${loginUser.name}[ 김한나${loginUser.userid} ]님의 주문정보</h1>
 					</div>
 					<br><br>
-					<p>▶ 주문 상품 정보</p><br>
+					<p>▷ 주문 상품 정보</p><br>
 
 					<!--상품리스트-->
 					<div class="list">
@@ -223,26 +181,18 @@
 					</table>
 				</div>	
 					<br><br>
-					<!--배송지 정보 입력-->
+					<!--배송지 정보 선택/입력-->
 					<table style="margin-left: auto; margin-right: auto; width: 1200px;">
 						<tr>
-						      <td> ▶ 배송지 정보 입력<font color="#f2291f">(*필수 입력 항목)</font></td>
+						      <td>▷ 배송지 정보 입력<font color="#f2291f">(*필수 입력 항목)</font></td>
 						</tr>
 					</table>
 					<table style="width:100px; align:center; border:0; " ><tr><td><div id="AddressBook" align=center style="margin:30px 0px 0px 330px;position:absolute; vertical-align:top;"></div></td></tr></table>
 							<table style="cellSpacing:1; cellPadding:3; width:1200px; bgColor:#83b8c2; border:0; align:center; border:1px solid #d3d3d3 ; " >
 								<tr>
-									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;">배송지 선택</td>
-									<td bgColor="#ffffff">
-							            <input type="radio" name="info" id="uinfo1" value="1" checked>주문고객 정보와 동일
-							            <input type="radio" name="info" id="uinfo2" value="2">배송주소록에서 선택
-							            <input type="radio" name="info" id="uinfo2" value="3">새주소 입력
-									</td>
-								</tr>
-								<tr>
 									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning">* </SPAN>주문인</td>
 									<td bgColor="#ffffff">
-									    <input type="text" name="name" class="form" value='${loginUser.name}' maxlength="20" /><!-- name -->
+									    <input type="text" name="name" value="${loginUser.name} 김한나"class="form" maxlength="20" /> [${loginUser.tel }010-9632-5543]
 									</td>
 								</tr>
 								<tr>
@@ -251,28 +201,36 @@
 									</td>
 								</tr>
 								<tr>
+									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;">배송지 선택</td>
+									<td bgColor="#ffffff">
+							            <input type="radio" name="info" id="uinfo1" value="1" checked>주문고객 정보와 동일
+							            <input type="radio" name="info" id="uinfo2" value="2">배송주소록에서 선택
+							            <input type="radio" name="info" id="uinfo3" value="3">새주소 입력
+									</td>
+								</tr>
+								<tr>
 		                        	<td rowspan="3" class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning">* </SPAN>주소</td>
 		                        	<td>
-		                        		<input type="text" name="zipcode" id="zipcode" class="inNextBtn" value="${loginUser.zipcode}" style="float:left;">
+		                        		<input type="text" name="zipcode" id="zipcode" class="inNextBtn" value="${loginUser.zipcode} 21004" style="float:left;">
 		                                <span class="addr_check"><a href="javascript:zipcode();" class="btn bgGray" style="float:left; width:auto; clear:none; border:1px solid #d3d3d3;">주소검색</a></span>   <!-- address1 -->
 		                        	</td>
 		                        </tr>
 		                        <tr>
 		                        	<td>
-		                        		<input type="text" name="addr1" id="addr1"  value="${loginUser.addr1}" style="float:left;width:500px;">  <!-- address2 -->
+		                        		<input type="text" name="addr1" id="addr1"  value="${loginUser.addr1} 인천광역시 황어로115번길" style="float:left;width:500px;">  <!-- address2 -->
 		                        	</td>
 		                        </tr>
 		                        <tr>
 		                        	<td>
-		                        		<input type="text" name="addr2" id="addr2"  value="${loginUser.addr2}" style="float:left;width:500px;">   <!-- address3 -->
+		                        		<input type="text" name="addr2" id="addr2"  value="${loginUser.addr2} xx동 xxx호" style="float:left;width:500px;">   <!-- address3 -->
 		                        	</td>
 		                        </tr>
 								<tr>
 									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;"><SPAN class="warning">* </SPAN>휴대전화번호</TD> <!-- receiver_phone -->
 									<td bgColor="#ffffff">
-										<input type="text" name="tel1" value="${loginUser.tel1}"  size="3" maxlength="3" />
-														- <input type="text" name="tel2" value="${loginUser.tel2}" size="4" maxlength="4" />
-														- <input type="text" name="tel3" value="${loginUser.tel3}" size="4" maxlength="4" />
+										<input type="text" name="tel1" value="${loginUser.tel1} 010"  size="3" maxlength="3" />
+														- <input type="text" name="tel2" value="${loginUser.tel2} 9632" size="4" maxlength="4" />
+														- <input type="text" name="tel3" value="${loginUser.tel3} 5543" size="4" maxlength="4" />
 									</td>
 								</tr>
 						</table>
@@ -282,7 +240,7 @@
 				<!-- 결제수단 -->
 						<table style="margin-left: auto; margin-right: auto; width: 1200px;">
 							<tr>
-							    <td>▶ 결제 수단 선택</td>
+							    <td>▷ 결제 수단 선택</td>
 							</tr>
 						</table>	
 						<table style="margin-left: auto; margin-right: auto; width: 1200px; border:1px solid #d3d3d3 ;">
@@ -318,7 +276,7 @@
 						<br><br>
 						
 						<div class="button" align="center">
-							<a href="/bookmall/order2.do"><button style="font-size:18px; background-color: #d3d3d3;">결제하기</button></a>
+							<a href="/bookmall/order2.do"><button style="font-size:18px; background-color: #fff; border:1px solid #d3d3d3;">결제하기</button></a>
 						</div>
 			</div>
 	</form>

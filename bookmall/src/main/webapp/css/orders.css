@@ -34,4 +34,17 @@ table {border : 1px solid #d3d3d3; border-collapse: collapse;}
 	text-align: center;
 }
 
+/* 최근배송지/주소록 영역 CSS */
+.putAddrWrap .putAddrLft {
+    float: left;
+    margin-top: 2px;
+}
 
+.putAddrWrap .putAddrRgt {
+    margin-left: 33px;
+    color: #555;
+}
+
+.putAddrWrap .putAddrRgt .grayTxt {
+    color: #999;
+}

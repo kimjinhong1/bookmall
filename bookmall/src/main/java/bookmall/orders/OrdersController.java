@@ -15,5 +15,9 @@ public class OrdersController {
 	public String order2() {
 		return "orders/order2"; 
 	}
+	@GetMapping("/complete.do")
+	public String orderComplete() {
+		return "orders/complete"; 
+	}
 	
 }
