@@ -1,4 +1,4 @@
-package bookmall.board.notice;
+package bookmall.board.suda;
 
 import java.io.File;
 import java.util.List;
@@ -18,54 +18,41 @@ import org.springframework.web.multipart.MultipartFile;
 import bookmall.util.CommonUtil;
 
 @Controller
-public class NoticeController {
-
+public class SudaController {
+	
 	@Autowired
-	NoticeService noticeservice;
+	SudaService sudaservice;
 	
-	// Notice 관리 페이
-	@GetMapping("/admin/board/notice/index.do") 
-	public String index(Model model, HttpServletRequest req , NoticeVo vo) {
-		int totCount = noticeservice.count(vo); 
+	@GetMapping("/admin/board/suda/index.do") // 매핑된경로 
+	public String index(Model model, SudaVo vo) {
+		int totCount = sudaservice.count(vo); 
 		int totPage = totCount/10;  
 		if (totCount % 10 > 0) totPage++; 
 		
 		int statIdx = (vo.getPage()-1)*10;
 		vo.setStartIdx(statIdx);
 		
-		List <NoticeVo> list = noticeservice.selectAll(vo); 
+		List <SudaVo> list = sudaservice.selectAll(vo); 
 		model.addAttribute("list", list);
 		model.addAttribute("totPage",totPage);
 		model.addAttribute("totCount", totCount);
-		model.addAttribute("pageArea", CommonUtil.getPageAreaAdmin("index.do", vo.getPage(), totPage, 10));		
-		return "/admin/board/notice/index";  
+		model.addAttribute("pageArea", CommonUtil.getPageAreaAdmin("index.do", vo.getPage(), totPage, 10));
+		return "/admin/board/suda/index"; // 리턴되는 jsp경로 
+	}  
+	
+	@GetMapping("/admin/board/suda/view.do") //상세 
+	public String view(Model model, @RequestParam int sudano, HttpServletRequest request) {
+		model.addAttribute("data", sudaservice.view(sudano));
+		return "/admin/board/suda/view";
 	}
 	
-	// Notice 관리 페이
-	@GetMapping("/center/notice/index.do") 
-	public String indexUser(Model model, HttpServletRequest req , NoticeVo vo) {
-		int totCount = noticeservice.count(vo); 
-		int totPage = totCount/10;  
-		if (totCount % 10 > 0) totPage++; 
-		
-		int statIdx = (vo.getPage()-1)*10;
-		vo.setStartIdx(statIdx);
-		
-		List <NoticeVo> list = noticeservice.selectAll(vo); 
-		model.addAttribute("list", list);
-		model.addAttribute("totPage",totPage);
-		model.addAttribute("totCount", totCount);
-		model.addAttribute("pageArea", CommonUtil.getPageArea("index.do", vo.getPage(), totPage, 10));		
-		return "/center/notice/index";  
-	}
-	
-	@RequestMapping("/admin/board/notice/write.do")
+	@RequestMapping("/admin/board/suda/write.do")
 	public String write() {
-		return "/admin/board/notice/write";
+		return "/admin/board/suda/write";
 	}
 	
-	@PostMapping("/admin/board/notice/insert.do")
-	public String insert(NoticeVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
+	@PostMapping("/admin/board/suda/insert.do")
+	public String insert(SudaVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
 		System.out.println("title:"+vo.getTitle());
 		System.out.println("content:"+vo.getContent());
 		//파일저장 
@@ -83,7 +70,7 @@ public class NoticeController {
 				System.out.println(e.getMessage());
 			}
 		}
-		int r = noticeservice.insert(vo);
+		int r = sudaservice.insert(vo);
 		System.out.println("r : "+r);
 		
 		// 정상적으로 등록되었습니다. alert 띄우고 
@@ -98,58 +85,46 @@ public class NoticeController {
 		
 		return "include/return";
 		}
-
-	@GetMapping("/admin/board/notice/view.do") //상세 
-	public String view(Model model, @RequestParam int noticeno, HttpServletRequest request) {
-		model.addAttribute("data", noticeservice.view(noticeno));
-		return "/admin/board/notice/view";
-	}
 	
-	@GetMapping("/center/notice/view.do") 
-	public String viewUser(Model model, @RequestParam int noticeno, HttpServletRequest request) {
-		model.addAttribute("data", noticeservice.view(noticeno));
-		return "/center/notice/view";
-	}
-	
-	@GetMapping("/admin/board/notice/delete.do")
-	public String delete(Model model, NoticeVo vo) {
-		int r = noticeservice.delete(vo); 
+	@GetMapping("/admin/board/suda/delete.do")
+	public String delete(Model model, SudaVo vo) {
+		int r = sudaservice.delete(vo); 
 		if(r > 0) {
 			model.addAttribute("msg","정상적으로 삭제되었습니다.");
 			model.addAttribute("url","index.do"); // 성공 했을때 상세페이지 이동 
 		}else {
 			model.addAttribute("msg","삭제 오류");
-			model.addAttribute("url","view.do?noticeno="+vo.getNo()); //실패했을때 상세페이지 이동 
+			model.addAttribute("url","view.do?sudano="+vo.getNo()); //실패했을때 상세페이지 이동 
 		}
 		return "include/return";
 	}
 	
-	@PostMapping("/admin/board/notice/deleteAll.do")
+	@PostMapping("/admin/board/suda/deleteAll.do")
 	public String deleteAll(Model model, HttpServletRequest req) {
 		String[] check = req.getParameterValues("check");
 		
 		for (int i=0; i<check.length; i++) {
-			NoticeVo vo = new NoticeVo();
+			SudaVo vo = new SudaVo();
 			vo.setNo(Integer.parseInt(check[i]));
-			noticeservice.delete(vo);
+			sudaservice.delete(vo);
 		}
 		model.addAttribute("msg","정상적으로 삭제되었습니다.");
 		model.addAttribute("url","index.do");
 		return "include/return";
 	}	
 	
-	@GetMapping("/admin/board/notice/edit.do")
-	public String edit(Model model, @RequestParam int noticeno) {
-		model.addAttribute("data", noticeservice.edit(noticeno));
-		return "/admin/board/notice/edit";
+	@GetMapping("/admin/board/suda/edit.do")
+	public String edit(Model model, @RequestParam int sudano) {
+		model.addAttribute("data", sudaservice.edit(sudano));
+		return "/admin/board/suda/edit";
 	}
 	
-	@PostMapping("/admin/board/notice/update.do")
-	public String update(Model model, NoticeVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
+	@PostMapping("/admin/board/suda/update.do")
+	public String update(Model model, SudaVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
 		// 사용자가 체크박스를 체크했는지 여부 
 		//if (req.getParameter("delCheck")!= null) {
 		if ("1".equals(req.getParameter("delCheck"))) {	
-			NoticeVo nv = noticeservice.edit(vo.getNo());
+			SudaVo nv = sudaservice.edit(vo.getNo());
 			File f = new File(req.getRealPath("/upload/")+nv.getFilename_real());
 			f.delete();
 			vo.setFilename_org("");
@@ -169,15 +144,14 @@ public class NoticeController {
 				System.out.println(e.getMessage());
 			}
 		}
-		int r = noticeservice.update(vo);
+		int r = sudaservice.update(vo);
 		if(r > 0) {
 			model.addAttribute("msg","정상적으로 수정되었습니다.");
-			model.addAttribute("url","view.do?noticeno="+vo.getNo()); // 성공 했을때 상세페이지 이동 
+			model.addAttribute("url","view.do?sudano="+vo.getNo()); // 성공 했을때 상세페이지 이동 
 		}else {
 			model.addAttribute("msg","수정오류");
-			model.addAttribute("url","edit.do?noticeno="+vo.getNo()); //실패했을때 수정페이지 이동 
+			model.addAttribute("url","edit.do?sudano="+vo.getNo()); //실패했을때 수정페이지 이동 
 		}
 		return "include/return";
 	}
-
 }

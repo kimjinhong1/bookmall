@@ -48,8 +48,8 @@
 	    <li>
 	        <a href="">고객센터</a>
 	        <ul class="depth2">
-	            <li><a href="">공지사항</a></li>
-	            <li><a href="">FAQ</a></li>
+	            <li><a href="/bookmall/center/notice/index.do">공지사항</a></li>
+	            <li><a href="/bookmall/center/faq/index.do">FAQ</a></li>
 	        </ul>
 	    </li>
 	</ul>

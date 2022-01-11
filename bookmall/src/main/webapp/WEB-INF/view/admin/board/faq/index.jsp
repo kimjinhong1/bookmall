@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -79,7 +80,7 @@ function checkAll(){
                                 <td class="txt_l" style="text-align:left;">
                                     <a href="view.do?faqno=${vo.no }" >${vo.title }</a>
                                 </td>
-                                <td class="date">${vo.regdate}</td>
+                                <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                               
                             </tr>
                             </c:forEach>
