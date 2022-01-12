@@ -47,12 +47,33 @@ public class FaqController {
 		return "/admin/board/faq/index";  
 	}
 	
+	@GetMapping("/center/faq/index.do")  
+	public String indexUser(Model model, HttpServletRequest req , FaqVo vo) {
+		List <FaqCategoryVo> clist = faqcategoryservice.selectAll(new FaqCategoryVo()); 
+		model.addAttribute("clist", clist);
+		
+		int totCount = faqservice.count(vo);
+		int totPage = totCount/10;
+		if (totCount % 10 > 0) totPage++;
+		
+		int statIdx = (vo.getPage()-1)*10;
+		vo.setStartIdx(statIdx);
+		
+		List <FaqVo> list = faqservice.selectAll(vo); 
+		model.addAttribute("list", list);
+		model.addAttribute("totPage",totPage);
+		model.addAttribute("totCount", totCount);
+		model.addAttribute("pageArea", CommonUtil.getPageArea("index.do", vo.getPage(), totPage, 10));		
+		return "/center/faq/index";  
+	}
+	
 	@RequestMapping("/admin/board/faq/write.do")
 	public String write(Model model, FaqCategoryVo vo) {
 		List <FaqCategoryVo> list = faqcategoryservice.selectAll(vo); 
 		model.addAttribute("list", list);	
 		return "/admin/board/faq/write";
 	}
+	
 	@PostMapping("/admin/board/faq/insert.do")
 	public String insert(FaqVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
 		System.out.println("title:"+vo.getTitle());
@@ -79,6 +100,14 @@ public class FaqController {
 		List <FaqCategoryVo> list = faqcategoryservice.selectAll(vo); 
 		model.addAttribute("list", list);
 		return "/admin/board/faq/view";
+	}
+	
+	@GetMapping("/center/faq/view.do") //상세 
+	public String viewUser(Model model, @RequestParam int faqno, HttpServletRequest request,FaqCategoryVo vo) {
+		model.addAttribute("data", faqservice.view(faqno));
+		List <FaqCategoryVo> list = faqcategoryservice.selectAll(vo); 
+		model.addAttribute("list", list);
+		return "/center/faq/view";
 	}
 	
 	@GetMapping("/admin/board/faq/edit.do")

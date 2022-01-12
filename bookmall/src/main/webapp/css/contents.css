@@ -32,6 +32,12 @@ small {
 	height: 30mm;
 } 
 
+.sub .sub_title {
+    text-align: center;
+    font-size: 32px;
+    margin: 0 0 15px 0;
+}
+
 
 /* 게시판 */
 .board_write {border-top:2px solid #ebebeb; border-bottom:1px solid #999; margin-top: 10px;} /*문의작성란 맨윗줄 컬러, FAQ 선택창과 문의작성란 사이 margin */
@@ -65,6 +71,8 @@ small {
 .btnSet .left {position:absolute; top:0; left:0;}
 .btn {font-size:14px; text-decoration:none !important; white-space:nowrap; display:inline-block; vertical-align:baseline; position:relative; cursor:pointer; padding:4px 20px; min-width:64px; border:2px solid rgb(255, 128, 64); color:#fff !important; margin:0 2px; text-align:center; font-weight:bold; border-radius:5px; background-color:rgb(255, 128, 64);}
 .btnSet .btn:hover{background:#313234; color:#fff !important;  text-decoration:none !important;}
+.btn2 {font-size:14px; text-decoration:none !important; white-space:nowrap; display:inline-block; vertical-align:baseline; position:relative; cursor:pointer; padding:4px 20px; min-width:64px; border:2px solid #313234; color:#fff !important; margin:0 2px; text-align:center; font-weight:bold; border-radius:5px; background-color:#313234;}
+.btnSet .btn2:hover{background:#313234; color:#fff !important;  text-decoration:none !important;}
 .btn.point{border:3px solid #579408 !important; color:#579408 !important;}
 .btn.point:hover{background:#579408 !important;}
 .big{font-size:16px !important; padding:10px 40px !important; border:3px solid #1d7ab3; border-radius:5px; background-color:#1d7ab3;}
@@ -115,8 +123,8 @@ small {
 .bbs .list thead{border-top:2px solid #221f1f; border-bottom:1px solid #221f1f;}
 .bbs .list thead th{padding:15px 20px; font-size:13px; height:20px; line-height:14px; color:#333;}
 .bbs .list td{text-align:center; padding:8px 10px; border-bottom:1px solid #d9d9d9;}
-.bbs .list tbody tr:hover{background:#f6f6f6;} /*마우스오버 배경칼라지정*/
-.bbs .list .notice{background:#f9f9f9; } /*탑공지  배경칼라지정*/
+.bbs .list tbody tr:hover{background:#e8eaea;} /*마우스오버 배경칼라지정*/
+.bbs .list .notice{background:#f9f9f9; } /*탑공지  배경칼라지정*/      
 .bbs .list span.comment{color:#999; font-size:12px !important; font-weight:normal !important;} /*댓글수*/
 .bbs .list .notice_ico{display:none;}
 .bbs .list .image img{width:80px; height:auto;}
@@ -133,7 +141,7 @@ small {
 /* search */
 .bbsSearch {min-height:32px; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; z-index:10; width:500px; margin:20px auto 15px;} 
 .bbsSearch input[type='text'] {height:32px; box-sizing:border-box; padding:5px 30px 5px 5px; border:0; width:100%; line-height:32px; background-color:#fff; border:1px solid #c7c8cc; vertical-align:middle;}
-.bbsSearch input[type='button'] {border:0; height:32px; width:32px; text-indent:-9999em; position:absolute; top:0; right:5px; background:url('/img/ico_search.png') no-repeat center center ; display:inline-block;}
+.bbsSearch input[type='button'] {border:0; height:32px; width:32px; text-indent:-9999em; position:absolute; top:0; right:5px; background:url('/bookmall/img/ico_search.png') no-repeat center center ; display:inline-block;}
 .bbsSearch .srchSelect .selectric-dSelect {float:left; width:148px; color:#666;}
 .bbsSearch .searchWord {float:left; position:relative; width:345px; margin-left:5px;}
 
@@ -148,7 +156,7 @@ small {
 /* view */
 .bbs .view{}
 .bbs .view{width:100%; border-top:2px solid #221f1f;}
-.bbs .view .title > dl{width:100%; padding:20px; border-bottom:1px solid #221f1f; background:#fafafa;}
+.bbs .view .title > dl{width:100%; padding:20px; border-bottom:1px solid #221f1f; background:#ecedef;}
 .bbs .view .title > dl > dt{font-size:18px; color:#000; font-weight:bold;}
 .bbs .view .title > dl > dd{display:inline-block; font-size:14px; color:#999; margin-top:5px; }
 .bbs .view .title > dl > dd.name:after{content:"|"; display:inline-block; margin:0 10px; font-size:14px; color:#e4e4e4;}
