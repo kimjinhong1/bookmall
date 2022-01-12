@@ -172,6 +172,7 @@
     							$("#nickname").focus();
     						} else {
     							$("#nickcheck").val('1');
+    							$("#realnick").val($("#nickname").val());
     							alert('사용가능한 닉네임입니다.')
     						}
     					}
@@ -295,6 +296,14 @@
 	    		$("#nickname").focus();
 	    		return;
 	    	}
+	    	
+	    	// 인증된 닉네임인지 확인
+	    	if (!($("#nickname").val().trim() == $("#realnick").val().trim())) {
+	    		alert('인증된 닉네임이 아닙니다');
+	    		$("#nickname").focus();
+	    		return;
+	    	}
+	    	
 	    	
 	    	if ($("#nickcheck").val() == '0') {
 	    		alert('닉네임 인증이 되지않았습니다.');
@@ -553,6 +562,7 @@
                 		<input type="hidden" name="email" id="email"> <!--  폼 입력 이메일 -->
                 		<input type="hidden" name="birthday" id="birthday">
                 		<input type="hidden" name="realemail" id="realemail"> <!-- 인증한 이메일 -->
+                		<input type="hidden" name="realnick" id="realnick"> <!-- 인증한 닉네임 -->
                 		<input type="hidden" name="tel" id="tel">
                 		
                        <!--  <input type="hidden" name="cmd" value="write.do"/> -->
