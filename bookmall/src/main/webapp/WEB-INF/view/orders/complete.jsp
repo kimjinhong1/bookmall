@@ -79,8 +79,7 @@
 						</div>	
 				</div>
 				</div>
-				</div>
 	</form>
-		 <%@ include file="/WEB-INF/view/include/footer.jsp" %>
+		 <%@ include file="/WEB-INF/view/include/footer2.jsp" %>
 </body>
 </html>

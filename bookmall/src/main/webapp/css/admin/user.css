@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+table.menu {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+
+}
+table.menu thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+table.menu tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    background: #f3f6f7;
+}
+table.menu td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}

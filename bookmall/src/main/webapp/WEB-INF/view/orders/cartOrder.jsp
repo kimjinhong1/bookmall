@@ -160,19 +160,23 @@
 								<td align="center" width="138"  bgcolor="#f4f4f4" class="popup">가격/할인율</td>    
 								<td align="center" width="74"  bgcolor="#f4f4f4" class="popup">수량</td>      
 							</tr>
-							<tr>
-								<td height="28" align="center" bgcolor="#FFFFFF"><img src="/bookmall/img/thanks_b.gif"></td>
-								<td bgcolor="#FFFFFF" style="padding-left: 8px" align="center"><a href="" target="_blank">검은 황무지</a></td>  <!-- product -->
-								<td align="center" bgcolor="#FFFFFF" style="fmt:formatNumber;">${ol.salesprice} 13,500원 / ${ol.discountrate} 10% </td>  <!-- price -->
-								<td align="center" bgcolor="#FFFFFF">${ol.bookCount} 1</td>   <!-- count -->
-								<td>
-									<input type="hidden" class="individual_bookPrice_input" value="${ol.price}">	<!-- 책 가격 -->
-									<input type="hidden" class="individual_discountrate_input" value="${ol.discountrate}">	<!-- 할인율 -->
-									<input type="hidden" class="individual_bookCount_input" value="${ol.bookCount}">	<!-- 수량 -->
-									<input type="hidden" class="individual_totalPrice_input" value="${ol.salesprice}">	<!-- 판매가 -->
-									<input type="hidden" class="individual_bookId_input" value="${ol.bookno}">	<!-- 도서번호 -->
-								</td>
-							</tr>
+							<tbody>
+								<c:forEach items="${orderList}" var="ol">	
+									<tr>
+										<td height="28" align="center" bgcolor="#FFFFFF"><img src="/bookmall/img/thanks_b.gif"></td>
+										<td bgcolor="#FFFFFF" style="padding-left: 8px" align="center"><a href="" target="_blank">검은 황무지</a></td>  <!-- product -->
+										<td align="center" bgcolor="#FFFFFF" style="fmt:formatNumber;">${ol.salesprice} 13,500원 / ${ol.discountrate} 10% </td>  <!-- price -->
+										<td align="center" bgcolor="#FFFFFF">${ol.bookCount} 1</td>   <!-- count -->
+										<td>
+											<input type="hidden" class="individual_bookPrice_input" value="${ol.price}">	<!-- 책 가격 -->
+											<input type="hidden" class="individual_discountrate_input" value="${ol.discountrate}">	<!-- 할인율 -->
+											<input type="hidden" class="individual_bookCount_input" value="${ol.bookCount}">	<!-- 수량 -->
+											<input type="hidden" class="individual_totalPrice_input" value="${ol.salesprice}">	<!-- 판매가 -->
+											<input type="hidden" class="individual_bookId_input" value="${ol.bookno}">	<!-- 도서번호 -->
+										</td>
+									</tr>
+								</c:forEach>		
+							</tbody>			
 						</table>
 					</div>
 					
