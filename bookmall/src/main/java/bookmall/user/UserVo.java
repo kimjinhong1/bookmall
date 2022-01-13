@@ -3,12 +3,13 @@ package bookmall.user;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
+import bookmall.util.CommonVo;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserVo {
+public class UserVo extends CommonVo {
 	
 	private int userno;
 	private String email;

@@ -66,19 +66,19 @@
 	<mvc:view-controller path="/admin/board/view.do"/>
 	<mvc:view-controller path="/admin/board/write.do"/>	
 	
-	<!-- 인터셉터 , 꼭 로그인 후 갈수 있어야하는 페이지 넣으면 됨
+	<!-- 인터셉터 , 꼭 로그인 후 갈수 있어야하는 페이지 넣으면 됨 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/board/write.do"/>
 			<bean class="bookmall.main.LoginInterceptor"/>
 		</mvc:interceptor>
-		 
+		 <!--  
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
 			<mvc:exclude-mapping path="/admin.login.do"/>
 		</mvc:interceptor>
-	</mvc:interceptors>
 		-->
+	</mvc:interceptors>
 	
 	
 </beans>

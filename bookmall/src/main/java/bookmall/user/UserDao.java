@@ -11,9 +11,9 @@ public class UserDao {
 	SqlSessionTemplate sqlSession;
 	
 	// 회원가입
-		public int insert(UserVo vo) {
-			return sqlSession.insert("user.insert", vo);
-		}
+	public int insert(UserVo vo) {
+		return sqlSession.insert("user.insert", vo);
+	}
 	
 	//로그인
 	public UserVo login(UserVo vo) {
