@@ -10,6 +10,9 @@
 			 <if test= "searchType != null and searchType != ''"> <!-- searchType이 널이 아니고(and) 빈문자열이 아니면 아래 sql이 포함 -->
 			 	${searchType} LIKE '%${searchWord}%'
 			 </if>
+			<if test="mode == 1">
+				<![CDATA[ AND regdate <= now() ]]>
+			</if>		 
 		</where>
 	</sql>
 	

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -75,14 +76,34 @@ function goSave() {
 										</td>
 									</tr>
 									<tr>
+										<th scope="row"><label for="">*TOP 공지</label></th>
+										<td colspan="2">
+											<input type="radio" name="top_notice" value="1" <c:if test="${data.top_notice == 1 }">checked</c:if>>공지
+											<input type="radio" name="top_notice" value="2" <c:if test="${data.top_notice == 2 }">checked</c:if>>공지안함 
+										</td>
+										<th scope="row"><label for="">*NEW 아이콘</label></th>
+										<td colspan="2">
+											<input type="radio" name="new_icon" value="1" <c:if test="${data.new_icon == 1 }">checked</c:if>>항상&nbsp;&nbsp;
+											<input type="radio" name="new_icon" value="2" <c:if test="${data.new_icon == 2 }">checked</c:if>>7일 &nbsp;&nbsp;
+											<input type="radio" name="new_icon" value="3" <c:if test="${data.new_icon == 3 }">checked</c:if>>표기안함 
+										</td>
+									</tr>
+									<tr>
+										<th scope="row"><label for="">*공개 여부</label></th>
+										<td colspan="5">  
+											<input type="radio" name="secret" value="1" <c:if test="${data.secret == 1 }">checked</c:if>>공개 
+											<input type="radio" name="secret" value="2" <c:if test="${data.secret == 2 }">checked</c:if>>비공개 
+										</td>
+									</tr>
+									<tr>
 										<th scope="row"><label for="">*내용</label></th>
-										<td colspan="10">
+										<td colspan="6">
 											<textarea id="contents" name="content" title="내용을 입력해주세요" style="width:100%;">${data.content}</textarea>	
 										</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">첨부파일</label></th>
-										<td colspan="10">
+										<td colspan="6">
 											<input type="file" id="file" name="file" class="w100" title="첨부파일을 업로드 해주세요." />	
 										</td>
 									</tr>

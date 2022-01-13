@@ -13,6 +13,9 @@
 			 <if test="userno > 0">
 			 	AND userno = ${userno}
 			 </if>	
+			<if test="mode == 1">
+				<![CDATA[ AND secret = 1 ]]>
+			</if>			 
 		</where>
 	</sql>
 	
@@ -31,12 +34,14 @@
 
 		<insert id = "insert" parameterType="bookmall.board.suda.SudaVo">
 		INSERT INTO board (
-			title, regdate, content, filename_org, filename_real, readcount, userno
+			title, regdate, content, filename_org, filename_real, 
+			readcount, userno, top_notice, new_icon, secret, category
 		) values(
 			#{title}, 
-			<if test="sendDate != ''">'${sendDate}'</if>
-			<if test="sendDate == ''">NOW()</if>, 
-			#{content},#{filename_org},#{filename_real}, #{readcount}, #{userno}
+			<if test="sendDate != '' and sendDate != null">'${sendDate}'</if>
+			<if test="sendDate == '' or sendDate == null">NOW()</if>, 
+			#{content},#{filename_org},#{filename_real}, 
+			#{readcount}, #{userno}, #{top_notice}, #{new_icon}, #{secret}, #{category}
 		)
 	</insert>
 	
@@ -55,6 +60,9 @@
 	<update id="update" parameterType="bookmall.board.suda.SudaVo">
 		UPDATE board SET 
 		title = #{title}
+		, top_notice = #{top_notice}
+		, new_icon = #{new_icon}
+		, secret = #{secret}
 		, content=#{content}
 		<if test="filename_org != null">
 		, filename_org=#{filename_org}
