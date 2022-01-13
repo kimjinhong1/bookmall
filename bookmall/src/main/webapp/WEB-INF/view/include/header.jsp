@@ -42,7 +42,7 @@
 	    <li>
 	        <a href="">게시판</a>
 	        <ul class="depth2">
-	            <li><a href="">수다게시판</a></li>
+	            <li><a href="/bookmall/center/suda/index.do">수다게시판</a></li>
 	        </ul>
 	    </li>
 	    <li>

@@ -16,6 +16,7 @@ public class SudaVo extends CommonVo {
 	private String filename_org;
 	private String filename_real;
 	private int top_notice;
+	private int new_icon;
 	private int secret;
 	private int gno;
 	private int ono;
@@ -24,4 +25,5 @@ public class SudaVo extends CommonVo {
 	private int userno;
 	private int readcount;
 	private String sendDate;
+	private int mode;
 }

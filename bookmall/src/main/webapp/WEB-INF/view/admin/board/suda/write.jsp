@@ -101,13 +101,31 @@ function goSave() {
 								<tbody>
 									<tr>
 										<th scope="row"><label for="">*제목</label></th>
-										<td colspan="10">
+										<td colspan="5">
 											<input type="text" id="title" name="title" class="w100" title="제목을 입력해주세요" />	
 										</td>
 									</tr>
 									<tr>
+										<th scope="row"><label for="">*TOP 공지</label></th>
+										<td colspan="2">
+											<input type="radio" name="top_notice" value="1" checked>공지
+											<input type="radio" name="top_notice" value="2" >공지안함 
+										</td>
+										<th scope="row"><label for="">*NEW 아이콘</label></th>
+										<td colspan="2">
+											<input type="radio" name="new_icon" value="1" checked>항상&nbsp;&nbsp;
+											<input type="radio" name="new_icon" value="2" >7일 &nbsp;&nbsp;
+											<input type="radio" name="new_icon" value="3" >표기안함 
+										</td>
+									</tr>
+									<tr>
+										<th scope="row"><label for="">*공개 여부</label></th>
+										<td colspan="2">
+											<input type="radio" name="secret" value="1" checked>공개 
+											<input type="radio" name="secret" value="2" >비공개 
+										</td>
 										<th scope="row"><label for="">*게시일</label></th>
-										<td colspan="10">
+										<td colspan="2">
 											<input type="radio" name="checkDate" value="1" checked onclick="$('#regdateArea').hide();">즉시
 											<input type="radio" name="checkDate" value="2" onclick="$('#regdateArea').show();">설정
 											<span id="regdateArea" style="display:none;">
@@ -135,7 +153,8 @@ function goSave() {
 												</select> 분 
 											</span>
 										</td>
-									</tr>									
+									</tr>
+									</tr>								
 									<tr>
 										<th scope="row"><label for="">*내용</label></th>
 										<td colspan="10">

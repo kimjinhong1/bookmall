@@ -49,6 +49,7 @@ public class FaqController {
 	
 	@GetMapping("/center/faq/index.do")  
 	public String indexUser(Model model, HttpServletRequest req , FaqVo vo) {
+		vo.setMode(1);
 		List <FaqCategoryVo> clist = faqcategoryservice.selectAll(new FaqCategoryVo()); 
 		model.addAttribute("clist", clist);
 		
