@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="bookmall.util.*" %>
 <!DOCTYPE html>
 <html lang="en">  
 <head>
@@ -58,9 +59,12 @@
 	                        </c:if>
 	                        <c:if test="${!empty list }">
 	                           <c:forEach var="vo" items="${list }" varStatus="status">
-	                          	<tr class="board_tr" style="cursor:pointer;">           
-	                                <td>${(totCount-status.index) - ((sudaVo.page -1)*10)}</td>
+	                          	<tr class="board_tr" style="cursor:pointer;">   
+	                          	    <td>    
+	                          	    <c:if test="${vo.top_notice == 1 }">[공지]</c:if>
+	                          	    <c:if test="${vo.top_notice == 0 }">${(totCount-status.index) - ((sudaVo.page -1)*10)}</c:if>
 	                                
+	                                </td>
 	                                <td>
 		                            <c:if test="${vo.category == 1 }">도서서평</c:if>
 	                            	<c:if test="${vo.category == 2 }">도서이벤트</c:if>
@@ -73,8 +77,9 @@
 	                                </td>
 	                               <td class="txt_l" style="text-align:left;">
 	                                     <a href="view.do?sudano=${vo.no }" >${vo.title }</a>
+	                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
 	                                </td>
-	                                <td class="userno">${vo.userno }</td>
+	                                <td class="userno">${vo.userno} </td>
 	                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" /></td>
 	                                 <td class="readcount">${vo.readcount }</td>
 	                            </tr>
@@ -83,12 +88,8 @@
 	                        </tbody>
 	                    </table>
 	                <div class="btnSet"  style="text-align:right;">
-	                    <c:if test="${!empty userInfo }">
 	                        <a class="btn" href="write.do">글작성 </a>
-	                    </c:if>
-	                    <c:if test="${empty userInfo }">
-	                        <a class="btn" href="javascript:alert('로그인후 사용가능합니다.');location.href='/bookmall/user/login.do';">글작성</a>
-	                    </c:if>    
+	                    
                     </div>
 	                    <!-- 페이지처리 -->
 						${pageArea }

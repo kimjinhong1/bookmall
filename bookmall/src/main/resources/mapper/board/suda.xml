@@ -14,7 +14,7 @@
 			 	AND userno = ${userno}
 			 </if>	
 			<if test="mode == 1">
-				<![CDATA[ AND secret = 1 ]]>
+				<![CDATA[ AND secret = 1 ]]>  
 			</if>			 
 		</where>
 	</sql>
@@ -28,9 +28,9 @@
 		SELECT * FROM board
 			<include refid = "boardWhere"/>
 			 
-		ORDER BY regdate DESC
-		LIMIT ${startIdx},10
-	</select>
+		ORDER BY top_notice DESC, regdate DESC
+		LIMIT ${startIdx},${numchoose}	   
+	</select>  
 
 		<insert id = "insert" parameterType="bookmall.board.suda.SudaVo">
 		INSERT INTO board (
@@ -64,10 +64,11 @@
 		, new_icon = #{new_icon}
 		, secret = #{secret}
 		, content=#{content}
+		, category=#{category}
 		<if test="filename_org != null">
 		, filename_org=#{filename_org}
 		, filename_real=#{filename_real}
-	    </if>	 
+	    </if>	   
 		WHERE no=#{no}
 	</update>
 </mapper>

@@ -19,7 +19,7 @@
 			</if>
 		</where>
 	</sql>
-	
+	   
 	<select id="count" resultType="int" parameterType="bookmall.board.faq.FaqVo">
 		SELECT COUNT(*) FROM faq
 		<include refid="boardWhere"/>

@@ -47,7 +47,7 @@ public class SudaController {
 		int totPage = totCount/10;  
 		if (totCount % 10 > 0) totPage++; 
 		
-		int statIdx = (vo.getPage()-1)*10;
+		int statIdx = (vo.getPage()-1)*vo.getNumchoose();
 		vo.setStartIdx(statIdx);
 		
 		List <SudaVo> list = sudaservice.selectAll(vo); 

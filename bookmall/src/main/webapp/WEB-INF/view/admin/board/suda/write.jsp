@@ -109,7 +109,7 @@ function goSave() {
 										<th scope="row"><label for="">*TOP 공지</label></th>
 										<td colspan="2">
 											<input type="radio" name="top_notice" value="1" checked>공지
-											<input type="radio" name="top_notice" value="2" >공지안함 
+											<input type="radio" name="top_notice" value="0" >공지안함 
 										</td>
 										<th scope="row"><label for="">*NEW 아이콘</label></th>
 										<td colspan="2">

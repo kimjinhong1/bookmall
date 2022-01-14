@@ -1,5 +1,10 @@
 package bookmall.util;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class CommonUtil {
 
 	public static String getPageArea(String url, int curPage, int totPage, int pageRange) {
@@ -55,5 +60,31 @@ public class CommonUtil {
 			ret += "                    </div>";
 			return ret;
 			
+		}
+		
+		// new 아이콘 출력
+		public static String getNewIcon(Timestamp regdate, int new_icon) throws Exception {
+			  
+			Calendar getToday = Calendar.getInstance();
+			getToday.setTime(new Date()); //금일 날짜
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String s_date = sdf.format(regdate);
+			
+			Date date = new SimpleDateFormat("yyyy-MM-dd").parse(s_date);
+			Calendar cmpDate = Calendar.getInstance();
+			cmpDate.setTime(date); //특정 일자
+			
+			long diffSec = (getToday.getTimeInMillis() - cmpDate.getTimeInMillis()) / 1000;
+			long diffDays = diffSec / (24*60*60); //일자수 차이
+			System.out.println("diffDays:"+diffDays);
+			String newicon = "<img src='/bookmall/img/new_icon.png' style='width:15px;'>";  
+			if (new_icon == 2) {
+				if (diffDays > 7 ) newicon = "";
+			} else if (new_icon == 3) {
+				newicon = "";
+			}
+			System.out.println(newicon);
+			return newicon;
 		}
 }
