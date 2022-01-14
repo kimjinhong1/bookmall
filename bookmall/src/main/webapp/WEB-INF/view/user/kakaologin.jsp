@@ -32,7 +32,6 @@
         
         // 토큰 할당하기
         //Kakao.Auth.setAccessToken(ACCESS_TOKEN);
-        
     </script>
 </head>
 <body>
@@ -43,6 +42,5 @@
 	    alt="카카오 로그인 버튼"
 	  />
 	</a>
-	
 </body>
 </html>

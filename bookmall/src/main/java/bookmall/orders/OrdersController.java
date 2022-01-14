@@ -20,9 +20,5 @@ public class OrdersController {
 	public String complete() {
 		return "orders/complete"; 
 	}
-	@RequestMapping("/cartOrder.do")
-	public String cartOrder() {
-		return "orders/cartOrder"; 
-	}
 	
 }

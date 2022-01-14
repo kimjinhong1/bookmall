@@ -17,7 +17,7 @@
 		<script type="text/javascript">
         <!-- netfunnel 완료 처리 -->
             window.onload = function () {
-                NetFunnel_Complete();
+                NetFunnel_Complete();   
             };
 
             function frmSubmit_Standby() {

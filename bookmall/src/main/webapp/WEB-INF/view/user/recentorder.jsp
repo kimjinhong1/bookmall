@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
+<title>recentorder</title>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="/bookmall/css/order.css" />
@@ -42,6 +42,15 @@ $('#toDate').datetimepicker({
 	defalutDate : new Date() 
 	});
 </script>
+<script >
+function move3(){
+  window.open('http://localhost:8080/bookmall/refund.do/','return', 'width=1200, height=750, menubar=no, status=no, toolbar=no');
+}
+function move2(){
+  window.open('http://localhost:8080/bookmall/exchange.do/','return', 'width=1200, height=750, menubar=no, status=no, toolbar=no');
+}
+</script>
+
 
 </head>
 <body>
@@ -49,7 +58,7 @@ $('#toDate').datetimepicker({
 		<%@ include file="/WEB-INF/view/include/header.jsp"%>
 		<div class="sub">
 			<div class="sub_visual">
-				<div class="slogan">최근 주문내역</div><br><br>
+				<div class="slogan">최근주문내역</div><br><br>
 			</div>
 			<div class="size">
 				<div class="calendar">
@@ -89,7 +98,6 @@ $('#toDate').datetimepicker({
 				</div>
 				<div class="box">
 						<p class="title">
-						<div class="under">
 							<div class="text"></div>
 								<table class="type">
 									<thead>
@@ -101,7 +109,7 @@ $('#toDate').datetimepicker({
 											<th scope="col" width="10%">수량</th>
 											<th scope="col" width="10%">결제금액</th>
 											<th scope="col" width="10%">주문상태</th>
-											<th scope="col" width="10%">리뷰</th>
+											<th scope="col" width="10%"></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -116,7 +124,11 @@ $('#toDate').datetimepicker({
 											<td> 1 </td>
 											<td>9,800원</td>
 											<td>결제완료</td> 
-			               					<td><a class="btn" href="/bookmall/board/review.do" >리뷰작성</a></td>
+			               					<td>
+			               					<a class="btn" href="/bookmall/board/review.do" style=" border: 1px solid black;">리뷰작성</a><br><br>
+			               					<a class="btn"href="javascript:;" onclick="move2()" style="border: 1px solid black; cursor: pointer;">취소/환불</a><br><br>
+			               					<a class="btn" href="javascript:;" onclick="move3()" style="border: 1px solid black; cursor: pointer;">반품/교환</a>
+			               					</td>
 										</tr>
 									</tbody>
 									<tbody>
@@ -131,7 +143,10 @@ $('#toDate').datetimepicker({
 											<td> 3 </td>
 											<td>43,200원</td>
 											<td>결제완료</td>
-			               					<td><a class="btn" href="/bookmall/board/review.do" >리뷰작성</a><td>
+			               					<td><a class="btn" href="/bookmall/board/review.do" style=" border: 1px solid black;">리뷰작성</a><br><br>
+			               					<a class="btn" href="javascript:;" onclick="move2()" style="border: 1px solid black; cursor: pointer;">교환신청</a><br><br>
+			               					<a class="btn" href="javascript:;" onclick="move3()" style="border: 1px solid black; cursor: pointer;">반품신청</a>
+			               					<td>
 										</tr>
 									</tbody>
 									<tbody>
@@ -146,7 +161,10 @@ $('#toDate').datetimepicker({
 											<td> 2 </td>
 											<td>27,000원</td>
 											<td>결제완료</td>
-			               					 <td><a  class="btn" href="/bookmall/board/review.do">리뷰작성</a></td>
+			               					 <td><a class="btn" href="/bookmall/board/review.do" style=" border: 1px solid black;">리뷰작성</a><br><br>
+			               					<a class="btn" href="javascript:;" onclick="move2()" style="border: 1px solid black; cursor: pointer;">교환신청</a><br><br>
+			               					<a class="btn" href="javascript:;" onclick="move3()" style="border: 1px solid black; cursor: pointer;">반품신청</a>
+			               					 </td>
 										</tr>
 									</tbody>
 								</table>

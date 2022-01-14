@@ -14,7 +14,7 @@
                     <a href="/bookmall/user/login.do">로그인</a> | 
                     <a href="/bookmall/user/join.do">회원가입</a> |
                     <a href="/bookmall/user/mypage.do">마이페이지</a> |
-                    <a href="/bookmall/user/cart.do">장바구니</a> 
+                    <a href="/cart/${user.email}">장바구니</a>
                     
                 </c:if>
                 <c:if test="${!empty userInfo }">
