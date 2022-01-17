@@ -16,6 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="/bookmall/js/common.js"></script>
     <script>
     
@@ -39,6 +40,26 @@
 		    }
     	}
   		
+    	function loginWithKakao() {
+    		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+    		Kakao.init('2098e03da186e9b37098442fd1828311');
+    		// SDK 초기화 여부를 판단합니다.
+    	    console.log(Kakao.isInitialized());
+    	    Kakao.Auth.login({
+    	    	scope:''
+    	    });
+		}
+
+
+  		
+        
+        
+        
+        
+        
+        
+        
+        
   		// 쿠키 저장
     	function setCookie(cookieName, value, exdays){
     	    var exdate = new Date();
@@ -110,9 +131,16 @@
                             </div>
                             <div class="btnSet clear">
                             	<div>
-                                	<a href="" class="btn">카카오 로그인</a> 
+                                	<a id="custom-login-btn" href="javascript:loginWithKakao()">
+									  <img
+									    src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+									    width="222"
+									    alt="카카오 로그인 버튼"
+									  />
+									</a>
                                 </div>
-                            </div>                            
+                            </div>
+                                                        
                         </div>
                     </div>        
                 </div>

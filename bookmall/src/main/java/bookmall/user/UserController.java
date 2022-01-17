@@ -1,27 +1,18 @@
 package bookmall.user;
 
-import java.util.Iterator;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UrlPathHelper;
 
+import bookmall.cart.CartDto;
 import bookmall.util.SendMail;
 
 @Controller
@@ -104,15 +95,11 @@ public class UserController {
 		}		
 	}
 	
-	
-	
 	// 카카오 로그인
 	@RequestMapping("/user/kakaologin.do")
 	public String kakaologin() {
 		return "user/kakaologin";
 	}
-	
-	
 	
 	// 로그아웃
 	@GetMapping("/user/logout.do")
@@ -122,23 +109,24 @@ public class UserController {
 		model.addAttribute("url", "/bookmall/main.do");
 		return "include/return";
 	}
-	
+	// 이메일 찾기 페이지 이동
 	@RequestMapping(value="/user/searchId.do", method=RequestMethod.GET)
 	public String searchId() {
 		return "user/searchId";
 	}
+	// 이메일 찾기 실행
 	@RequestMapping(value="/user/searchId.do", method=RequestMethod.POST)
 	public String searchId(Model model, UserVo vo) {
 		UserVo uv = service.searchId(vo);
 		model.addAttribute("result", uv == null ? "" : uv.getEmail());
 		return "include/result";
 	}
-	
+	// 비밀번호 찾기 페이지 이동
 	@RequestMapping(value="/user/searchPwd.do", method=RequestMethod.GET)
 	public String searchPwd() {
 		return "user/searchPwd";
 	}
-	
+	// 비밀번호 찾기 페이지 실행
 	@RequestMapping(value="/user/searchPwd.do", method=RequestMethod.POST)
 	public String searchPwd(Model model, UserVo vo) {
 		UserVo uv = service.searchPwd(vo);
@@ -151,28 +139,16 @@ public class UserController {
 		return "user/mypage";
 	}
 	
-	@GetMapping("/user/ask.do")
-	public String ask() {
-		return "user/ask";
-	}
-	
-	@GetMapping("/user/askwrite.do")
-	public String askwrite() {
-		return "user/askwrite";
-	}
-	
 	@GetMapping("/user/recentorder.do")
 	public String recentorder() {
 		return "user/recentorder";
 	}
+	
 	@GetMapping("/user/mylist.do")
 	public String mylist() {
 		return "user/mylist";
 	}
-	@GetMapping("/user/cart.do")
-	public String cart() {
-		return "user/cart";
-	}
+
 	
 
 }

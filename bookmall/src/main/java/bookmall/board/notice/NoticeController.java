@@ -44,6 +44,7 @@ public class NoticeController {
 	// Notice 관리 페이
 	@GetMapping("/center/notice/index.do") 
 	public String indexUser(Model model, HttpServletRequest req , NoticeVo vo) {
+		vo.setMode(1);
 		int totCount = noticeservice.count(vo); 
 		int totPage = totCount/10;  
 		if (totCount % 10 > 0) totPage++; 

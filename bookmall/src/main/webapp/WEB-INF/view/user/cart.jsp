@@ -18,6 +18,7 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script src="/bookmall/js/common.js"></script>
 <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <head>
 <link rel="stylesheet"
 	href="request.getContextPath()/resources/css/bootstrap.min.css">
@@ -25,25 +26,61 @@
 <script>
 $(function(){
     //체크박스 전체 선택&해제
-    $('#ck_all').click(function(){
-         if($("#ck_all").prop("checked")){
+    $('#checkall').click(function(){
+         if($("#checkall").prop("checked")){
             $("input[type=checkbox]").prop("checked",true); 
         }else{
             $("input[type=checkbox]").prop("checked",false); 
         }
     });
     
-    //품목삭제
-    function cartDel(cartno, bookno){
-		//alert(num);
-		var yn=confirm(cartno+'번 상품을 정말 삭제하시겠습니까?');
-		if(yn){
-		df.cartno.value=num;
-		df.method='post';
-		df.submit();
+    // 삭제
+    $(".deleteClick").on('click', function() {
+		if (confirm('선택한 상품을 삭제하시겠습니까?')) {
+			$.ajax({
+				type : 'post',
+				url : '/bookmall/cart/deleteAjax.do', // <<-- 처리 요청 URL
+				data : $("#cartspace").serialize(),
+				success : function(res) { // 비동기요청  성공시
+					alert('총 '+res.trim()+"건이 삭제되었습니다.");
+					location.reload(); // 페이지 새로고침
+				}
+			});
 		}
-	}
+	});
+    
+ 	//수량 수정 버튼
+	$(".quantity_modify_btn").on("click", function() {
+		var idx = $(".quantity_modify_btn").index(this); // 클릭한게 몇번째 인덱스인지
+		var cartno = $(this).data("cartid"); // 내가클릭한 객체의 data-cartId속성값
+		var bookcount = $(".bookcount").eq(idx).val(); // 내가클릭한 객체와 같은순서(인덱스)에 있는 수량값
+		$.ajax({
+			url : '/bookmall/cart/update',
+			data : {cartno:cartno, bookcount:bookcount},
+			type : 'post',
+			success : function(res) {
+				if (res.trim() == '1') {
+					alert('수량이 변경되었습니다.');
+				}
+			}
+		})
+	});
+  });
+  
+	//수량버튼
+	$(".plus_btn").on("click", function() {
+		let quantity = $(this).parent("div").find("input").val();
+		$(this).parent("div").find("input").val(++quantity);
+	});
+	$(".minus_btn").on("click", function() {
+		let quantity = $(this).parent("div").find("input").val();
+		if (quantity > 1) {
+			$(this).parent("div").find("input").val(--quantity);
+		}
+	});
 </script>
+
+ 
 </head>
 <body>
 	<div class="wrap">
@@ -51,7 +88,8 @@ $(function(){
 		<div class="sub">
 			<div class="sub_visual">
 				<div class="slogan">
-					${loginUser.name} [${loginUser.userid}]님 cart
+					[${userInfo.name}]님의 cart
+
 				</div>
 			</div>
 			<div class="size">
@@ -59,9 +97,9 @@ $(function(){
 					<table class="table table-striped" style="border-bottom: 1px solid black">
 						<thead>
 							<tr>
-								<th scope="col" width="20%">상품번호</th>
-								<th scope="col" width="30%">상품명</th>
-								<th scope="col" width="10%">수량</th>
+								<th scope="col" width="10%">상품번호</th>
+								<th scope="col" width="20%">상품명</th>
+								<th scope="col" width="30%">수량</th>
 								<th scope="col" width="20%">단가</th>
 								<th scope="col" width="20%">금액</th>
 								<th scope="col" width="20%"></th>
@@ -69,40 +107,41 @@ $(function(){
 						</thead>
 						<tbody>
 							<!--if 하고 forEach 돌리기 ------------ -->
-						<c:if test="${cartList eq null or empty cartList}">
+						<c:if test="${cartInfo eq null or empty cartInfo}">
 								<tr>
 									<td colspan="6"><center><b>담긴 상품이 없습니다.</b></center></td>
 								</tr>
 							</c:if>
-							<c:if test="${cartList ne null and not empty cartList}">
-								<c:forEach var="cp" items="${cartList}">
+							<form name="cartspace" id="cartspace">
+							<c:if test="${cartInfo ne null and not empty cartInfo}">
+								<c:forEach var="cart" items="${cartInfo}">
 									<tr>
 										<td>
 											<label> 
-												<input type="checkbox" name="bnum" idx="">${cp.bookno}
+												<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">${cart.bookno}
 											</label>
 										</td>
-										<td>${cp.product_name}<br> 
+										<td>${cart.bookno}<br> 
 											<a href="../prodDetail.do?bnum=${cart.bookno}" target="_blank">
-											<img src="../images/${cart.pimage1}" class="img-thumbnail" alt="${cart.product_name}" style="width: 140px"></a>
+											<img src="../images/" class="img-thumbnail" alt="${cart.bookno}" style="width: 140px"></a>
 											</td>
 										<td>
-											<input type="number" value="${cart.bookamount}" min="1" max="50" size="3">개
-											<button type="button" class="btn-info">수정</button>
+											<input type="number" class="bookcount" value="${cart.bookcount}" min="1" max="50" size="3">개
+											<a class="quantity_modify_btn" data-cartid="${cart.cartno}" style="cursor: pointer;">변경</a>
 										</td>
 										<td style="font-weight: bold">
-											<fmt:formatNumber value="${cart.price}" pattern="###,###" />원<br> 
+											<fmt:formatNumber value="${cart.price}" pattern="###,###" />원 
 										</td>
 										<td style="font-weight: bold">
 											<fmt:formatNumber value="${cart.totalPrice}" pattern="###,###" />원<br> 
 										</td>
 										<td>
-										<a class="btn btn-outline-danger" onclick="cartDel('${cart.cartno}','${cart.bookno}')">삭제</a>
+										<a href="javascript:del(${cart.cartno});" class="btn btn-outline-danger">X</a>
 										</td>
 									</tr>
 								</c:forEach>
 							</c:if>
-							<!-- ------------ -->
+							</form>
 						</tbody>
 					</table>
 							<tr>
@@ -114,9 +153,11 @@ $(function(){
 									</h5>
 								</td>
 								<td>
-									<input type="checkbox" id="ck_all" value="전체선택">
-									<span style="background-color:white; border:none; font-size: 16px; font-weight: bold;">전체선택</span>
+									<input type="checkbox" id="checkall" value="전체선택">
+									<span style="background-color:white; border:none; font-size: 16px; font-weight: bold;">전체선택</span><br><br>
+									<a href="javascript:;" class="btn deleteClick"style="background-color:white; border:none; font-size: 16px; font-weight: bold; cursor: pointer;">삭제</a>
 								</td>
+								
 							</tr><br><br><br>
 							
 							<tr>
@@ -126,12 +167,15 @@ $(function(){
 								</td>
 							</tr>
 					</div>
-					<form name="df" action="cartDel">
-						<input type="hidden" name="cartNum">
-					</form>
 			</div>
 		</div>
 	</div>
+	<!-- 수량 조정 form -->
+			<form action="/cart/update" method="post" class="quantity_update_form">
+				<input type="hidden" name="cartno" class="update_cartno">
+				<input type="hidden" name="bookcount" class="update_bookcount">
+				<input type="hidden" name="userno" value="${userInfo.userno}">
+			</form>
 	</div>
 	<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>

@@ -26,9 +26,4 @@ public class AdminController {
 		return "admin/board/write"; 
 	}
 	
-	@GetMapping("/admin/user/index.do")
-	public String userIndex() {
-		return "admin/user/index"; 
-	}
-	
 }

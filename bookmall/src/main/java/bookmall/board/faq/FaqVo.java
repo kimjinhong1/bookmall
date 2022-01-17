@@ -19,4 +19,5 @@ public class FaqVo extends CommonVo{
 	private String filename_real;
 	private String sendDate;
 	private String categoryname;
+	private int mode;	// 0:관리자 1:사용자
 }

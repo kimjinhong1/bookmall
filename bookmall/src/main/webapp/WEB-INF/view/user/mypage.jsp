@@ -19,6 +19,25 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script src="/bookmall/js/common.js"></script>
 <script src="/bookmall/js/main.js"></script>
+<script>
+$(function() {
+	$("#cartbtn").click(function(){
+		$.ajax({
+			url: '/bookmall/cart/add',
+			type: 'POST',
+			data: {
+				bookno : 10
+				
+			},
+			success: function(result){
+				alert('장바구니에 등록되었습니다.');
+				$(".bookcount").val("1");
+			}
+		})
+	});
+});
+</script>
+
 <style>
 span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 </style>
@@ -30,6 +49,7 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 			<div class="sub_visual">
 				<div class="slogan">마이페이지</div>
 			</div>
+			<a id ="cartbtn" name="cartinsert" href="#">장바구니 담기</a>
 			<div class="size">
 				<div class="box">
 						<p class="title">
@@ -81,7 +101,7 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 						<p class="title">
 						<div class="under">
 							<div class="text"></div>
-							| 1:1문의내역<a href="/bookmall/user/ask.do" class="btn">답변보기▶</a>
+							| 1:1문의내역<a href="/bookmall/ask/askindex.do" class="btn">답변보기▶</a>
 								<table class="type">
 									<thead>
 										<tr>

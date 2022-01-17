@@ -14,13 +14,16 @@
 			 <if test="searchCategory != null and searchCategory != ''">
 			 	AND categoryno = #{searchCategory}
 			 </if>
+			<if test="mode == 1">
+				<![CDATA[ AND regdate <= now() ]]>
+			</if>
 		</where>
 	</sql>
 	
 	<select id="count" resultType="int" parameterType="bookmall.board.faq.FaqVo">
 		SELECT COUNT(*) FROM faq
 		<include refid="boardWhere"/>
-	</select>    
+	</select>      
 
 	 <select id="selectList" resultType = "bookmall.board.faq.FaqVo" parameterType="bookmall.board.faq.FaqVo">
 		SELECT * ,
@@ -49,7 +52,7 @@
 			(select name from faq_category where no=faq.categoryno) categoryname
 		FROM faq WHERE no = #{xxx}		
 	</select>
-	
+	  
 		<update id="update" parameterType="bookmall.board.faq.FaqVo">
 		UPDATE faq SET 
 		title = #{title}

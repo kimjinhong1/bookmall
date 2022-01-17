@@ -17,5 +17,6 @@ public class NoticeVo extends CommonVo {
 	private String filename_org;
 	private String filename_real;
 	private String sendDate;
+	private int mode;
 	
 }

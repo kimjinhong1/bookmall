@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ask"> <!-- mapper파일의 이름 -->
+
+	<sql id = "askWhere">
+		<where>
+			<if test ="searchType ==''">   
+			 	(title LIKE '%${searchWord}%' OR content LIKE '%${searchWord}%')
+			 </if>
+			 <if test= "searchType != null and searchType != ''">
+			 	${searchType} LIKE '%${searchWord}%'
+			 </if>
+			 <if test="userno > 0">
+			 	AND userno = ${userno}
+			 </if>	
+		</where>
+	</sql>
+	
+	<select id="count" resultType="int" parameterType="bookmall.ask.AskVo"> 
+		SELECT COUNT(*) FROM ask
+			<include refid="askWhere"/>
+	</select>    
+
+	 <select id="selectList" resultType = "bookmall.ask.AskVo" parameterType="bookmall.ask.AskVo">
+		SELECT * FROM ask
+			<include refid = "askWhere"/>
+		ORDER BY regdate DESC
+		LIMIT ${startIdx},10
+	</select>
+
+		<insert id = "insert" parameterType="bookmall.ask.AskVo">
+		INSERT INTO ask (
+			title, regdate, content, filename_org, filename_real, 
+			userno, subject
+		) values(
+			#{title}, 
+			<if test="sendDate != '' and sendDate != null">'${sendDate}'</if>
+			<if test="sendDate == '' or sendDate == null">NOW()</if>, 
+			#{content},#{filename_org},#{filename_real}, 
+			 #{userno}, #{subject}
+		)
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="bookmall.ask.AskVo">
+		SELECT * FROM ask WHERE no = #{xxx}		
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM ask WHERE no=#{no} 
+	</delete>
+	
+</mapper>

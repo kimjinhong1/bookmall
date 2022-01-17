@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -43,8 +44,36 @@ function goDelete(){
 								<tbody>
 									<tr>
 										<th scope="row"><label for="">제목</label></th>
-										<td colspan="10">
+										<td colspan="2">
 											${data.title }
+										</td>
+										<th scope="row"><label for="">작성자</label></th>
+										<td colspan="2">
+											${data.userno }
+										</td>
+									</tr>
+									<tr>
+										<th scope="row"><label for="">TOP 공지</label></th>
+										<td colspan="2">
+											<c:if test="${data.top_notice == 1 }">공지</c:if>
+											<c:if test="${data.top_notice == 2 }">공지안함</c:if>
+										</td>
+										<th scope="row"><label for="">NEW 아이콘</label></th>
+										<td colspan="2">
+											<c:if test="${data.new_icon == 1 }">항상</c:if>
+											<c:if test="${data.new_icon == 2 }">7일</c:if>
+											<c:if test="${data.new_icon == 3 }">표기안함</c:if>
+										</td>
+									</tr>
+									<tr>
+										<th scope="row"><label for="">공개여부</label></th>
+										<td colspan="2">
+											<c:if test="${data.secret == 1 }">공개</c:if>
+											<c:if test="${data.secret == 2 }">비공개</c:if>
+										</td>
+										<th scope="row"><label for="">게시일</label></th>
+										<td colspan="2">
+											<fmt:formatDate value="${data.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 										</td>
 									</tr>
 									<tr>

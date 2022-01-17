@@ -14,14 +14,15 @@
                     <a href="/bookmall/user/login.do">로그인</a> | 
                     <a href="/bookmall/user/join.do">회원가입</a> |
                     <a href="/bookmall/user/mypage.do">마이페이지</a> |
-                    <a href="/cart/${user.email}">장바구니</a>
+                    <a href="/bookmall/cart.do">장바구니</a>
                     
                 </c:if>
                 <c:if test="${!empty userInfo }">
-                    <a href="/bookmall/user/logout.do">로그아웃</a> | 
+                	${userInfo.name }님 환영합니다. &nbsp;&nbsp;&nbsp;
+                    <a href="/bookmall/user/logout.do">로그아웃</a>  |
                     <a href="/bookmall/user/mypage.do">마이페이지</a> | 
-                    <a href="/bookmall/user/cart.do">장바구니</a>
-                    <a href="/bookmall/user/ask.do">1:1문의</a>
+                    <a href="/bookmall/cart.do">장바구니</a>|
+                    <a href="/bookmall/ask/askindex.do">1:1문의</a>
                     
                 </c:if>
 		</div>
@@ -42,7 +43,7 @@
 	    <li>
 	        <a href="">게시판</a>
 	        <ul class="depth2">
-	            <li><a href="">수다게시판</a></li>
+	            <li><a href="/bookmall/center/suda/index.do">수다게시판</a></li>
 	        </ul>
 	    </li>
 	    <li>
