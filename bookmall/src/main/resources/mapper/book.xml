@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- mapper파일의 이름 -->
+<mapper namespace="book"> 
+
+	<!-- 코드의 중복을 줄이기 위해 -->
+	
+	<!-- 도서 하나만 선택 -->
+	<select id="selectOne" parameterType="int" resultType="bookmall.book.BookVo">
+		SELECT *
+		FROM book 
+		WHERE bookno = #{bookno}
+	</select>
+	
+	<!-- 도서 목록 -->
+	<select id="selectList" resultType="bookmall.book.BookVo" parameterType="bookmall.book.BookVo">
+		SELECT *
+			<!-- , (SELECT bcategoryname FROM book_category_mapping JOIN book_category
+			ON book_category_mapping.bcategoryno = book_category.bcategoryno
+			LEFT JOIN book
+			ON book_category_mapping.bookno = #{book.bookno}) AS bcategoryname -->
+		FROM book
+		ORDER BY pubdate DESC    
+	</select>
+	
+	<!-- 페이징 처리를 위한 갯수 카운팅 -->
+	<select id="count" resultType="int" parameterType="bookmall.book.BookVo">
+		SELECT COUNT(*) FROM book
+	</select>
+	
+	<!-- (관리자) 도서 등록 -->
+	<insert id="insert" parameterType="bookmall.book.BookVo">
+		INSERT INTO book (
+			isbn, btitle_first, btitle_second, author, publisher, pubdate, price, discountrate, classify, translator,
+			bpages, bweight, bwidth, bvertical, bheight, bintroduce, bindex, bthumb_org, bthumb_real, bstack, regdate,
+			salesprice 
+		) VALUES (
+			#{isbn}, #{btitle_first}, #{btitle_second}, #{author}, #{publisher}, #{pubdate}, #{price}, #{discountrate},
+			#{classify}, #{translator}, #{bpages}, #{bweight}, #{bwidth}, #{bvertical}, #{bheight}, #{bintroduce},
+			#{bindex}, #{bthumb_org}, #{bthumb_real}, #{bstack}, NOW(), #{salesprice} 
+		)
+	</insert>
+	
+	<!-- (관리자) 도서 수정 -->
+	<update id="update" parameterType="bookmall.book.BookVo">
+		UPDATE book
+		SET btitle_first = #{btitle_first},
+			btitle_second = #{btitle_second},
+			author = #{author},
+			publisher = #{publisher},
+			pubdate = #{pubdate},
+			price = #{price},
+			discountrate = #{discountrate},
+			classify = #{classify},
+			translator = #{translator},
+			bpages = #{bpages},
+			bweight = #{bweight},
+			bwidth = #{bwidth},
+			bvertical = #{bvertical},
+			bheight = #{bheight},
+			bintroduce = #{bintroduce},
+			bindex = #{bindex},
+			bthumb_org = #{bthumb_org},
+			bthumb_real = #{bthumb_real},
+			bstack = #{bstack},
+			moddate = NOW()
+		WHERE bookno = #{bookno}
+	</update>
+	
+	<!-- (관리자) 도서 삭제 -->
+	<update id="delete" parameterType="bookmall.book.BookVo">
+		UPDATE book 
+		SET bstatus = 1
+		WHERE bookno = #{bookno}
+	</update>
+</mapper>

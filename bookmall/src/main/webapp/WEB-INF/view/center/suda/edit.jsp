@@ -63,10 +63,19 @@ function goSave() {
                 <input type="hidden" name="secret" value="${data.secret }">
                     <table class="board_write">
                         <tbody>
-                          <tr>
-                            <th>카테고리</th>
-                            <td>
-                                
+                         <tr>
+							<th scope="row"><label for="">*카테고리</label></th>
+							<td colspan="10">
+								<select name="category" id="category">
+                              	 	<option value="1" <c:if test="${1 == data.category}">selected</c:if>>도서서평</option>
+                              	 	<option value="2" <c:if test="${2 == data.category}">selected</c:if>>도서이벤트</option>
+                              	 	<option value="3" <c:if test="${3 == data.category}">selected</c:if>>도서명언</option>
+                              	 	<option value="4" <c:if test="${4 == data.category}">selected</c:if>>도서추천</option>
+                              	 	<option value="5" <c:if test="${5 == data.category}">selected</c:if>>도서모임</option>
+                              	 	<option value="6" <c:if test="${6 == data.category}">selected</c:if>>도서나눔</option>
+                              	 	<option value="7" <c:if test="${7 == data.category}">selected</c:if>>도서찾기</option>
+                              	 	<option value="8" <c:if test="${8 == data.category}">selected</c:if>>기타</option>
+                              	 </select>
                             </td>
                         </tr>
                         <tr>

@@ -27,7 +27,7 @@
 		<include refid = "boardWhere"/>
 			 
 		ORDER BY regdate DESC
-		LIMIT ${startIdx},10	
+		LIMIT ${startIdx},10
 	</select>
 	
 		<insert id = "insert" parameterType="bookmall.board.notice.NoticeVo">

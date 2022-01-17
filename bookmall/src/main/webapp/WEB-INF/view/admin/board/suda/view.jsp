@@ -56,7 +56,7 @@ function goDelete(){
 										<th scope="row"><label for="">TOP 공지</label></th>
 										<td colspan="2">
 											<c:if test="${data.top_notice == 1 }">공지</c:if>
-											<c:if test="${data.top_notice == 2 }">공지안함</c:if>
+											<c:if test="${data.top_notice == 0 }">공지안함</c:if>
 										</td>
 										<th scope="row"><label for="">NEW 아이콘</label></th>
 										<td colspan="2">

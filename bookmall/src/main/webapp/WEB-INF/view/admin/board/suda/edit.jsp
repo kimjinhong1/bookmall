@@ -79,7 +79,7 @@ function goSave() {
 										<th scope="row"><label for="">*TOP 공지</label></th>
 										<td colspan="2">
 											<input type="radio" name="top_notice" value="1" <c:if test="${data.top_notice == 1 }">checked</c:if>>공지
-											<input type="radio" name="top_notice" value="2" <c:if test="${data.top_notice == 2 }">checked</c:if>>공지안함 
+											<input type="radio" name="top_notice" value="0" <c:if test="${data.top_notice == 0 }">checked</c:if>>공지안함 
 										</td>
 										<th scope="row"><label for="">*NEW 아이콘</label></th>
 										<td colspan="2">

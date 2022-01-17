@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="bookmall.util.*" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -23,6 +24,7 @@ function checkAll(){
 		})
 	}
 }
+
 </script>
 </head>
 <body> 
@@ -45,7 +47,15 @@ function checkAll(){
 					<!-- 내용 : s -->
 					<div id="bbs">
 						<div id="blist">
-						<p><span><strong>총 ${totCount }</strong>  |  ${sudaVo.page }/${totPage }페이지</span></p>
+						<p><span><strong>총 ${totCount }</strong>  |  ${sudaVo.page }/${totPage }페이지</span>
+							<span style="text-align:right;float:right">
+								<select id="numsel" onchange="$('#numchoose').val($('#numsel').val());$('#searchForm').submit();">
+									<option value="10" <c:if test="${10 == sudaVo.numchoose}">selected</c:if>>10개씩</option>
+									<option value="20" <c:if test="${20 == sudaVo.numchoose}">selected</c:if>>20개씩</option>
+									<option value="30" <c:if test="${30 == sudaVo.numchoose}">selected</c:if>>30개씩</option>
+								</select>
+							</span>
+						</p>
 							<form name="frm" id="frm" action="deleteAll.do" method="post">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리목록입니다.">
 								<colgroup>
@@ -78,7 +88,9 @@ function checkAll(){
                           		<td class="first"><input type="checkbox" name="check" id="check" value="${vo.no }"/></td>       
                                 <td>${(totCount-status.index) - ((sudaVo.page -1)*10)}</td>
                                 <td class="txt_l" style="text-align:left;">
-                                    <a href="view.do?sudano=${vo.no }" >${vo.title }</a>
+                                    <a href="view.do?sudano=${vo.no }" >${vo.title }  
+                                    ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
+                                    </a>
                                 </td>
                                 <td class="name">${vo.userno }</td>
                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
@@ -113,6 +125,7 @@ function checkAll(){
 									</select>
 									<input type="text" name="searchWord" value="${param.searchWord }" title="검색할 내용을 입력해주세요" />
 									<input type="image" src="<%=request.getContextPath()%>/img/admin/btn_search.gif" class="sbtn" alt="검색" />
+									<input type="hidden" name="numchoose" id="numchoose" value="${sudaVo.numchoose }" >
 								</div>
 							</form>
 							<!-- //search --> 
