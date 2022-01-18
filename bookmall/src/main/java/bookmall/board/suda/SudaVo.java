@@ -26,4 +26,6 @@ public class SudaVo extends CommonVo {
 	private int readcount;
 	private String sendDate;
 	private int mode;
+	private String name;
+	private int c_count;
 }

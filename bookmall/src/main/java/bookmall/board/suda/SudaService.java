@@ -12,4 +12,5 @@ public interface SudaService {
 	int delete(SudaVo vo);
 	SudaVo edit(int sudano);
 	int update(SudaVo vo);
+	public int reply(SudaVo vo);
 }

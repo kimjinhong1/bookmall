@@ -24,7 +24,9 @@ public class SudaServiceImpl implements SudaService {
 	
 	@Override
 	public int insert(SudaVo vo) { // 재정의 
-		return sudaDao.insert(vo);
+		int r = sudaDao.insert(vo);
+		if (r > 0) sudaDao.updateGno(vo.getNo());
+		return r;
 	}  
 	
 	@Override
@@ -46,5 +48,12 @@ public class SudaServiceImpl implements SudaService {
 	@Override
 	public int update(SudaVo vo) {
 		return sudaDao.update(vo);
+	}
+	@Override
+	public int reply(SudaVo vo) {
+		sudaDao.updateOno(vo); // 같은 그룹이면 부모의 ono보다 큰놈들을 전부 +1
+		vo.setOno(vo.getOno()+1); // 부모 ono에서 +1
+		vo.setNested(vo.getNested()+1); // 부모 nested에서 +1
+		return sudaDao.insertReply(vo); // 위에 다한다음에 답변 저장 
 	}
 }

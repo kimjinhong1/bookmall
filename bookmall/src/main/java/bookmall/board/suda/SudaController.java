@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import bookmall.user.UserVo;
 import bookmall.util.CommonUtil;
+
 
 @Controller
 public class SudaController {
@@ -115,10 +117,13 @@ public class SudaController {
 		return "include/return";
 		}
 	
+	// login only
 	@PostMapping("/center/suda/insert.do")
 	public String insertUser(SudaVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
-		System.out.println("title:"+vo.getTitle());
-		System.out.println("content:"+vo.getContent());
+		int userno = ((UserVo)sess.getAttribute("userInfo")).getUserno(); // session -> userno
+		// vo set
+		vo.setUserno(userno);
+		
 		//파일저장 
 		if (file != null && !file.isEmpty()) { // 사용자가 파일을 첨부했다면 
 			try {
@@ -273,4 +278,31 @@ public class SudaController {
 		}
 		return "include/return";
 	}
+	
+	@GetMapping("/center/suda/reply.do")
+	public String reply(Model model, @RequestParam int sudano) {
+		model.addAttribute("data", sudaservice.edit(sudano));
+		return "center/suda/reply";
+	}
+	
+	@PostMapping("/center/suda/insertReply.do")
+	public String insertReply(SudaVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
+		int userno = ((UserVo)sess.getAttribute("userInfo")).getUserno(); // session -> userno
+		// vo set
+		vo.setUserno(userno);
+		int r = sudaservice.reply(vo);
+		System.out.println("r : "+r);
+		
+		// 정상적으로 등록되었습니다. alert 띄우고 
+		// index.do 로 이동 
+		if(r > 0) {
+		req.setAttribute("msg", "정상적으로 답변이 등록되었습니다");
+		req.setAttribute("url", "index.do");
+		} else {
+			req.setAttribute("msg", "답변 오류 ");
+			req.setAttribute("url", "reply.do?sudano="+vo.getNo());
+		}
+		
+		return "include/return";
+		}
 }
