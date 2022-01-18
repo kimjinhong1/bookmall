@@ -32,17 +32,28 @@ public class UserDao {
 		return sqlSession.selectOne("user.nickCheck", nickname);
 	}
 	
-	
+	// 이메일 찾기
 	public UserVo searchId(UserVo vo) {
 		return sqlSession.selectOne("user.searchId", vo);
 	}
 	
+	// 비밀번호 찾기(해당 유저정보 검색)
 	public UserVo searchPwd(UserVo vo) {
 		return sqlSession.selectOne("user.searchPwd", vo);
 	}
-	
+	// 임시 비밀번호 업데이트
 	public int updateTempPwd(UserVo vo) {
 		return sqlSession.update("user.updateTempPwd", vo);
+	}
+	
+	// 최근 로그인 날짜 체크
+	public int updateRecently_accessed(UserVo vo) {
+		return sqlSession.update("user.updateRecently_accessed", vo);
+	}
+	
+	//로그인 횟수 기록
+	public int checkNumber(UserVo vo) {
+		return sqlSession.update("user.checkNumber", vo);
 	}
 	
 }

@@ -69,15 +69,21 @@
 	<!-- 인터셉터 , 꼭 로그인 후 갈수 있어야하는 페이지 넣으면 됨 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/board/write.do"/>
+			<mvc:mapping path="/center/suda/write.do"/>
+			<mvc:mapping path="/center/suda/insert.do"/>
+			<mvc:mapping path="/center/suda/delete.do"/>
+			<mvc:mapping path="/center/suda/edit.do"/>
+			<mvc:mapping path="/center/suda/update.do"/>
+			<mvc:mapping path="/center/suda/reply.do"/>
+			<mvc:mapping path="/center/suda/insertReply.do"/>
 			<bean class="bookmall.main.LoginInterceptor"/>
 		</mvc:interceptor>
-		 <!--  
 		<mvc:interceptor>
-			<mvc:mapping path="/admin/**"/>
-			<mvc:exclude-mapping path="/admin.login.do"/>
+			<mvc:mapping path="/admin/member/**"/>
+			<mvc:mapping path="/admin/board/**"/>
+			<mvc:exclude-mapping path="/admin/index.do"/>
+			<bean class="bookmall.main.AdminInterceptor"/>
 		</mvc:interceptor>
-		-->
 	</mvc:interceptors>
 	
 	
