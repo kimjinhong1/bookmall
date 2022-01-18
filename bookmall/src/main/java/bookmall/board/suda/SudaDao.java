@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bookmall.board.comment.CommentVo;
+
 
 
 @Repository  // MvcCinfig 에 스캔을 해서 @Repository 적기만해도 빈 객체 생성 
@@ -48,5 +50,17 @@ public class SudaDao {
 	
 	public int update(SudaVo vo) {
 		return sqlSessionTemplate.update("suda.update", vo);
+	}
+	
+	public int updateGno(int no) {
+		return sqlSessionTemplate.update("suda.updateGno", no);
+	}
+	
+	public int updateOno(SudaVo vo) {
+		return sqlSessionTemplate.update("suda.updateOno", vo);
+	}
+	
+	public int insertReply (SudaVo vo) {
+		return sqlSessionTemplate.insert("suda.insertReply", vo);
 	}
 }

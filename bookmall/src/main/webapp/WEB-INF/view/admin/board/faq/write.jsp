@@ -3,7 +3,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="text/javascript" src="/project/smarteditor/js/HuskyEZCreator.js"></script>
+<title>FAQ 관리 [등록]</title>
+<script type="text/javascript" src="/bookmall/smarteditor/js/HuskyEZCreator.js"></script>
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
@@ -81,7 +82,7 @@ function goSave() {
 		<div id="container">
 			<div id="content">
 				<div class="con_tit">
-					<h2>FAQ 관리 [글작성]</h2>
+					<h2>FAQ 관리 [등록]</h2>
 				</div>
 				<!-- //con_tit -->
 				<div class="con">

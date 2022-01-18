@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>수다게시판 등록</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="/bookmall/css/reset.css"/>
@@ -78,19 +78,19 @@ function goSave() {
                             </td>
                         </tr>
                         <tr>
-                            <th>제목</th>
+                            <th>*제목</th>
                             <td>
-                                <input type="text" name="title" id="title" style="width:100%;" value="${data.title }"/>
+                                <input type="text" id="title" name="title" style="width:100%;" title="제목을 입력해주세요" />
                             </td>
                         </tr>
                         <tr>
-                            <th>내용</th>
+                            <th>*내용</th>
                             <td>
-                                <textarea id="contents" name="content" title="내용을 입력해주세요" style="width:100%;">${data.content}</textarea>	
+                                <textarea id="contents" name="content" title="내용을 입력해주세요" style="width:100%;"></textarea>
                             </td>
                         </tr>
                         <tr>
-                            <th>첨부파일</th>
+                            <th>*첨부파일</th>
                             <td>
                             	<input type="file" id="file" name="file" class="w100" title="첨부파일을 업로드 해주세요." />
                             </td>
@@ -98,7 +98,7 @@ function goSave() {
                         </tbody>
                     </table>
                     <div class="btnSet"  style="text-align:right;">
-                        <a class="btn" href="index.do">목록</a>
+                        <a class="btn2" href="index.do">목록</a>
                         <a class="btn" href="javascript:goSave();">등록</a>
                     </div>
                     </form>

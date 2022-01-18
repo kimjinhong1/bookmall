@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>수다게시판 관리 [내용]</title>
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
 function goDelete(){
@@ -97,6 +98,7 @@ function goDelete(){
 							<div class="btn">
 								<div class="btnLeft">
 									<a class="btns" href="index.do"><strong>목록</strong></a>
+									<a class="btns" href="reply.do?sudano=${data.no }"><strong>답글</strong></a>
 								</div>
 								<div class="btnRight">
 									<a class="btns" style="cursor:pointer;" href="edit.do?sudano=${data.no }"><strong>수정</strong></a>

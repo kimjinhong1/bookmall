@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="text/javascript" src="/project/smarteditor/js/HuskyEZCreator.js"></script>
+<title>공지사항 관리 [수정]</title>
+<script type="text/javascript" src="/bookmall/smarteditor/js/HuskyEZCreator.js"></script>
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
 	var oEditors = [];

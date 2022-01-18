@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>공지사항 관리 [내용]</title>
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
 function goDelete(){
