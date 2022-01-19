@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="member"> <!-- mapper파일의 이름 -->
 	
+	<!-- 회원 목록 -->
 	<select id="member" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
 		SELECT * FROM user
 		<include refid="memberWhere"/>
@@ -9,17 +10,89 @@
 		LIMIT ${startIdx}, 10  
 	</select>
 	
-	<sql id="memberWhere">  <!-- 코드의 중복으로 줄이기 위해 -->
+	<sql id="memberWhere">  <!-- 코드 중복 줄임 -->
 		<where>
+			<if test ="user_type == '0' or user_type == null or user_type == '' ">
+			 	user_type LIKE '%'
+			</if>
+			<if test="user_type != null and user_type != '' ">
+				user_type LIKE #{user_type}
+			</if>
+			
+			<if test ="state == '0' or state == null or state == '' ">
+			 	and state LIKE '%'
+			</if>
+			<if test="state != null and state != '' ">
+				and state LIKE #{state}
+			</if>
+			
 			<if test="searchType != null and searchType != '' ">
-				${searchType} LIKE '%${searchWord}%'
+				and ${searchType} LIKE '%${searchWord}%'
 			</if>
 		</where>
 	</sql>
 	
+	<!--  회원 수 체크 -->
 	<select id="count" resultType="int" parameterType="bookmall.user.UserVo">
 		SELECT COUNT(*) FROM user
 		<include refid="memberWhere"/>
+	</select>
+	
+	<!-- 회원관리 회원상세정보 -->
+	<select id="detailMember" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT * FROM user WHERE userno = #{userno}
+	</select>
+	
+	<!-- 회원관리 정보 업데이트 -->
+	<update id="memberUpdate" parameterType="bookmall.user.UserVo">
+		UPDATE user SET name=#{name}, zipcode=#{zipcode}, addr1=#{addr1}, addr2=#{addr2}, tel=#{tel}, birthday=#{birthday}, gender=#{gender}
+		WHERE userno = #{userno}
+	</update>
+	
+	<!-- 주문상품 금액 총합 
+	<select id="member_buy_price" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT sum(total_price) AS member_buy_price
+		FROM order_detail
+		WHERE orderno
+		IN (SELECT orderno FROM orders WHERE userno = #{userno});
+	</select>-->
+	
+	<!-- 주문상품 개수 총합 
+	<select id="member_buy_count" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT sum(count) AS member_buy_count
+		FROM order_detail
+		WHERE orderno
+		IN (SELECT orderno FROM orders WHERE userno = #{userno});
+	</select>-->
+	
+	<!-- 회원관리 구매기록 -->
+	<select id="memberBuyRecode" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT 
+			od.order_detailno AS order_detailno,
+			b.isbn AS isbn,
+			b.btitle_first AS btitle_first,
+			b.btitle_second AS btitle_second,
+			od.count AS count,
+			od.price AS price,
+			o.order_date AS order_date,
+			o.methodOfPayment AS methodOfPayment,
+			o.paymentStatus AS paymentStatus,
+			o.canceledStatus AS canceledStatus
+		FROM order_detail AS od 
+		LEFT OUTER JOIN book AS b
+			ON  od.bookno = b.bookno
+		LEFT OUTER JOIN orders AS o
+			ON  od.orderno = o.orderno
+		WHERE o.orderno IN (SELECT orderno FROM orders WHERE userno = #{userno})
+		ORDER BY order_detailno DESC;
+	</select>
+	
+	<!-- 구매상세 수량 ,페이징 -->
+	<select id="countOrder" parameterType="bookmall.user.UserVo" resultType="int">
+		SELECT count(*) AS o_d_count 
+		FROM order_detail 
+		WHERE orderno 
+		IN (SELECT orderno FROM orders WHERE userno = #{userno});
 	</select>
 	
 </mapper>

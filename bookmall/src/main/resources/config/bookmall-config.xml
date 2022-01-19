@@ -78,12 +78,12 @@
 			<mvc:mapping path="/center/suda/insertReply.do"/>
 			<bean class="bookmall.main.LoginInterceptor"/>
 		</mvc:interceptor>
-		 <!--  
 		<mvc:interceptor>
-			<mvc:mapping path="/admin/**"/>
-			<mvc:exclude-mapping path="/admin.login.do"/>
+			<mvc:mapping path="/admin/member/**"/>
+			<mvc:mapping path="/admin/board/**"/>
+			<mvc:exclude-mapping path="/admin/index.do"/>
+			<bean class="bookmall.main.AdminInterceptor"/>
 		</mvc:interceptor>
-		-->  
 	</mvc:interceptors>
 	
 	

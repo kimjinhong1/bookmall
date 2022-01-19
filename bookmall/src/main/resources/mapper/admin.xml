@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="admin"> <!-- mapper파일의 이름 -->
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="bookmall.admin.AdminVo" resultType="bookmall.admin.AdminVo">
+		SELECT * FROM admin WHERE admin_id = #{admin_id} AND admin_pw = md5(#{admin_pw})
+	</select>
+
+</mapper>

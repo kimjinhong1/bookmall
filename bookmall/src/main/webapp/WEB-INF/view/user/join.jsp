@@ -78,7 +78,7 @@
     						if (res.trim() == '0') {
     							alert('잘못된 인증 번호입니다.');
     							$("#email_auth").val("");
-    							$("#email_auth").focus();s
+    							$("#email_auth").focus();
     						} else {
     							$("#authArea").text("     인증이 완료되었습니다.");  
     							$("#check").val('1');
@@ -110,9 +110,13 @@
     			    "pw_check" : false,
     		}
     		
-    		$("#pwd, #pw_check").on("click", function(){
-    			$("#checkPwd1").text("비밀번호를 입력해주세요.")
+    		$("#pwd").on("click", function(){
+    			if ($("#pwd").val() == '') {
+	    			$("#checkPwd1").text("비밀번호를 입력해주세요.")
+	    			.css("color", "black");
+    			}
     		});
+    		
     		
     		$("#pwd, #pw_check").on("input", function(){
     		    // 비밀번호 유효성 검사
@@ -137,8 +141,12 @@
     		        $("#pw_check").val(""); // 비밀번호 확인에 입력한 값 삭제
     		        $("#pwd").focus();
     		    }else {
+    		    	// 비밀번호 확인 입력창 클릭
+    		    	$("#pw_check").on("click", function(){
+    	    			$("#checkPwd2").text("다시 한번 입력해주세요.")
+    	    		});
     		        // 비밀번호, 비밀번호 확인의 일치 여부
-    		       if(v1.length == 0 || v2.length == 0){
+    		       	if(v1.length == 0 || v2.length == 0){
     					$("#checkPwd2").text("");
     				}else if(v1 == v2){
     		            $("#checkPwd2").text("비밀번호가 일치합니다.")
@@ -430,11 +438,11 @@
                         
                         <tr>
                             <th><small class="star">*</small> 비밀번호 </th>
-                            <td><input type="password" name="pwd" id="pwd" style="float:left;" maxlength="50" placeholder="비밀번호를 입력해주세요"> <span class="ptxt"><small id="checkPwd1"></small></span></td>
+                            <td><input type="password" name="pwd" id="pwd" style="float:left;" maxlength="50" > <span class="ptxt"><small id="checkPwd1"></small></span></td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 비밀번호<span>확인</span></th>
-                            <td><input type="password" name="pw_check" id="pw_check" style="float:left;" maxlength="50" placeholder="다시 한번 입력해주세요"><span class="ptxt"><small id="checkPwd2"></small></span></td>
+                            <td><input type="password" name="pw_check" id="pw_check" style="float:left;" maxlength="50" ><span class="ptxt"><small id="checkPwd2"></small></span></td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 닉네임</th>

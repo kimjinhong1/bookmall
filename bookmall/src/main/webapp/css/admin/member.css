@@ -60,15 +60,118 @@ table.index td {
     border : 1px solid #979c92;
 }
 
-.paging {
+.page {
+	text-align: center;
+	margin: 20px auto 0;
+	width: 100%;
+	clear: both;
+}
+
+.page a {
     display: inline-block;
     text-decoration: none;
     padding: 0;
-    width: 100px;
+    width: 70px;
     height: 30px;
     line-height: 30px;
     border: 1px solid #c7c8cc;
     box-sizing: border-box;
     margin-left: -1px;
     vertical-align: middle;
+}
+
+.page strong {
+    display: inline-block;
+    text-decoration: none;
+    padding: 0;
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #c7c8cc;
+    box-sizing: border-box;
+    margin-left: -1px;
+    vertical-align: middle;
+}
+
+table.infoTable {
+	width: 100%;;
+	font-size: 12px;
+}
+
+
+table.infoTable tbody tr {
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+table.infoTable tbody td {
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}
+table.infoTable tbody td.infoname {
+	font-weight: bold;
+	background: #f3f6f7;
+	width: 20%;
+	text-align: center;
+}
+
+table.infoTable tbody td.info {
+	font-weight: normal;
+	background: #fff;
+	width: 70%;
+}
+
+table.buyTable {
+	width: 70%;;
+	font-size: 12px;
+}
+
+table.buyTable tbody tr {
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+table.buyTable tbody td.infoname {
+	font-weight: bold;
+	background: #f3f6f7;
+	width: 30%;
+	text-align: center;
+}
+
+table.buyTable tbody td.info {
+	font-weight: normal;
+	background: #fff;
+	width: 70%;
+}
+
+
+
+table.buyinfo {
+    text-align: left;
+    line-height: 1.5;
+    width : 800px;
+    font-size: 12px;
+}
+table.buyinfo th {
+    padding: 5px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #000;
+    background: #f3f6f7;
+    border : 1px solid #979c92;
+}
+table.buyinfo td {
+    padding: 5px;
+    vertical-align: top;
+    background: #fff;
+    border : 1px solid #979c92;
 }
