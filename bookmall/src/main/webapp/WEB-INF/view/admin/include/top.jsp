@@ -52,6 +52,11 @@ $(window).load(function(){
 	
 	// 메뉴 수에 맞게 width 값 수정.
 	$("ul.menu > li").css("width", (100 / $("ul.menu > li").length) + "%");
+	
+	// 도서 등록시 달력 api 사용.
+	$(function() {
+		$("#pubdate").datepicker();
+	});
 });
 </script>
 <div id="header">
@@ -70,7 +75,7 @@ $(window).load(function(){
 		<div id="menu">
   			<ul class="menu">
   				<li><a href="<%=request.getContextPath()%>/admin/member/index.do" class="parent"><span>회원관리</span></a></li>
-				<li><a href="<%=request.getContextPath()%>/admin/product/index.do" class="parent"><span>상품관리</span></a></li>
+				<li><a href="<%=request.getContextPath()%>/admin/book/index.do" class="parent"><span>도서관리</span></a></li>
 				<li><a href="<%=request.getContextPath()%>/admin/board/notice/index.do" class="parent"><span>고객센터</span></a>
 					<div class="standard_left">
 					<ul>

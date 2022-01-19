@@ -24,7 +24,6 @@
 					<!-- 내용 : s -->
 					<div id="bbs">
 						<div id="blist">
-							<p><span><strong>총 111개</strong>  |  1/12페이지</span></p>
 							<form name="frm" id="frm" action="process.do" method="post">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 도서 관리목록입니다.">
 								<colgroup>
@@ -55,7 +54,7 @@
 										<td>${vo.author }</td>
 										<td>${vo.publisher }</td>
 										<td>카테고리</td>
-										<td><input type="button" value="상세정보" onclick="location.href='/bookmall/admin/bookDetail.do';"></td>
+										<td><input type="button" value="상세정보" onclick="location.href='/bookmall/admin/book/detail.do?bookno=${vo.bookno}';"></td>
 									</tr>
 									</c:forEach>
 								</tbody>
@@ -66,7 +65,7 @@
 									<a class="btns" href="#" onclick=""><strong>삭제</strong> </a>
 								</div>
 								<div class="btnRight">
-									<a class="wbtn" href="write.do"><strong>등록</strong> </a>
+									<a class="wbtn" href="/bookmall/admin/book/write.do"><strong>등록</strong> </a>
 								</div>
 							</div>
 							<!--//btn-->

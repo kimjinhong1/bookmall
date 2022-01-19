@@ -43,4 +43,9 @@ public class AdminBookServiceImple implements AdminBookService {
 		return dao.delete(vo);
 	}
 
+	@Override
+	public int isbnCheck(String isbn) {
+		return dao.isbnCheck(isbn);
+	}
+
 }
