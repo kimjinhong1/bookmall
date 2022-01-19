@@ -13,9 +13,6 @@
 			 <if test="searchCategory != null and searchCategory != ''">
 			 	AND category = ${searchCategory}
 			 </if>
-			 <if test="userno > 0">
-			 	AND userno = ${userno}
-			 </if>	
 			<if test="mode == 1">
 				<![CDATA[ AND secret = 1 ]]>  
 			</if>			 

@@ -87,7 +87,7 @@
 	                               <td class="txt_l" style="text-align:left;">
 		                                <c:if test="${vo.nested > 0 }">
 	                                 	<c:forEach begin="1" end="${vo.nested}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
-	                                	<img src="/bookmall/img/reply_icon.jpeg" style='width:25px;'>
+	                                	<img src="/bookmall/img/reply_icon3.png" style='width:25px;'>
                                		    </c:if>
 	                                     <a href="view.do?sudano=${vo.no }" >${vo.title } [${vo.c_count }]</a>
 	                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
