@@ -57,41 +57,44 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 					<div class="text"></div>
 							| 최근 주문내역<a href="/bookmall/user/recentorder.do" class="btn">자세히보기▶</a>
 							<table class="type">
-								<thead>
-									<tr>
-										<th scope="col" width="15%">주문번호</th>
-										<th scope="col" width="40%">주문내역</th>
-										<th scope="col" width="15%">주문일자</th>
-										<th scope="col" width="15%">주문상태</th>
-										<th scope="col" width="15%">배송</th>
-									</tr>
-								</thead>
 								<tbody>
-									<tr>
-										<td onClick="location.href='/bookmall/user/ask.do'"
-											style="cursor: pointer;">2021-11-01</td>
-										<td>[국내도서]제목: 멍멍/ 저자:왈왈 멍멍이귀여워</td>
-										<td>20211101</td>
-										<td>결제완료</td>
-										<td>배송완료</td>
-									</tr>
-									<tr>
-										<td>20211101</td>
-										<td>[국내도서]제목: 멍멍/ 저자:왈왈 멍멍이귀여워</td>
-										<td>2021-11-01</td>
-										<td>결제완료</td>
-										<td>배송완료</td>
-									</tr>
-									<tr>
-										<td>2021-11-01</td>
-										<td>[국내도서]제목: 멍멍/ 저자:왈왈 멍멍이귀여워</td>
-										<td>20211101</td>
-										<td>결제완료</td>
-										<td>배송완료</td>
-									</tr>
+									<thead>
+										<tr>
+											<th scope="col" width="20%">주문번호</th>
+											<th scope="col" width="10%">상품</th>
+											<th scope="col" width="20%">상품정보</th>
+											<th scope="col" width="10%">상품금액</th>
+											<th scope="col" width="10%">수량</th>
+											<th scope="col" width="10%">결제금액</th>
+											<th scope="col" width="10%">주문상태</th>
+										</tr>
+									</thead>
+										<c:if test="${recentOrderInfo eq null or empty recentOrderInfo}">
+											<td colspan="9"><center><b>최근 주문내역이 없습니다.</b></center></td>
+										</c:if>
 								</tbody>
 							</table>
-							</p>
+								<tbody>
+									<tr>
+										<c:if test="${cartInfo ne null and not empty cartInfo}">
+											<c:forEach var="recentOrder" items="${recentOrderInfo}">
+												<td><a href=""
+													style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${orders.orderno}
+														<br>
+												</a> (orders.order_date)</td>
+												<td><img src="/bookmall/img/book_1.png" width="100"></td>
+												<td>${book.btitle_first }<br>
+													${book.btitle_second }<br> ${book.author } |
+													${book.publisher}<br> <br>
+												</td>
+												<td>${book.price }</td>
+												<td>${orders.count }</td>
+												<td>(${book.price } * ${orders.count })</td>
+												<td>${orders.deilvery }</td>
+											</c:forEach>
+										</c:if>
+									</tr>
+								</tbody>
 							<br> <br>
 						</div>
 					</div>

@@ -21,54 +21,39 @@
 	src="/bookmall/smarteditor/js/HuskyEZCreator.js"></script>
 <script src="/bookmall/js/common.js"></script>
 <link rel="stylesheet" href="/bookmall/css/ask.css" />
+<script src="https://malsup.github.io/jquery.form.js"></script> 
 <script>
 	var oEditors;
 	$(function() {
 		oEditors = setEditor("content");
-	
-		$(function() {
-			$("#askbtn").click(function(){
-				$.ajax({
-					url: '/bookmall/ask/askinsert', //<<-- 처리 요청 URL
-					type: 'POST',
-					data: {
-						askno : 10
-					},
-					success: function(result){ // 비동기요청  성공시
-						alert('문의내용이 등록되었습니다.');
-						$(".bookcount").val("1");
-					}
-				})
-			});
-		});
-		
-		function goSave() {
-			if ($("#title").val() == '') {
-				alert("제목을 입력하세요");
-				$("#title").focus();
-				return;
+		/*
+		$("#frm").ajaxForm({
+			url: '/bookmall/ask/askinsert.do', //<<-- 처리 요청 URL
+			success: function(result){ // 비동기요청  성공시
+				alert('문의내용이 등록되었습니다.');
 			}
-			oEditors.getById['content'].exec("UPDATE_CONTENTS_FIELD", []);
-			$("#frm").submit();
+		});*/
+	});
+	function goSave() {
+		if ($("#selectinquiry").val() == '') {
+				alert("문의종류를 선택하세요");
+			return;
 		}
-		
-		$(function() {
-			$("#askbtn").click(function(){
-				$.ajax({
-					url: '/bookmall/ask/askinsert',
-					type: 'POST',
-					data: {
-						askno : 10
-						
-					},
-					success: function(result){
-						alert('장바구니에 등록되었습니다.');
-						$(".bookcount").val("1");
-					}
-				})
-			});
-		});
-});
+		if($("#title").val() == '') {
+				alert("제목을 입력하세요");
+				$("#content").focus();
+			return;
+		}
+		oEditors.getById['content'].exec("UPDATE_CONTENTS_FIELD",[]);
+		console.log($("#content").val());
+		if($("#content").val() == '<p>&nbsp;</p>') {
+				alert("내용을 입력하세요");
+				$("#content").focus();
+				return;
+		}
+		$("#frm").submit();
+	}
+
 	
 </script>
 
@@ -139,21 +124,19 @@
 								</td>
 							</tbody>
 						</table>
-						
-								<a id ="askbtn" name="askinsert" href="#">문의하기 저장</a>
 						<table class="board_write"> <%-- 문의사항 작성 --%>
 							<tbody>
 								<tr>
 									<th>문의선택</th>
-									<td><select name="selectinquiry" id="selectinquiry"
+									<td><select name="subject" id="selectinquiry"
 										style="width: 45%; height: 30px; float: left;">
 											<option value="">문의종류를 선택하세요.</option>
-											<option value="1">상품문의</option>
-											<option value="2">결제문의</option>
-											<option value="3">배송문의</option>
-											<option value="4">교환/반품문의</option>
-											<option value="5">취소/환불문의</option>
-											<option value="6">기타문의</option>
+											<option value="상품문의">상품문의</option>
+											<option value="결제문의">결제문의</option>
+											<option value="배송문의">배송문의</option>
+											<option value="교환/반품문의">교환/반품문의</option>
+											<option value="취소/환불문의">취소/환불문의</option>
+											<option value="기타문의">기타문의</option>
 									</select>${ask.subject}</td>
 								</tr>
 								<tr>
@@ -179,8 +162,9 @@
 								</tr>
 							</tbody>
 						</table>
-					 <div class="btnSet"  style="text-align:center;">
-                        <a class="askbtn" href="javascript:goSave();">저장 </a>
+					 <div class="btnSet"  style="text-align:center; font-size: 16px;">
+                        <%-- <a class="askbtn" href="javascript:goSave();">저장 </a>--%>
+                        <a id ="askbtn" href="javascript:goSave();;">등록</a>
                     </div>
 					</form>
 				</div>

@@ -8,15 +8,16 @@
 function loginCheck(){
 	if ( $("#id").val().length < 1 ) {
 		alert("아이디를 입력해주세요.");
-		$("#id").val().focus();
+		$("#id").focus();
 		return false;
 	}
 	if ( $("#password").val().length < 1 ) {
 		alert("비밀번호를 입력해주세요.");
-		$("#password").val().focus();
+		$("#password").focus();
 		return false;
 	}
 	var f = document.board;
+	
 	if (f.reg.checked) {
 	   document.cookie = "cookie_userid=" + f.id.value + ";path=/;expires=Sat, 31 Dec 2050 23:59:59 GMT;";
 	} else {
@@ -60,7 +61,7 @@ function CookieVal(cookieName) {
 		<p>관리자 로그인 후 이용가능합니다.</p>
 	</div>
 	<div class="login"> 
-	<form name="board" id="board" method="post" action="" onsubmit="return loginCheck();">
+	<form name="board" id="board" method="post" action="login.do" onsubmit="return loginCheck();">
 		<fieldset>
 			<legend>관리자모드 로그인</legend>
 			<div class="bgBox">
@@ -70,7 +71,7 @@ function CookieVal(cookieName) {
 							<label for="id"><strong>아이디</strong></label>
 						</dt>
 						<dd>
-							<input type="text" id="id" name="id" value="" title="아이디를 입력해주세요." style="ime-mode:inactive"/>
+							<input type="text" id="id" name="admin_id" value="" title="아이디를 입력해주세요." style="ime-mode:inactive"/>
 						</dd>
 					</dl>
 					<dl>
@@ -78,7 +79,7 @@ function CookieVal(cookieName) {
 							<label for="password"><strong>비밀번호</strong></label>
 						</dt>
 						<dd>
-							<input type="password" id="password" name="password" value="" title="비밀번호를 입력해주세요." />
+							<input type="password" id="password" name="admin_pw" value="" title="비밀번호를 입력해주세요." />
 						</dd>
 					</dl>
 				</div>

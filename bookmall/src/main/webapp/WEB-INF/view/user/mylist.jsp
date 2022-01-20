@@ -54,6 +54,7 @@
 			<div class="size">
 				<div class="box">
 						<table class="type2">
+							<c:forEach var="mylist" items="${mylistInfo}">
 							<thead>
 							        <colgroup>
 							            <col width="10%;"/>
@@ -63,13 +64,15 @@
 							        </colgroup>
 								<tr>
 									<td>
-										<input type="checkbox" name="mylistCheck"/><br>
+										<label> 
+											<input type="checkbox" name="mylistCheck" value="${mylist.listno }" id="1">${mylist.bookno}><br>
+										</label>
 									</td>
 									<td>
 										<img src="/bookmall/img/book_1.png" width="80"><br>
 									</td>
 									<td>
-										구병모의 신작 장편소설 | 상아의 문으로 | 구병모 저 | 문학과지성사<br>
+										${mylist.btitle_first }<br>
 									</td>
 									<td>
 										<a class="mylistwrite" 
@@ -81,66 +84,8 @@
 									</td>
 								</tr>
                             </tbody>
+                            </c:forEach>
                         </table>
-                        <table class="type2">
-							<thead>
-							        <colgroup>
-							            <col width="10%;"/>
-							            <col width="30%;"/>
-							            <col width="40%;"/>
-							            <col width="20%;"/>
-							        </colgroup>
-								<tr>
-									<td>
-										<input type="checkbox" name="mylistCheck"/><br>
-									</td>
-									<td>
-										<img src="/bookmall/img/book_2.png" width="80"><br>
-									</td>
-									<td>
-										기록하는 순간 영감이 된다 | 별게 다 영감 | 이승희 저 | 북스톤<br>
-									</td>
-									<td>
-										<a class="mylistwrite" 
-											href="/bookmall/board/review.do"
-											style="border: 1px solid black; width: 80px; cursor: pointer; font-size: 13px; ">리뷰작성</a><br><br>
-										<a class="mylistwrite" 
-											href="/bookmall/user/cart.do"
-											style="border: 1px solid black; width: 100px; cursor: pointer; font-size: 13px; ">장바구니담기</a>
-									</td>
-								</tr>
-                            </tbody>
-                        </table>
-                        <table class="type2">
-							<thead>
-							        <colgroup>
-							            <col width="10%;"/>
-							            <col width="30%;"/>
-							            <col width="40%;"/>
-							            <col width="20%;"/>
-							        </colgroup>
-								<tr>
-									<td>
-										<input type="checkbox" name="mylistCheck"/><br>
-									</td>
-									<td>
-										<img src="/bookmall/img/book_3.png" width="80"><br>
-									</td>
-									<td>
-										시인 나태주 x 화가 유라 | 서로 다른 계절의 여행 | 나태주 글 / 유라 그림| 북폴리오<br>
-									</td>
-									<td>
-										<a class="mylistwrite" 
-											href="/bookmall/board/review.do"
-											style="border: 1px solid black; width: 80px; cursor: pointer; font-size: 13px; ">리뷰작성</a><br><br>
-										<a class="mylistwrite" 
-											href="/bookmall/user/cart.do"
-											style="border: 1px solid black; width: 100px; cursor: pointer; font-size: 13px; ">장바구니담기</a>
-									</td>
-								</tr>
-                            </tbody>
-                        </table>
-            				
                         </div>
 					</div>
 				</div>

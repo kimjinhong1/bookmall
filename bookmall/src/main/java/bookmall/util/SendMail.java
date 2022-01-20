@@ -54,9 +54,6 @@ public class SendMail {
 //  6자리 암호 랜덤 생성
 	public static String random() {
 		String tempPwd = "";
-//		for (int i=0; i<3; i++) {
-//			tempPwd += (char)((Math.random()*26)+65);
-//		}
 		for (int i=0; i<6; i++) {
 			tempPwd += (int)((Math.random()*9));
 		}

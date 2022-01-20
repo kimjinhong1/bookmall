@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bookmall.board.suda.SudaVo;
+
 @Repository  // MvcCinfig 에 스캔을 해서 @Repository 적기만해도 빈 객체 생성 
 public class AskDao {
 	
@@ -16,15 +18,15 @@ public class AskDao {
 		return sqlSessionTemplate.selectOne("ask.count",vo);
 	}
 	
-	public List<AskVo> selectList(AskVo vo) {
-		return sqlSessionTemplate.selectList("ask.selectList",vo);
+	public List<AskVo> askList(AskVo vo) {
+		return sqlSessionTemplate.selectList("ask.askList",vo);
 	}
 
 	public int insert(AskVo vo) {
 		//return sqlSessionTemplate.insert("ask.insert",vo);
 		int r = -1;
 		try {
-			r = sqlSessionTemplate.insert("ask.insert",vo);
+			r = sqlSessionTemplate.insert("ask.askinsert",vo);
 		}catch (Exception e) {
 			r = 0;
 			System.out.println(e.getMessage());
@@ -38,6 +40,18 @@ public class AskDao {
 	
 	public int delete(AskVo vo) {
 		return sqlSessionTemplate.delete("ask.delete",vo.getAskno());
+	}
+	
+	public int updateGno(int askno) {
+		return sqlSessionTemplate.update("ask.updateGno", askno);
+	}
+	
+	public int updateOno(AskVo askno) {
+		return sqlSessionTemplate.update("ask.updateOno", askno);
+	}
+	
+	public int insertReply (AskVo askno) {
+		return sqlSessionTemplate.insert("ask.insertReply", askno);
 	}
 }
 

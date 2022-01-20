@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>FAQ 카테고리 관리</title>
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
 function goDelete(no){

@@ -2,10 +2,12 @@ package bookmall.ask;
 
 import java.util.List;
 
+import bookmall.board.suda.SudaVo;
+
 public interface AskService {
 	
 	/*문의내역 리스트*/
-	List<AskVo> selectList(AskVo vo);
+	List<AskVo> askList(AskVo vo);
 	
 	/*문의보기*/
 	AskVo view(int boardno);
@@ -18,4 +20,8 @@ public interface AskService {
 	
 	/*문의하기*/
 	int insert(AskVo vo);
+	
+	/*답글*/
+	int reply(AskVo vo);
+	
 }

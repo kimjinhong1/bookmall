@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>FAQ 목록</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="/bookmall/css/reset.css"/>
@@ -27,23 +27,23 @@
 <!-- board area -->		
 			<div class="sub">
 	        	<div class="size">
-	        		<h3 class="sub_title">공지사항</h3>    
+	        		<h3 class="sub_title">FAQ</h3>    
 	                <div class="bbs">
 	                    <table class="list">
-	                    <p><span><strong>총 ${totCount }</strong>  |  ${noticeVo.page }/${totPage }페이지</span></p>
-	                        <caption>게시판 목록</caption>
+	                    <p><span><strong>총 ${totCount }</strong>  |  ${faqVo.page }/${totPage }페이지</span></p>
+	                        <caption>FAQ</caption>
 	                        <colgroup>
 	                            <col width="80px" />
-	                            <col width="*" />
-	                            <col width="200px" />
+	                            <col width="200" />
+	                            <col width="*px" />
 	                            <col width="100px" />
 	                        </colgroup>
 	                        <thead>
 	                            <tr>
 	                                <th>번호</th>
+	                                <th>카테고리</th>
 	                                <th>제목</th>
 	                                <th>작성일</th>
-	                                <th>조회수</th>
 	                            </tr>
 	                        </thead>
 	                        <tbody>
@@ -55,12 +55,12 @@
 	                        <c:if test="${!empty list }">
 	                           <c:forEach var="vo" items="${list }" varStatus="status">
 	                          	<tr class="board_tr" style="cursor:pointer;">           
-	                                <td>${(totCount-status.index) - ((noticeVo.page -1)*10)}</td>
+	                                <td>${(totCount-status.index) - ((faqVo.page -1)*10)}</td>
+	                                <td class="categoryname">${vo.categoryname }</td>
 	                                <td class="txt_l" style="text-align:left;">
-	                                     <a href="view.do?noticeno=${vo.no }" >${vo.title }</a>
+	                                     <a href="view.do?faqno=${vo.no }" >${vo.title }</a>
 	                                </td>
 	                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" /></td>
-	                                <td class="readcount">${vo.readcount }</td>
 	                            </tr>
 	                            </c:forEach>
 	                        </c:if>    
@@ -68,9 +68,15 @@
 	                    </table>
 	                    <!-- 페이지처리 -->
 						${pageArea }
-						<div class="bbsSearch">
+						<div class="bbsSearch" style="max-width:600px">
 	                        <form method="get" name="searchForm" id="searchForm" action="">
 	                            <span class="srchSelect">
+	                            <select id="stype" name="searchCategory" class="dSelect" title="검색분류 선택">
+	                            	<option value="">전체</option>
+	                            	<c:forEach var="vo" items="${clist}">
+	                            	<option value="${vo.no}" <c:if test="${vo.no == param.searchCategory}">selected</c:if>>${vo.name}</option>
+	                            	</c:forEach>
+	                            </select>
 	                                <select id="stype" name="searchType" class="dSelect" title="검색분류 선택">
 	                                    <option value="">전체</option>
 	                                    <option value="title" <c:if test="${param.searchType=='title'}">selected</c:if>>제목</option>

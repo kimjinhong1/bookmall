@@ -39,14 +39,16 @@
 		//선언한 TextBox에 DateTimePicker 위젯을 적용
 		$('#fromDate').datetimepicker({
 			language : 'ko', // 화면에 출력될 언어를 한국어로 설정
-			pickTime : true, // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션을 생략
-			defalutDate : new Date()// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션을 생략
+			pickTime : true, // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션 생략
+			defalutDate : new Date()
+		// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션 생략
 		});
 
 		$('#toDate').datetimepicker({
 			language : 'ko',
 			pickTime : true,
-			defalutDate : new Date()// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션을 생략
+			defalutDate : new Date()
+		// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션 생략
 		});
 	});
 </script>
@@ -68,13 +70,13 @@
 		<%@ include file="/WEB-INF/view/include/header.jsp"%>
 		<div class="sub">
 			<div class="sub_visual">
-				<div class="slogan">${userInfo.name }님의최근주문내역</div>
+				<div class="slogan">${userInfo.name }님의 최근주문내역</div>
 				<br> <br>
 			</div>
 			<div class="size">
 				<div class="calendar">
 					※최근 1년간 주문내역을 조회하실 수 있습니다.<br> <br>
-					<button >
+					<button>
 						<span
 							style="display: inline-block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">최근1주일</span>
 					</button>
@@ -110,54 +112,70 @@
 						</select> <input id="findbox" type="text"
 							style="width: 480px; maxlength: 10; height: 35px; padding-top: 10px; padding-bottom: 10px">
 							<input type="submit" name="searchOrder" value="조회"
-							style="display: inline-block; background-color: #c8c8c8; color: white; height: 35px; width: 80px; font-size: 15px; line-height: 30px;";>
-							</input></td>
+							style="display: inline-block; background-color: #c8c8c8; color: white; height: 35px; width: 80px; font-size: 15px; line-height: 30px;";></input>
+						</td>
+						<div class="box">
+							<p class="title">
+							<div class="text"></div>
+							<table class="type">
+								<tbody>
+									<thead>
+										<tr>
+											<th scope="col" width="20%">주문번호</th>
+											<th scope="col" width="10%">상품</th>
+											<th scope="col" width="20%">상품정보</th>
+											<th scope="col" width="10%">상품금액</th>
+											<th scope="col" width="10%">수량</th>
+											<th scope="col" width="10%">결제금액</th>
+											<th scope="col" width="10%">주문상태</th>
+											<th scope="col" width="10%"></th>
+										</tr>
+									</thead>
+										<c:if test="${recentOrderInfo eq null or empty recentOrderInfo}">
+											<td colspan="9"><center><b>최근 주문내역이 없습니다.</b></center></td>
+										</c:if>
+								</tbody>
+							</table>
+						</div>
 					</div>
-				</div>
 				<div class="box">
 					<p class="title">
 					<div class="text"></div>
 					<table class="type">
-						<c:forEach var="recentOrder" items="${recentOrderInfo}">
-							<thead>
-								<tr>
-									<th scope="col" width="20%">주문번호</th>
-									<th scope="col" width="10%">상품</th>
-									<th scope="col" width="20%">상품정보</th>
-									<th scope="col" width="10%">상품금액</th>
-									<th scope="col" width="10%">수량</th>
-									<th scope="col" width="10%">결제금액</th>
-									<th scope="col" width="10%">주문상태</th>
-									<th scope="col" width="10%"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td><a href=""
-										style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${orders.orderno}
-											<br>
-									</a> (orders.order_date)</td>
-									<td><img src="/bookmall/img/book_1.png" width="100"></td>
-									<td>${book.btitle_first }<br> ${book.btitle_second }<br>
-										${book.author } | ${book.publisher}<br> <br>
-									</td>
-									<td>${book.price }</td>
-									<td>${orders.count }</td>
-									<td>(${book.price } * ${orders.count })</td>
-									<td>${orders.deilvery }</td>
-									<td><a class="btn" href="/bookmall/board/review.do"
-										style="border: 1px solid black;">리뷰작성</a><br> <br> <a
-										class="btn" href="javascript:;" onclick="move2()"
-										style="border: 1px solid black; cursor: pointer;">취소/환불</a><br>
-										<br> <a class="btn" href="javascript:;" onclick="move3()"
-										style="border: 1px solid black; cursor: pointer;">반품/교환</a></td>
-								</tr>
-							</tbody>
-						</c:forEach>
+						<tbody>
+							<tr>
+								<c:if test="${cartInfo ne null and not empty cartInfo}">
+									<c:forEach var="recentOrder" items="${recentOrderInfo}">
+										<td><a href=""
+											style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${orders.orderno}
+												<br>
+										</a> (orders.order_date)</td>
+										<td><img src="/bookmall/img/book_1.png" width="100"></td>
+										<td>${book.btitle_first }<br>
+											${book.btitle_second }<br> ${book.author } |
+											${book.publisher}<br> <br>
+										</td>
+										<td>${book.price }</td>
+										<td>${orders.count }</td>
+										<td>(${book.price } * ${orders.count })</td>
+										<td>${orders.deilvery }</td>
+										<td><a class="btn" href="/bookmall/board/review.do"
+											style="border: 1px solid black;">리뷰작성</a><br> <br>
+											<a class="btn" href="javascript:;" onclick="move2()"
+											style="border: 1px solid black; cursor: pointer;">취소/환불</a><br>
+											<br> <a class="btn" href="javascript:;"
+											onclick="move3()"
+											style="border: 1px solid black; cursor: pointer;">반품/교환</a></td>
+									</c:forEach>
+								</c:if>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-	<%@ include file="/WEB-INF/view/include/footer.jsp"%>
+</div>
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

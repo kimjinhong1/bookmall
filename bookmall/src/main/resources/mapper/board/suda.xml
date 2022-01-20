@@ -10,6 +10,9 @@
 			 <if test= "searchType != null and searchType != ''">
 			 	${searchType} LIKE '%${searchWord}%'
 			 </if>
+			 <if test="searchCategory != null and searchCategory != ''">
+			 	AND category = ${searchCategory}
+			 </if>
 			 <if test="userno > 0">
 			 	AND userno = ${userno}
 			 </if>	
@@ -23,14 +26,17 @@
 		SELECT COUNT(*) FROM board
 			<include refid="boardWhere"/>
 	</select>    
-
+  
 	 <select id="selectList" resultType = "bookmall.board.suda.SudaVo" parameterType="bookmall.board.suda.SudaVo">
-		SELECT * FROM board
+		SELECT * ,
+		(SELECT name from user where userno=board.userno) name,  
+		(SELECT COUNT(*) FROM comment WHERE tablename='board' AND postno=board.no) c_count
+		FROM board
 			<include refid = "boardWhere"/>
 			 
-		ORDER BY top_notice DESC, regdate DESC
+		ORDER BY top_notice DESC, gno DESC, ono ASC
 		LIMIT ${startIdx},${numchoose}	   
-	</select>  
+	</select>    
 
 		<insert id = "insert" parameterType="bookmall.board.suda.SudaVo">
 		INSERT INTO board (
@@ -43,6 +49,9 @@
 			#{content},#{filename_org},#{filename_real}, 
 			#{readcount}, #{userno}, #{top_notice}, #{new_icon}, #{secret}, #{category}
 		)
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 	<select id="selectOne" parameterType="int" resultType="bookmall.board.suda.SudaVo">
@@ -71,4 +80,23 @@
 	    </if>	   
 		WHERE no=#{no}
 	</update>
+	
+	<update id="updateGno" parameterType="int">
+		UPDATE board SET gno=#{no} WHERE no=#{no}
+	</update>
+	
+	<update id="updateOno" parameterType="bookmall.board.suda.SudaVo">
+		UPDATE board SET ono=ono+1 WHERE gno=#{gno} AND ono > #{ono}
+	</update>
+
+	<insert id="insertReply" parameterType="bookmall.board.suda.SudaVo">
+		INSERT INTO board (
+			title, regdate, content, readcount, userno, top_notice, new_icon, secret, category, gno, ono, nested
+		) values(
+			#{title}, 
+			<if test="sendDate != '' and sendDate != null">'${sendDate}'</if>
+			<if test="sendDate == '' or sendDate == null">NOW()</if>, 
+			#{content},#{readcount}, #{userno}, #{top_notice}, #{new_icon}, #{secret}, #{category}, #{gno}, #{ono}, #{nested}
+		)
+	</insert>
 </mapper>

@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>공지사항 관리 [목록]</title>
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
 function goDelete(){
@@ -38,7 +39,7 @@ function checkAll(){
 			<div id="content">
 				<div class="con_tit">
                 <div class="bbs">				
-					<h2>공지사항 관리 </h2>
+					<h2>공지사항 관리 [목록]</h2>
 
 				<!-- //con_tit -->
 				<div class="con">

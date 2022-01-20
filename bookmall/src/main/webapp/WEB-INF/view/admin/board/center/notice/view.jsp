@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>Document</title>
+    <title>공지사항 내용</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>    
     <link rel="stylesheet" href="/bookmall/css/reset.css"/>
@@ -24,17 +24,23 @@
        <%@include file="/WEB-INF/view/include/header.jsp" %>
           <div class="sub">
             <div class="size">
-                <h3 class="sub_title">FAQ</h3>
+                <h3 class="sub_title">공지사항</h3>
                 <div class="bbs">
                     <div class="view">
                         <div class="title">
                             <dl>
-                            	<dt>[${data.categoryname }] </dt>
                                 <dt>${data.title } </dt>
                                 <dd class="date">작성일 : <fmt:formatDate value="${data.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /> </dd>
                             </dl>
                         </div>
                         <div class="content"><p>${data.content }</p> </div>
+                        <dl class="file">
+                            <dt>첨부파일 </dt>
+                            <dd>
+                            <a href="/bookmall/common/download.jsp?path=/upload/&org=${data.filename_org }&real=${data.filename_real}" 
+                            target="_blank">${data.filename_org } </a></dd>
+                        </dl>
+                                    
                         <div class="btnSet clear">
                             <div class="fl_l">
                                <a href="index.do" class="btn2">목록으로</a>

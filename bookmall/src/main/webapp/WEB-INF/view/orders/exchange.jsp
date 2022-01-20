@@ -70,9 +70,9 @@
 		}).open();
 	}
 	</script>
-	<script>
+<script>
 
-	function goSave() {
+	$(function goSave() {
 			if($("#name").val() == '') {
 				alert("이름을 입력하세요");
 				$("#name").focus();
@@ -90,8 +90,9 @@
 			
 	function close() {
 		window.close();
+		}
 	}
-
+)};
 	
 </script>
 
@@ -139,7 +140,8 @@ span {
 					<p class="title">
 					<div class="under">
 						<div class="text"></div>
-						| 교환사유 및 기타 메세지 입력<font size="2px;">&nbsp;*파본, 상품불량이나 취소 사유에 대해 기입해주세요.</font>
+						| 교환사유 및 기타 메세지 입력<font size="2px;">&nbsp;*파본, 상품불량이나 취소
+							사유에 대해 기입해주세요.</font>
 						<table class="type">
 							<thead>
 							<tbody>
@@ -223,8 +225,8 @@ span {
 									maxlength="4" /> - <input type="text" name="tel3"
 									value="${loginUser.tel3} 5543" size="4" maxlength="4" /></td>
 							</tr>
-							</table>
-							
+						</table>
+
 						<br> <br>
 					</div>
 				</div>
@@ -234,7 +236,8 @@ span {
 
 	<div class="container">
 		<div class="row" align="center">
-			<a href="javascript:goSave();" class="btn" style="font-weight: bold; color: red">저장</a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="javascript:goSave();" class="btn"
+				style="font-weight: bold; color: red">저장</a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="javascript:close();" class="btn" style="font-weight: bold;">닫기</a>
 		</div>
 	</div>

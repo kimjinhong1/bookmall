@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>수다게시판 목록</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="/bookmall/css/reset.css"/>
@@ -31,7 +31,16 @@
 	        		<h3 class="sub_title">수다게시판</h3>    
 	                <div class="bbs">
 	                    <table class="list">
-	                    <p><span><strong>총 ${totCount }</strong>  |  ${sudaVo.page }/${totPage }페이지</span></p>
+	                    <p>
+	                    	<span><strong>총 ${totCount }</strong>  |  ${sudaVo.page }/${totPage }페이지</span>
+       						<span style="text-align:right;float:right">
+							<select id="numsel" onchange="$('#numchoose').val($('#numsel').val());$('#searchForm').submit();">
+								<option value="10" <c:if test="${10 == sudaVo.numchoose}">selected</c:if>>10개씩</option>
+								<option value="20" <c:if test="${20 == sudaVo.numchoose}">selected</c:if>>20개씩</option>
+								<option value="30" <c:if test="${30 == sudaVo.numchoose}">selected</c:if>>30개씩</option>
+							</select>
+							</span>
+	                    </p>
 	                        <caption>FAQ</caption>
 	                        <colgroup>
 	                            <col width="80px" />
@@ -76,10 +85,14 @@
 	                            	<c:if test="${vo.category == 8 }">기타</c:if>
 	                                </td>
 	                               <td class="txt_l" style="text-align:left;">
-	                                     <a href="view.do?sudano=${vo.no }" >${vo.title }</a>
+		                                <c:if test="${vo.nested > 0 }">
+	                                 	<c:forEach begin="1" end="${vo.nested}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
+	                                	<img src="/bookmall/img/reply_icon.jpeg" style='width:25px;'>
+                               		    </c:if>
+	                                     <a href="view.do?sudano=${vo.no }" >${vo.title } [${vo.c_count }]</a>
 	                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
 	                                </td>
-	                                <td class="userno">${vo.userno} </td>
+	                                <td class="userno">${vo.name} </td>
 	                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" /></td>
 	                                 <td class="readcount">${vo.readcount }</td>
 	                            </tr>
@@ -87,21 +100,31 @@
 	                        </c:if>    
 	                        </tbody>
 	                    </table>
-	                <div class="btnSet"  style="text-align:right;">
-	                        <a class="btn" href="write.do">글작성 </a>
-	                    
+                    <div class="btnSet"  style="text-align:right;">
+                    <c:if test="${!empty userInfo }">
+                        <a class="btn" href="write.do">글작성 </a>
+                    </c:if>
+                    <c:if test="${empty userInfo }">
+                        <a class="btn" href="javascript:alert('로그인후 사용가능합니다.');location.href='/bookmall/user/login.do';">글작성</a>
+                    </c:if>    
                     </div>
 	                    <!-- 페이지처리 -->
 						${pageArea }
 						<div class="bbsSearch" style="max-width:600px">
 	                        <form method="get" name="searchForm" id="searchForm" action="">
 	                            <span class="srchSelect">
-	                            <select id="stype" name="searchCategory" class="dSelect" title="검색분류 선택">
-	                            	<option value="">전체</option>
-	                            	<c:forEach var="vo" items="${clist}">
-	                            	<option value="${vo.no}" <c:if test="${vo.no == param.searchCategory}">selected</c:if>>${vo.name}</option>
-	                            	</c:forEach>
-	                            </select>
+	                                <select id="stype" name="searchCategory" class="dSelect" title="검색분류 선택">
+	                                    <option value="">전체</option>  
+	                                    <option value="1" <c:if test="${param.searchCategory=='1'}">selected</c:if>>도서서평</option>
+	                                    <option value="2" <c:if test="${param.searchCategory=='2'}">selected</c:if>>도서이벤트</option>
+	                                    <option value="3" <c:if test="${param.searchCategory=='3'}">selected</c:if>>도서명언</option>
+	                                    <option value="4" <c:if test="${param.searchCategory=='4'}">selected</c:if>>도서추천</option>
+	                                    <option value="5" <c:if test="${param.searchCategory=='5'}">selected</c:if>>독서모임</option>
+	                                    <option value="6" <c:if test="${param.searchCategory=='6'}">selected</c:if>>도서나눔</option>
+	                                    <option value="7" <c:if test="${param.searchCategory=='7'}">selected</c:if>>도서찾기</option>
+	                                    <option value="8" <c:if test="${param.searchCategory=='8'}">selected</c:if>>기타</option>
+	                                </select>	                            
+	                            
 	                                <select id="stype" name="searchType" class="dSelect" title="검색분류 선택">
 	                                    <option value="">전체</option>
 	                                    <option value="title" <c:if test="${param.searchType=='title'}">selected</c:if>>제목</option>
@@ -111,6 +134,7 @@
 	                            <span class="searchWord">
 	                                <input type="text" id="sval" name="searchWord" value="${param.searchWord }"  title="검색어 입력">
 	                                <input type="button" id="" value="검색" title="검색">
+	                                <input type="hidden" name="numchoose" id="numchoose" value="${sudaVo.numchoose }" >
 	                            </span>
 	                        </form>                        
 	                    </div>

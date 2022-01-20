@@ -222,3 +222,7 @@ a:hover{color:#000;text-decoration:none;}
     float:right;
 }
 #board_data {display:none;}
+
+delbtn {
+	color: black;
+}

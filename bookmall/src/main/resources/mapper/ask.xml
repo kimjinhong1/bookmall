@@ -2,51 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ask"> <!-- mapper파일의 이름 -->
 
-	<sql id = "askWhere">
+	<sql id="askWhere">
 		<where>
-			<if test ="searchType ==''">   
-			 	(title LIKE '%${searchWord}%' OR content LIKE '%${searchWord}%')
-			 </if>
-			 <if test= "searchType != null and searchType != ''">
-			 	${searchType} LIKE '%${searchWord}%'
-			 </if>
-			 <if test="userno > 0">
-			 	AND userno = ${userno}
-			 </if>	
+			<if test="searchType ==''">
+				(title LIKE '%${searchWord}%' OR content LIKE '%${searchWord}%')
+			</if>
+			<if test="searchType != null and searchType != ''">
+				${searchType} LIKE '%${searchWord}%'
+			</if>
+			<if test="userno > 0">
+				AND userno = ${userno}
+			</if>
 		</where>
 	</sql>
-	
-	<select id="count" resultType="int" parameterType="bookmall.ask.AskVo"> 
-		SELECT COUNT(*) FROM ask
-			<include refid="askWhere"/>
-	</select>    
 
-	 <select id="selectList" resultType = "bookmall.ask.AskVo" parameterType="bookmall.ask.AskVo">
+<!-- 문의내역 -->
+	<select id="askList" resultType="bookmall.ask.AskVo" parameterType="bookmall.ask.AskVo">
 		SELECT * FROM ask
-			<include refid = "askWhere"/>
 		ORDER BY regdate DESC
 		LIMIT ${startIdx},10
 	</select>
 
-		<insert id = "insert" parameterType="bookmall.ask.AskVo">
+<!-- 문의하기 -->
+	<insert id="askinsert" parameterType="bookmall.ask.AskVo">
 		INSERT INTO ask (
-			title, regdate, content, filename_org, filename_real, 
-			userno, subject
+		title, regdate, content, filename_org, filename_real,
+		userno, subject, status
 		) values(
-			#{title}, 
-			<if test="sendDate != '' and sendDate != null">'${sendDate}'</if>
-			<if test="sendDate == '' or sendDate == null">NOW()</if>, 
-			#{content},#{filename_org},#{filename_real}, 
-			 #{userno}, #{subject}
+		#{title},NOW(),
+		#{content},#{filename_org},#{filename_real},
+		#{userno}, #{subject}, #{status}
 		)
 	</insert>
 	
-	<select id="selectOne" parameterType="int" resultType="bookmall.ask.AskVo">
-		SELECT * FROM ask WHERE no = #{xxx}		
-	</select>
-	
-	<delete id="delete" parameterType="int">
-		DELETE FROM ask WHERE no=#{no} 
+<!-- 문의내역 삭제 -->
+	<delete id="askdelete" parameterType="bookmall.ask.AskVo">
+		DELETE FROM ask WHERE
+		askno=#{askno}
 	</delete>
 	
+<!-- 문의내용 수정 -->
+		<update id="askupdate" parameterType="bookmall.ask.AskVo">
+		UPDATE ask SET 
+		title = #{title}
+		, content=#{content}
+		<if test="filename_org != null">
+		, filename_org=#{filename_org}
+		, filename_real=#{filename_real}
+	    </if>	   
+		WHERE askno=#{askno}
+	</update>
+	
+	<insert id="insertReply" parameterType="bookmall.ask.AskVo">
+	INSERT INTO ask (
+		title, regdate, content, userno, gno, ono, nested, status
+	) values(
+		#{title}, 
+		NOW(), 
+		#{content}, #{userno}, #{gno}, #{ono}, #{nested},#{status}
+	)
+	</insert>
+
 </mapper>

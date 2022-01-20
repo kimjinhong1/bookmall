@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment"> <!-- mapper파일의 이름 -->   
+
+	 <select id="selectList" resultType = "bookmall.board.comment.CommentVo" parameterType="bookmall.board.comment.CommentVo">
+		SELECT *, (select name from user where userno=comment.userno) name FROM comment
+		WHERE postno=#{postno} AND tablename=#{tablename}
+		ORDER BY gno DESC, ono ASC
+	</select>  
+
+	<insert id = "insert" parameterType="bookmall.board.comment.CommentVo"> 
+		INSERT INTO comment (
+			tablename, content,userno, postno, regdate
+		) VALUES (
+			#{tablename},#{content},#{userno}, #{postno}, NOW()
+			)   
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert> 
+	
+	<update id="updateGno" parameterType="int">
+		UPDATE comment SET gno=#{no} WHERE no=#{no}
+	</update>
+	
+	<update id="updateOno" parameterType="bookmall.board.comment.CommentVo">
+		UPDATE comment SET ono=ono+1 WHERE gno=#{gno} AND ono > #{ono}
+	</update>
+
+	<insert id="insertReply" parameterType="bookmall.board.comment.CommentVo">
+		INSERT INTO comment (
+			tablename, content,userno, postno, regdate, gno, ono, nested
+		) values(
+			#{tablename},#{content},#{userno}, #{postno}, NOW(),#{gno}, #{ono}, #{nested}
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="int"> 
+		DELETE FROM comment WHERE no=#{no} 
+	</delete>
+</mapper>
