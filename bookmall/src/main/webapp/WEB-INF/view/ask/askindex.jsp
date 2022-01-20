@@ -105,40 +105,38 @@
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                  <c:if test="${empty askList }">
-	                            <tr>
-	                                <td class="first" colspan="7">문의내역이 없습니다.</td>
-	                            </tr> 
-	                        </c:if>
-	                        <c:if test="${!empty askList }">
-	                        
-	                           <c:forEach var="ask" items="${askList }" varStatus="status">
-	                          	<tr class="board_tr" data-boardno="${ask.askno}" style="cursor:pointer;">
-	                          		<td>
-                       					<label> 
-											<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">${cart.bookno}
-										</label>
-	                          		</td>
-	                          	    <td>    
-	                          	  	  ${ask.askno}
-	                                </td>
-	                                <td>
-		                            <c:if test="${ask.subject == '상품문의' }">상품문의</c:if>
-	                            	<c:if test="${ask.subject == '결제문의' }">결제문의</c:if>
-	                            	<c:if test="${ask.subject == '배송문의' }">배송문의</c:if>
-	                            	<c:if test="${ask.subject == '교환/반품문의' }">교환/반품문의</c:if>
-	                            	<c:if test="${ask.subject == '취소/환불문의' }">취소/환불문의</c:if>
-	                            	<c:if test="${ask.subject == '기타문의' }">기타문의</c:if>
-	                                </td>
-	                               <td> ${ask.title }</td>
-	                                 <td class="date"><fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
-	                                 <td class="status">${ask.status}</td>
-	                            </tr>
-	                            </c:forEach>
-	                        </c:if>    
+		                 		 <c:if test="${empty askList }">
+			                            <tr>
+			                                <td class="first" colspan="7">문의내역이 없습니다.</td>
+			                            </tr> 
+		                        </c:if>
+	                      		  <c:if test="${!empty askList }">
+		                       	    <c:forEach var="ask" items="${askList }" varStatus="status">
+			                          	<tr class="board_tr" data-boardno="${ask.askno}" style="cursor:pointer;">
+				                          		<td>
+			                       					<label> 
+														<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">${cart.bookno}
+													</label>
+				                          		</td>
+				                          	    <td>    
+				                          	  	  ${ask.askno}
+				                                </td>
+				                                <td>
+						                            <c:if test="${ask.subject == '상품문의' }">상품문의</c:if>
+					                            	<c:if test="${ask.subject == '결제문의' }">결제문의</c:if>
+					                            	<c:if test="${ask.subject == '배송문의' }">배송문의</c:if>
+					                            	<c:if test="${ask.subject == '교환/반품문의' }">교환/반품문의</c:if>
+					                            	<c:if test="${ask.subject == '취소/환불문의' }">취소/환불문의</c:if>
+					                            	<c:if test="${ask.subject == '기타문의' }">기타문의</c:if>
+				                                </td>
+				                               	<td> ${ask.title }</td>
+				                                 <td class="date"><fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
+				                                 <td class="status">${ask.status}</td>
+			                            </tr>
+		                            </c:forEach>
+	                        	</c:if>    
 	                        </tbody>
 	                    </table>
-	                   
 	                <a href="javascript:;" class="deleteClick" style="cursor: pointer; font-weight: bold;">삭제</a>
                     </div>
 	                    <!-- 페이지처리 -->

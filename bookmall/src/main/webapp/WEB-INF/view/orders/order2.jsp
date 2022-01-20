@@ -13,10 +13,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>
+
 
 <!-- 주소검색 -->
 <script
@@ -71,6 +68,41 @@
 </script>
 
 <script>
+   	function addressCheck() {
+   		if ($("#name").val() == '') {
+   			alert('주문인을 입력해 주세요');
+   			$("#name").focus();
+   			return false;
+   		}
+   		if ($("#receiver_name").val() == '') {
+   			alert('받으시는분을 입력해 주세요');
+   			$("#receiver_name").focus();
+   			return false;
+   		}
+   		if ($("#zipcode").val() == '') {
+   			alert('우편번호를 입력해 주세요');
+   			$("#zipcode").focus();
+   			return false;
+   		}
+   		if ($("#addr1").val() == '') {
+   			alert('주소를 입력해 주세요');
+   			$("#addr1").focus();
+   			return false;
+   		}
+   		if ($("#addr2").val() == '') {
+   			alert('상세주소를 입력해 주세요');
+   			$("#addr2").focus();
+   			return false;
+   		}
+   		if ($("#receiver_phone").val() == '') {
+   			alert('휴대전화번호를 입력해 주세요');
+   			$("#receiver_phone").focus();
+   			return false;
+   		}
+   	}
+</script>
+
+<script>
 <!-- 배송지정보 선택 -->
 $(function(){
 	$('#uinfo1').click(function(){
@@ -110,45 +142,8 @@ $(function(){
 
 </script>
 
-
-
-<script>
-   	function addressCheck() {
-   		if ($("#name").val() == '') {
-   			alert('주문인을 입력해 주세요');
-   			$("#name").focus();
-   			return false;
-   		}
-   		if ($("#receiver_name").val() == '') {
-   			alert('받으시는분을 입력해 주세요');
-   			$("#receiver_name").focus();
-   			return false;
-   		}
-   		if ($("#zipcode").val() == '') {
-   			alert('우편번호를 입력해 주세요');
-   			$("#zipcode").focus();
-   			return false;
-   		}
-   		if ($("#addr1").val() == '') {
-   			alert('주소를 입력해 주세요');
-   			$("#addr1").focus();
-   			return false;
-   		}
-   		if ($("#addr2").val() == '') {
-   			alert('상세주소를 입력해 주세요');
-   			$("#addr2").focus();
-   			return false;
-   		}
-   		if ($("#receiver_phone").val() == '') {
-   			alert('휴대전화번호를 입력해 주세요');
-   			$("#receiver_phone").focus();
-   			return false;
-   		}
-   	}
-</script>
-
-<script>
 <!-- 결제방법선택 -->
+<script>
 	function showSelect(v,id){
 	 // 라디오 버튼 value 값 조건 비교
 		if(v == "무통장"){
@@ -166,82 +161,19 @@ $(function(){
 </script>
 
 
-<%-- 
 
-	String name = (String)request.getAttribute("name");
-	String email = (String)request.getAttribute("email");
-	String receiver_phone = (String)request.getAttribute("receiver_phone");
-	String address1 = (String)request.getAttribute("address1");
-	String address2 = (String)request.getAttribute("address2");
-	int totalPrice = (int)request.getAttribute("totalPrice"); 
-
---%>
-
-<%--
 <script>
-$(function(){
-		var IMP = window.IMP; // 생략가능
-		IMP.init("{imp75172657}");	// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		var msg;
-		
-		IMP.request_pay({
---%>
-<%-- 
-	IMP.init("{imp75172657}"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-	function requestPay() {
-	      // IMP.request_pay(param, callback) 결제창 호출
-	      IMP.request_pay({ // param
-	          pg: "html5_inicis",
-	          pay_method: "card",
-	          merchant_uid: "order_no_0001" + new Date().getTime(),	 // 도서에서 관리하는 주문 번호
-	          name: "주문명:결제테스트",									 // order 테이블에 들어갈 주문명 혹은 주문 번호
-	          amount: <%=totalPrice%>,								 // 결제금액
-	          buyer_email: <%=email%>,								 // 구매자 email
-	          buyer_name: <%=name%>,								 // 구매자 이름
-	          buyer_tel: <%=receiver_phone%>,								 // 구매자 전화번호
-	          buyer_addr: <%=address2%>,							 // 구매자 주소
-	          buyer_postcode: <%=address1%>							 // 구매자 우편번호
-	      }, function (rsp) { // callback
-	          if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-	              // //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-	              jQuery.ajax({
-	                  url: "/orders/complete", // "{서버의 결제 정보를 받는 endpoint}", 예: https://www.myservice.com/payments/complete
-	                  method: "POST",
-	                  dataType: 'json',
-	                  data: {
-	                      imp_uid: rsp.imp_uid,
-	                      merchant_uid: rsp.merchant_uid
-	                      //기타 필요한 데이터가 있으면 추가 전달
-	                  }
-	              }).done(function (data) {
-	            	//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-	            	  if ( everythings_fine ) {
-	          			var msg = '결제가 완료되었습니다.';
-	          			msg += '\n고유ID : ' + rsp.imp_uid;
-	          			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	          			msg += '\결제 금액 : ' + rsp.paid_amount;
-	          			msg += '카드 승인번호 : ' + rsp.apply_num;
-	          			
-	          			alert(msg);
-	          		} else {
-	          			//[3] 아직 제대로 결제가 되지 않았습니다.
-	          			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-	          		}
-	          	});
-            } else {
-            	 var msg = '결제에 실패하였습니다.';
-                 msg += '에러내용 : ' + rsp.error_msg;
-                 
-                 alert(msg);
-             }
-	    }
-	});
-</script> --%>
-
+	<%-- 전화번호 합치기
+	function check() {
+		var phone = $("input[name='phone1']").val()+'-'+$("input[name='phone2']").val()+'-'+$("input[name='phone3']").val();
+		$("input[name='receiver_phone']").val(phone);
+	} --%>
+</script>
 
 </head>
 <body>
 	<form name="custF" id="frm" action="orderInsert.do" method="POST" onsubmit="return addressCheck();">
+	
 		<div class="wrap_orders">
 			<%@ include file="/WEB-INF/view/include/header.jsp"%>
 			<div class="container" align="center">
@@ -264,26 +196,32 @@ $(function(){
 									<td align="center" width="138" bgcolor="#f4f4f4" class="popup">가격/할인율</td>
 									<td align="center" width="74" bgcolor="#f4f4f4" class="popup">수량</td>
 								</tr>
+								<tbody>
+								<c:set var="sum" value="0" />
+								<c:forEach items="${bookList}" var="book">
 								<tr>
 									<td height="28" align="center" bgcolor="#FFFFFF"><img src="/bookmall/img/thanks_b.gif"></td>
-									<td bgcolor="#FFFFFF" style="padding-left: 8px;" align="center"><a href="" target="_blank">${result.btitle_first}</a></td> <!-- product -->
-									<td align="center" bgcolor="#FFFFFF"><fmt:formatNumber pattern="###,###,###" value="${result.price}" />원/${result.discountrate}</td> <!-- price -->
-									<td align="center" bgcolor="#FFFFFF">1</td> <!-- count -->
+									<td bgcolor="#FFFFFF" style="padding-left: 8px;" align="center"><a href="" target="_blank">${book.btitle_first}</a></td> <!-- product -->
+									<td align="center" bgcolor="#FFFFFF"><fmt:formatNumber pattern="###,###,###" value="${book.price}" />원/${book.discountrate}</td> <!-- price -->
+									<td align="center" bgcolor="#FFFFFF">${book.bookcount }</td> <!-- count -->
 									
-									<td><input type="hidden" name="price" value="${result.price}"> <!-- 책 가격 --> 
-										<input type="hidden" name="discountrate" value="${result.discountrate}"> <!-- 할인율 --> 
-										<input type="hidden" name="bookcount" value=1> <!-- 수량 --> 
-										<input type="hidden" name="salesprice" value="${result.salesprice}"> <!-- 판매가 --> 
-										<input type="hidden" name="bookno" value="${result.bookno}"> <!-- 도서번호 --></td>
+									<td><input type="hidden" name="price" value="${book.price}"> <!-- 책 가격 --> 
+										<input type="hidden" name="discountrate" value="${book.discountrate}"> <!-- 할인율 --> 
+										<input type="hidden" name="bookcount" value="${book.bookcount }"> <!-- 수량 --> 
+										<input type="hidden" name="salesprice" value="${book.salesprice}"> <!-- 판매가 --> 
+										<input type="hidden" name="bookno" value="${book.bookno}"> <!-- 도서번호 --></td>
 								</tr>
+								<c:set var="sum" value="${sum + (book.salesprice * book.bookcount)}" />
+								</c:forEach>
+						 		</tbody>
 							</table>
 						</div>
 
 						<!--예상총액/장바구니 이동버튼-->
 						<table style="margin-left: auto; margin-right: auto; width: 1200px;">
 							<tr>
-								<td valign="top" style="padding-top: 8px"><strong>총 결제 예상 금액 :<font color="#cc3333">${result.salesprice}원</font></strong> <!-- total_price -->
-							</tr>
+								<td valign="top" style="padding-top: 8px"><strong>총 결제 예상 금액 :<font color="#cc3333"><fmt:formatNumber pattern="###,###,###" value="${sum }" />원</font></strong> <!-- total_price -->
+							</tr>  
 							<tr>
 								<td align="right" style="padding-top: 5px;"><a href="" style="border: 1px solid #d3d3d3;"><strong>장바구니로 돌아가기</strong></a></td>
 							</tr>
@@ -307,17 +245,17 @@ $(function(){
 					<table style="cellSpacing: 1; cellPadding: 3; width: 1200px; bgColor: #83b8c2; border: 0; align: center; border: 1px solid #d3d3d3;">
 						<tr>
 							<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left: 14px;"><SPAN class="warning">*</SPAN>주문인</td>
-							<td bgColor="#ffffff"><input type="text" name="name" id="name" value="${loginUser.name}" class="form" maxlength="20" /> [${loginUser.tel} ]</td>
+							<td bgColor="#ffffff"><input type="text" name="name" id="name" value="${loginUser.name}" class="form" maxlength="20" /> [${loginUser.tel }]</td>
 						</tr>
 						<tr>
 							<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left: 14px;"><SPAN class="warning">* </SPAN>받으시는 분</td>
-							<td bgColor="#ffffff"><INPUT class=form type=text maxLength=20 value="${receiver_name}" name=receiver_name id="receiver_name"> <!-- receiver_name --></td>
+							<td bgColor="#ffffff"><INPUT class=form type=text maxLength=20 value="${receiver_name}" name="receiver_name" id="receiver_name" id="receiver_name"> <!-- receiver_name --></td>
 						</tr>
 						<tr>
 							<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left: 14px;">배송지 선택</td>
 							<td bgColor="#ffffff">
 								<input type="radio" name="info" id="uinfo1" value="1" checked>주문고객 정보와 동일 
-								<input type="radio" name="info" id="uinfo2" value="2" >배송주소록에서 선택
+								<input type="radio" name="info" id="uinfo2" value="2">배송주소록에서 선택 
 								<input type="radio" name="info" id="uinfo3" value="3">새주소 입력
 							</td>
 						</tr>
@@ -333,7 +271,7 @@ $(function(){
 							<td><input type="text" name="addr1" id="addr1" value="${loginUser.addr1}" style="float: left; width: 500px;"> <!-- address2 --></td>
 						</tr>
 						<tr>
-							<td><input type="text" name="addr2" id="addr2" value="${loginUser.addr2}" style="float: left; width: 500px;"> <!-- address3 --></td>
+							<td><input type="text" name="addr2" id=addr2 value="${loginUser.addr2}" style="float: left; width: 500px;"> <!-- address3 --></td>
 						</tr>
 						<tr>
 							<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left: 14px;"><SPAN class="warning">*</SPAN>휴대전화번호</TD> <!-- receiver_phone -->
@@ -361,7 +299,7 @@ $(function(){
 				<br><br>
 
 				<div class="button" align="center">
-						<button style="font-size: 18px; background-color: #fff; border: 1px solid #d3d3d3;">결제하기</button>
+					<button style="font-size: 18px; background-color: #fff; border: 1px solid #d3d3d3;">결제하기</button>
 				</div>
 			</div>
 		</div>

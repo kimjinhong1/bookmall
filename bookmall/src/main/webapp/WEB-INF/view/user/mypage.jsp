@@ -111,32 +111,38 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 											<th scope="col" width="10%">번호</th>
 											<th scope="col" width="10%">문의종류</th>
 											<th scope="col" width="25%">제목</th>
-											<th scope="col" width="35%">내용</th>
-											<th scope="col" width="10%">문의일자</th>
+											<th scope="col" width="10%">작성일</th>
 											<th scope="col" width="10%">답변상태</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>21152</td>
-											<td>교환/반품</td>
-											<td>제목이 길면 옆에 내용이 생략됩니다</td>
-											<td>어제 책을 받았는데, 책 상태가 안좋습니다 교환되나요?</td>
-											<td>결제완료</td>
-											<td>답변완료</td>
-										</tr>
-										<tr>
-											<td>20286</td>
-											<td>결제문의</td>
-											<td>결제 제목제목제목제목제목제목제목제목제목제목제목어쩌고 저쩌고 물어봅니다</td>
-											<td>여기도 내용내용내용내용내용이 길면 생략이 됩니다 내용이 생략됩니다다다다다다다</td>
-											<td>결제완료</td>
-											<td>답변완료</td>
-										</tr>
-									</tbody>
-								</table>
-								</p>
-								<br> <br>
+		               			   <c:if test="${askList eq null or empty askList}">
+			                            <tr>
+			                                <td class="first" colspan="7"><b>문의내역이 없습니다.</b></td>
+			                            </tr> 
+		                     	   </c:if>
+	                      		   <c:if test="${askList ne null and not empty askList}">
+		                       	   	 <c:forEach var="ask" items="${askList }" varStatus="status">
+			                          	<tr class="board_tr" data-boardno="${ask.askno}" style="cursor:pointer;">
+				                          	    <td>    
+				                          	  	  ${ask.askno}
+				                                </td>
+				                                <td>
+						                            <c:if test="${ask.subject == '상품문의' }">상품문의</c:if>
+					                            	<c:if test="${ask.subject == '결제문의' }">결제문의</c:if>
+					                            	<c:if test="${ask.subject == '배송문의' }">배송문의</c:if>
+					                            	<c:if test="${ask.subject == '교환/반품문의' }">교환/반품문의</c:if>
+					                            	<c:if test="${ask.subject == '취소/환불문의' }">취소/환불문의</c:if>
+					                            	<c:if test="${ask.subject == '기타문의' }">기타문의</c:if>
+				                                </td>
+				                               	<td> ${ask.title }</td>
+				                                 <td class="date"><fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
+				                                 <td class="status">${ask.status}</td>
+			                            </tr>
+		                          	  </c:forEach>
+	                        		</c:if>    
+	                     	   </tbody>
+	                    	</table>
+							<br> <br>
 						</div>
 					</div>
 				</div>
