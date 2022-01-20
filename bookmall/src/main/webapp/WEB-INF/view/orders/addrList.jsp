@@ -41,7 +41,7 @@ function AddressInit(selectedValue) {
 			<%-- <c:forEach items="" var=""> --%>
 				<tr>
 					<td style="width:640px;" ><a href="javascript:"><br>주 소 : ${loginUser.zipcode}<span class="info1"></span></a></td>							
-					<td style="width:auto;" >
+					<td style="width:100px;" >
 						<div class="button" align="center" style="padding: 0px;">
 							<a class="button_small" href="javascript:void(0);" onclick="AddressInit('SelectAddress','54748850')">선택하기</a>
 							<br>

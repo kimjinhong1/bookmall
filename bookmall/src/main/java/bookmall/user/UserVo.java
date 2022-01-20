@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class UserVo extends CommonVo {
 	//회원
-	private int userno;
+	private int userno = 1;
 	private String email;
 	private String pwd;
 	private String pwd_question = "질문";
