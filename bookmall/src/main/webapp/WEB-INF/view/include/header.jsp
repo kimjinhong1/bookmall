@@ -35,10 +35,10 @@
 	        <a href="">통합검색</a>
 	    </li>
 	    <li>
-	        <a href="">국내도서</a>	        
+	        <a href="/bookmall/book/korean.do">국내도서</a>	        
 	    </li>
 	    <li>
-	        <a href="">해외도서</a>
+	        <a href="/bookmall/book/abroad.do">해외도서</a>
 	    </li>
 	    <li>
 	        <a href="">게시판</a>

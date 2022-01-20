@@ -11,4 +11,5 @@ public interface AdminBookService {
 	BookVo selectOne(int bookno);
 	int update(BookVo vo);
 	int delete(BookVo vo);
+	int isbnCheck(String isbn);
 }

@@ -32,8 +32,12 @@
         <!-- 새로 나온 도서 영역 시작 -->
             <div class="size">
 				<div class="category">
-					<div class="category_name">국내도서</div>
-					
+					<div class="category_name">
+						<h2>국내도서</h2>
+					</div>
+					<ul>
+						
+					</ul>		
 				</div>
             	<div class="text">
 					<p style="font-size:20px"><b>새로 나온 도서 ▶</b></p>

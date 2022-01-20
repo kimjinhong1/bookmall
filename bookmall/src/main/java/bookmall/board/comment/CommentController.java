@@ -16,7 +16,12 @@ public class CommentController {
 	public String insert(Model model, CommentVo vo) { 
 		model.addAttribute("result",service.insert(vo)); 
 		return "include/result";
-		
+	}
+	
+	@RequestMapping("/admin/comment/insert.do")
+	public String insertAdmin(Model model, CommentVo vo) { 
+		model.addAttribute("result",service.insert(vo)); 
+		return "include/result";
 	}
 	
 	@GetMapping("/center/comment/list.do")
@@ -25,10 +30,21 @@ public class CommentController {
 		return "include/commentList"; 
 	}
 	
+	@GetMapping("/admin/comment/list.do")
+	public String listAdmin(Model model, CommentVo vo) { 
+		model.addAttribute("cList", service.selectList(vo)); 
+		return "include/commentList"; 
+	}
+	
 	@GetMapping("/center/comment/delete.do")
 	public String delete(Model model, CommentVo vo) { 
 		model.addAttribute("result", service.delete(vo.getNo())); 
-		
+		return "include/result";
+	}
+	
+	@GetMapping("/admin/comment/delete.do")
+	public String deleteAdmin(Model model, CommentVo vo) { 
+		model.addAttribute("result", service.delete(vo.getNo())); 
 		return "include/result";
 	}
 	
@@ -36,6 +52,11 @@ public class CommentController {
 	public String reply(Model model, CommentVo vo) { 
 		model.addAttribute("result",service.reply(vo)); 
 		return "include/result";
-		
+	}
+	
+	@RequestMapping("/admin/comment/reply.do")
+	public String replyAdmin(Model model, CommentVo vo) { 
+		model.addAttribute("result",service.reply(vo)); 
+		return "include/result";
 	}
 }

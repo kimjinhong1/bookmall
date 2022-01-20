@@ -60,11 +60,16 @@ public class AdminBookDao {
 		int r = -1;
 		
 		try {
-			r =  sqlSession.update("board.delete", vo); 
+			r =  sqlSession.update("book.delete", vo); 
 		} catch(Exception e) {
 			r = 0;
 			System.out.println(e.getMessage());
 		}
 		return r;
+	}
+	
+	// isbn 중복체크
+	public int isbnCheck(String isbn) {
+		return sqlSession.selectOne("book.isbnCheck", isbn);
 	}
 }

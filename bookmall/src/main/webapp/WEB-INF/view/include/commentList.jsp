@@ -22,7 +22,7 @@
                                 <td class="txt_l" style="text-align:left;">
                                  <c:if test="${vo.nested > 0 }">
                                  	<c:forEach begin="1" end="${vo.nested}">&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
-                                	<img src="/bookmall/img/answer_icon.jpeg" style='width:15px;'>
+                                	<img src="/bookmall/img/answer_icon3.png" style='width:15px;'>
                                 </c:if>
                                 
                                     ${vo.content }
@@ -34,6 +34,7 @@
                                     </c:if>
                                 </td>
                                 <td class="writer">
+                                	<c:if test="${vo.userno == 0}">관리자</c:if>
                                    	${vo.name }
                                 </td>
                                 <td class="date"><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd" /></td>

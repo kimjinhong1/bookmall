@@ -8,7 +8,7 @@
 	<!-- 도서 하나만 선택 -->
 	<select id="selectOne" parameterType="int" resultType="bookmall.book.BookVo">
 		SELECT *
-		FROM book 
+		FROM book
 		WHERE bookno = #{bookno}
 	</select>
 	
@@ -31,13 +31,14 @@
 	<!-- (관리자) 도서 등록 -->
 	<insert id="insert" parameterType="bookmall.book.BookVo">
 		INSERT INTO book (
-			isbn, btitle_first, btitle_second, author, publisher, pubdate, price, discountrate, classify, translator,
-			bpages, bweight, bwidth, bvertical, bheight, bintroduce, bindex, bthumb_org, bthumb_real, bstack, regdate,
-			salesprice 
+			isbn, btitle_first, btitle_second, author, publisher, pubdate, price, discountrate, 
+			salesprice, classify, translator, bpages, bweight, bwidth, bvertical, bheight, 
+			bstack, bintroduce, bindex, bthumb_org, bthumb_real, regdate
+			 
 		) VALUES (
 			#{isbn}, #{btitle_first}, #{btitle_second}, #{author}, #{publisher}, #{pubdate}, #{price}, #{discountrate},
-			#{classify}, #{translator}, #{bpages}, #{bweight}, #{bwidth}, #{bvertical}, #{bheight}, #{bintroduce},
-			#{bindex}, #{bthumb_org}, #{bthumb_real}, #{bstack}, NOW(), #{salesprice} 
+			#{salesprice}, #{classify}, #{translator}, #{bpages}, #{bweight}, #{bwidth}, #{bvertical}, #{bheight}, 
+			#{bstack}, #{bintroduce}, #{bindex}, #{bthumb_org}, #{bthumb_real}, NOW()  
 		)
 	</insert>
 	
@@ -51,6 +52,7 @@
 			pubdate = #{pubdate},
 			price = #{price},
 			discountrate = #{discountrate},
+			salesprice = #{salesprice},
 			classify = #{classify},
 			translator = #{translator},
 			bpages = #{bpages},
@@ -73,4 +75,8 @@
 		SET bstatus = 1
 		WHERE bookno = #{bookno}
 	</update>
+	
+	<select id="isbnCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM book WHERE isbn = #{isbn}
+	</select>
 </mapper>
