@@ -60,10 +60,10 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 								<tbody>
 									<thead>
 										<tr>
-											<th scope="col" width="20%">주문번호</th>
+											<th scope="col" width="10%">주문번호</th>
 											<th scope="col" width="10%">상품</th>
-											<th scope="col" width="20%">상품정보</th>
-											<th scope="col" width="10%">상품금액</th>
+											<th scope="col" width="30%">상품정보</th>
+											<th scope="col" width="20%">상품금액</th>
 											<th scope="col" width="10%">수량</th>
 											<th scope="col" width="10%">결제금액</th>
 											<th scope="col" width="10%">주문상태</th>

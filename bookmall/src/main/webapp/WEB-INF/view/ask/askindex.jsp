@@ -83,7 +83,7 @@
 			<div class="sub">
 	        	<div class="size">
 	        		<h3 class="sub_title">${userInfo.name }님의 &nbsp; 1:1문의내역</h3>    
-	                        <a href="askwrite.do" style="cursor: pointer; font-size: 15px;font-weight: bold;">1:1 문의하기 >></a>
+	                        <a href="askwrite.do" style="font-size: 15px;font-weight: bold;">1:1 문의하기 >></a>
 	                <div class="bbs">
 	                    <table class="list">
 	                        <colgroup>
@@ -112,7 +112,7 @@
 		                        </c:if>
 	                      		  <c:if test="${!empty askList }">
 		                       	    <c:forEach var="ask" items="${askList }" varStatus="status">
-			                          	<tr class="board_tr" data-boardno="${ask.askno}" style="cursor:pointer;">
+			                          	<tr class="board_tr" data-boardno="${ask.askno}" ">
 				                          		<td>
 			                       					<label> 
 														<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">${cart.bookno}

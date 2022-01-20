@@ -34,8 +34,11 @@ public class AskDao {
 		return r;
 	}
 	
-	public AskVo selectOne(int askno) {
-		return sqlSessionTemplate.selectOne("ask.selectOne",askno);
+	public AskVo view(int askno) {
+		return sqlSessionTemplate.selectOne("ask.view",askno);
+	}
+	public AskVo edit(int askno) {
+		return sqlSessionTemplate.selectOne("ask.edit",askno);
 	}
 	
 	public int delete(AskVo vo) {

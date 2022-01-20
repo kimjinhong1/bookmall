@@ -62,5 +62,9 @@
 		#{content}, #{userno}, #{gno}, #{ono}, #{nested},#{status}
 	)
 	</insert>
+	
+	<select id="view" parameterType="bookmall.ask.AskVo" resultType="bookmall.ask.AskVo">
+		SELECT * FROM ask WHERE askno = #{xxx}		
+	</select>
 
 </mapper>

@@ -12,7 +12,7 @@ $(".deleteClick").on('click', function() {
 	if (confirm('선택한 문의사항을 삭제하시겠습니까?')) {
 		$.ajax({
 			type : 'post',
-			url : '/admin/board/ask/askdelete.do', // <<-- 처리 요청 URL
+			url : '/bookmall/ask/askdelete.do', // <<-- 처리 요청 URL
 			data : $("#frm").serialize(),
 			success : function(res) { // 비동기요청  성공시
 				alert('총 '+res.trim()+"건이 삭제되었습니다.");
@@ -34,6 +34,14 @@ $(".deleteClick").on('click', function() {
 			})
 		}
 	}
+	
+	$(function(){
+		$(".board_tr").click(function(){
+			location.href='view.do?askno='+$(this).data("askno");
+			//console.log($(this).data("boardno"));
+		});
+	});
+	
 });
 </script>
 </head>
@@ -96,7 +104,7 @@ $(".deleteClick").on('click', function() {
                         </c:if>
                         <c:if test="${!empty askList }">
                            <c:forEach var="ask" items="${askList }" varStatus="status">
-                          	<tr class="board_tr" style="cursor:pointer;">
+                          	<tr class="board_tr" style="font-size: 15px">
                           		<td class="first"><input type="checkbox" name="check" id="check" value="${ask.askno }"/></td>       
                                 <td>${ask.askno }</td>
                                 <td class="txt_l" style="text-align:left;">
@@ -121,7 +129,7 @@ $(".deleteClick").on('click', function() {
 									<a href="javascript:;" class="btn deleteClick""><strong>삭제</strong> </a>
 								</div>
 								<div class="btnRight">
-									<a class="wbtn" href="askwrite.do"><strong>답변등록</strong> </a>
+									<a class="wbtn" href="write.do"><strong>답변등록</strong> </a>
 								</div>
 							</div>
 							

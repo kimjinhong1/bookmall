@@ -10,10 +10,10 @@ public interface AskService {
 	List<AskVo> askList(AskVo vo);
 	
 	/*문의보기*/
-	AskVo view(int boardno);
+	AskVo view(int askno);
 	
 	/*문의내역 수정*/
-	AskVo edit(int boardno);
+	AskVo edit(int askno);
 	
 	/*문의내역 삭제*/
 	int delete(AskVo vo);

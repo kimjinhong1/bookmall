@@ -6,9 +6,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
-function goDelete(){
-	if (confirm('정말로 삭제하시겠습니까?')) {
-		location.href='delete.do?no=${data.no }';
+function goDel() {
+	if (confirm("삭제하시겠습니까?")) {
+		$.ajax({
+			url:'deleteAjax.do',
+			data:{askno:${askdata.askno}},
+			success:function(res) {
+				if (res.trim() == '1') {
+					alert('정상적으로 삭제되었습니다.');
+					location.href='index.do';
+				} else {
+					alert('삭제 오류');
+				}
+			}
+		});
+
 	}
 }
 </script>
@@ -43,54 +55,36 @@ function goDelete(){
 								</colgroup>
 								<tbody>
 									<tr>
-										<th scope="row"><label for="">제목</label></th>
-										<td colspan="2">
-											${data.title }
+									<th scope="row"><label for="">제목</label></th>
+										<td colspan="1">
+											${askdata.title }
 										</td>
-										<th scope="row"><label for="">작성자</label></th>
+									<th scope="row"><label for="">작성자</label></th>
 										<td colspan="2">
-											${data.userno }
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><label for="">TOP 공지</label></th>
-										<td colspan="2">
-											<c:if test="${data.top_notice == 1 }">공지</c:if>
-											<c:if test="${data.top_notice == 0 }">공지안함</c:if>
-										</td>
-										<th scope="row"><label for="">NEW 아이콘</label></th>
-										<td colspan="2">
-											<c:if test="${data.new_icon == 1 }">항상</c:if>
-											<c:if test="${data.new_icon == 2 }">7일</c:if>
-											<c:if test="${data.new_icon == 3 }">표기안함</c:if>
+											${askdata.userno }
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="">공개여부</label></th>
-										<td colspan="2">
-											<c:if test="${data.secret == 1 }">공개</c:if>
-											<c:if test="${data.secret == 2 }">비공개</c:if>
-										</td>
 										<th scope="row"><label for="">게시일</label></th>
-										<td colspan="2">
-											<fmt:formatDate value="${data.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-										</td>
+											<td colspan="3">
+												<fmt:formatDate value="${askdata.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+											</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">내용</label></th>
-										<td colspan="10">
-											${data.content }
-										</td>
+											<td colspan="10">
+												${askdata.content }
+											</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">첨부파일</label></th>
-										<td colspan="10">
-										<c:if test="${!empty data.filename_org}">
-												<div class="weidtFile">
-													<p><a href="/bookmall/common/download.jsp?path=/upload/&org=${data.filename_org }&real=${data.filename_real}" target="_blank">${data.filename_org }</a></p>
-												</div>
-										</c:if>
-										</td>
+											<td colspan="10">
+											<c:if test="${!empty askdata.filename_org}">
+													<div class="weidtFile">
+														<p><a href="/bookmall/common/download.jsp?path=/upload/&org=${askdata.filename_org }&real=${data.filename_real}" target="_blank">${data.filename_org }</a></p>
+													</div>
+											</c:if>
+											</td>
 									</tr>
 								</tbody>
 							</table>
@@ -99,8 +93,8 @@ function goDelete(){
 									<a class="btns" href="index.do"><strong>목록</strong></a>
 								</div>
 								<div class="btnRight">
-									<a class="btns" style="cursor:pointer;" href="edit.do?sudano=${data.no }"><strong>수정</strong></a>
-									<a class="btns" style="cursor:pointer;" href="javascript:goDelete();"><strong>삭제</strong></a>
+									<a class="btns" style="cursor:pointer;" href="edit.do?askno=${askdata.askno }"><strong>수정</strong></a>
+									<a class="btns" style="cursor:pointer;" href="javascript:goDel();"><strong>삭제</strong></a>
 								</div>
 							</div>
 							

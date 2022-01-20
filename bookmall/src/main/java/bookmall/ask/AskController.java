@@ -106,10 +106,10 @@ public class AskController {
 		// index.do 로 이동 
 		if(r > 0) {
 			req.setAttribute("msg", "정상적으로 등록되었습니다");
-			req.setAttribute("url", "askindex.do");
+			req.setAttribute("url", "index.do");
 		} else {
 			req.setAttribute("msg", "등록 오류 ");
-			req.setAttribute("url", "askwrite.do");
+			req.setAttribute("url", "write.do");
 		}
 		
 		return "include/return";
@@ -117,24 +117,24 @@ public class AskController {
 
 	@GetMapping("/ask/askview.do") //상세 
 	public String viewUser(Model model, @RequestParam int askno, HttpServletRequest request) {
-		model.addAttribute("data", askService.view(askno));
+		model.addAttribute("askdata", askService.view(askno));
 		return "/ask/askview";
 	}
-	@GetMapping("/admin/board/ask/askview.do") //상세 
+	@GetMapping("/admin/board/ask/view.do") //상세 
 	public String viewAdmin(Model model, @RequestParam int askno, HttpServletRequest request) {
-		model.addAttribute("data", askService.view(askno));
-		return "/admin/board/ask/askview";
+		model.addAttribute("askdata", askService.view(askno));
+		return "/admin/board/ask/view";
 	}
 	
 	@GetMapping("/ask/askedit.do")
 	public String edit(Model model, @RequestParam int askno) {
-		model.addAttribute("data", askService.edit(askno));
+		model.addAttribute("askdata", askService.edit(askno));
 		return "ask/askedit";
 	}
-	@GetMapping("/admin/board/ask/askedit.do")
+	@GetMapping("/admin/board/ask/edit.do")
 	public String editAdmin(Model model, @RequestParam int askno) {
-		model.addAttribute("data", askService.edit(askno));
-		return "/admin/board/ask/askedit";
+		model.addAttribute("askdata", askService.edit(askno));
+		return "/admin/board/ask/edit";
 	}
 	
 	@GetMapping("/ask/askdelete.do")
