@@ -238,7 +238,7 @@ $(function(){
 
 
 <script>
-function requestPay() {
+function NPay() {
     var oPay = Naver.Pay.create({
           "mode" : "production", // development or production
           "clientId": "u86j4ripEt8LRfPGzQ8" // clientId
@@ -258,7 +258,7 @@ function requestPay() {
           "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
         });
     });
-
+}
 </script>
  --%>
 
@@ -274,7 +274,7 @@ function requestPay() {
             //$("#frm").submit();
          }
          if ($("input[name='methodOfPayment']:checked").val() == 3) {
-            
+        	 NPay();
          } else { 
             //$("#frm").submit();
          }
