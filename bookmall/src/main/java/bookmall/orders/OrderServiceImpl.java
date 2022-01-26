@@ -30,6 +30,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
+	public int addrInsert(AddrListVo vo) {
+		return orderDao.addrInsert(vo);
+	}
+	
+	@Override
 	public BookVo bookSelect(BookVo vo) {
 		return orderDao.bookSelect(vo);
 	}
@@ -43,5 +48,11 @@ public class OrderServiceImpl implements OrderService {
 	public UserVo userSelect(UserVo vo) {
 		return orderDao.userSelect(vo);
 	}
+
+	@Override
+	public List<AddrListVo> addrSelect(AddrListVo vo) {
+		return orderDao.addrSelect(vo);
+	}
+
 }
 	
