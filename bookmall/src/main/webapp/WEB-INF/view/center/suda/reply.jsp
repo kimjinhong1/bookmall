@@ -80,7 +80,7 @@
                     </table>
                     <div class="btnSet"  style="text-align:right;">
                         <a class="btn2" href="index.do">목록</a>
-                        <a class="btn" href="javascript:goSave();">등록</a>
+                        <a class="btn3" href="javascript:goSave();">등록</a> 
                     </div>
                     </form>
                 </div>
