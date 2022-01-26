@@ -130,6 +130,15 @@ public class OrderController {
 		return "orders/return";
 	
 	}
+	@RequestMapping("/exchange.do")
+	public String exchange() {
+		return "orders/exchange"; 
+	}
+	
+	@RequestMapping("/refund.do")
+	public String refund() {
+		return "orders/refund"; 
+	}
 	
 	@RequestMapping("/addrInsert.do")
 	public String writeInsert(AddrListVo vo,HttpSession sess) {

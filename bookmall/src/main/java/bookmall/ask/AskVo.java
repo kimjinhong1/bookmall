@@ -21,5 +21,8 @@ public class AskVo extends CommonVo {
 	private int ono;
 	private int nested;
 	private String status;
+	private String name;
+	private int adminno;
+	private String answer;
 	
 }

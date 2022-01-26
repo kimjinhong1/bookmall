@@ -6,21 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
-function goDel() {
-	if (confirm("삭제하시겠습니까?")) {
-		$.ajax({
-			url:'deleteAjax.do',
-			data:{askno:${askdata.askno}},
-			success:function(res) {
-				if (res.trim() == '1') {
-					alert('정상적으로 삭제되었습니다.');
-					location.href='index.do';
-				} else {
-					alert('삭제 오류');
-				}
-			}
-		});
-
+function goDelete(){
+	if (confirm('정말로 삭제하시겠습니까?')) {
+		location.href='askdelete.do?askno=${askdata.askno }';
 	}
 }
 </script>
@@ -45,35 +33,32 @@ function goDel() {
 					<div id="bbs">
 						<div id="bread">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리 기본내용입니다.">
-								<colgroup>
-									<col width="10%" />
-									<col width="15%" />
-									<col width="10%" />
-									<col width="15%" />
-									<col width="25%" />
-									<col width="25%" />
-								</colgroup>
 								<tbody>
 									<tr>
-									<th scope="row"><label for="">제목</label></th>
-										<td colspan="1">
-											${askdata.title }
-										</td>
 									<th scope="row"><label for="">작성자</label></th>
-										<td colspan="2">
+										<td colspan="1">
 											${askdata.userno }
 										</td>
-									</tr>
-									<tr>
-										<th scope="row"><label for="">게시일</label></th>
-											<td colspan="3">
-												<fmt:formatDate value="${askdata.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<th scope="row"><label for="">게시일</label></th>
+											<td colspan="2">
+												<fmt:formatDate value="${askdata.regdate}" pattern="yyyy-MM-dd HH:mm:ss" />
 											</td>
+										</tr>
+									<th scope="row"><label for="">제목</label></th>
+										<td colspan="3">
+											${askdata.title }
+										</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">내용</label></th>
 											<td colspan="10">
 												${askdata.content }
+											</td>
+									</tr>
+									<tr>
+										<th scope="row"><label for="">답변내용</label></th>
+											<td colspan="10">
+												${askdata.answer }
 											</td>
 									</tr>
 									<tr>
@@ -93,8 +78,8 @@ function goDel() {
 									<a class="btns" href="index.do"><strong>목록</strong></a>
 								</div>
 								<div class="btnRight">
-									<a class="btns" style="cursor:pointer;" href="edit.do?askno=${askdata.askno }"><strong>수정</strong></a>
-									<a class="btns" style="cursor:pointer;" href="javascript:goDel();"><strong>삭제</strong></a>
+									<a class="btns" style="cursor:pointer;" href="edit.do?askno=${askdata.askno }"><strong>답변등록</strong></a>
+									<a class="btns" style="cursor:pointer;" href="javascript:goDelete();"><strong>삭제</strong></a>
 								</div>
 							</div>
 							

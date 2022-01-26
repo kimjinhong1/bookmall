@@ -114,6 +114,8 @@
 							<input type="submit" name="searchOrder" value="조회"
 							style="display: inline-block; background-color: #c8c8c8; color: white; height: 35px; width: 80px; font-size: 15px; line-height: 30px;";></input>
 						</td>
+					</div>
+				</div>
 						<div class="box">
 							<p class="title">
 							<div class="text"></div>
@@ -172,7 +174,7 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+			
 		</div>
 	</div>
 </div>

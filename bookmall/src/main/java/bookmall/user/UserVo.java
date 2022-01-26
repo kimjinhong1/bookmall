@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class UserVo extends CommonVo {
 	//회원
-	private int userno = 1;
+	private int userno;
 	private String email;
 	private String pwd;
 	private String pwd_question = "질문";
@@ -37,13 +37,10 @@ public class UserVo extends CommonVo {
 	private String paymentStatus;	//결제상태(미결제, 결제완료, 결제취소)
 	private String canceledStatus;  //취소상태
 	private Timestamp order_date;	//주문날짜
-	private String opayWay;			//지불방법(100:무통장 입금, 200:신용카드, 300:N Pay)
-	private int approvalNumber; 	//승인번호
 	private int methodOfPayment;    //결제방법
 	
 	private int member_buy_count; // 회원 총 구매 상품 수
 	private int member_buy_price; // 회원 총 구매 금액
-	
 	// 주문디테일
 	private int order_detailno;
     private int count; 

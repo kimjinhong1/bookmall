@@ -29,7 +29,7 @@
     <div class="wrap">
         <%@ include file="/WEB-INF/view/include/header.jsp" %>
         <div class="visual">
-        	<img src="<c:url value="/img/main2.png" ></c:url>" width="1200px" height="500px">
+        	<img src="<c:url value="/img/main2.png" ></c:url>" width="1200px" height="300px">
             <!-- 
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">

@@ -18,53 +18,67 @@
 
 <!-- 문의내역 -->
 	<select id="askList" resultType="bookmall.ask.AskVo" parameterType="bookmall.ask.AskVo">
-		SELECT * FROM ask
-		ORDER BY regdate DESC
-		LIMIT ${startIdx},10
+		select * from ask order by regdate DESC
+		LIMIT ${startIdx},15
 	</select>
+	
 
 <!-- 문의하기 -->
 	<insert id="askinsert" parameterType="bookmall.ask.AskVo">
 		INSERT INTO ask (
-		title, regdate, content, filename_org, filename_real,
-		userno, subject, status
+		name, title, regdate, content, filename_org, filename_real,
+		userno, subject, gno, ono, nested
 		) values(
-		#{title},NOW(),
+		#{name},#{title},NOW(),
 		#{content},#{filename_org},#{filename_real},
-		#{userno}, #{subject}, #{status}
+		#{userno}, #{subject}, #{gno}, #{ono}, #{nested}
 		)
+		<selectKey keyProperty="askno" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 	</insert>
 	
 <!-- 문의내역 삭제 -->
 	<delete id="askdelete" parameterType="bookmall.ask.AskVo">
-		DELETE FROM ask WHERE
-		askno=#{askno}
+		DELETE FROM ask WHERE askno=#{askno}
 	</delete>
 	
 <!-- 문의내용 수정 -->
-		<update id="askupdate" parameterType="bookmall.ask.AskVo">
+ 	<update id="askedit" parameterType="bookmall.ask.AskVo">
 		UPDATE ask SET 
 		title = #{title}
-		, content=#{content}
+		, content=#{content}, subject =#{subject}
 		<if test="filename_org != null">
 		, filename_org=#{filename_org}
 		, filename_real=#{filename_real}
 	    </if>	   
 		WHERE askno=#{askno}
+	</update>  
+	
+	<update id="updateGno" parameterType="bookmall.ask.AskVo">
+		UPDATE ask SET gno=#{askno} WHERE askno=#{askno}
+	</update>
+	
+	<update id="updateOno" parameterType="bookmall.ask.AskVo">
+		UPDATE ask SET ono=ono+1 WHERE gno=#{gno} AND ono > #{ono}
 	</update>
 	
 	<insert id="insertReply" parameterType="bookmall.ask.AskVo">
 	INSERT INTO ask (
-		title, regdate, content, userno, gno, ono, nested, status
+		title, regdate, content, userno, gno, ono, nested, status, answer
 	) values(
-		#{title}, 
-		NOW(), 
-		#{content}, #{userno}, #{gno}, #{ono}, #{nested},#{status}
+		#{title}, NOW(), #{content}, #{userno}, #{gno}, #{ono}, #{nested},#{status},#{answer}
 	)
 	</insert>
 	
 	<select id="view" parameterType="bookmall.ask.AskVo" resultType="bookmall.ask.AskVo">
 		SELECT * FROM ask WHERE askno = #{xxx}		
 	</select>
+	
+	<update id="update" parameterType="bookmall.ask.AskVo">
+		UPDATE ask SET 
+		answer=#{answer}, status=#{status}
+		WHERE askno=#{askno}
+	</update>
 
 </mapper>

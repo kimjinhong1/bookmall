@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +35,7 @@ $(function(){
         }
     });
     
-    // 삭제
+    // 선택삭제
     $(".deleteClick").on('click', function() {
 		if (confirm('선택한 상품을 삭제하시겠습니까?')) {
 			$.ajax({
@@ -65,7 +66,6 @@ $(function(){
 			}
 		})
 	});
-  });
   
 	//수량버튼
 	$(".plus_btn").on("click", function() {
@@ -78,9 +78,8 @@ $(function(){
 			$(this).parent("div").find("input").val(--quantity);
 		}
 	});
+});
 </script>
-
- 
 </head>
 <body>
 	<div class="wrap">
@@ -97,12 +96,12 @@ $(function(){
 					<table class="table table-striped" style="border-bottom: 1px solid black">
 						<thead>
 							<tr>
-								<th scope="col" width="10%">상품번호</th>
-								<th scope="col" width="20%">상품명</th>
-								<th scope="col" width="30%">수량</th>
-								<th scope="col" width="20%">단가</th>
-								<th scope="col" width="20%">금액</th>
-								<th scope="col" width="20%"></th>
+								<th scope="col" width="5%"></th>
+								<th scope="col" width="15%">제품</th>
+								<th scope="col" width="35%">상세</th>
+								<th scope="col" width="10%">수량</th>
+								<th scope="col" width="15%">단가</th>
+								<th scope="col" width="15%">금액</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -118,25 +117,27 @@ $(function(){
 									<tr>
 										<td>
 											<label> 
-												<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">${cart.bookno}
+												<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">
 											</label>
 										</td>
-										<td>${cart.bookno}<br> 
-											<a href="../prodDetail.do?bnum=${cart.bookno}" target="_blank">
-											<img src="../images/" class="img-thumbnail" alt="${cart.bookno}" style="width: 140px"></a>
-											</td>
+										<td> 
+											<a href="../prodDetail.do?bnum=${book.bookno}" target="_blank">
+											<img src="/bookmall/img/book_1.png" class="img-thumbnail" style="width: 100px; "></a>
+										</td>
+										<td> 
+											<a href="../prodDetail.do?bnum=${book.bookno}" target="_blank">
+											ㅇㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+											</a>
+										</td>
 										<td>
 											<input type="number" class="bookcount" value="${cart.bookcount}" min="1" max="50" size="3">개
 											<a class="quantity_modify_btn" data-cartid="${cart.cartno}" style="cursor: pointer;">변경</a>
 										</td>
-										<td style="font-weight: bold">
-											<fmt:formatNumber value="${cart.price}" pattern="###,###" />원 
+										<td style="font-weight: bold; text-align: right;">
+											<fmt:formatNumber value="${cart.price}" pattern="###,###" />원
 										</td>
-										<td style="font-weight: bold">
-											<fmt:formatNumber value="${cart.totalPrice}" pattern="###,###" />원<br> 
-										</td>
-										<td>
-										<a href="javascript:del(${cart.cartno});" class="btn btn-outline-danger">X</a>
+										<td style="font-weight: bold;text-align: right;">
+											<fmt:formatNumber value="${cart.totalPrice}" pattern="###,###" />원
 										</td>
 									</tr>
 								</c:forEach>
@@ -148,8 +149,8 @@ $(function(){
 								<td colspan="3">
 									<h5 style="float:right; font-size: 15px;"> 장바구니 총 액: 
 										<span class="text-danger"> 
-										<fmt:formatNumber value="${cartTotalPrice}" pattern="###,###" />
-										</span>원
+										<fmt:formatNumber value="${cartTotalPrice}" pattern="###,###" />원 
+										</span>
 									</h5>
 								</td>
 								<td>

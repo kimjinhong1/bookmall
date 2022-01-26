@@ -88,7 +88,7 @@ function goSave() {
 					<div id="bbs">
 						<div id="bread">
 							<form method="post" name="frm" id="insertFrm" action="insert.do" enctype="multipart/form-data">
-							<input type="hidden" name="sendDate" id="sendDate">
+							 <input type="hidden" name="askno" value="${askdata.askno }">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리 기본내용입니다.">
 								<colgroup>
 									<col width="10%" />
@@ -101,28 +101,15 @@ function goSave() {
 								<tbody>
 									<tr>
 										<th scope="row"><label for="">*제목</label></th>
-										<td colspan="5">
+										<td colspan="10">
 											<input type="text" id="title" name="title" class="w100" title="제목을 입력해주세요" />	
 										</td>
 									</tr>
 									<tr>
 										<th scope="row"><label for="">*답변상태</label></th>
 										<td colspan="2">
-											<input type="radio" name ="status"><option value="대기중"  checked>대기중</option>
-											<input type="radio" name ="status" ><option value="답변완료" >답변완료</option>
-										</td>
-										<th scope="row"><label for="">*NEW 아이콘</label></th>
-										<td colspan="2">
-											<input type="radio" name="new_icon" value="1" checked>항상&nbsp;&nbsp;
-											<input type="radio" name="new_icon" value="2" >7일 &nbsp;&nbsp;
-											<input type="radio" name="new_icon" value="3" >표기안함 
-										</td>
-									</tr>
-									<tr>
-										<th scope="row"><label for="">*공개 여부</label></th>
-										<td colspan="2">
-											<input type="radio" name="secret" value="1" checked>공개 
-											<input type="radio" name="secret" value="2" >비공개 
+											<input type="radio" name ="status" value="대기중"  checked>대기중</option>
+											<input type="radio" name ="status" value="답변완료" >답변완료</option>
 										</td>
 										<th scope="row"><label for="">*게시일</label></th>
 										<td colspan="2">
@@ -154,6 +141,17 @@ function goSave() {
 											</span>
 										</td>
 									</tr>
+									<tr>
+										<th scope="row"><label for="">*문의사항</label></th>
+											<td colspan="5">
+												<input type="radio" name ="subject" value="상품문의"  >상품문의&nbsp;
+												<input type="radio" name ="subject" value="결제문의" >결제문의&nbsp;
+												<input type="radio" name ="subject" value="배송문의" >배송문의&nbsp;
+												<input type="radio" name ="subject" value="교환/반품문의" >교환/반품문의&nbsp;
+												<input type="radio" name ="subject" value="취소/환불문의" >취소/환불문의&nbsp;
+												<input type="radio" name ="subject" value="기타문의" >기타문의
+											</td>
+										</th>
 									</tr>								
 									<tr>
 										<th scope="row"><label for="">*내용</label></th>

@@ -14,16 +14,13 @@ public class AskDao {
 	@Autowired // 자동 주입 : 객체의 타입이 일치하는 객체를 자동으로 주입
 	SqlSessionTemplate sqlSessionTemplate;
 	
-	public int count(AskVo vo) {
-		return sqlSessionTemplate.selectOne("ask.count",vo);
-	}
-	
+	//문의 목록
 	public List<AskVo> askList(AskVo vo) {
 		return sqlSessionTemplate.selectList("ask.askList",vo);
 	}
 
+	//문의등록
 	public int insert(AskVo vo) {
-		//return sqlSessionTemplate.insert("ask.insert",vo);
 		int r = -1;
 		try {
 			r = sqlSessionTemplate.insert("ask.askinsert",vo);
@@ -34,15 +31,24 @@ public class AskDao {
 		return r;
 	}
 	
+	//문의 자세히보기
 	public AskVo view(int askno) {
 		return sqlSessionTemplate.selectOne("ask.view",askno);
 	}
+	
+	//수정
 	public AskVo edit(int askno) {
-		return sqlSessionTemplate.selectOne("ask.edit",askno);
+		return sqlSessionTemplate.selectOne("ask.askedit",askno);
 	}
 	
-	public int delete(AskVo vo) {
-		return sqlSessionTemplate.delete("ask.delete",vo.getAskno());
+	//삭제
+	public int delete(int askno) {
+		return sqlSessionTemplate.delete("ask.askdelete",askno);
+	}
+	
+	//답변등록 (관리자페이지)
+	public int insertReply (AskVo askno) {
+		return sqlSessionTemplate.insert("ask.insertReply", askno);
 	}
 	
 	public int updateGno(int askno) {
@@ -53,8 +59,9 @@ public class AskDao {
 		return sqlSessionTemplate.update("ask.updateOno", askno);
 	}
 	
-	public int insertReply (AskVo askno) {
-		return sqlSessionTemplate.insert("ask.insertReply", askno);
+	
+	public int update(AskVo askno) {
+		return sqlSessionTemplate.update("ask.update", askno);
 	}
 }
 

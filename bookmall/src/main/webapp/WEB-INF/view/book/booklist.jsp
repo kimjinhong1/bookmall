@@ -22,13 +22,57 @@
     <script src="/bookmall/js/common.js"></script>
     <script src="/bookmall/js/main.js"></script>
 
+	<script>
+		$(function(){
+			$('#minusCount').click(function() {
+				if($("#bookcount").val() <= 1) {
+					alert("최소 수량은 1권입니다.");
+				} else {
+					var bc = $("#bookcount").val();
+					bc--;
+					$("#bookcount").val(bc);
+				}
+			});
+			
+			$('#plusCount').click(function() {
+				if($("#bookcount").val() >= 100) {
+					alert("최대 수량은 100권입니다.");
+				} else {
+					var bc = $("#bookcount").val();
+					bc++;
+					$("#bookcount").val(bc);
+				}
+			})
+		});
+	</script>
+
+
+<script>
+//장바구니 담기
+		$("#cartbtn").click(function() {
+			$.ajax({
+				url : '/bookmall/cart/add',
+				type : 'POST',
+				data : {
+					vo.bookno
+
+				},
+				success : function(result) {
+					alert('장바구니에 등록되었습니다.');
+					$(".bookcount").val("1");
+				}
+			})
+		});
+</script>
+
 </head>
 <body>
 <div class="wrap"> 	
    	<!-- HEADER 시작 -->
     <%@ include file="/WEB-INF/view/include/header.jsp" %>
     <!-- HEADER 종료 -->
-         
+         <input type="hidden" name="classify" value=${data.classify }>
+        
         <div class="container">
         <!-- 새로 나온 도서 영역 시작 -->
             <div class="size">
@@ -50,7 +94,8 @@
                                 	<input type="checkbox" name="bookno" id="bookno" value=""/>
                                 </td>
                            		<td class="bookimg">
-                           			<a href="/bookmall/book/detail.do?bookno=${vo.bookno }" ><img src="/bookmall/img/book_1.png" width="192"></a>
+                           			<a href="/bookmall/book/detail.do?bookno=${vo.bookno }" >
+                           				<img src="/bookmall/upload/${vo.bthumb_real }" width="150"></a>
                            		</td>
                                 <td class="txt_l" style="text-align:left;">
                                     <h2><a href="/bookmall/book/detail.do?bookno=${vo.bookno }" >${vo.btitle_first }</h2>${vo.btitle_second }</a>
@@ -67,9 +112,14 @@
                                 <td class="bintroduce">
                                 	${vo.bintroduce}
                                 </td>
-                                
+                                <td>
+                                	<a>수량 선택 : 
+						         	<input type="button" name="minusCount" id="minusCount" value="-" class="">
+						         		<input type="text" name="bookcount" id="bookcount" value="1" maxlength="10" readonly>
+						         	<input type="button" name="plusCount" id="plusCount" value="+" class="" ></a>
+                                </td>
                                 <td class="btnTop">
-                                	<a class="btns" href="#" onclick=""><strong>장바구니에 담기</strong> </a>
+                                	<a class="btns" href="#" id ="cartbtn" name="cartinsert"><strong>장바구니에 담기</strong> </a>
                                 </td>
                                 <td class="btnMiddle">
                                 	<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>
@@ -82,7 +132,7 @@
                         </tbody>
                     </table>
                     </div>
-                   </div>
+                  </div>
 		</div>
 </div>   
        

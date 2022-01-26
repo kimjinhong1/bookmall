@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="addr"> <!-- mapper파일의 이름 -->
+
+	<sql id="addressWhere">
+		<where>
+			<if test="searchType ==''">
+				(title LIKE '%${searchWord}%' OR content LIKE '%${searchWord}%')
+			</if>
+			<if test="searchType != null and searchType != ''">
+				${searchType} LIKE '%${searchWord}%'
+			</if>
+			<if test="userno > 0">
+				AND userno = ${userno}
+			</if>
+		</where>
+	</sql>
+
+<!-- 주소 내역 -->
+	<select id="listSelect" resultType="bookmall.addr.AddrVo" parameterType="bookmall.addr.AddrVo">
+		SELECT * FROM addresslist
+		ORDER BY regdate DESC
+		LIMIT ${startIdx},10
+	</select>
+	
+<!-- 주소 추가 -->
+	<insert id="insert" parameterType="bookmall.addr.AddrVo">
+		INSERT INTO addresslist (
+		addno, userno, division ,name, tel, tel1, tel2, tel3, zipcode, address, address2, regdate
+		) values(
+		#{addno}, #{userno}, #{division}, #{name}, #{tel}, #{tel1}, #{tel2}, #{tel3}, #{zipcode},#{address},#{address2},NOW()
+		)
+	</insert>
+	
+<!-- 주소 삭제 -->
+	<delete id="delete" parameterType="bookmall.addr.AddrVo">
+		DELETE FROM addresslist WHERE
+		addno=#{addno}
+	</delete>
+	
+	<select id="view" parameterType="bookmall.addr.AddrVo" resultType="bookmall.addr.AddrVo">
+		SELECT * FROM addresslist WHERE addno = #{xxx}		
+	</select>
+	
+	<update id="update" parameterType="bookmall.addr.AddrVo">
+		UPDATE addresslist SET division=#{division}, name=#{name}, zipcode=#{zipcode}, address=#{address}, address2=#{address2},
+		 tel=#{tel}, tel1=#{tel1}, tel2=#{tel2}, tel3=#{tel3}
+		WHERE addno=#{addno}
+	</update>
+
+</mapper>

@@ -572,9 +572,6 @@
                 		<input type="hidden" name="realemail" id="realemail"> <!-- 인증한 이메일 -->
                 		<input type="hidden" name="realnick" id="realnick"> <!-- 인증한 닉네임 -->
                 		<input type="hidden" name="tel" id="tel">
-                		
-                       <!--  <input type="hidden" name="cmd" value="write.do"/> -->
-                       <!--   <input type="hidden" name="checkEmail" id="checkEmail" value="0"/> -->
                 </form>
                 <div class="btnSet clear">
                     <div><a href="javascript:;" class="btn" onclick="goSave();">가입</a> <a href="javascript:;" class="btn" onclick="history.back();">취소</a></div>

@@ -22,13 +22,13 @@ public class AskServiceImpl implements AskService {
 	   }
 	
 	@Override
-	public int delete(AskVo vo) {
-		return askDao.delete(vo);
-	}
-
-	@Override
 	public int insert(AskVo vo) {
-		return askDao.insert(vo);
+		
+		int r = askDao.insert(vo);
+		if (r > 0) {
+			askDao.updateGno(vo.getAskno());
+		}
+		return r;
 	}
 
 	@Override
@@ -47,6 +47,17 @@ public class AskServiceImpl implements AskService {
 	@Override
 	public AskVo edit(int askno) {
 		return askDao.edit(askno);
+	}
+
+	@Override
+	public int update(AskVo vo) {
+		return askDao.update(vo);
+	}
+
+
+	@Override
+	public int delete(int askno) {
+		return askDao.delete(askno);
 	}
 	
 }
