@@ -1,5 +1,7 @@
 package bookmall.book;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,15 @@ public class BookServiceImple implements BookService {
 	@Override
 	public int count(BookVo vo) {
 		return dao.count(vo);
+	}
+
+	@Override
+	public List<LinkedHashMap> selectCate(int bookno) {
+		return dao.selectCate(bookno);
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> selectCateList(int bclassify, int blevel, int bcategoryno) {
+		return dao.selectCateList(bclassify, blevel, bcategoryno);
 	}
 }

@@ -83,6 +83,7 @@ $(window).load(function(){
 						<li><a href="<%=request.getContextPath()%>/admin/board/faq/index.do"><span>FAQ</span></a></li>
 						<li><a href="<%=request.getContextPath()%>/admin/board/faq/category/index.do"><span>FAQ카테고리관리</span></a></li>
 						<li><a href="<%=request.getContextPath()%>/admin/board/suda/index.do"><span>수다게시판</span></a></li>
+						<li><a href="<%=request.getContextPath()%>/admin/board/ask/index.do"><span>1:1문의</span></a></li>
 					</ul>
 					</div>
 				</li>
