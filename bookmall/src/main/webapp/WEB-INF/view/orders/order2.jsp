@@ -130,8 +130,11 @@ $(function(){
 	});
 	
 });
+
 $(function(){
 	$("input[name='info']").click(function() {
+		
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션");
 		//console.log(1);
 		if ($(this).val() == '2') {
 		  window.open("/bookmall/addrList.do", "주소록", "width=740, height=400");
