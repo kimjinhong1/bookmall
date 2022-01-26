@@ -9,9 +9,10 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="/bookmall/css/reset.css"/>
-    <link rel="stylesheet" href="/bookmall/css/common.css"/>
-    <link rel="stylesheet" href="/bookmall/css/contents.css"/>
+<link rel="stylesheet" href="/bookmall/css/reset.css"/>
+<link rel="stylesheet" href="/bookmall/css/com.css"/>
+<link rel="stylesheet" href="/bookmall/css/common.css"/>
+<link rel="stylesheet" href="/bookmall/css/contents.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script src="/bookmall/js/common.js"></script>
@@ -59,28 +60,38 @@ function goSave() {
                 <h3 class="sub_title">1:1문의내용 수정</h3>
                 <div class="bbs">
                 <form method="post" name="frm" id="insertFrm" action="update.do" enctype="multipart/form-data" >
-                <input type="hidden" name="no" value="${data.no }">
-                <input type="hidden" name="secret" value="${data.secret }">
+                <input type="hidden" name="askno" value="${askdata.askno }">
                     <table class="board_write">
                         <tbody>
-                          <tr>
-                            <th>카테고리</th>
-                            <td>
-                                
-                            </td>
-                        </tr>
+                         	 <tr>
+                          		<th>카테고리
+									<td>
+										<select name="subject" id="selectinquiry"
+											style="width: 45%; height: 30px; float: left;">
+												<option value="">문의종류를 선택하세요.</option>
+												<option value="상품문의">상품문의</option>
+												<option value="결제문의">결제문의</option>
+												<option value="배송문의">배송문의</option>
+												<option value="교환/반품문의">교환/반품문의</option>
+												<option value="취소/환불문의">취소/환불문의</option>
+												<option value="기타문의">기타문의</option>
+										</select>${askuser.subject}
+									</td>
+								</th>
+                   		   </tr>
                         <tr>
                             <th>제목</th>
                             <td>
-                                <input type="text" name="title" id="title" style="width:100%;" value="${data.title }"/>
+                                <input type="text" name="title" id="title" style="width:100%;" value="${askuser.title }"/>
                             </td>
                         </tr>
                         <tr>
-                            <th>내용</th>
+                            <th>문의내용</th>
                             <td>
-                                <textarea id="contents" name="content" title="내용을 입력해주세요" style="width:100%;">${data.content}</textarea>	
+                                <textarea id="contents" name="content" title="내용을 입력해주세요" style="width:100%;">${askuser.content}</textarea>	
                             </td>
                         </tr>
+
                         <tr>
                             <th>첨부파일</th>
                             <td>
@@ -90,7 +101,7 @@ function goSave() {
                         </tbody>
                     </table>
                     <div class="btnSet"  style="text-align:right;">
-                        <a class="btn" href="javascript:goSave();">수정 </a>
+                        <a class="btns" href="javascript:goSave();" ><b>저장 </b></a>
                     </div>
                     </form>
                 </div>

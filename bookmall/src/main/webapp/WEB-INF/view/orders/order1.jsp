@@ -82,8 +82,8 @@ $(function(){
 	});
 	
 	$('#uinfo2').click(function(){
-		custF.name.value="${loginUser.name}";
-		custF.receiver_phone.value="${loginUser.tel}";
+		custF.name.value="${addBook.name}";
+		custF.receiver_phone.value="${addBook.tel2}";
 		custF.zipcode.value="";
 		custF.addr1.value="";
 		custF.addr2.value="";
@@ -102,10 +102,11 @@ $(function(){
 	$("input[name='info']").click(function() {
 		//console.log(1);
 		if ($(this).val() == '2') {
-		  window.open("/bookmall/addrList.do", "주소록", "width=740, height=400");
+		  window.open("/bookmall/addr/addpop.do", "주소록", "width=740, height=400");
 		}
 		
 	})
+	window.opener.document.getElementByID([frm]).value = [addspace];
 })
 
 </script>
@@ -316,8 +317,8 @@ $(function(){
 						<tr>
 							<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left: 14px;">배송지 선택</td>
 							<td bgColor="#ffffff">
-								<input type="radio" name="info" id="uinfo1" value="1" checked>주문고객 정보와 동일 
-								<input type="radio" name="info" id="uinfo2" value="2" >배송주소록에서 선택
+								<input type="radio" name="info" id="uinfo1" value="1" checked>주문고객 정보와 동일 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="radio" name="info"><a href="javascript:void(window.open('http://localhost:8080/bookmall/addr/addpop.do', '주소수정','width=800px, height=500px'))">주소록에서 선택</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<input type="radio" name="info" id="uinfo3" value="3">새주소 입력
 							</td>
 						</tr>

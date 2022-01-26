@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import bookmall.cart.CartDto;
+import bookmall.ask.AskService;
+import bookmall.ask.AskVo;
+import bookmall.mylist.MylistService;
+import bookmall.mylist.MylistVo;
 import bookmall.util.SendMail;
 
 @Controller
@@ -20,6 +23,12 @@ public class UserController {
 	
 	@Autowired
 	UserService service;
+	
+	@Autowired
+	AskService askService;
+	
+	@Autowired
+	MylistService mylistService;
 	
 	//로그인 페이지 이동
 	@GetMapping("/user/login.do")
@@ -133,9 +142,11 @@ public class UserController {
 		model.addAttribute("result", uv == null ? "" : uv.getEmail());
 		return "include/result";
 	}
-	
+	//마이페이지 화면에 문의내역, 마이리스트 목록 띄우기
 	@GetMapping("/user/mypage.do")
-	public String mypage() {
+	public String mypage(Model model, AskVo vo, MylistVo listvo) {
+		model.addAttribute("askList", askService.askList(vo));
+		model.addAttribute("dibsList", mylistService.listMypage(listvo));
 		return "user/mypage";
 	}
 	
@@ -145,7 +156,8 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/mylist.do")
-	public String mylist() {
+	public String mylist(Model model, MylistVo vo) {
+		model.addAttribute("dibsList", mylistService.listSelect(vo));
 		return "user/mylist";
 	}
 

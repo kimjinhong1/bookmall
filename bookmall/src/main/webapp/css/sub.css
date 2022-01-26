@@ -192,3 +192,13 @@
 	text-align:center;
 	float: left;
 }
+.myinfo a {
+	text-align:center;
+	float: left;
+	width: 33.3%;
+	font-size: 13px;
+	border: 0.5px solid #c0c0c0;
+	height: 25px;
+	vertical-align: middle;
+	
+}

@@ -12,31 +12,30 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<link rel="stylesheet" href="/project/css/reset.css" />
-<link rel="stylesheet" href="/project/css/common.css" />
-<link rel="stylesheet" href="/project/css/contents.css" />
+<link rel="stylesheet" href="/bookmall/css/reset.css"/>
+<link rel="stylesheet" href="/bookmall/css/com.css"/>
+<link rel="stylesheet" href="/bookmall/css/common.css"/>
+<link rel="stylesheet" href="/bookmall/css/contents.css"/>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script src="/project/js/common.js"></script>
 <script>
-    	function del() {
-    		if (confirm("삭제하시겠습니까?")) {
-    			//location.href="delete.do?boardno=${data.boardno}";
-    			$.ajax({
-    				url:'deleteAjax.do',
-    				data:{askno:${ask.askno}},
-    				success:function(res) {
-    					if (res.trim() == '1') {
-	    					alert('정상적으로 삭제되었습니다.');
-	    					location.href='index.do';
-    					} else {
-    						alert('삭제 오류');
-    					}
-    				}
-    			});
-    		}
-    	}
+function goDelete(){
+	if (confirm('문의를 취소하시겠습니까?')) {
+		location.href='askdelete.do?askno=${askdata.askno }';
+	}
+}
+
+function goSave() {
+	if ($("#title").val() == '') {
+		alert("제목을 입력하세요");
+		$("#title").focus();
+		return;
+	}
+	oEditors.getById['contents'].exec("UPDATE_CONTENTS_FIELD",[]);
+	$("#insertFrm").submit();
+}
     </script>
 </head>
 <body>
@@ -46,30 +45,34 @@
 			<div class="size">
 				<h3 class="sub_title">1:1문의내용</h3>
 				<div class="bbs">
-					<div class="view">
+					<div class="view" >
 						<div class="title">
 							<dl>
-								<dt>${ask.title }</dt>
-								<dd class="date">작성일 : ${ask.regdate }</dd>
+								<dt> [${askuser.subject }]   ${askuser.title }</dt>
+								<dd class="date">작성일 : ${askuser.regdate }</dd>
 							</dl>
 						</div>
-						<div class="content">
-							<p>${ask.content }</p>
+						<div class="content" style="font-size: 15px;">
+							${askuser.content }
 						</div>
 						<dl class="file">
 							<dt>첨부파일</dt>
 							<dd>
 								<a
-									href="/bookmall/common/download.jsp?path=/upload/&org=${ask.filename_org}&real=${ask.filename_real}"
-									target="_blank">${ask.filename_org } </a>
+									href="/bookmall/common/download.jsp?path=/upload/&org=${askuser.filename_org}&real=${askuser.filename_real}"
+									target="_blank">${askuser.filename_org } </a>
 							</dd>
-						</dl>
-
+							</dl>
+					<hr color="#d3d3d3" width="100%">
+					<div class="content" style="font-size: 15px;">
+					<h1>답변</h1>
+					${askuser.answer }
+					</div>
+					<hr color="#d3d3d3" width="100%">
 						<div class="btnSet clear">
 							<div class="fl_l">
-								<a href="/bookmall/ask/askindex.do" class="btn">목록으로</a> <a
-									href="edit.do?askno=${ask.askno }" class="btn">수정하기</a> <a
-									href="javascript:del();" class="btn">삭제</a>
+								<a href="/bookmall/ask/askindex.do" class="btns">목록으로</a>&nbsp;&nbsp;&nbsp;
+								<a class="btns" style="cursor:pointer;" href="javascript:goDelete();">문의삭제</a>
 							</div>
 						</div>
 					</div>

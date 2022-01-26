@@ -125,8 +125,8 @@
 							</tbody>
 						</table>
 						<table class="board_write"> <%-- 문의사항 작성 --%>
+						
 							<tbody>
-								<tr>
 									<th>문의선택</th>
 									<td><select name="subject" id="selectinquiry"
 										style="width: 45%; height: 30px; float: left;">
@@ -163,7 +163,6 @@
 							</tbody>
 						</table>
 					 <div class="btnSet"  style="text-align:center; font-size: 16px;">
-                        <%-- <a class="askbtn" href="javascript:goSave();">저장 </a>--%>
                         <a id ="askbtn" href="javascript:goSave();;">등록</a>
                     </div>
 					</form>

@@ -22,36 +22,6 @@
 <script src="/bookmall/js/common.js"></script>
 
 <script>
-	$(function() {
-				$(".replycontents").hide();//content 클래스를 가진 div를 표시/숨김(토글)
-				$(".replytitle").click(
-				function() {
-					$(this).next(".replycontents")
-							.slideToggle(500);
-					$("i", this)
-							.toggleClass("fa-chevron-down fa-chevron-up");
-							<%-- i 는 font awsome의 아이콘. down 아이콘이 기본 클릭시 up. 이다
-						    toggle의 경우. jquery 자체 세션으로 이전 display를 기억한다.
-						    즉 이전 display가 inline 이면 다른 값을 주지 않으면 inline 으로 돌아간다--%>
-		});
-				
-	function del() {
-		if (confirm("삭제하시겠습니까?")) {
-			<%--location.href="delete.do?boardno=${data.boardno}";--%>
-			$.ajax({
-				url:'deleteAjax.do',
-				data:{askno},
-				success:function(res) {
-					if (res.trim() == '1') {
-    					alert('정상적으로 삭제되었습니다.');
-    					location.href='askindex.do';
-					} else {
-						alert('삭제 오류');
-					}
-				}
-			});
-		}
-	}
 	$(function(){
 	    //체크박스 전체 선택&해제
 	    $('#checkall').click(function(){
@@ -61,18 +31,28 @@
 	            $("input[type=checkbox]").prop("checked",false); 
 	        };
 	    });
-	});
+	    
+	    $(".deleteClick").on('click', function() {
+			if (confirm('선택하신 문의사항을 삭제하시겠습니까?')) {
+				$.ajax({
+					type : 'post',
+					url : '/bookmall/ask/deleteAjax.do', // <<-- 처리 요청 URL
+					data : $("#askspace").serialize(),
+					success : function(res) { // 비동기요청  성공시
+						alert('총 '+res.trim()+"건이 삭제되었습니다.");
+						location.reload(); // 페이지 새로고침
+					}
+				});
+			}
+		});
 	
-	$(function(){
 		$(".board_tr").click(function(){
 			location.href='askview.do?askno='+$(this).data("askno");
 			//console.log($(this).data("boardno"));
 		});
 	});
-	
-	
-});
 </script>
+
 
 </head>
 <body>
@@ -83,21 +63,19 @@
 			<div class="sub">
 	        	<div class="size">
 	        		<h3 class="sub_title">${userInfo.name }님의 &nbsp; 1:1문의내역</h3>    
-	                        <a href="askwrite.do" style="font-size: 15px;font-weight: bold;">1:1 문의하기 >></a>
 	                <div class="bbs">
 	                    <table class="list">
 	                        <colgroup>
 	                            <col width="*" />
-	                            <col width="80px" />
 	                            <col width="100px" />
 	                            <col width="800px" />
 	                            <col width="100px" />
 	                            <col width="100px" />
+	                            <col width="*" />
 	                        </colgroup>
 	                        <thead>
 	                            <tr>
 	                                <th><input type="checkbox" id="checkall" value="전체선택"></th>
-	                                <th>글번호</th>
 	                                <th>문의사항</th>
 	                                <th>제목</th>
 	                                <th>작성일</th>
@@ -110,46 +88,35 @@
 			                                <td class="first" colspan="7">문의내역이 없습니다.</td>
 			                            </tr> 
 		                        </c:if>
-	                      		  <c:if test="${!empty askList }">
-		                       	    <c:forEach var="ask" items="${askList }" varStatus="status">
-			                          	<tr class="board_tr" data-boardno="${ask.askno}" ">
-				                          		<td>
-			                       					<label> 
-														<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">${cart.bookno}
-													</label>
-				                          		</td>
-				                          	    <td>    
-				                          	  	  ${ask.askno}
-				                                </td>
-				                                <td>
-						                            <c:if test="${ask.subject == '상품문의' }">상품문의</c:if>
-					                            	<c:if test="${ask.subject == '결제문의' }">결제문의</c:if>
-					                            	<c:if test="${ask.subject == '배송문의' }">배송문의</c:if>
-					                            	<c:if test="${ask.subject == '교환/반품문의' }">교환/반품문의</c:if>
-					                            	<c:if test="${ask.subject == '취소/환불문의' }">취소/환불문의</c:if>
-					                            	<c:if test="${ask.subject == '기타문의' }">기타문의</c:if>
-				                                </td>
-				                               	<td> ${ask.title }</td>
-				                                 <td class="date"><fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
-				                                 <td class="status">${ask.status}</td>
-			                            </tr>
-		                            </c:forEach>
-	                        	</c:if>    
+			                 <form name="askspace" id="askspace">
+		                        <c:if test="${!empty askList  }">
+			                           <c:forEach var="ask" items="${askList }" varStatus="status">
+			                            <tr class="board_tr" data-askno="${ask.askno}" style="cursor:pointer;">
+				                          	<tr style="font-size: 15px">
+				                          		<td class="first"><input type="checkbox" name="askno" id="check" value="${ask.askno }"/></td>       
+				                                <td>${ask.subject }</td>
+				                                <td class="txt_l" style="text-align:left;"> 
+				                                    <c:if test="${ask.nested > 0}">
+				                                    	<c:forEach begin="1" end="${ask.nested}">&nbsp;&nbsp;&nbsp;</c:forEach>
+				                                    	<img src="/project/img/admin/answer_icon.gif">
+				                                    </c:if>
+				                                <a href="askview.do?askno=${ask.askno }" >${ask.title }</a></td>
+				                                <td class="date"><fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
+				                                <td> ${ask.status}</td>
+		                         	 		</tr>
+		                          	  </c:forEach>  
+                           	 	</c:if>
+                           	 </form>
 	                        </tbody>
 	                    </table>
-	                <a href="javascript:;" class="deleteClick" style="cursor: pointer; font-weight: bold;">삭제</a>
+			                <a href="javascript:;" class="deleteClick" style="cursor: pointer; font-weight: bold;">&nbsp;&nbsp;&nbsp;삭제</a>
+			                <div class="request" style="text-align: right;">
+					        <a href="askwrite.do" style="font-size: 15px; font-weight: bold;" >1:1 문의하기</a>
+				        </div>
                     </div>
-	                    <!-- 페이지처리 -->
-						${pageArea }
-						<div class="bbsSearch" style="max-width:600px">
-	                        <form method="get" name="searchForm" id="searchForm" action="">
-	                            <span class="srchSelect">
-	                            </span>
-	                        </form>                        
-	                    </div>
-	                </div>
-	               </div>
-	            </div>
+                </div>
+               </div>
+            </div>
 <!-- board area -->           
         <%@ include file="/WEB-INF/view/include/footer.jsp" %>
     </div>

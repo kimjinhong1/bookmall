@@ -97,5 +97,14 @@ public class OrderController {
 		System.out.println(bli);
 		return "orders/return";
 	}
+	@RequestMapping("/exchange.do")
+	public String exchange() {
+		return "orders/exchange"; 
+	}
+	
+	@RequestMapping("/refund.do")
+	public String refund() {
+		return "orders/refund"; 
+	}
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,22 +21,13 @@
 <script src="/bookmall/js/common.js"></script>
 <script src="/bookmall/js/main.js"></script>
 <script>
-$(function() {
-	$("#cartbtn").click(function(){
-		$.ajax({
-			url: '/bookmall/cart/add',
-			type: 'POST',
-			data: {
-				bookno : 10
-				
-			},
-			success: function(result){
-				alert('장바구니에 등록되었습니다.');
-				$(".bookcount").val("1");
-			}
-		})
+$(function(){
+	$(".board_tr").click(function(){
+		location.href='askview.do?askno='+$(this).data("askno");
+		//console.log($(this).data("boardno"));
 	});
 });
+
 </script>
 
 <style>
@@ -49,12 +41,27 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 			<div class="sub_visual">
 				<div class="slogan">마이페이지</div>
 			</div>
-			<a id ="cartbtn" name="cartinsert" href="#">장바구니 담기</a>
 			<div class="size">
 				<div class="box">
-						<p class="title">
-						<div class="under">
-					<div class="text"></div>
+				<p class="title">
+					<div class="under">
+						<br> <br>
+						<div class="text"></div>
+						<div class="myinfo">
+									 <a href ="/bookmall/main.do">회원 정보</a>
+									 <a href ="/bookmall/main.do">회원 탈퇴</a>
+									 <a href ="/bookmall/addr/addressList.do">나의 주소록</a>
+									 </div>
+							<br> <br>
+						</div>
+					</div>
+				</div>
+			<div class="size">
+				<div class="box">
+				<p class="title">
+					<div class="under">
+						<br> <br>
+						<div class="text"></div>
 							| 최근 주문내역<a href="/bookmall/user/recentorder.do" class="btn">자세히보기▶</a>
 							<table class="type">
 								<tbody>
@@ -104,44 +111,39 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 						<p class="title">
 						<div class="under">
 							<div class="text"></div>
-							| 1:1문의내역<a href="/bookmall/ask/askindex.do" class="btn">답변보기▶</a>
+							| 1:1문의내역<a href="/bookmall/ask/askindex.do" class="btn">전체보기▶</a>
 								<table class="type">
-									<thead>
-										<tr>
-											<th scope="col" width="10%">번호</th>
-											<th scope="col" width="10%">문의종류</th>
-											<th scope="col" width="25%">제목</th>
-											<th scope="col" width="10%">작성일</th>
-											<th scope="col" width="10%">답변상태</th>
-										</tr>
-									</thead>
-		               			   <c:if test="${askList eq null or empty askList}">
-			                            <tr>
-			                                <td class="first" colspan="7"><b>문의내역이 없습니다.</b></td>
-			                            </tr> 
-		                     	   </c:if>
-	                      		   <c:if test="${askList ne null and not empty askList}">
-		                       	   	 <c:forEach var="ask" items="${askList }" varStatus="status">
-			                          	<tr class="board_tr" data-boardno="${ask.askno}" style="cursor:pointer;">
-				                          	    <td>    
-				                          	  	  ${ask.askno}
-				                                </td>
-				                                <td>
-						                            <c:if test="${ask.subject == '상품문의' }">상품문의</c:if>
-					                            	<c:if test="${ask.subject == '결제문의' }">결제문의</c:if>
-					                            	<c:if test="${ask.subject == '배송문의' }">배송문의</c:if>
-					                            	<c:if test="${ask.subject == '교환/반품문의' }">교환/반품문의</c:if>
-					                            	<c:if test="${ask.subject == '취소/환불문의' }">취소/환불문의</c:if>
-					                            	<c:if test="${ask.subject == '기타문의' }">기타문의</c:if>
-				                                </td>
-				                               	<td> ${ask.title }</td>
-				                                 <td class="date"><fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
-				                                 <td class="status">${ask.status}</td>
-			                            </tr>
-		                          	  </c:forEach>
-	                        		</c:if>    
-	                     	   </tbody>
-	                    	</table>
+										<thead>
+											<tr>
+												<th scope="col" width="10%">문의종류</th>
+												<th scope="col" width="30%">제목</th>
+												<th scope="col" width="10%">작성일</th>
+												<th scope="col" width="10%">답변상태</th>
+											</tr>
+										</thead>
+		                    		    <tbody>
+					                 		 <c:if test="${empty askList }">
+						                            <tr>
+						                                <td class="first" colspan="7"><b>문의내역이 없습니다.</b></td>
+						                            </tr> 
+					                        </c:if>
+				                    	    <c:if test="${!empty askList }">
+					                           <c:forEach var="ask" items="${askList }" varStatus="status">
+						                          	<tr style="font-size: 15px">
+						                                <td>${ask.subject }</td>
+						                                <td>
+						                                  	<a href="/bookmall/ask/askview.do?askno=${ask.askno }" style="float:left;text-align:left;"><center>${ask.title }</center></a>
+						                                </td>
+						                                <td class="date">
+						                                	<fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
+						                                <td>
+						                              	  ${ask.status}
+						                                </td>
+				                         	 		</tr>
+				                          	  	</c:forEach>  
+		                           			 </c:if>
+		                       		 </tbody>
+	                    		</table>
 							<br> <br>
 						</div>
 					</div>
@@ -217,78 +219,20 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 							<a href="/bookmall/user/mylist.do" class="btn">리스트보기▶</a></div>
 						<div class="under"> </div>
 						<table class="type">
-							<div class="section2">
-								<div class="nowBook2"></div>
-								<a href=""><img src="/bookmall/img/book_1.png" width="120"></a><br>
-								<p>구병모의 신작 장편소설</p>
-								<!-- btitle_second -->
-								<a href="">상아의 문으로</a>
-								<!-- btitle_first -->
-								<p>구병모 저 | 문학과지성사</p>
-								<!-- author, publisher -->
-								<p>9,800원</p>
-								<!-- price -->
-							</div>
-							<div class="section2">
-								<div class="nowBook2"></div>
-								<a href=""><img src="/bookmall/img/book_2.png" width="120"></a><br>
-								<p>기록하는 순간 영감이 된다</p>
-								<!-- btitle_second -->
-								<a href="">별게 다 영감</a>
-								<!-- btitle_first -->
-								<p>이승희 저 | 북스톤</p>
-								<!-- author, publisher -->
-								<p>14,400원</p>
-								<!-- price -->
-							</div>
-							<div class="section2">
-								<div class="nowBook2"></div>
-								<a href=""><img src="/bookmall/img/book_3.png" width="120"></a><br>
-								<p>시인 나태주 × 화가 유라</p>
-								<!-- btitle_second -->
-								<a href="">서로 다른 계절의 여행</a>
-								<!-- btitle_first -->
-								<p>나태주 글/유라 그림 | 북폴리오</p>
-								<!-- author, publisher -->
-								<p>13,500원</p>
-								<!-- price -->
-							</div>
-							<div class="section2">
-								<div class="nowBook2"></div>
-								<a href=""><img src="/bookmall/img/book_6.png" width="120"></a><br>
-								<p>시인 나태주 × 화가 유라</p>
-								<!-- btitle_second -->
-								<a href="">서로 다른 계절의 여행</a>
-								<!-- btitle_first -->
-								<p>나태주 글/유라 그림 | 북폴리오</p>
-								<!-- author, publisher -->
-								<p>13,500원</p>
-								<!-- price -->
-							</div>
-							<div class="section2">
-								<div class="nowBook2"></div>
-								<a href=""><img src="/bookmall/img/book_4.png" width="120"></a><br>
-								<p>1940 런던 공습 이야기</p>
-								<!-- btitle_second -->
-								<a href="">폭격기의 달이 뜨면</a>
-								<!-- btitle_first -->
-								<p>에릭 라슨 저/이경남 역 | 생각의힘</p>
-								<!-- author, publisher -->
-								<p>27,000원</p>
-								<!-- price -->
-							</div>
-							<div class="section2">
-								<div class="nowBook2"></div>
-								<a href=""><img src="/bookmall/img/book_5.png" width="120"></a><br>
-								<p>방구석 이탈리아 미술 여행</p>
-								<!-- btitle_second -->
-								<a href="">90일 밤의 미술관 : 이탈리아</a>
-								<!-- btitle_first -->
-								<p>김덕선, 김성희 | 동양북스(동양books)</p>
-								<!-- author, publisher -->
-								<p>19,800원</p>
-								<!-- price -->
-							</div>
+								<c:if test="${empty dibsList }">
+			                            <tr>
+			                              <center><b>MyList 내역이 없습니다.</b></center>
+			                            </tr> 
+		                        </c:if>
+                    	   		<c:if test="${!empty dibsList}">
+		                           <c:forEach var="mylist" items="${dibsList }" varStatus="status">
+		                          		 <th>
+					                        <a href="" ><img src="/bookmall/img/book_5.png"></a><br>
+											<a href="">${mylist.btitle_first }</a>
+											<p>${mylist.author} | ${mylist.publisher }</p>
+										</th>
+	                          	  	</c:forEach>  
+                      			 </c:if>
 						</table>
 					</div>
 				</div>

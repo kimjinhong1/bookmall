@@ -52,6 +52,7 @@ public class CartController {
 		model.addAttribute("result", r);
 		return "include/result";
 	}
+	
 	@GetMapping("/cart")
 	public String selectList (Model model, CartDto dto, HttpSession sess) {
 		int userno = ((UserVo)sess.getAttribute("userInfo")).getUserno();

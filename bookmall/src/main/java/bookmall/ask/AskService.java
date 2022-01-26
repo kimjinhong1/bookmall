@@ -15,13 +15,17 @@ public interface AskService {
 	/*문의내역 수정*/
 	AskVo edit(int askno);
 	
+	/*문의내역 답글*/
+	int update(AskVo vo);
+	
 	/*문의내역 삭제*/
-	int delete(AskVo vo);
+	int delete(int askno);
 	
 	/*문의하기*/
 	int insert(AskVo vo);
 	
 	/*답글*/
 	int reply(AskVo vo);
+	
 	
 }
