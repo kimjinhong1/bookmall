@@ -48,8 +48,8 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 						<br> <br>
 						<div class="text"></div>
 						<div class="myinfo">
-									 <a href ="/bookmall/main.do">회원 정보</a>
-									 <a href ="/bookmall/main.do">회원 탈퇴</a>
+									 <a href ="/bookmall/user/remove.do">회원 정보</a>
+									 <a href ="/bookmall/user/edit.do">회원 탈퇴</a>
 									 <a href ="/bookmall/addr/addressList.do">나의 주소록</a>
 									 </div>
 							<br> <br>
