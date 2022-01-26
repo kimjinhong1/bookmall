@@ -32,7 +32,8 @@ public class SudaServiceImpl implements SudaService {
 	@Override
 	public SudaVo view(int sudano) {
 		sudaDao.updateReadcount(sudano);
-		return sudaDao.selectOne(sudano);
+		SudaVo vo = sudaDao.selectOne(sudano);
+		return vo;
 	}
 	
 	@Override
@@ -56,4 +57,20 @@ public class SudaServiceImpl implements SudaService {
 		vo.setNested(vo.getNested()+1); // 부모 nested에서 +1
 		return sudaDao.insertReply(vo); // 위에 다한다음에 답변 저장 
 	}
+
+	@Override
+	public int getRownumn(SudaVo vo) {
+		return sudaDao.getRownum(vo);
+	}
+
+	@Override
+	public SudaVo getPrev(SudaVo vo) {
+		return sudaDao.getPrev(vo);
+	}
+
+	@Override
+	public SudaVo getNext(SudaVo vo) {
+		return sudaDao.getNext(vo);
+	}
+	
 }

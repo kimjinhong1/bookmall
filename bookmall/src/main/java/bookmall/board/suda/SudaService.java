@@ -13,4 +13,7 @@ public interface SudaService {
 	SudaVo edit(int sudano);
 	int update(SudaVo vo);
 	public int reply(SudaVo vo);
+	public int getRownumn(SudaVo vo);
+	public SudaVo getPrev(SudaVo vo);
+	public SudaVo getNext(SudaVo vo);
 }

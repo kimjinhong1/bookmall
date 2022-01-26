@@ -397,3 +397,5 @@ a:hover.sbtn{color:#2e2e2e !important; text-decoration:none;}
 #blist span.re_ok{position:relative; color:#fff; font-family:'ëì',dotum; font-size:11px; background:#ff7439; padding:3px;  vertical-align:middle;}/*ëê¸°*/
 
 
+/*button*/
+.btn2 {font-size:17px; text-decoration:none !important; white-space:nowrap; display:inline-block; vertical-align:baseline; position:relative; cursor:pointer; padding:4px 20px; min-width:64px; border:2px solid #313234; color:#fff !important; margin:0 2px; text-align:center; font-weight:bold; border-radius:5px; background-color:#313234;}

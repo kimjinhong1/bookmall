@@ -125,8 +125,10 @@ function goReply(no) {
                         <div class="btnSet clear">
                             <div class="fl_l">
                                <a href="index.do" class="btn2">목록으로</a>
+                               <c:if test="${data.top_notice == 0}">
+                               <a href="reply.do?sudano=${data.no }" class="btn">답글쓰기</a>
+                               </c:if>
                                <c:if test="${data.userno == userInfo.userno}">
-                             	   <a href="reply.do?sudano=${data.no }" class="btn">답글쓰기</a>
 	                               <a href="edit.do?sudano=${data.no }" class="btn3">수정하기</a>  
 	                               <a href="javascript:goDelete(${data.no });" class="btn4">삭제하기</a>
                                </c:if> 
@@ -147,7 +149,7 @@ function goReply(no) {
                             <tbody>
                             <tr>
                                 <td>
-                                    <textarea name="content" id="content" style="height:50px;"></textarea> <!-- 서버로 전송 댓글내-->
+                                    <textarea name="content" id="content" style="height:50px;" placeholder="주제와 무관한 댓글, 악플 등의 글은 임의 삭제될 수 있습니다."></textarea> <!-- 서버로 전송 댓글내-->
                                 </td>
                                 <td>
                                     <div class="btnSet"  style="text-align:right;">
@@ -160,11 +162,30 @@ function goReply(no) {
                         </form>
                   </c:if>
                        <div id="commentArea"></div>
-                    
                     </div>
+                    
+                    <table border="1" style="margin-top:20px">
+                    <tr>
+                    	<td style="padding-left:20px; line-height:29px" >
+                    		<c:if test="${empty prev }"> 이전글이 없습니다. </c:if>
+                    		<c:if test="${!empty prev }"> 
+                    			<a href="view.do?sudano=${prev.no}">이전글 - ${prev.title }</a>
+                    		</c:if>		
+                    	</td>
+                    </tr>
+                    <tr>
+                    	<td style="padding-left:20px; line-height:29px">
+                    		<c:if test="${empty next }"> 다음글이 없습니다. </c:if>
+                    		<c:if test="${!empty next }">  
+                    			<a href="view.do?sudano=${next.no}">다음글 - ${next.title }</a>
+                    	 	</c:if>
+                    	</td>
+                    </tr>
+                    </table>
                 </div>
             </div>
         </div>
+       
         <%@ include file="/WEB-INF/view/include/footer.jsp" %>     
     </div>
 </body>

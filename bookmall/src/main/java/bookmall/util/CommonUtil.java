@@ -36,6 +36,35 @@ public class CommonUtil {
 		return ret;
 		
 	}
+	
+	public static String getPageAreaReview(int bookno, int curPage, int totPage, int pageRange) {
+		// 페이지범위 
+		int startPage = (curPage-1)/pageRange*pageRange+1; // 시작페이지 
+		int endPage = startPage + pageRange - 1; // 종료페이지 
+		if (endPage > totPage) endPage = totPage;
+		
+		String ret="";
+		ret += "  <div class=\"pagenate clear\">\r\n"
+		+ "                        <ul class='paging'>\r\n";
+		if (startPage >pageRange) {
+			ret += "					<li><a href=\"javascript:reviewList("+bookno+","+(startPage-1)+");\"> < </a>\r\n";
+		}
+		for (int rp = startPage; rp <= endPage; rp++) {
+		ret += "	                <li><a href='javascript:reviewList("+bookno+", "+rp+");'";
+		if (rp ==curPage) ret += "class='current'";
+		ret += ">"+rp+"</a></li>\r\n";
+				
+		}
+		if (totPage > endPage) {
+			ret += "     	<li><a href=\"javascript:reviewList("+bookno+","+(endPage+1)+");\"> > </a>\r\n";
+		}
+
+		ret += "                        </ul>\r\n"
+		+ "                    </div>";
+		return ret;
+		
+	}
+	
 	// admin paging
 		public static String getPageAreaAdmin(String url, int curPage, int totPage, int pageRange) {
 			// 페이지범위 
@@ -157,6 +186,10 @@ public class CommonUtil {
 			+ "                    </div>";
 			return ret;
 			
+		}
+		
+		public static String getContentNewLine(String content) {
+			return content.replaceAll("\n", "<br>");
 		}
 		
 }

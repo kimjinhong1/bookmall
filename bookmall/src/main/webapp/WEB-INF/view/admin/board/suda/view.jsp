@@ -14,13 +14,13 @@ function goDelete(){
 }
 function goSave() {
     $.ajax({ 
-       url:'/bookmall/center/comment/insert.do', 
+       url:'/bookmall/admin/comment/insert.do', 
        type:'post', 
        data:$("#frm").serialize(), 
        success:function(res) {
           if (res.trim() == 1) { 
              alert('댓글이 등록되었습니다.');
-             $("#content").val("");
+             $("textarea#content").val("");
              commentList('board', ${data.no}); 
           } else { 
              alert("댓글 등록 오류");
@@ -186,9 +186,9 @@ function goReply(no) {
 	                            <textarea name="content" id="content" style="height:50px;"></textarea> <!-- 서버로 전송 댓글내-->
 	                        </td>
 	                        <td>
-	                            <div class="btnSet"  style="text-align:right;">
-	                                <a class="btns" href="javascript:goSave();" style='width:50px;'>저장 </a>
-	                            </div>
+	                        	<div class="btnSet"  style="text-align:right;">
+                                   <a class="btn2" href="javascript:goSave();">저장 </a>
+                               </div>
 	                        </td>
 	                    </tr>
                      </tbody>
