@@ -8,6 +8,13 @@
                     <a href="/bookmall/user/join.do"  style="color: white;">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </c:if>
                 <c:if test="${!empty userInfo }">
+                	
+                	<c:if test="${userInfo.user_type == 2 }">
+                		<img alt="카카오아이콘" src="<%=request.getContextPath()%>/img/kakaologo.jpg" width="18" height="16">
+                	</c:if>
+                	<c:if test="${userInfo.user_type == 3 }">
+                		<img alt="네이버아이콘" src="<%=request.getContextPath()%>/img/naverlogo.jpg" width="18" height="16">
+                	</c:if>
                 	${userInfo.name }님 환영합니다. &nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="/bookmall/user/logout.do" style="color: white;">로그아웃 |</a> 
                     <a href="/bookmall/user/mypage.do" style="color: white;">마이페이지|</a> 
