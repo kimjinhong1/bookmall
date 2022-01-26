@@ -16,7 +16,8 @@
 <!-- 아임포트 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-
+<!-- 네이버페이 -->
+<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
 
 
 <!-- 주소검색 -->
@@ -185,7 +186,7 @@ $(function(){
 			<%--
 			https://docs.iamport.kr/implementation/payment 참고
 			--%>
-			name: '${result.btitle_first }' '${result.btitle_second }',	//상품명
+			name: "${result.btitle_first } ${result.btitle_second }",	//상품명
 			//가격
 			amount: 1000,		// 가격 ${result.salesprice }
 			buyer_email: '${loginUser.email }',		// 이메일
@@ -227,12 +228,6 @@ $(function(){
 					          }
 					        });
 						}      
-			
-				<%-- } else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-				} 
-				alert(msg);--%>
 			});
 	}
 
@@ -240,8 +235,10 @@ $(function(){
 
 <%--
 <!-- 네이버페이 -->
-<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
+
+
 <script>
+function requestPay() {
     var oPay = Naver.Pay.create({
           "mode" : "production", // development or production
           "clientId": "u86j4ripEt8LRfPGzQ8" // clientId
@@ -269,14 +266,15 @@ $(function(){
 <script>
 	$(function() {
 		$(".orderBtn").click(function() {
-			addressCheck();
+			var con = addressCheck();
+			if (con == false) return;
 			if ($("input[name='methodOfPayment']:checked").val() == 2) {
 				requestPay();
 			} else { 
 				//$("#frm").submit();
 			}
 			if ($("input[name='methodOfPayment']:checked").val() == 3) {
-				();
+				
 			} else { 
 				//$("#frm").submit();
 			}
@@ -332,7 +330,7 @@ $(function(){
 								<td valign="top" style="padding-top: 8px"><strong>총 결제 예상 금액 :<font color="#cc3333">${result.salesprice}원</font></strong> <!-- total_price -->
 							</tr>
 							<tr>
-								<td align="right" style="padding-top: 5px;"><a href="" style="border: 1px solid #d3d3d3;"><strong>장바구니로 돌아가기</strong></a></td>
+								<td align="right" style="padding-top: 5px;"><a href="http://localhost:8080/bookmall/cart.do" style="border: 1px solid #d3d3d3;"><strong>장바구니로 돌아가기</strong></a></td>
 							</tr>
 						</table>
 					</div>
