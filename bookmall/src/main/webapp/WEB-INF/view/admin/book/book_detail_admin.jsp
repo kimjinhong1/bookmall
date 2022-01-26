@@ -53,7 +53,11 @@
 									<p>가격 : ${data.price }
 									<p>판매가 : ${data.salesprice }
 									<p>도서분류 : <c:if test="${data.classify eq 0}"> 국내도서 </c:if> <c:if test="${data.classify eq 1}"> 국외도서</c:if>
-									<p>카테고리 :
+									<p>카테고리 : <br>
+									<c:forEach items="${list }" var="cate">
+						         		&nbsp;&nbsp;&nbsp;${cate.parentname} >	
+					         			${cate.bcategoryname }<br>
+					         		</c:forEach>
 									<p>페이지수 : ${data.bpages }쪽
 									<p>무게 : ${data.bweight }(g)
 									<p>크기 : ${data.bwidth } * ${data.bvertical } * ${data.bheight } (mm)				

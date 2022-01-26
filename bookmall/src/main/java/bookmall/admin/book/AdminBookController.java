@@ -1,6 +1,7 @@
 package bookmall.admin.book;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,12 +10,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import bookmall.book.BookVo;
+import bookmall.bookcategory.BookCategoryMappingVO;
 
 @Controller
 public class AdminBookController {
@@ -35,6 +39,7 @@ public class AdminBookController {
 	@GetMapping("/admin/book/detail.do")
 	public String bookDetail(Model model, @RequestParam int bookno) {
 		model.addAttribute("data", service.selectOne(bookno));
+		model.addAttribute("list", service.selectCate(bookno));
 		return "admin/book/book_detail_admin";
 	}
 	
@@ -46,7 +51,11 @@ public class AdminBookController {
 	
 	// (관리자) 도서 등록
 	@PostMapping("/admin/book/insert.do")
-	public String insertBook(BookVo vo, HttpServletRequest req, @RequestParam(value="bthumb_org_file") MultipartFile file, HttpSession sess) {
+	public String insertBook(BookVo vo, 
+							HttpServletRequest req, 
+							@RequestParam(value="bthumb_org_file") MultipartFile file, 
+							HttpSession sess,
+							BookCategoryMappingVO bcmvo) {
 		
 		//파일저장 
 		if (file != null && !file.isEmpty()) { // 사용자가 파일을 첨부했다면 
@@ -66,11 +75,22 @@ public class AdminBookController {
 				System.out.println(e.getMessage());
 			}
 		}
+		
+		System.out.println(req.getParameter("categoryList"));
 		int r = service.insert(vo);
 		
 		// 정상적으로 등록되었습니다. alert 띄우고 
 		// index.do 로 이동 
 		if(r > 0) {
+			
+			// 도서 정보 INSERT 이후, 도서-카테-매핑 테이블에도 INSERT
+			String[] bcategoryno = (req.getParameter("categoryList")).split(",");
+			
+			for(int i = 0; i < bcategoryno.length; i++) {
+				bcmvo.setBcategoryno(Integer.parseInt(bcategoryno[i]));
+				service.insertMapping(bcmvo);
+			}
+			
 			req.setAttribute("msg", "정상적으로 등록되었습니다");
 			req.setAttribute("url", "/bookmall/admin/book/index.do");
 		} else {
@@ -122,6 +142,7 @@ public class AdminBookController {
 		// 정상적으로 등록되었습니다. alert 띄우고 
 		// index.do 로 이동 
 		if(r > 0) {
+			
 			req.setAttribute("msg", "정상적으로 수정되었습니다");
 			req.setAttribute("url", "detail.do?bookno=" + vo.getBookno());
 		} else {
@@ -149,6 +170,29 @@ public class AdminBookController {
 		}
 
 		return "admin/include/bookResult";
+	}
+	
+	// (관리자) 도서 관리 - 등록 시 필요한 카테고리 리스트 정보≈
+	@GetMapping("/admin/book/selectCateList.do")
+	@ResponseBody // 데이터를 반환해주는 어노테이션
+	public List<HashMap<String, Object>> selectCateList(HttpServletRequest req) {
+		
+		int bclassify = Integer.parseInt(req.getParameter("bclassify"));
+		int blevel = 0;
+		int bcategoryno = 0;
+		
+		if(!StringUtils.isEmpty(req.getParameter("blevel"))) {
+			blevel = Integer.parseInt(req.getParameter("blevel"));
+		}
+		
+		if(!StringUtils.isEmpty(req.getParameter("bcategoryno"))) {
+			bcategoryno = Integer.parseInt(req.getParameter("bcategoryno"));
+		}
+		
+		List<HashMap<String, Object>> list = service.selectCateList(bclassify, blevel, bcategoryno);
+
+		return list;
+		
 	}
 
 }

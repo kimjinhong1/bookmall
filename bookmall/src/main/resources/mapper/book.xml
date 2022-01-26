@@ -4,6 +4,13 @@
 <mapper namespace="book"> 
 
 	<!-- 코드의 중복을 줄이기 위해 -->
+	<sql id = "boardWhere">
+		<where>
+			<if test ="searchType ==''">   
+			 	
+			 </if>
+		</where>
+	</sql>
 	
 	<!-- 도서 하나만 선택 -->
 	<select id="selectOne" parameterType="int" resultType="bookmall.book.BookVo">
@@ -15,17 +22,47 @@
 	<!-- 도서 목록 -->
 	<select id="selectList" resultType="bookmall.book.BookVo" parameterType="bookmall.book.BookVo">
 		SELECT *
-			<!-- , (SELECT bcategoryname FROM book_category_mapping JOIN book_category
-			ON book_category_mapping.bcategoryno = book_category.bcategoryno
-			LEFT JOIN book
-			ON book_category_mapping.bookno = #{book.bookno}) AS bcategoryname -->
 		FROM book
-		ORDER BY pubdate DESC    
+		WHERE NOT bstatus = 1
+	</select>
+	
+	<!-- 도서 상세 정보 - 카테고리 -->
+	<select id="selectCate" parameterType="int" resultType="java.util.LinkedHashMap">
+		SELECT
+    		(SELECT bcategoryname 
+    		FROM book_category 
+    		WHERE bcategoryno = bc.bparentno) AS parentname,
+    		bcategoryname
+		FROM book_category AS bc
+		WHERE bcategoryno IN (SELECT bcategoryno 
+							FROM book_category_mapping 
+							WHERE bookno = #{bookno});
 	</select>
 	
 	<!-- 페이징 처리를 위한 갯수 카운팅 -->
 	<select id="count" resultType="int" parameterType="bookmall.book.BookVo">
-		SELECT COUNT(*) FROM book
+		SELECT COUNT(*) 
+		FROM book
+	</select>
+	
+	<!-- (관리자) 도서 등록시 필요한 카테고리 검색 -->
+	<select id="cateList" parameterType="java.util.HashMap" resultType="java.util.LinkedHashMap">
+		SELECT
+			(SELECT bcategoryname
+			FROM book_category
+			WHERE bcategoryno = bc.bparentno) AS parentname,
+			bclassify,
+			bcategoryname,
+			bcategoryno,
+			blevel
+		FROM book_category AS bc
+		WHERE bclassify = #{bclassify}   
+		<if test="blevel == 0">
+			AND blevel = 1
+		</if>   
+		<if test="blevel != 0">
+			AND blevel = 2 AND bparentno = #{bcategoryno}
+		</if>
 	</select>
 	
 	<!-- (관리자) 도서 등록 -->
@@ -34,11 +71,23 @@
 			isbn, btitle_first, btitle_second, author, publisher, pubdate, price, discountrate, 
 			salesprice, classify, translator, bpages, bweight, bwidth, bvertical, bheight, 
 			bstack, bintroduce, bindex, bthumb_org, bthumb_real, regdate
-			 
 		) VALUES (
 			#{isbn}, #{btitle_first}, #{btitle_second}, #{author}, #{publisher}, #{pubdate}, #{price}, #{discountrate},
 			#{salesprice}, #{classify}, #{translator}, #{bpages}, #{bweight}, #{bwidth}, #{bvertical}, #{bheight}, 
 			#{bstack}, #{bintroduce}, #{bindex}, #{bthumb_org}, #{bthumb_real}, NOW()  
+		)
+	</insert>
+	
+	<!-- (관리자)  -->
+	<!-- (관리자) 도서 등록시 북_카테고리_매핑 테이블에 정보 등록 -->
+	<insert id="insertMapping" parameterType="bookmall.bookcategory.BookCategoryMappingVO">
+		<selectKey keyProperty="bookno" resultType="int" order="BEFORE">
+			SELECT MAX(bookno) FROM book
+		</selectKey>
+		INSERT INTO book_category_mapping (
+			bookno, bcategoryno
+		) VALUES (
+			#{bookno}, #{bcategoryno}
 		)
 	</insert>
 	
