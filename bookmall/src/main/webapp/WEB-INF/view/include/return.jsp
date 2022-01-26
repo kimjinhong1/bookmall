@@ -5,4 +5,5 @@
 	alert("${msg}");
 	<c:if test="${empty url}">history.back();</c:if>
 	<c:if test="${!empty url}">location.href='${url}';</c:if>
+	<c:if test="${url=='close'}">window.close();</c:if>
 </script>

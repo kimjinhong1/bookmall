@@ -85,6 +85,4 @@
 			<bean class="bookmall.main.AdminInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
-	  
 </beans>

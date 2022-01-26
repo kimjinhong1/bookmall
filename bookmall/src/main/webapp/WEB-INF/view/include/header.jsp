@@ -1,44 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="header">
 	<div class="size">
-		<div>
-			<a href="/bookmall/main.do" >
-				<img src="<c:url value="/img/welogo.png" ></c:url>" width="192">
-			</a>
-		</div>
-		
-		<div class="login">
-			<c:if test="${empty userInfo }">
-                    <a href="/bookmall/user/login.do">로그인</a> | 
-                    <a href="/bookmall/user/join.do">회원가입</a> |
-                    <a href="/bookmall/user/mypage.do">마이페이지</a> |
-                    <a href="/bookmall/user/cart.do">장바구니</a> 
-                    
+		<div class="login" style="text-align: right; background-color:#5f7994; color: white; font-size: 12px;">
+			<c:if test="${empty userInfo }"> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/bookmall/user/login.do" style="color: white;">로그인|</a> 
+                    <a href="/bookmall/user/join.do"  style="color: white;">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </c:if>
                 <c:if test="${!empty userInfo }">
-                	${userInfo.name }님 환영합니다. &nbsp;&nbsp;&nbsp;
-                    <a href="/bookmall/user/logout.do">로그아웃</a>  |
-                    <a href="/bookmall/user/mypage.do">마이페이지</a> | 
-                    <a href="/bookmall/user/cart.do">장바구니</a>
-                    <a href="/bookmall/user/ask.do">1:1문의</a>
-                    
+                	${userInfo.name }님 환영합니다. &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="/bookmall/user/logout.do" style="color: white;">로그아웃 |</a> 
+                    <a href="/bookmall/user/mypage.do" style="color: white;">마이페이지|</a> 
+                    <a href="/bookmall/cart.do" style="color: white;">장바구니|</a>
+                    <a href="/bookmall/ask/askindex.do" style="color: white;">1:1문의</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </c:if>
 		</div>
-	</div>
-</div>
+	<center style=" background-color:#5f7994;">
+	<a href="/bookmall/main.do"><img src="/bookmall/img/logo.png" width="200px" height="150px" ></a>
+	</center>
 
-<div class="menu">
+<div class="menu" >
 	<ul class="depth1">
 	    <li>
 	        <a href="">통합검색</a>
 	    </li>
 	    <li>
-	        <a href="">국내도서</a>	        
+	        <a href="/bookmall/book/korean.do">국내도서</a>	        
 	    </li>
 	    <li>
-	        <a href="">해외도서</a>
+	        <a href="/bookmall/book/abroad.do">해외도서</a>
 	    </li>
 	    <li>
 	        <a href="">게시판</a>
@@ -55,4 +45,6 @@
 	    </li>
 	</ul>
 </div>
+</div>
+
         

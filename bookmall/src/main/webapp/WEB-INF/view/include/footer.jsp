@@ -7,7 +7,7 @@
 		</div>
             <div class="size">
                 <div class="info" >
-                    <p>BookMall</p>
+                    <p>김가네 서점 BookMall</p>
                     <p>서울특별시</p>
                     <p>02-123-4567 | 02-123-4568</p>
                     <p>대표자 김다혜 김지수 김진홍 김한나 김현식 | 개인정보책임자 서민구</p>

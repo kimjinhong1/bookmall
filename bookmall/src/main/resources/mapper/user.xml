@@ -21,32 +21,84 @@
 	<select id="nickCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM user WHERE nickname = #{nickname}
 	</select>
+	<!-- 소셜 식별자 체크 -->
+	<select id="socialCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM user WHERE identifier = #{identifier}
+	</select>
+	
+	<!--  보류 -->
+	<!-- 회원 선택 -->
+	<select id="userSelect" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT * FROM user WHERE userno = #{userno}
+	</select>
+	
 	<!-- 로그인 -->
 	<select id="login" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
-		SELECT * FROM user WHERE email = #{email} AND pwd = md5(#{pwd})
+		SELECT * FROM user WHERE email = #{email} AND pwd = md5(#{pwd}) AND state = '1'
+	</select>
+	<!-- 소셜로그인 -->
+	<select id="socialLogin" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT * FROM user WHERE identifier = #{identifier}
 	</select>
 	<!-- 이름과 전화번호로 유저정보 검색 (이메일 찾기) -->
 	<select id="searchId" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
-		SELECT * FROM user WHERE name = #{name} AND tel = #{tel}
+		SELECT * FROM user WHERE name = #{name} AND tel = #{tel} AND state = '1' AND user_type = '1'
 	</select>
 	
 	<!-- 이메일과 이름으로 유저정보 검색 (비밀번호 찾기) -->
 	<select id="searchPwd" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
-		SELECT * FROM user WHERE email = #{email} AND name = #{name}
+		SELECT * FROM user WHERE email = #{email} AND name = #{name} AND state = '1' AND user_type = '1'
 	</select>
 	
 	<!-- 임시 비밀번호 변경 -->
 	<update id="updateTempPwd" parameterType="bookmall.user.UserVo">
-		UPDATE user SET pwd = md5(#{pwd}) WHERE email = #{email} AND name = #{name}
+		UPDATE user SET pwd = md5(#{pwd}) WHERE email = #{email} AND name = #{name} AND state = '1' AND user_type = '1'
 	</update>
 	
 	<!-- 최근 로그인 기록 업데이트 -->
 	<update id="updateRecently_accessed" parameterType="bookmall.user.UserVo">
-		UPDATE user SET recently_accessed = NOW() WHERE email = #{email}
+		UPDATE user SET recently_accessed = NOW() WHERE userno = #{userno}
 	</update>
 	
 	<!--  로그인 할 때 마다 횟수증가 체크 -->
 	<update id="checkNumber" parameterType="bookmall.user.UserVo">
-		UPDATE user SET checkNumber = '${checkNumber}' WHERE email = #{email}
+		UPDATE user SET checkNumber = '${checkNumber}' WHERE userno = #{userno}
 	</update>
+	
+	<!-- 회원정보 업데이트 -->
+	<update id="userUpdate" parameterType="bookmall.user.UserVo">
+		UPDATE user 
+		SET name = #{name},  birthday = #{birthday}, tel = #{tel}, gender = #{gender}, zipcode = #{zipcode}, addr1 = #{addr1}, addr2 = #{addr2}
+		WHERE userno = #{userno}
+	</update>
+	
+	<!-- 닉네임 정보 업데이트 -->
+	<update id="nickUpdate" parameterType="bookmall.user.UserVo">
+		UPDATE user 
+		SET nickname = #{nickname}
+		WHERE userno = #{userno}
+	</update>
+	
+	<!-- 비밀번호 확인 [수정폼] -->
+	<select id="pwdCheck" parameterType="bookmall.user.UserVo" resultType="int">
+		SELECT count(*) FROM user WHERE pwd = md5(#{pwd}) and userno = #{userno}
+	</select>
+	
+	<!-- 비밀번호 변경 [수정폼] -->
+	<update id="pwdUpdate" parameterType="bookmall.user.UserVo">
+		UPDATE user SET pwd = md5(#{pwd}) WHERE userno = #{userno}
+	</update>
+	
+	<!-- 회원 탈퇴 [일반] -->
+	<update id="userDelete" parameterType="bookmall.user.UserVo">
+		UPDATE user SET state = '2', email = 'delete'
+		WHERE userno = #{userno}
+	</update>
+	
+	<!-- 회원 탈퇴 [소셜] -->
+	<update id="userSocialDelete" parameterType="bookmall.user.UserVo">
+		UPDATE user SET state = '2', email = 'delete', identifier = '0'
+		WHERE userno = #{userno}
+	</update>
+	
 </mapper>

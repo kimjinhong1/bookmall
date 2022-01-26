@@ -2,6 +2,9 @@ package bookmall.book;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
+
+import bookmall.bookcategory.BookCategoryMappingVO;
 
 public class BookVo {
 
@@ -30,7 +33,16 @@ public class BookVo {
 	private Timestamp moddate;
 	private int salesprice;
 	private int bstatus;
+	private String categoryArrStr;
 	
+	public String getCategoryArrStr() {
+		return categoryArrStr;
+	}
+
+	public void setCategoryArrStr(String categoryArrStr) {
+		this.categoryArrStr = categoryArrStr;
+	}
+
 	public int getBookno() {
 		return bookno;
 	}
@@ -232,4 +244,5 @@ public class BookVo {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(this.moddate);
 	}
+	
 }

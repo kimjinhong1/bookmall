@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">  
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BookMoll:주문하기</title>
 <link rel="stylesheet" href="/bookmall/css/com.css" />
@@ -33,7 +33,7 @@
 							<table  style="width:800px; border:1px solid #d3d3d3;  align:center;"  >
 								<tr>
 									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >주문번호</td>
-									<td bgColor="#ffffff" >${s} 001-A297705887
+									<td bgColor="#ffffff" >${s.orderno}
 									</td>
 								</tr>
 								<tr>
@@ -42,22 +42,13 @@
 									</td>
 								</tr>
 								<tr>
-									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >출고 예상일</td>
-									<td bgColor="#ffffff">${s} 12월 26일
-									</td>
-								</tr>
-								<tr>
 									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >배송주소</td>
-									<td bgColor="#ffffff">${s} 인천광역시 xxx
+									<td bgColor="#ffffff">${loginUser.addr1}
 									</td>
 								</tr>
 								<tr>
-									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;">연락처</td>
-									<td bgColor="#ffffff">
-										<input type="text" name="tel1" value="${loginUser.tel1} 010"  size="3" maxlength="3" />
-														- <input type="text" name="tel2" value="${loginUser.tel2} 9632" size="4" maxlength="4" />
-														- <input type="text" name="tel3" value="${loginUser.tel3} 5543" size="4" maxlength="4" />
-									</td>
+									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left: 14px;"><SPAN class="warning">*</SPAN>휴대전화번호</TD> <!-- receiver_phone -->
+									<td bgColor="#ffffff"><input type="text" name="receiver_phone" id="receiver_phone" value="${loginUser.tel}" size="15" maxlength="15" /></td>
 								</tr>
 								<tr>
 									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >결제 수단</td>

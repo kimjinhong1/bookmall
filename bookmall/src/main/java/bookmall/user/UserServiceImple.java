@@ -19,14 +19,36 @@ public class UserServiceImple implements UserService {
 		UserVo uv = dao.login(vo);
 		if (uv != null) { 
 			sess.setAttribute("userInfo", uv);
-			dao.updateRecently_accessed(vo); // 최근 로그인 기록
+			dao.updateRecently_accessed(uv); // 최근 로그인 기록
 			// 로그인 기록 1증가
-			vo.setCheckNumber(vo.getCheckNumber()+1);
-			dao.checkNumber(vo); 
+			uv.setCheckNumber(uv.getCheckNumber()+1);
+			dao.checkNumber(uv); 
 			return true;
 		}		
 		return false;
 	}
+	
+	//소셜로그인
+	@Override
+	public boolean socialLogin(UserVo vo, HttpSession sess) {
+		UserVo uv = dao.socialLogin(vo);
+		if (uv != null) { 
+			sess.setAttribute("userInfo", uv);
+			dao.updateRecently_accessed(uv); // 최근 로그인 기록
+			// 로그인 기록 1증가
+			uv.setCheckNumber(uv.getCheckNumber()+1);
+			dao.checkNumber(uv); 
+			return true;
+		}		
+		return false;
+	}
+	// 소셜 식별자 체크 
+	@Override
+	public int socialCheck(String identifier) {		
+		return dao.socialCheck(identifier);
+	}
+	
+	
 	// 가입 시 이메일 체크
 	@Override
 	public int emailCheck(String email) {		
@@ -67,5 +89,44 @@ public class UserServiceImple implements UserService {
 		}
 		return uv;
 	}
-
+	
+	// 회원정보 업데이트
+	@Override
+	public int userUpdate(UserVo vo) {
+		return dao.userUpdate(vo);
+	}
+	
+	// 닉네임 업데이트
+	@Override
+	public int nickUpdate(UserVo vo) {
+		return dao.nickUpdate(vo);
+	}
+	
+	// 닉네임 업데이트
+	@Override
+	public UserVo userSelect(UserVo vo) {
+		return dao.userSelect(vo);
+	}
+	
+	// 비밀번호 확인 (수정)
+	@Override
+	public int pwdCheck(UserVo vo) {
+		return dao.pwdCheck(vo);
+	}
+	
+	// 비밀번호 변경 (수정)
+	@Override
+	public int pwdUpdate(UserVo vo) {
+		return dao.pwdUpdate(vo);
+	}
+	
+	//회원 탈퇴
+	@Override
+	public int userDelete(UserVo vo) {
+		if (vo.getUser_type() == 1) {
+			return dao.userDelete(vo);
+		} else {
+			return dao.userSocialDelete(vo);
+		}
+	}
 }

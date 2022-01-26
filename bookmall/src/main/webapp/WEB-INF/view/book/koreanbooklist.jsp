@@ -20,7 +20,78 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script src="/bookmall/js/common.js"></script>
     <script src="/bookmall/js/main.js"></script>
+	
+	<script>
+	// 카테고리 변경 이벤트
+ 	function category(bclassify, blevel, bcategoryno) {
+ 		
+ 		var param = {
+ 				'bclassify': '0',
+ 				'blevel': blevel,
+ 				'bcategoryno': bcategoryno
+ 				};
 
+		$.ajax({
+			url: 'selectCateList.do',
+			method: 'GET',
+			data : param,
+	        dataType: 'json',
+			async: false,
+			success: function(res) {
+				$('#cateList').empty();
+				
+				var html = '';
+				
+				$.each(res, function(i, val) {
+					html += '<li class="layer" data-bclassify="' + val.bclassify + '" data-blevel="' + val.blevel + '"value="' + val.bcategoryno + '">';
+					html += '<a href="/bookmall/book/koreanbooklist.do?blevel='+val.blevel+'&bcategoryno='+val.bcategoryno+'">' + val.bcategoryname + '</a></li>';
+				});
+				
+				$('#cateList').html(html);
+			}
+		});
+	}
+	
+	function cateo(bclassify, blevel, bcategoryno) {
+		
+		var param = {
+				'bclassify': '0',
+				'blevel': blevel,
+				'bcategoryno': bcategoryno
+		};
+		
+		$.ajax({
+			url: 'selectCateList.do',
+			method: 'GET',
+			data: param,
+			dataType: 'json',
+			async: false,
+			success: function(res) {
+				var html = '';
+				
+				$.each(res, function(i, val) {
+					html += '<ul class="cate" data-bclassify="' + val.bclassify + '" data-blevel="' + val.blevel + '"value="' + val.bcategoryno + '">';
+					html += '<a href="/bookmall/book/koreanbooklist.do?blevel='+val.blevel+'&bcategoryno='+val.bcategoryno+'">' + val.bcategoryname + '</a></ul>';
+				});
+				
+				$('#cateList').html(html);
+			}
+		})
+	}
+	
+	
+	
+	$(function() {
+		category('0', '0', '');
+		
+		$('.layer').mouseover(function() {
+			cateo('0',
+					$('.layer').find().data('blevel'),
+					$('.layer').find().val()
+			);
+		})
+	});
+	</script>
 </head>
 <body>
 <div class="wrap"> 	
@@ -32,8 +103,12 @@
         <!-- 새로 나온 도서 영역 시작 -->
             <div class="size">
 				<div class="category">
-					<div class="category_name">국내도서</div>
-					
+					<div class="categoryname">
+						<h2><a href="/bookmall/book/korean.do">국내도서</a></h2>
+					</div>
+					<div class="cateList" name="cateList" id="cateList">
+						
+					</div>		
 				</div>
             	<div class="text">
 					<p style="font-size:20px"><b>새로 나온 도서 ▶</b></p>

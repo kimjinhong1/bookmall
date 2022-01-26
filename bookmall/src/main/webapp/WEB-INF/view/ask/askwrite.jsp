@@ -21,20 +21,40 @@
 	src="/bookmall/smarteditor/js/HuskyEZCreator.js"></script>
 <script src="/bookmall/js/common.js"></script>
 <link rel="stylesheet" href="/bookmall/css/ask.css" />
+<script src="https://malsup.github.io/jquery.form.js"></script> 
 <script>
 	var oEditors;
 	$(function() {
 		oEditors = setEditor("content");
+		/*
+		$("#frm").ajaxForm({
+			url: '/bookmall/ask/askinsert.do', //<<-- 처리 요청 URL
+			success: function(result){ // 비동기요청  성공시
+				alert('문의내용이 등록되었습니다.');
+			}
+		});*/
 	});
 	function goSave() {
-		if ($("#title").val() == '') {
-			alert("제목을 입력하세요");
-			$("#title").focus();
+		if ($("#selectinquiry").val() == '') {
+				alert("문의종류를 선택하세요");
 			return;
 		}
-		oEditors.getById['content'].exec("UPDATE_CONTENTS_FIELD", []);
+		if($("#title").val() == '') {
+				alert("제목을 입력하세요");
+				$("#content").focus();
+			return;
+		}
+		oEditors.getById['content'].exec("UPDATE_CONTENTS_FIELD",[]);
+		console.log($("#content").val());
+		if($("#content").val() == '<p>&nbsp;</p>') {
+				alert("내용을 입력하세요");
+				$("#content").focus();
+				return;
+		}
 		$("#frm").submit();
 	}
+
+	
 </script>
 
 </head>
@@ -45,9 +65,9 @@
 			<div class="size">
 				<h3 class="sub_title">1:1 문의하기</h3>
 				<div class="bbs">
-					<form method="post" name="frm" id="frm" action="insert.do"
+					<form method="post" name="frm" id="frm" action="askinsert.do"
 						enctype="multipart/form-data">
-						<table class="topselect"> <%-- FAQ 선택 --%> 
+						<table class="topselect"> <%-- FAQ 보기 --%> 
 							<tbody>
 								<tr>
 									<th>잠깐! 문의하기전 FAQ를 확인해보세요.</th>
@@ -104,31 +124,30 @@
 								</td>
 							</tbody>
 						</table>
-						
 						<table class="board_write"> <%-- 문의사항 작성 --%>
+						
 							<tbody>
-								<tr>
-									<th>문의종류</th>
-									<td><select name="selectinquiry" id="selectinquiry"
+									<th>문의선택</th>
+									<td><select name="subject" id="selectinquiry"
 										style="width: 45%; height: 30px; float: left;">
 											<option value="">문의종류를 선택하세요.</option>
-											<option value="1">상품문의</option>
-											<option value="2">결제문의</option>
-											<option value="3">배송문의</option>
-											<option value="4">교환/반품문의</option>
-											<option value="5">취소/환불문의</option>
-											<option value="6">기타문의</option>
-									</select></td>
+											<option value="상품문의">상품문의</option>
+											<option value="결제문의">결제문의</option>
+											<option value="배송문의">배송문의</option>
+											<option value="교환/반품문의">교환/반품문의</option>
+											<option value="취소/환불문의">취소/환불문의</option>
+											<option value="기타문의">기타문의</option>
+									</select>${ask.subject}</td>
 								</tr>
 								<tr>
 									<th>제목</th>
 									<td><input type="text" name="title" id="title"
-										class="wid100" value="" style="width: 100%;" /></td>
+										class="wid100" value="${ask.title}" style="width: 100%;" /></td>
 								</tr>
 								<tr>
 									<th>내용</th>
 									<td><textarea name="content" id="content"
-											style="width: 100%;"></textarea></td>
+											style="width: 100%;">${ask.content}</textarea></td>
 								</tr>
 								<tr>
 									<th>첨부파일</th>
@@ -143,8 +162,8 @@
 								</tr>
 							</tbody>
 						</table>
-					 <div class="btnSet"  style="text-align:center;">
-                        <a class="btn" href="javascript:goSave();">저장 </a>
+					 <div class="btnSet"  style="text-align:center; font-size: 16px;">
+                        <a id ="askbtn" href="javascript:goSave();;">등록</a>
                     </div>
 					</form>
 				</div>
