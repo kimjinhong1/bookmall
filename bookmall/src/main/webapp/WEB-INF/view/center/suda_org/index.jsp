@@ -87,7 +87,7 @@
 	                               <td class="txt_l" style="text-align:left;">
 		                                <c:if test="${vo.nested > 0 }">
 	                                 	<c:forEach begin="1" end="${vo.nested}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
-	                                	<img src="/bookmall/img/reply_icon.jpeg" style='width:25px;'>
+	                                	<img src="/bookmall/img/reply_icon3.png" style='width:25px;'>
                                		    </c:if>
 	                                     <a href="view.do?sudano=${vo.no }" >${vo.title } [${vo.c_count }]</a>
 	                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
@@ -102,10 +102,10 @@
 	                    </table>
                     <div class="btnSet"  style="text-align:right;">
                     <c:if test="${!empty userInfo }">
-                        <a class="btn3" href="write.do">글작성 </a>
+                        <a class="btn" href="write.do">글작성 </a>
                     </c:if>
                     <c:if test="${empty userInfo }">
-                        <a class="btn3" href="javascript:alert('로그인후 사용가능합니다.');location.href='/bookmall/user/login.do';">글작성</a>
+                        <a class="btn" href="javascript:alert('로그인후 사용가능합니다.');location.href='/bookmall/user/login.do';">글작성</a>
                     </c:if>    
                     </div>
 	                    <!-- 페이지처리 -->
