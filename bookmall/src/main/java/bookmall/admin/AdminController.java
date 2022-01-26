@@ -18,7 +18,7 @@ public class AdminController {
 	@GetMapping("/admin/index.do")
 	public String index() {
 		return "admin/index"; 
-	}
+	} 
 	
 	// 로그인 실행
 	@PostMapping("/admin/login.do")

@@ -16,6 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"></script>
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <script src="/bookmall/js/common.js"></script>
     <script>
@@ -40,22 +41,120 @@
 		    }
     	}
   		
+  		// 카카오 로그인
     	function loginWithKakao() {
-    		// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-    		Kakao.init('2098e03da186e9b37098442fd1828311');
+    		try {
+    	        if (Kakao) {
+    	        	// SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+    	        	Kakao.init('2098e03da186e9b37098442fd1828311');
+    	        };
+    	    } catch(e) {};
+    		
     		// SDK 초기화 여부를 판단합니다.
     	    console.log(Kakao.isInitialized());
-    	    Kakao.Auth.login({
-    	    	scope:''
-    	    });
+    	 	// 토큰 할당하기
+            //Kakao.Auth.setAccessToken(ACCESS_TOKEN);
+    	 	// 로그인 시도
+		    Kakao.Auth.login({
+		    	 success: function(authObj) {
+		    		 // 성공 시 , API 호출
+		             Kakao.API.request({
+		                 url: '/v2/user/me',
+		                 success: function(res) {
+		                	 console.log(res);
+		                	 res.id += "@kakao";
+		                	 
+		                	 console.log(res.id);
+		                	 
+		                	 // 이메일 선택 동의를 안했을 시 true
+		                	 if (res.kakao_account.email == undefined) {
+		                		 alert("이메일이 동의되지 않았습니다.");
+		                		 // 연결 끊기
+		                		 Kakao.API.request({
+		                			  url: '/v1/user/unlink',
+		                			  success: function(response) {
+		                			    console.log(response);
+		                			    console.log("연결끊기 성공");
+		                			  },
+		                			  fail: function(error) {
+		                			    console.log(error);
+		                			    console.log("연결끊기 실패");
+		                			  },
+		                			});
+		                		 $("#social").attr("method","GET").attr("action","/bookmall/user/login.do").attr("target","_parent");
+		                		 return false;
+		                	 }
+		                	 
+		                	 var email = res.kakao_account.email;
+		                	 var identifier = res.id;
+		                	 var user_type = 2;
+		                	 var state = 1;
+		                	 
+		                	 $.ajax({
+		                		 type : "GET",
+		                         url : "/bookmall/user/socialCheck.do",  //중복체크
+		                         data : {
+		                        	 identifier : identifier
+		                        	 },
+		                         dataType : "JSON",
+		                           success : function(idChk){
+		                               if(idChk==0){ //DB에 아이디가 없을 경우 => 회원가입
+		                                   console.log("회원가입");
+		                                   $.ajax({
+		                                       url : "/bookmall/user/insert.do",
+		                                       method : "POST",
+		                                       data : {
+			                                       email : email,
+			                                       pwd : "kakao123",
+			                                       name : res.properties.nickname,
+			                                       nickname : res.properties.nickname,
+			                                       user_type : user_type,
+			                                       state : state,
+			                                       identifier : identifier
+		                                       },
+		                                       success : function(JSONData){
+		                                          alert("회원가입이 정상적으로 되었습니다.");
+		                                          $("#social").attr("method","POST").attr("action","/bookmall/user/snsLogin/"+identifier).attr("target","_parent").submit();
+		                                       }
+		                                   })
+		                               }
+		                               if(idChk==1){ //DB에 아이디가 존재할 경우 => 로그인
+		                                   console.log("로그인");
+		                                   $("#social").attr("method","POST").attr("action","/bookmall/user/snsLogin/"+identifier).attr("target","_parent").submit();
+		                               }
+		                           }
+		                     })
+									                     
+		                 },
+		                 fail: function(error) {
+		                     alert(JSON.stringify(error))
+		                 }
+		             });
+		    		 
+		           },
+		           fail: function(error) {
+		             alert(JSON.stringify(error));
+		           }
+		    });
+    	    
 		}
 
-
+    	// 로그아웃
+		function kakaoLogout() {
+		    if (Kakao.Auth.getAccessToken()) {
+		      Kakao.API.request({
+		        url: '/v1/user/unlink',
+		        success: function (response) {
+		        	console.log(response)
+		        },
+		        fail: function (error) {
+		          console.log(error)
+		        },
+		      })
+		      Kakao.Auth.setAccessToken(undefined)
+		    }
+		}  
   		
-        
-        
-        
-        
         
         
         
@@ -96,6 +195,18 @@
     	    
     	    if($("#email").val() != "")
     	        $("#saveEmail").attr("checked", true);
+    	    
+    	    
+    	    // 네이버 소셜 로그인
+    	    var naverLogin = new naver.LoginWithNaverId({
+    	        clientId: "KTq9CxuHYQBTJfayX1oz",
+    	        callbackUrl: "http://localhost:8080/bookmall/user/naverCallback.do",
+    	        isPopup: true,
+    	        loginButton: {color: "green", type: 3, height: 45}
+    	    });
+    	    naverLogin.init();
+
+
     	});
     	 
     </script>   
@@ -124,27 +235,34 @@
                                     <a href="searchId.do" class="btn">이메일/비밀번호 찾기</a>
                                 </div>
                             </div>
-                            <div class="btnSet clear">
-                            	<div>
-                                	<a href="" class="btn" >네이버 로그인</a> 
-                                </div>
-                            </div>
-                            <div class="btnSet clear">
-                            	<div>
-                                	<a id="custom-login-btn" href="javascript:loginWithKakao()">
-									  <img
-									    src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-									    width="222"
-									    alt="카카오 로그인 버튼"
-									  />
-									</a>
-                                </div>
-                            </div>
                                                         
                         </div>
                     </div>        
                 </div>
             </div>
+        </form>
+        <form name="social" id="social">
+
+        <div class="btnSet clear">
+        	<div id="naverIdLogin" align="center">
+	    		<a id="naver-login-btn" href="#" role="button">
+	        		<img src="https://static.nid.naver.com/oauth/big_g.PNG"
+	        		width="200"
+	        		alt="네이버 로그인 버튼"
+	        		 /> 
+	    		</a>
+			</div>
+			<br>
+            <div>
+		    	<a id="custom-login-btn" href="javascript:loginWithKakao()">
+				  <img
+				    src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+				    width="200"
+				    alt="카카오 로그인 버튼"
+				  />
+				</a>
+            </div>
+        </div>
         </form>
         <%@include file="/WEB-INF/view/include/footer.jsp" %>       
     </div>

@@ -40,12 +40,12 @@ public class MemberDao {
 	
 	// 주문상품 금액 총합
 	public int member_buy_price(UserVo vo) {
-		return sqlSession.selectOne("member.member_buy_price", vo);
+		return sqlSession.selectOne("member.memberbuy_price", vo);
 	}
 	
 	// 주문상품 개수 총합
 	public int member_buy_count(UserVo vo) {
-		return sqlSession.selectOne("member.member_buy_count", vo);
+		return sqlSession.selectOne("member.memberbuycount", vo);
 	}
 	
 	// 회원이 구매한 주문상세 수

@@ -49,21 +49,21 @@
 		WHERE userno = #{userno}
 	</update>
 	
-	<!-- 주문상품 금액 총합 
-	<select id="member_buy_price" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
-		SELECT sum(total_price) AS member_buy_price
-		FROM order_detail
-		WHERE orderno
-		IN (SELECT orderno FROM orders WHERE userno = #{userno});
-	</select>-->
+	<!-- 주문상품 금액 총합  -->
+	<select id="memberbuy_price" parameterType="bookmall.user.UserVo" resultType="int">
+		SELECT ifnull(sum(total_price),0) AS member_buy_price 
+		FROM order_detail 
+		WHERE orderno 
+		IN (SELECT orderno FROM orders WHERE userno = #{userno})
+	</select>  
 	
-	<!-- 주문상품 개수 총합 
-	<select id="member_buy_count" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
-		SELECT sum(count) AS member_buy_count
+	 <!--주문상품 개수 총합  -->
+	<select id="memberbuycount" parameterType="bookmall.user.UserVo" resultType="int">
+		SELECT ifnull(sum(count),0) AS member_buy_count
 		FROM order_detail
 		WHERE orderno
-		IN (SELECT orderno FROM orders WHERE userno = #{userno});
-	</select>-->
+		IN (SELECT orderno FROM orders WHERE userno = #{userno})
+	</select>
 	
 	<!-- 회원관리 구매기록 -->
 	<select id="memberBuyRecode" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">

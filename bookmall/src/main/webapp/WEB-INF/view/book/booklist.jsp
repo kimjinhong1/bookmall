@@ -21,6 +21,7 @@
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script src="/bookmall/js/common.js"></script>
     <script src="/bookmall/js/main.js"></script>
+
 	<script>
 		$(function(){
 			$('#minusCount').click(function() {
@@ -44,6 +45,26 @@
 			})
 		});
 	</script>
+
+
+<script>
+//장바구니 담기
+		$("#cartbtn").click(function() {
+			$.ajax({
+				url : '/bookmall/cart/add',
+				type : 'POST',
+				data : {
+					vo.bookno
+
+				},
+				success : function(result) {
+					alert('장바구니에 등록되었습니다.');
+					$(".bookcount").val("1");
+				}
+			})
+		});
+</script>
+
 </head>
 <body>
 <div class="wrap"> 	
@@ -98,7 +119,7 @@
 						         	<input type="button" name="plusCount" id="plusCount" value="+" class="" ></a>
                                 </td>
                                 <td class="btnTop">
-                                	<a class="btns" href="#" onclick=""><strong>장바구니에 담기</strong> </a>
+                                	<a class="btns" href="#" id ="cartbtn" name="cartinsert"><strong>장바구니에 담기</strong> </a>
                                 </td>
                                 <td class="btnMiddle">
                                 	<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>

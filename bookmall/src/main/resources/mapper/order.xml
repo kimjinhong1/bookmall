@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="orders"> <!-- mapper파일의 이름 -->
+
+	<!-- orders insert  -->
+	<insert id="insert" parameterType="bookmall.orders.OrderVo" >
+		INSERT INTO orders (
+			userno, order_date, name, receiver_name, zipcode, addr1, addr2, receiver_phone, methodOfPayment, bankToDeposit, nameOfDepositor
+		) VALUES (			
+			#{userno}, NOW(), #{name},#{receiver_name},#{zipcode},#{addr1},#{addr2},#{receiver_phone},#{methodOfPayment},#{bankToDeposit},#{nameOfDepositor}
+		)
+		<selectKey keyProperty="orderno" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<!-- 바로구매 상품 정보 insert  -->
+	<insert id="bookInsert" parameterType="bookmall.orders.BookVo" >
+		INSERT INTO order_detail (
+			orderno, bookno, bookcount, price, salesprice, total_price
+		) VALUES (			
+			#{orderno}, #{bookno}, #{bookcount}, #{price}, #{salesprice}, #{total_price}
+		)
+	</insert>
+	    
+	<insert id="bookListInsert" parameterType="bookmall.orders.CartVo">
+			INSERT INTO order_detail (
+				orderno, bookno, bookcount, price, salesprice, total_price
+			)
+			VALUES (
+				#{orderno}, #{bookno}, #{bookcount}, #{price}, #{salesprice}, #{total_price}
+			)
+	</insert>
+	<!-- 회원정보 가져오기 -->
+	<select id="userSelect" parameterType="bookmall.user.UserVo" resultType="bookmall.user.UserVo">
+		SELECT userno, name, tel, zipcode, addr1, addr2 
+		FROM user 
+		WHERE userno = #{userno} 
+	</select>
+	
+	<!-- 책정보 가져오기 -->
+	<select id="bookSelect" parameterType="bookmall.orders.BookVo" resultType="bookmall.orders.BookVo">
+		SELECT bookno, btitle_first, price, discountrate, salesprice 
+		FROM book 
+		WHERE bookno = #{bookno} 
+	</select> 
+	
+	
+	<!-- 장바구니에서 책정보 가져오기 -->
+	<select id="bookListSelect" parameterType="bookmall.orders.CartVo" resultType="bookmall.orders.CartVo">
+		SELECT a.cartno, a.bookcount, a.product, b.bookno, b.btitle_first, b.price, b.discountrate, b.salesprice
+		FROM cart a, book b
+		WHERE a.bookno = b.bookno
+		AND cartno IN (${cartnos}) 
+	</select>
+	
+	
+
+</mapper>
