@@ -51,11 +51,14 @@ public class MemberController {
 		vo.setStartIdx(startIdx);
 		
 		UserVo dvo = service.detailMember(vo);
-		//int buy_price = service.member_buy_price(vo);
-		//int buy_count = service.member_buy_count(vo);
+		
+		int buy_price = service.member_buy_price(vo);
+		System.out.println(buy_price);
+		int buy_count = service.member_buy_count(vo);
+		
 		List<UserVo> memberBuy = service.memberBuyRecode(vo);
-		//model.addAttribute("buy_price", buy_price);
-		//model.addAttribute("buy_count", buy_count);
+		model.addAttribute("buyprice", buy_price);
+		model.addAttribute("buycount", buy_count);
 		model.addAttribute("member", dvo);
 		model.addAttribute("memberBuy", memberBuy);
 		model.addAttribute("totPage", totPage);	 

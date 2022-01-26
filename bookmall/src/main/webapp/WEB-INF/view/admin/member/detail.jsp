@@ -353,11 +353,11 @@ function zipcode() {
 		<tbody>
 		<tr>
 			<td class="infoname">총 구매액</td>
-			<!-- <td class="info">${buy_price }&nbsp;원</td> -->
+			<td class="info">${buyprice }&nbsp;원</td>
 		</tr>
 		<tr>
 			<td class="infoname">총 구매수량</td>
-			<!-- <td class="info">${buy_count }&nbsp;개</td> -->
+			<td class="info"> ${buycount } &nbsp;개</td>
 		</tr>
 		</tbody>
 		</table>

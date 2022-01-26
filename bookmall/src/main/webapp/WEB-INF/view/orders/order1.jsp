@@ -13,10 +13,11 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>
+<!-- 아임포트 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+
 
 <!-- 주소검색 -->
 <script
@@ -100,6 +101,8 @@ $(function(){
 });
 $(function(){
 	$("input[name='info']").click(function() {
+		
+        // window.open("open할 window", "자식창 이름", "팝업창 옵션");
 		//console.log(1);
 		if ($(this).val() == '2') {
 		  window.open("/bookmall/addr/addpop.do", "주소록", "width=740, height=400");
@@ -152,97 +155,141 @@ $(function(){
 <!-- 결제방법선택 -->
 	function showSelect(v,id){
 	 // 라디오 버튼 value 값 조건 비교
-		if(v == "무통장"){
+		if(v == "1"){
 		 $("#settle_bank").show(); // 보여줌
 		}else{
 		 $("#settle_bank").hide(); // 숨김
 		}
 	}
 	
-	$(function() {
-		$(".orderBtn").click(function() {
-			$("#frm").submit();
-		})
-	})
+
 </script>
 
 
-<%-- 
+<!-- 아임포트 신용카드 -->
+<script>
+	function requestPay() {
+	
+		var IMP = window.IMP; // 생략가능
+		IMP.init('imp75172657'); //가맹점식별코드를 넣어주세요
+		// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+		IMP.request_pay({
+			pg: 'html5_inicis', // html5_inicis : 이니시스(웹표준결제)
+			pay_method: 'card',
+			<%--
+			'card':신용카드,
+			'trans':실시간계좌이체,
+			'vbank':가상계좌,
+			--%>
+			merchant_uid: 'merchant_' + new Date().getTime(),
+			<%--
+			https://docs.iamport.kr/implementation/payment 참고
+			--%>
+			name: '${result.btitle_first }' '${result.btitle_second }',	//상품명
+			//가격
+			amount: 1000,		// 가격 ${result.salesprice }
+			buyer_email: '${loginUser.email }',		// 이메일
+			buyer_name: '${loginUser.name }',		// 이름
+			buyer_tel: '${loginUser.tel }',			// 연락처
+			buyer_addr: '${loginUser.addr1 } ${loginUser.addr2 }', // 주소
+			buyer_postcode: '${result.bookno }', // 상품코드
+			m_redirect_url: 'https://localhost:8080/bookmall/orderComplete.do'
+			/*
+			모바일 결제시,
+			결제가 끝나고 랜딩되는 URL을 지정
+			(카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+			*/
+			}, function (rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+					var msg = '결제가 완료되었습니다.';
+		                msg += '고유ID : ' + rsp.imp_uid;
+		                msg += '상점 거래ID : ' + rsp.merchant_uid;
+		                msg += '결제 금액 : ' + rsp.paid_amount;
+		                msg += '카드 승인번호 : ' + rsp.apply_num;
+		                msg += '카드 승인날짜 : ' + new Date().getTime();
+		                msg += '회원 주소 : ' + '${loginUser.addr1 } ${loginUser.addr2 }';
+		                msg += '회원 휴대전화 : ' + '${loginUser.tel }';
+					console.log("결제성공 " + msg);
+					$.ajax({
+				            url: 'orderInsertAjax.do', // 예: https://www.myservice.com/payments/complete
+				            method: "POST",
+				            data : $("#frm").serialize(),
+				            success:function(res) {
+				            	if (res.trim() == '1') {
+					            	alert("정상적으로 결제되었습니다.");
+					            	location.href='complete.do';
+				            	} else {
+				            		var msg = '결제에 실패하였습니다.';
+				            		msg += '에러내용 : ' + rsp.error_msg;
+		    						alert('msg');
+		    					}
+					          }
+					        });
+						}      
+			
+				<%-- } else {
+					var msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+				} 
+				alert(msg);--%>
+			});
+	}
 
-	String name = (String)request.getAttribute("name");
-	String email = (String)request.getAttribute("email");
-	String receiver_phone = (String)request.getAttribute("receiver_phone");
-	String address1 = (String)request.getAttribute("address1");
-	String address2 = (String)request.getAttribute("address2");
-	int totalPrice = (int)request.getAttribute("totalPrice"); 
-
---%>
+</script>
 
 <%--
+<!-- 네이버페이 -->
+<script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
 <script>
-$(function(){
-		var IMP = window.IMP; // 생략가능
-		IMP.init("{imp75172657}");	// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-		var msg;
-		
-		IMP.request_pay({
---%>
-<%-- 
-	IMP.init("{imp75172657}"); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-	function requestPay() {
-	      // IMP.request_pay(param, callback) 결제창 호출
-	      IMP.request_pay({ // param
-	          pg: "html5_inicis",
-	          pay_method: "card",
-	          merchant_uid: "order_no_0001" + new Date().getTime(),	 // 도서에서 관리하는 주문 번호
-	          name: "주문명:결제테스트",									 // order 테이블에 들어갈 주문명 혹은 주문 번호
-	          amount: <%=totalPrice%>,								 // 결제금액
-	          buyer_email: <%=email%>,								 // 구매자 email
-	          buyer_name: <%=name%>,								 // 구매자 이름
-	          buyer_tel: <%=receiver_phone%>,								 // 구매자 전화번호
-	          buyer_addr: <%=address2%>,							 // 구매자 주소
-	          buyer_postcode: <%=address1%>							 // 구매자 우편번호
-	      }, function (rsp) { // callback
-	          if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-	              // //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-	              jQuery.ajax({
-	                  url: "/orders/complete", // "{서버의 결제 정보를 받는 endpoint}", 예: https://www.myservice.com/payments/complete
-	                  method: "POST",
-	                  dataType: 'json',
-	                  data: {
-	                      imp_uid: rsp.imp_uid,
-	                      merchant_uid: rsp.merchant_uid
-	                      //기타 필요한 데이터가 있으면 추가 전달
-	                  }
-	              }).done(function (data) {
-	            	//[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
-	            	  if ( everythings_fine ) {
-	          			var msg = '결제가 완료되었습니다.';
-	          			msg += '\n고유ID : ' + rsp.imp_uid;
-	          			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	          			msg += '\결제 금액 : ' + rsp.paid_amount;
-	          			msg += '카드 승인번호 : ' + rsp.apply_num;
-	          			
-	          			alert(msg);
-	          		} else {
-	          			//[3] 아직 제대로 결제가 되지 않았습니다.
-	          			//[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
-	          		}
-	          	});
-            } else {
-            	 var msg = '결제에 실패하였습니다.';
-                 msg += '에러내용 : ' + rsp.error_msg;
-                 
-                 alert(msg);
-             }
-	    }
-	});
-</script> --%>
+    var oPay = Naver.Pay.create({
+          "mode" : "production", // development or production
+          "clientId": "u86j4ripEt8LRfPGzQ8" // clientId
+    });
 
+    //직접 만드신 네이버페이 결제버튼에 click Event를 할당하세요
+    var elNaverPayBtn = document.getElementById("naverPayBtn");
+
+    elNaverPayBtn.addEventListener("click", function() {
+        oPay.open({
+          "merchantUserKey": "가맹점 사용자 식별키",
+          "merchantPayKey": "가맹점 주문 번호",
+          "productName": "상품명을 입력하세요",
+          "totalPayAmount": "1000",
+          "taxScopeAmount": "1000",
+          "taxExScopeAmount": "0",
+          "returnUrl": "사용자 결제 완료 후 결제 결과를 받을 URL"
+        });
+    });
+
+</script>
+ --%>
+
+
+<script>
+	$(function() {
+		$(".orderBtn").click(function() {
+			addressCheck();
+			if ($("input[name='methodOfPayment']:checked").val() == 2) {
+				requestPay();
+			} else { 
+				//$("#frm").submit();
+			}
+			if ($("input[name='methodOfPayment']:checked").val() == 3) {
+				();
+			} else { 
+				//$("#frm").submit();
+			}
+			
+		})
+	})
+	
+</script>
 
 </head>
 <body>
-	<form name="custF" id="frm" action="orderInsert.do" method="POST" onsubmit="return addressCheck();">
+	<form name="custF" id="frm" action="orderInsertAjax.do" method="POST" onsubmit="return false;">
 		<div class="wrap_orders">
 			<%@ include file="/WEB-INF/view/include/header.jsp"%>
 			<div class="container" align="center">
@@ -349,9 +396,9 @@ $(function(){
 
 					<fieldset id="sod_frm_paysel">
 						<legend>결제방법 선택</legend>
-						<input type="radio" id="bank" name="methodOfPayment" value="무통장" onclick="showSelect(this.value)">무통장입금
-						<input type="radio" id="card" name="methodOfPayment" value="신용카드" onclick="showSelect(this.value)">신용카드
-						<input type="radio" id="NPay" name="methodOfPayment" value="NPay" onclick="showSelect(this.value)">NPay
+						<input type="radio" id="bank" name="methodOfPayment" value="1" onclick="showSelect(this.value)">무통장입금
+						<input type="radio" id="card" name="methodOfPayment" value="2" onclick="showSelect(this.value)">신용카드
+						<input type="radio" id="NPay" name="methodOfPayment" value="3" onclick="showSelect(this.value)">NPay
 						
 						<div id="settle_bank" style="display: none">
 							<label for="bankToDeposit">입금할 계좌 : </label> <input type="hidden" name="bankToDeposit" value="국민은행 658102-01-312772 bookmall">국민은행 658102-01-312772 bookmall <br>
@@ -360,10 +407,10 @@ $(function(){
 					</fieldset>
 				</section>
 				<br><br>
-
-				<div class="button" align="center">
-						<button style="font-size: 18px; background-color: #fff; border: 1px solid #d3d3d3;">결제하기</button>
-				</div>
+				<div align="center">
+					<button class="orderBtn" style="font-size: 18px; background-color: #fff; border: 1px solid #d3d3d3;">결제하기</button>
+				</div> 
+				
 			</div>
 		</div>
 	</form>

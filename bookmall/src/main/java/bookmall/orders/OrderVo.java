@@ -39,13 +39,5 @@ public class OrderVo {
 			this.totalPrice = this.salesprice*this.bookCount;
 		}
 		
-//		//orderProduct관련 property
-//		//OrderVO have Products
-//		private List<ProductVO> orderList;
-//		
-//		//receiver관련 property
-//		//OrderVO has Receiver
-//		private ReceiverVO receiver;//수령자 정보
-		
 		
 }

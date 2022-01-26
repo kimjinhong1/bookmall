@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    
-    <title>회원가입</title>
+    <title>소셜회원수정</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>    
     <link rel="stylesheet" href="/bookmall/css/reset.css"/>
@@ -20,147 +20,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script>
     	$(function() {    		
-    		$("#emailCheckBtn").click(function(){
-    			if ($("#email1").val().trim() == '') {
-    				alert('이메일을 입력해 주세요');
-    				$("#email1").focus();
-    			} else {
-    				$.ajax({
-    					url : 'emailCheck.do',
-    					data : {
-    						email : $("#email1").val()+"@"+$("#email2").val()
-    					},
-    					async:false,
-    					success:function(res) {
-    						if (res.trim() == '1') {
-    							alert('중복된 이메일입니다. 다른 이메일을 입력해 주세요');
-    							$("#email1").val("");
-    							$("#email1").focus();
-    						} else {
-    							// (인증번호)이메일 발송
-    							$.ajax({
-			    					url : 'emailAuth.do',
-			    					data : {
-			    						email : $("#email1").val()+"@"+$("#email2").val()
-			    					},
-			    					async:false,
-			    					success:function(res) {
-			    						if (res.trim() == '0') {
-			    							alert('메일이 전송되지 않았습니다. 다른 이메일을 입력해 주세요');
-			    							$("#email1").val("");
-			    							$("#email1").focus();
-			    						} else {
-			    							$("#authArea").text("인증번호를 입력해주세요.");
-			    							alert("사용가능한 이메일입니다. 인증번호가 전송되었습니다.");
-			    							$(".hide").show()
-			    							$("#email_auth").focus();
-			    							
-			    						}
-			    					}
-    							})
-    						}
-    					}
-    				})
-    			}
-    		});
-    		$("#auth_CheckBtn").click(function(){
-    			if ($("#email_auth").val().trim() == '') {
-    				alert('인증번호를 입력해 주세요');
-    				$("#email_auth").focus();
-    			} else {
-    				$.ajax({
-    					url : 'authCheck.do',
-    					data : {
-    						email_auth : $("#email_auth").val()
-    					},
-    					async:false,
-    					success:function(res) {
-    						if (res.trim() == '0') {
-    							alert('잘못된 인증 번호입니다.');
-    							$("#email_auth").val("");
-    							$("#email_auth").focus();
-    						} else {
-    							$("#authArea").text("     인증이 완료되었습니다.");  
-    							$("#check").val('1');
-    							$("#realemail").val($("#email1").val()+"@"+$("#email2").val());
-    							$("#pwd").focus();
-    						}
-    						
-    					}
-    				})
-    				
-    			}
-    		});
-    		
-    		$('#selectEmail').change(function(){
-    			   $("#selectEmail option:selected").each(function () {
-    					
-    					if($(this).val()== '1'){ //직접입력일 경우
-    						 $("#email2").val('');                        //값 초기화
-    						 $("#email2").attr("disabled",false); //활성화
-    					}else{ //직접입력이 아닐경우
-    						 $("#email2").val($(this).text());      //선택값 입력
-    						 $("#email2").attr("disabled",true); //비활성화
-    					}
-    			   });
-    		});
-    		
-    		var validateCheck = {
-    			    "pwd" : false,
-    			    "pw_check" : false,
-    		}
-    		
-    		$("#pwd").on("click", function(){
-    			if ($("#pwd").val() == '') {
-	    			$("#checkPwd1").text("비밀번호를 입력해주세요.")
-	    			.css("color", "black");
-    			}
-    		});
-    		
-    		
-    		$("#pwd, #pw_check").on("input", function(){
-    		    // 비밀번호 유효성 검사
-    		    var regExp = /^(?=.*[a-zA-Z])(?=.*[\~\․\!\@\#\$\%\^\&\*\(\)\_\-\+\=\[\]\|\\\;\:\\'\"\<\>\,\.\?\/])(?=.*[0-9]).{8,16}$/;
-
-    		    var v1 = $("#pwd").val();
-    		    var v2 = $("#pw_check").val();
-
-    		    if(!regExp.test(v1)){
-    		        $("#checkPwd1").text("문자+숫자+특수문자로 최소 8자이상 16자이하 입력해 주세요.")
-    		        .css("color", "red");
-    		        validateCheck.pwd = false;
-    		    } else{
-    		        $("#checkPwd1").text("사용가능한 비밀번호입니다.")
-    		        .css("color", "green");
-    		        validateCheck.pwd = true;
-    		    }
-    		    
-    		    
-    		    if(!validateCheck.pwd && v2.length > 0){
-    		        swal("유효한 비밀번호를 먼저 작성해주세요.");
-    		        $("#pw_check").val(""); // 비밀번호 확인에 입력한 값 삭제
-    		        $("#pwd").focus();
-    		    }else {
-    		    	// 비밀번호 확인 입력창 클릭
-    		    	$("#pw_check").on("click", function(){
-    	    			$("#checkPwd2").text("다시 한번 입력해주세요.")
-    	    		});
-    		        // 비밀번호, 비밀번호 확인의 일치 여부
-    		       	if(v1.length == 0 || v2.length == 0){
-    					$("#checkPwd2").text("");
-    				}else if(v1 == v2){
-    		            $("#checkPwd2").text("비밀번호가 일치합니다.")
-    		            .css("color", "green");
-    		            validateCheck.pw_check = true;
-    		        }else{
-    		            $("#checkPwd2").text("비밀번호가 일치하지않습니다.")
-    		            .css("color", "red");
-    		            validateCheck.pw_check = false;
-    		        }
-    		    }
-    		    
-    		    
-    		});
     		// 닉네임 중복체크
     		$("#nickCheckBtn").click(function(){
     			if ($("#nickname").val().trim() == '') {
@@ -244,61 +103,7 @@
 	    
 	    function goSave() {
 	    	
-	    	$("#email").val($("#email1").val()+"@"+$("#email2").val()) 
 	    	
-	    	if ($("#email1").val().trim() == "") {
-	    		alert('이메일을 입력해 주세요');
-	    		$("#email1").focus();
-	    		return;
-	    	}
-	    	
-	    	var con = true;
-	    	$.ajax({
-				url : 'emailCheck.do',
-				data : {
-					email : $("#email1").val()+"@"+$("#email2").val()
-				},
-				async:false,
-				success:function(res) {
-					if (res.trim() == '1') {  //0이 나오는건 필요없음
-						alert('중복된 이메일입니다. 다른 이메일을 입력해 주세요');
-						$("#email1").val("");
-						$("#email1").focus();
-						con = false;
-					}
-				}
-			})
-			if (con == false) return;
-	    	
-	    	// 인증된 이메일인지 확인
-	    	if (!($("#email").val().trim() == $("#realemail").val().trim())) {
-	    		alert('인증된 이메일이 아닙니다');
-	    		$("#email1").focus();
-	    		return;
-	    	}
-	    	
-			if ($("#check").val() == '0') {
-	    		alert('이메일 인증이 되지않았습니다.');
-	    		$("#email1").focus();
-	    		return;
-	    	}
-			
-	    	
-	    	if ($("#pwd").val().trim() == "") {
-	    		alert('비밀번호를 입력해 주세요');
-	    		$("#pwd").focus();
-	    		return;
-	    	}
-	    	var reg = /^(?=.*[a-zA-Z])(?=.*[\~\․\!\@\#\$\%\^\&\*\(\)\_\-\+\=\[\]\|\\\;\:\\'\"\<\>\,\.\?\/])(?=.*[0-9]).{8,16}$/;
-	    	if( !reg.test($("#pwd").val()) ) {
-	    	    alert("비밀번호는 문자+숫자+특수문자 조합으로 8자이상 16자이하 입력해 주세요.");
-	    	    $("#pwd").focus();
-	    	    return;
-	    	}
-	    	if ($("#pwd").val() != $("#pw_check").val()) {
-	    		alert("비밀번호가 일치하지 않습니다.");
-	    		return;
-	    	}
 	    	if ($("#nickname").val().trim() == "") {
 	    		alert('닉네임을 입력해 주세요');
 	    		$("#nickname").focus();
@@ -391,10 +196,10 @@
     	<%@include file="/WEB-INF/view/include/header.jsp" %>
     	<div class="sub">
             <div class="size">
-                <h3 class="sub_title">회원가입</h3>
-                <form name="frm" id="frm" action="insert.do" method="post">
+                <h3 class="sub_title">추가정보를 입력하세요</h3>
+                <form name="frm" id="frm" action="update.do" method="post">
                 <table class="board_write">
-                    <caption>회원가입</caption>
+                    <caption>추가정보 입력</caption>
                     <colgroup>
                         <col width="20%" />
                         <col width="*" />
@@ -403,56 +208,18 @@
                         <tr>
                             <th><small class="star">*</small> 이메일</th>
                             <td>
-                                <input type="text" name="email1" id="email1" class="inNextBtn" style="float:left;" maxlength="50" placeholder="이메일ID를 입력해주세요"><small class="golbang">@</small>
-                                <input type="text" name="email2" id="email2" disabled value="naver.com">
-                                <select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail">
-									 <option value="1">직접입력</option>
-									 <option value="naver.com" selected>naver.com</option>
-									 <option value="gmail.com">gmail.com</option>
-									 <option value="hanmail.net">hanmail.net</option>
-									 <option value="hotmail.com">hotmail.com</option>
-									 <option value="nate.com">nate.com</option>
-									 <option value="yahoo.co.kr">yahoo.co.kr</option>
-									 <option value="empas.com">empas.com</option>
-									 <option value="dreamwiz.com">dreamwiz.com</option>
-									 <option value="freechal.com">freechal.com</option>
-									 <option value="lycos.co.kr">lycos.co.kr</option>
-									 <option value="korea.com">korea.com</option>
-									 <option value="hanmir.com">hanmir.com</option>
-									 <option value="paran.com">paran.com</option>
-								</select>
-
-                                
-                                <span class="email_check"><a href="javascript:;" id="emailCheckBtn"  class="btn bgGray" style=" width:auto; clear:none;">E-Mail 인증</a></span>
+                                <span style="color: black;">${user.email }</span>
                             </td>
-                        </tr>
-                        
-                        <tr class="hide" style="display: none;"> <!-- 처음에 숨김 -->
-                            <th><small class="star">*</small> 인증번호</th>
-                            <td>
-                                <input type="text" name="email_auth" id="email_auth" class="inNextBtn" style="float:left;">
-                                <span class="auth_Check"><a href="javascript:;" id="auth_CheckBtn"  class="btn bgGray" style="float:left; width:auto; clear:none;">인증번호 확인</a></span>
-                                <small id="authArea"></small>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <th><small class="star">*</small> 비밀번호 </th>
-                            <td><input type="password" name="pwd" id="pwd" style="float:left;" maxlength="50" > <span class="ptxt"><small id="checkPwd1"></small></span></td>
-                        </tr>
-                        <tr>
-                            <th><small class="star">*</small> 비밀번호<span>확인</span></th>
-                            <td><input type="password" name="pw_check" id="pw_check" style="float:left;" maxlength="50" ><span class="ptxt"><small id="checkPwd2"></small></span></td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 닉네임</th>
-                            <td><input type="text" name="nickname" id="nickname" style="float:left;" maxlength="20" placeholder="닉네임을 입력해주세요">&nbsp;&nbsp;
+                            <td><input type="text" name="nickname" id="nickname" style="float:left;" maxlength="20" placeholder="닉네임을 입력해주세요" value="${user.nickname }">&nbsp;&nbsp;
                             <span class="nick_check"><a href="javascript:;" id="nickCheckBtn"  class="btn bgGray" style=" width:auto; clear:none;">닉네임 중복확인</a></span>
                              </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 이름</th>
-                            <td><input type="text" name="name" id="name" style="float:left;" maxlength="20" placeholder="이름을 입력해주세요"> </td>
+                            <td><input type="text" name="name" id="name" style="float:left;" maxlength="20" placeholder="이름을 입력해주세요" value="${user.name }"> </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 생년월일</th>
@@ -540,9 +307,9 @@
                             <th><small class="star">*</small> 성별</th>
                             <td>
                             <div>&nbsp;
-                            	<input type="radio" name="gender" id="gender" value="1" checked="checked">&nbsp;<span style="font-size: 16px; color:#000000;">남성</span>
+                            	<input type="radio" name="gender" id="gender" value="1" <c:if test="${user.gender == 1}">checked="checked"</c:if>>&nbsp;<span style="font-size: 16px; color:#000000;">남성</span>
                             	&nbsp;&nbsp;&nbsp;
-                            	<input type="radio" name="gender" id="gender" value="2">&nbsp;<span style="font-size: 16px; color:#000000;">여성</span>
+                            	<input type="radio" name="gender" id="gender" value="2" <c:if test="${user.gender == 2}">checked="checked"</c:if>>&nbsp;<span style="font-size: 16px; color:#000000;">여성</span>
                             	</div>
                             </td>
                         </tr>
@@ -567,14 +334,14 @@
                 </table>
                 		<input type="hidden" name="check" id="check" value='0'> <!-- 인증확인 값 -->
                 		<input type="hidden" name="nickcheck" id="nickcheck" value='0'> <!-- 이메일중복확인 -->
-                		<input type="hidden" name="email" id="email"> <!--  폼 입력 이메일 -->
                 		<input type="hidden" name="birthday" id="birthday">
-                		<input type="hidden" name="realemail" id="realemail"> <!-- 인증한 이메일 -->
                 		<input type="hidden" name="realnick" id="realnick"> <!-- 인증한 닉네임 -->
                 		<input type="hidden" name="tel" id="tel">
+                		<input type="hidden" name="userno" value="${userInfo.userno }">
+                		
                 </form>
                 <div class="btnSet clear">
-                    <div><a href="javascript:;" class="btn" onclick="goSave();">가입</a> <a href="javascript:;" class="btn" onclick="history.back();">취소</a></div>
+                    <div><a href="javascript:;" class="btn" onclick="goSave();">확인</a> </div>
                 </div>
             </div>
         </div>
