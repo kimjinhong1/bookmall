@@ -164,6 +164,24 @@ function goReply(no) {
                        <div id="commentArea"></div>
                     
                     </div>
+                    <table border="1" style="margin-top:20px">
+                    <tr>
+                    	<td style="padding-left:20px; line-height:29px" >
+                    		<c:if test="${empty prev }"> 이전글이 없습니다. </c:if>
+                    		<c:if test="${!empty prev }"> 
+                    			<a href="view.do?sudano=${prev.no}">이전글 - ${prev.title }</a>
+                    		</c:if>		
+                    	</td>
+                    </tr>
+                    <tr>
+                    	<td style="padding-left:20px; line-height:29px">
+                    		<c:if test="${empty next }"> 다음글이 없습니다. </c:if>
+                    		<c:if test="${!empty next }">  
+                    			<a href="view.do?sudano=${next.no}">다음글 - ${next.title }</a>
+                    	 	</c:if>
+                    	</td>
+                    </tr>
+                    </table>
                 </div>
             </div>
         </div>

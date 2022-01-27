@@ -99,6 +99,7 @@ function goSave() {
                         </tbody>
                     </table>
                     <div class="btnSet"  style="text-align:right;">
+                	    <a class="btn2" href="index.do">목록</a>
                         <a class="btn3" href="javascript:goSave();">수정 </a>  
                     </div>
                     </form>
