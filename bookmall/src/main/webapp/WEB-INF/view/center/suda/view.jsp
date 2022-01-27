@@ -125,8 +125,10 @@ function goReply(no) {
                         <div class="btnSet clear">
                             <div class="fl_l">
                                <a href="index.do" class="btn2">목록으로</a>
+                               <c:if test="${!empty userInfo }">
+                               		<a href="reply.do?sudano=${data.no }" class="btn5">답글쓰기</a>
+                               </c:if>
                                <c:if test="${data.userno == userInfo.userno}">
-                             	   <a href="reply.do?sudano=${data.no }" class="btn5">답글쓰기</a>
 	                               <a href="edit.do?sudano=${data.no }" class="btn3">수정하기</a>  
 	                               <a href="javascript:goDelete(${data.no });" class="btn4">삭제하기</a>
                                </c:if> 

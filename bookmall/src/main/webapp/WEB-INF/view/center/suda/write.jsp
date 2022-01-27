@@ -60,6 +60,7 @@ function goSave() {
                 <div class="bbs">
                 <form method="post" name="frm" id="insertFrm" action="insert.do" enctype="multipart/form-data" >
                 	<input type="hidden" name="secret" value="1">
+                	<input type="hidden" name="new_icon" value="2">
                     <table class="board_write">
                         <tbody>
                          <tr>
