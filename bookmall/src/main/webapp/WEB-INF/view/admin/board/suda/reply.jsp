@@ -95,7 +95,7 @@ function goSave() {
 			                <input type="hidden" name="nested" value="${data.nested }">
 			                <input type="hidden" name="category" value="${data.category }">
 			                <input type="hidden" name="secret" value="${data.secret }">
-			                <input type="hidden" name="top_notice" value="0">
+			                <input type="hidden" name="top_notice" value="${data.top_notice }">
 			                <input type="hidden" name="new_icon" value="3">
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리 기본내용입니다.">
 								<colgroup>
