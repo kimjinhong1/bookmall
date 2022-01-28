@@ -110,7 +110,10 @@ function checkAll(){
                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
                                     </a>
                                 </td>
-                                <td class="name">${vo.name }</td>
+                                <td class="name">
+                                <c:if test="${vo.userno == 0}">관리자</c:if>
+                                ${vo.name }
+                                </td>
                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td class="readcount">${vo.readcount }</td>
                             </tr>

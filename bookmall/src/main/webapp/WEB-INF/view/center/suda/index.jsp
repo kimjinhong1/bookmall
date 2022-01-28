@@ -93,7 +93,10 @@
 	                                     <a href="view.do?sudano=${vo.no }" >${vo.title } [${vo.c_count }]</a>
 	                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
 	                                </td>
-	                                <td class="userno">${vo.name} </td>
+	                                <td class="userno">
+                                		<c:if test="${vo.userno == 0}">관리자</c:if>
+	                                	${vo.name} 
+	                                </td>
 	                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" /></td>
 	                                 <td class="readcount">${vo.readcount }</td>
 	                            </tr>
