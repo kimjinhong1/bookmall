@@ -8,7 +8,7 @@
 				http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 				   
 	<!-- 컴퍼넌트 스캔 -->     
-	<context:component-scan base-package="bookmall"/>  
+	<context:component-scan base-package="bookmall"/>     
 	
 	<!-- 어노테이션 활성화 -->
 	<mvc:annotation-driven/>

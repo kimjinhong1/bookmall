@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>수다게시판 관리 [리뷰]</title>
+<title>리뷰게시판 관리</title>
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
 <script>
 function goDelete(){
@@ -41,7 +41,7 @@ function checkAll(){
 			<div id="content">
 				<div class="con_tit">
                 <div class="bbs">				
-					<h2>수다게시판 관리 [리뷰]</h2>
+					<h2>리뷰게시판 관리</h2>
 
 				<!-- //con_tit -->
 				<div class="con">
