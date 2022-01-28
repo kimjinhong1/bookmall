@@ -17,6 +17,9 @@ import bookmall.ask.AskService;
 import bookmall.ask.AskVo;
 import bookmall.mylist.MylistService;
 import bookmall.mylist.MylistVo;
+import bookmall.orders.OrderVo;
+import bookmall.recentOrder.RecentOrderService;
+import bookmall.recentOrder.RecentOrderVo;
 import bookmall.util.SendMail;
 
 @Controller
@@ -30,6 +33,9 @@ public class UserController {
 	
 	@Autowired
 	MylistService mylistService;
+	
+	@Autowired
+	RecentOrderService recentOrderService;
 	
 	//로그인 페이지 이동
 	@GetMapping("/user/login.do")
@@ -264,23 +270,18 @@ public class UserController {
 	
 	//마이페이지 화면에 문의내역, 마이리스트 목록 띄우기
 	@GetMapping("/user/mypage.do")
-	public String mypage(Model model, AskVo vo, MylistVo listvo) {
+	public String mypage(Model model, AskVo vo, MylistVo listvo, RecentOrderVo ordervo, HttpSession session) {
+		UserVo uvo = (UserVo)session.getAttribute("userInfo");
+		vo.setPageRow(5);
+
+		vo.setUserno(uvo.getUserno());
+		listvo.setUserno(uvo.getUserno());  
 		model.addAttribute("askList", askService.askList(vo));
 		model.addAttribute("dibsList", mylistService.listMypage(listvo));
+		model.addAttribute("orderList", recentOrderService.orderMypage(ordervo));
 		return "user/mypage";
 	}
 	
-	@GetMapping("/user/recentorder.do")
-	public String recentorder() {
-		return "user/recentorder";
-	}
-	
-	@GetMapping("/user/mylist.do")
-	public String mylist(Model model, MylistVo vo) {
-		model.addAttribute("dibsList", mylistService.listSelect(vo));
-		return "user/mylist";
-	}
 
 	
-
 }

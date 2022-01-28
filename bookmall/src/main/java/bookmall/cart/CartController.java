@@ -1,7 +1,5 @@
 package bookmall.cart;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import bookmall.user.UserVo;
@@ -74,36 +70,6 @@ public class CartController {
 		model.addAttribute("result", cnt);
 		return "include/result";
 	}
-//	@GetMapping("/cart/deleteClick.do")
-//	public int deleteClick(HttpSession session,
-//		     @RequestParam(value = "chbox[]") List<String> chArr, CartDao dao) {
-//		model.addAttribute("result", cartService.deleteCart(dto));
-//		return "include/result";
-//	}
-	
-	/*장바구니 선택품목 삭제*/
-//	@RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
-//	public int deleteCart(HttpSession session,
-//	     @RequestParam(value = "chbox[]") List<String> chArr, CartDao dao) throws Exception {
-//	 logger.info("delete cart");
-//	 UserVo uv= (UserVo)session.getAttribute("userInfo");
-//	 dao.serUserno(userno);	 
-//	 int result = 0;
-//	 int cartNum = 0;
-//	 
-//	 
-//	 if(member != null) {
-//	  cart.setUserId(userId);
-//	  
-//	  for(String i : chArr) {   
-//	   cartNum = Integer.parseInt(i);
-//	   cart.setCartNum(cartNum);
-//	   service.deleteCart(cart);
-//	  }   
-//	  result = 1;
-//	 }  
-//	 return result;  
-//	}
-	
+
 	
 }

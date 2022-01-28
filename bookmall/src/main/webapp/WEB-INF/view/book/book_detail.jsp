@@ -131,6 +131,44 @@ function socre(bookno) {
 $(function() { 
 	socre(${data.bookno}, 1); 
  })
+ 
+$(function() {
+	$("#cartbtn").click(function(){
+		$.ajax({
+			url: '/bookmall/cart/add',
+			type: 'POST',
+			data: {
+				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', salesprice: ${data.salesprice}
+				
+			},
+			success: function(result){
+				if (result.trim() == "2") {
+					alert("이미 등록되었습니다.");
+				} else {
+					alert('장바구니에 등록되었습니다.');
+				}
+			}
+		})
+	});
+});
+$(function() {
+	$("#listbtn").click(function(){
+		$.ajax({
+			url: '/bookmall/mylist/insert.do',
+			type: 'POST',
+			data: {
+				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', author: '${data.author}', publisher: '${data.publisher }'
+			},
+			success: function(result){
+				if (result.trim() == "2") {
+					alert("이미 등록되었습니다.");
+				} else {
+					alert('마이리스트에 등록되었습니다.');
+				}
+			}
+		})
+	});
+});
 </script>  
 <body>
 <div class="wrap"> 	
@@ -161,8 +199,8 @@ $(function() {
          	<div class="butSet clear">
 				<div class="buyBtn">
 					<input type="button" value="바로 구매" class="" onclick="">
-					<input type="button" value="리스트에 담기" class="" onclick="">
-					<input type="button" value="장바구니에 담기" class="" onclick="">
+					<a id ="cartbtn" name="cartinsert" href="#">장바구니 담기</a>
+					<a id ="listbtn" name="mylistinsert" href="#">마이리스트 담기</a>
 				</div>
 			</div>
          	<!-- 구매/장바구니 버튼 종료 -->

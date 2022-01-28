@@ -49,20 +49,21 @@
 
 <script>
 //장바구니 담기
-		$("#cartbtn").click(function() {
-			$.ajax({
-				url : '/bookmall/cart/add',
-				type : 'POST',
-				data : {
-					vo.bookno
-
-				},
-				success : function(result) {
-					alert('장바구니에 등록되었습니다.');
-					$(".bookcount").val("1");
-				}
-			})
-		});
+$(function() {
+	$("#cartbtn").click(function(){
+		$.ajax({
+			url: '/bookmall/cart/add',
+			type: 'POST',
+			data: {
+				bookno : ${data.bookno}, btitle_first : ${vo.btitle_first}, salesprice: ${vo.salesprice}
+				
+			},
+			success: function(result){
+				alert('장바구니에 등록되었습니다.');
+			}
+		})
+	});
+});
 </script>
 
 </head>
@@ -119,7 +120,7 @@
 						         	<input type="button" name="plusCount" id="plusCount" value="+" class="" ></a>
                                 </td>
                                 <td class="btnTop">
-                                	<a class="btns" href="#" id ="cartbtn" name="cartinsert"><strong>장바구니에 담기</strong> </a>
+                                	<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니에 담기</strong> </a>
                                 </td>
                                 <td class="btnMiddle">
                                 	<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>

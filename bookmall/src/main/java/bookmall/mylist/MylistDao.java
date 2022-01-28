@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import bookmall.board.suda.SudaVo;
+import bookmall.cart.CartDto;
 
 @Repository  // MvcCinfig 에 스캔을 해서 @Repository 적기만해도 빈 객체 생성 
 public class MylistDao {
@@ -36,6 +37,11 @@ public class MylistDao {
 	
 	public int delete(int listno) {
 		return sqlSessionTemplate.delete("mylist.delete",listno);
+	}
+	
+	//카트확인
+	public MylistVo checkList(MylistVo vo) {
+		return sqlSessionTemplate.selectOne("mylist.checkList",vo);
 	}
 	
 }

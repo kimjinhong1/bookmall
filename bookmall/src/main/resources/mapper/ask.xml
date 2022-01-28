@@ -13,13 +13,14 @@
 			<if test="userno > 0">
 				AND userno = ${userno}
 			</if>
-		</where>
+		</where>  
 	</sql>
 
 <!-- 문의내역 -->
 	<select id="askList" resultType="bookmall.ask.AskVo" parameterType="bookmall.ask.AskVo">
-		select * from ask order by regdate DESC
-		LIMIT ${startIdx},15
+		select * from ask 
+		<include refid="askWhere"/>
+		order by regdate DESC LIMIT ${startIdx},${pageRow}
 	</select>
 	
 
@@ -27,11 +28,11 @@
 	<insert id="askinsert" parameterType="bookmall.ask.AskVo">
 		INSERT INTO ask (
 		name, title, regdate, content, filename_org, filename_real,
-		userno, subject, gno, ono, nested
+		userno, subject, gno, ono, nested, status
 		) values(
 		#{name},#{title},NOW(),
 		#{content},#{filename_org},#{filename_real},
-		#{userno}, #{subject}, #{gno}, #{ono}, #{nested}
+		#{userno}, #{subject}, #{gno}, #{ono}, #{nested}, "대기중"
 		)
 		<selectKey keyProperty="askno" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -81,4 +82,8 @@
 		WHERE askno=#{askno}
 	</update>
 
+	<select id="count" resultType="int" parameterType="bookmall.ask.AskVo">
+		SELECT COUNT(*) FROM ask
+		<include refid="askWhere"/>
+	</select> 
 </mapper>

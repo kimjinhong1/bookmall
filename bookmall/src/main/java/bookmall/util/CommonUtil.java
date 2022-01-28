@@ -192,4 +192,61 @@ public class CommonUtil {
 			return content.replaceAll("\n", "<br>");
 		}
 		
+		
+		//문의하기 관리자페이지 페이징
+		public static String getAskPageArea(String url, int curPage, int totPage, int pageRange) {
+			// 페이지범위 
+			int startPage = (curPage-1)/pageRange*pageRange+1; // 시작페이지 
+			int endPage = startPage + pageRange - 1; // 종료페이지 
+			if (endPage > totPage) endPage = totPage;
+			
+			String ret="";
+			ret += "<div class=\"pagenate clear\"> \r\n" + "<ul class='paging'> \r\n";
+			if (startPage >pageRange) {
+				ret += "<li><a href=\""+url+"?page="+(startPage-1)+"\"> < </a>\r\n";
+			}
+			for (int rp = startPage; rp <= endPage; rp++) {
+			ret += "<li><a href='javascript:location.href=\""+url+"?page="+rp+"\";'";
+			if (rp ==curPage) ret += "class='current'";
+			ret += ">"+rp+"</a></li>\r\n";
+					
+			}
+			if (totPage > endPage) {
+				ret += " <li><a href=\""+url+"?page="+(endPage+1)+"\"> > </a>\r\n";
+			}
+
+			ret += "</ul>\r\n"
+			+ "</div>";
+			return ret;
+			
+		}
+		
+		//문의하기 사용자페이지 페이징
+		public static String getAskUserPageArea(String url, int curPage, int totPage, int pageRange) {
+			// 페이지범위 
+			int startPage = (curPage-1)/pageRange*pageRange+1; // 시작페이지 
+			int endPage = startPage + pageRange - 1; // 종료페이지 
+			if (endPage > totPage) endPage = totPage;
+			
+			String ret="";
+			ret += "<div class=\"pagenate clear\"> \r\n" + "<ul class='paging'> \r\n";
+			if (startPage >pageRange) {
+				ret += "<li><a href=\""+url+"?page="+(startPage-1)+"\"> < </a>\r\n";
+			}
+			for (int rp = startPage; rp <= endPage; rp++) {
+				ret += "<li><a href='javascript:location.href=\""+url+"?page="+rp+"\";'";
+				if (rp ==curPage) ret += "class='current'";
+				ret += ">"+rp+"</a></li>\r\n";
+				
+			}
+			if (totPage > endPage) {
+				ret += " <li><a href=\""+url+"?page="+(endPage+1)+"\"> > </a>\r\n";
+			}
+			
+			ret += "</ul>\r\n"
+					+ "</div>";
+			return ret;
+			
+		}
+		
 }

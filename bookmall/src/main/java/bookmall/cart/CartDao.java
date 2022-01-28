@@ -18,8 +18,8 @@ public class CartDao {
 	}
 	
 	//카트삭제 (row 삭제)
-	public int deleteCart(int Cartno) {
-		return sst.delete("cart.deleteCart", Cartno);
+	public int deleteCart(int cartno) {
+		return sst.delete("cart.deleteCart", cartno);
 	}
 	
 	//카트수량수정
@@ -36,6 +36,11 @@ public class CartDao {
 	//카트확인
 	public CartDto checkCart(CartDto cartno) {
 		return sst.selectOne("cart.checkCart",cartno);
+	}
+
+	//카트금액 합계 
+	public int cartPrice (int cartno) {
+		return sst.selectOne("cart.cartPrice", cartno);
 	}
 
 

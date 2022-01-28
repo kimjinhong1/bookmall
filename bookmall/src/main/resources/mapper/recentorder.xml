@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="recentOrder"> <!-- mapper파일의 이름 -->
+
+
+	<!-- 최근주문내역 목록 in 마이페이지 -->
+	<select id="orderMypage" resultType="bookmall.recentOrder.RecentOrderVo" parameterType="bookmall.recentOrder.RecentOrderVo">
+		select 
+		a.orderno, a.userno, a.paid_amount, a.order_date, a.receiver_name, a.zipcode, a.addr1, a.addr2, a.receiver_phone, a.order_date, 
+		b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author,
+        c.bookno
+		from orders a , book b , order_detail c
+		where c.bookno = b.bookno AND a.orderno = c.orderno
+		and userno =#{userno}
+	</select>
+	
+	<!-- 최근주문내역 목록 -->
+	<select id="listSelect" resultType="bookmall.recentOrder.RecentOrderVo" parameterType="bookmall.recentOrder.RecentOrderVo">
+		select 
+		a.orderno, a.userno, a.paid_amount, a.order_date, a.receiver_name, a.zipcode, a.addr1, a.addr2, a.receiver_phone, a.order_date, 
+		b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author,
+        c.bookno
+		from orders a , book b , order_detail c
+		where c.bookno = b.bookno AND a.orderno = c.orderno
+		and userno =#{userno}
+	</select>
+	
+</mapper>

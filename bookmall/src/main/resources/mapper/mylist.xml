@@ -18,25 +18,23 @@
 
 <!-- 마이리스트 내역 -->
 	<select id="listSelect" resultType="bookmall.mylist.MylistVo" parameterType="bookmall.mylist.MylistVo">
-		SELECT * FROM mylist
-		ORDER BY regdate DESC
-		LIMIT ${startIdx},10
+		select a.listno, a.userno, a.bookno, a.regdate, b.btitle_first, b.btitle_second, b.author, b.publisher, b.salesprice
+		from mylist a left outer join book b on a.bookno = b.bookno
+		where userno = #{userno}
 	</select>
 	
-	<!-- 마이페이지의 마이리스트 -->
+<!-- 마이페이지의 마이리스트 -->
 	<select id="listMypage" resultType="bookmall.mylist.MylistVo" parameterType="bookmall.mylist.MylistVo">
-		SELECT * FROM mylist
-		ORDER BY regdate DESC
+		select a.listno, a.userno, a.bookno, a.regdate, b.btitle_first, b.btitle_second, b.author, b.publisher, b.salesprice
+		from mylist a left outer join book b on a.bookno = b.bookno
+		where userno = #{userno}
 		LIMIT 0,5
 	</select>
 
 <!-- 마이리스트 추가 -->
 	<insert id="insert" parameterType="bookmall.mylist.MylistVo">
-		INSERT INTO mylist (
-		bookno, userno, btitle_first, author, publisher,regdate
-		) values(
-		#{bookno}, #{userno}, #{btitle_first}, #{author}, #{publisher} NOW()
-		)
+		INSERT INTO mylist (userno, bookno, listno, regdate)
+		values(#{userno}, #{bookno}, #{listno}, NOW()) 
 	</insert>
 	
 <!-- 마이리스트 삭제 -->
@@ -44,5 +42,11 @@
 		DELETE FROM mylist WHERE
 		listno=#{listno}
 	</delete>
+	
+<!-- 마이리스트 확인 -->
+	<select id="checkList" resultType="bookmall.mylist.MylistVo">
+		select * from mylist
+		where userno = #{userno} and listno = #{listno}
+	</select>
 
 </mapper>

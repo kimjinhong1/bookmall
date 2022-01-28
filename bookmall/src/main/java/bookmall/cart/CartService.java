@@ -16,8 +16,11 @@ public interface CartService {
 	/*카트 삭제*/
 	public int deleteCart(int cartno);
 	
-
 	/*카트 확인*/
 	public CartDto checkCart(CartDto cartno);
+
+	/*카트 금액*/
+	public int cartPrice(int cartno);
+
 
 }

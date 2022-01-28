@@ -48,8 +48,8 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 						<br> <br>
 						<div class="text"></div>
 						<div class="myinfo">
-									 <a href ="/bookmall/user/remove.do">회원 정보</a>
-									 <a href ="/bookmall/user/edit.do">회원 탈퇴</a>
+									 <a href ="/bookmall/user/remove.do">회원 탈퇴</a>
+									 <a href ="/bookmall/user/edit.do">회원정보 수정</a>
 									 <a href ="/bookmall/addr/addressList.do">나의 주소록</a>
 									 </div>
 							<br> <br>
@@ -88,16 +88,15 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 												<td><a href=""
 													style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${orders.orderno}
 														<br>
-												</a> (orders.order_date)</td>
+												</a> (recentOrder.order_date)</td>
 												<td><img src="/bookmall/img/book_1.png" width="100"></td>
-												<td>${book.btitle_first }<br>
-													${book.btitle_second }<br> ${book.author } |
-													${book.publisher}<br> <br>
+												<td>${recentOrder.btitle_first }<br>
+													${recentOrder.btitle_second }<br> ${recentOrder.author } |
+													${recentOrder.publisher}<br> <br>
 												</td>
-												<td>${book.price }</td>
-												<td>${orders.count }</td>
-												<td>(${book.price } * ${orders.count })</td>
-												<td>${orders.deilvery }</td>
+												<td>${recentOrder.price }</td>
+												<td>${recentOrder.bookcount }</td>
+												<td>(${recentOrder.salesprice } * ${recentOrder.bookcount })</td>
 											</c:forEach>
 										</c:if>
 									</tr>
@@ -227,9 +226,10 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
                     	   		<c:if test="${!empty dibsList}">
 		                           <c:forEach var="mylist" items="${dibsList }" varStatus="status">
 		                          		 <th>
-					                        <a href="" ><img src="/bookmall/img/book_5.png"></a><br>
+					                        <a href="" ><img src=""></a><br>
 											<a href="">${mylist.btitle_first }</a>
-											<p>${mylist.author} | ${mylist.publisher }</p>
+											<p> ${mylist.btitle_second} </p>
+											<p>${mylist.author}  </p>
 										</th>
 	                          	  	</c:forEach>  
                       			 </c:if>

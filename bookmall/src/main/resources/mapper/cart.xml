@@ -4,7 +4,7 @@
 
 	<!-- 카트 추가 -->
 	<insert id="addCart" parameterType="bookmall.orders.BookVo">
-		insert into cart(userno, bookno, bookcount)
+		insert into cart ( userno, bookno, bookcount)
 		values(#{userno}, #{bookno}, #{bookcount}) 
 	</insert>
 	
@@ -21,7 +21,7 @@
 	
 	<!-- 카트 목록 -->
 	<select id="selectList" resultType="bookmall.cart.CartDto">
-		select a.cartno, a.userno, a.bookno, a.bookcount, b.btitle_first, b.price, b.discountrate
+		select a.cartno, a.userno, a.bookno, a.bookcount, b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author
 		from cart a left outer join book b on a.bookno = b.bookno
 		where userno = #{userno}	
 	</select>
@@ -31,5 +31,5 @@
 		select * from cart 
 		where userno = #{userno} and bookno = #{bookno}
 	</select>
-
+	
 </mapper>

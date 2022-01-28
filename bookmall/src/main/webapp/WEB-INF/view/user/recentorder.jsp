@@ -151,16 +151,15 @@
 										<td><a href=""
 											style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${orders.orderno}
 												<br>
-										</a> (orders.order_date)</td>
+										</a> (recentOrder.order_date)</td>
 										<td><img src="/bookmall/img/book_1.png" width="100"></td>
-										<td>${book.btitle_first }<br>
-											${book.btitle_second }<br> ${book.author } |
-											${book.publisher}<br> <br>
+										<td>${recentOrder.btitle_first }<br>
+											${recentOrder.btitle_second }<br> ${recentOrder.author } |
+											${recentOrder.publisher}<br> <br>
 										</td>
-										<td>${book.price }</td>
-										<td>${orders.count }</td>
-										<td>(${book.price } * ${orders.count })</td>
-										<td>${orders.deilvery }</td>
+										<td>${recentOrder.salesprice}</td>
+										<td>${recentOrder.bookcount }</td>
+										<td>(${recentOrder.salesprice } * ${recentOrder.bookcount })</td>
 										<td><a class="btn" href="/bookmall/board/review.do"
 											style="border: 1px solid black;">리뷰작성</a><br> <br>
 											<a class="btn" href="javascript:;" onclick="move2()"

@@ -65,7 +65,7 @@ function goSave() {
 							</dl>
 					<hr color="#d3d3d3" width="100%">
 					<div class="content" style="font-size: 15px;">
-					<h1>답변</h1>
+					<h4>답변</h4>
 					${askuser.answer }
 					</div>
 					<hr color="#d3d3d3" width="100%">

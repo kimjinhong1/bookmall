@@ -2,6 +2,7 @@ package bookmall.ask;
 
 import java.util.List;
 
+import bookmall.board.notice.NoticeVo;
 import bookmall.board.suda.SudaVo;
 
 public interface AskService {
@@ -27,5 +28,7 @@ public interface AskService {
 	/*답글*/
 	int reply(AskVo vo);
 	
+	/*페이지 카운트*/
+	int count(AskVo vo);
 	
 }
