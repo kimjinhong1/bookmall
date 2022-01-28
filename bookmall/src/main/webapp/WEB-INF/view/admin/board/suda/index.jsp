@@ -91,6 +91,7 @@ function checkAll(){
                           		<td class="first"><input type="checkbox" name="check" id="check" value="${vo.no }"/></td>       
                                 <td>${(totCount-status.index) - ((sudaVo.page -1)*10)}</td>
                                 <td>
+                                	<c:if test="${vo.category == 0 }">공통</c:if>
                                 	<c:if test="${vo.category == 1 }">도서서평</c:if>
 	                            	<c:if test="${vo.category == 2 }">도서이벤트</c:if>
 	                            	<c:if test="${vo.category == 3 }">도서명언</c:if>

@@ -75,6 +75,7 @@
 	                                
 	                                </td>
 	                                <td>
+	                                <c:if test="${vo.category == 0 }">공통</c:if>
 		                            <c:if test="${vo.category == 1 }">도서서평</c:if>
 	                            	<c:if test="${vo.category == 2 }">도서이벤트</c:if>
 	                            	<c:if test="${vo.category == 3 }">도서명언</c:if>
