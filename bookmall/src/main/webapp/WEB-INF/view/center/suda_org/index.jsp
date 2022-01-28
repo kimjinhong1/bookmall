@@ -75,7 +75,6 @@
 	                                
 	                                </td>
 	                                <td>
-	                                <c:if test="${vo.category == 0 }">공통</c:if>
 		                            <c:if test="${vo.category == 1 }">도서서평</c:if>
 	                            	<c:if test="${vo.category == 2 }">도서이벤트</c:if>
 	                            	<c:if test="${vo.category == 3 }">도서명언</c:if>
@@ -88,15 +87,12 @@
 	                               <td class="txt_l" style="text-align:left;">
 		                                <c:if test="${vo.nested > 0 }">
 	                                 	<c:forEach begin="1" end="${vo.nested}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</c:forEach>
-	                                	<img src="/bookmall/img/reply_icon3.png" style='width:25px;'>    
+	                                	<img src="/bookmall/img/reply_icon3.png" style='width:25px;'>
                                		    </c:if>
 	                                     <a href="view.do?sudano=${vo.no }" >${vo.title } [${vo.c_count }]</a>
 	                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
 	                                </td>
-	                                <td class="userno">
-                                		<c:if test="${vo.userno == 0}">관리자</c:if>
-	                                	${vo.name} 
-	                                </td>
+	                                <td class="userno">${vo.name} </td>
 	                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd" /></td>
 	                                 <td class="readcount">${vo.readcount }</td>
 	                            </tr>
@@ -106,10 +102,10 @@
 	                    </table>
                     <div class="btnSet"  style="text-align:right;">
                     <c:if test="${!empty userInfo }">
-                        <a class="btn3" href="write.do">글작성 </a>
+                        <a class="btn" href="write.do">글작성 </a>
                     </c:if>
                     <c:if test="${empty userInfo }">
-                        <a class="btn3" href="javascript:alert('로그인후 사용가능합니다.');location.href='/bookmall/user/login.do';">글작성</a>
+                        <a class="btn" href="javascript:alert('로그인후 사용가능합니다.');location.href='/bookmall/user/login.do';">글작성</a>
                     </c:if>    
                     </div>
 	                    <!-- 페이지처리 -->

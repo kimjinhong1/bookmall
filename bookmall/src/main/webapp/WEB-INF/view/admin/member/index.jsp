@@ -114,8 +114,8 @@ function detail_Btn(clicked_id){
 							        <td>
 							        	<c:choose>
 							        		<c:when test="${vo.state == 1 }">정상</c:when>
-							        		<c:when test="${vo.state == 2 }">휴먼</c:when>
-							        		<c:when test="${vo.state == 3 }">탈퇴</c:when>
+							        		<c:when test="${vo.state == 2 }">탈퇴</c:when>
+							        		<c:when test="${vo.state == 3 }">휴먼</c:when>
 							        	</c:choose>
 							        </td>
 							        <td>

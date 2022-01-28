@@ -23,7 +23,7 @@ public class NoticeController {
 	@Autowired
 	NoticeService noticeservice;
 	
-	// Notice 관리 페이
+	// Notice 관리 페이지 
 	@GetMapping("/admin/board/notice/index.do") 
 	public String index(Model model, HttpServletRequest req , NoticeVo vo) {
 		int totCount = noticeservice.count(vo); 
@@ -41,7 +41,7 @@ public class NoticeController {
 		return "/admin/board/notice/index";  
 	}
 	
-	// Notice 관리 페이
+	// Notice 관리 페이지 
 	@GetMapping("/center/notice/index.do") 
 	public String indexUser(Model model, HttpServletRequest req , NoticeVo vo) {
 		vo.setMode(1);

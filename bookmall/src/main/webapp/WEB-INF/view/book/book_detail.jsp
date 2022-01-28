@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="bookmall.util.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="/bookmall/css/reset.css"/>
     <link rel="stylesheet" href="/bookmall/css/common.css"/>
+    <link rel="stylesheet" href="/bookmall/css/contents.css"/>
     
     <!-- js -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -45,6 +48,90 @@
 		});
 	</script>
 </head>
+<script>
+function goSave() {
+    $.ajax({ 
+       url:'/bookmall/center/review/insert.do', 
+       type:'post', 
+       data:$("#frm").serialize(), 
+       success:function(res) {
+          if (res.trim() == 1) { 
+             alert('댓글이 등록되었습니다.');
+             $("#frm #content").val("");
+             reviewList(${data.bookno}); 
+          } else { 
+             alert("댓글 등록 오류");
+          }
+       }
+    })
+ }
+
+ function reviewList(bookno, page) {
+    $.ajax({
+       url : '/bookmall/center/review/list.do', 
+       data : {bookno:bookno, page:page},  
+       success : function(res) { 
+          $("#bookReview").html(res);
+       }
+    })
+ }
+ $(function() { 
+    reviewList(${data.bookno}, 1); 
+ })
+ 
+ function goDelete(no) {  
+	   if (confirm('댓글을 삭제하시겠습니까?')) { 
+		   $.ajax ({
+			 	url:"/bookmall/center/review/delete.do", 
+			 	data: {no : no}, 
+			 	success: function(res){
+			 		if(res.trim() =='1') {  
+			 			reviewList(${data.bookno}); 
+			 		} else {
+			 			alert('댓글 삭제 오류');
+			 		}
+			 	}
+		   })
+	   }
+ }
+ 
+ function goReply(no) {  
+	   if (confirm('댓글을 수정하시겠습니까?')) { 
+		   $.ajax ({
+			 	url:"/bookmall/center/review/update.do", 
+			 	data: $("#frm"+no).serialize(), 
+			 	type:'post',
+			 	success: function(res){
+			 		if(res.trim() =='1') {  
+			             alert('댓글이 수정되었습니다.');
+			             $("#tr"+no).hide();
+			             reviewList(${data.bookno}); 
+			 		} else {
+			 			alert('댓글 수정 오류');
+			 		}
+			 	}
+		   })
+	   }
+ }
+ 
+ function showTr(no){
+	 $(".replyTr").hide();
+	 $("#tr"+no).show();
+ }
+ 
+function socre(bookno) {
+    $.ajax({
+       url : '/bookmall/center/review/score.do', 
+       data : {bookno:bookno},  
+       success : function(res) { 
+          $("#bookScore").html(res);
+       }
+    })
+ }
+$(function() { 
+	socre(${data.bookno}, 1); 
+ })
+</script>  
 <body>
 <div class="wrap"> 	
    	<!-- HEADER 시작 -->
@@ -118,10 +205,45 @@
 				</div>         	
 				<hr>
 				
-				<a name="bookReviewInfo"><h2>도서 리뷰</h2></a><br>
-				<div class="bookReview">
-				
+				<a><h2>도서 리뷰</h2></a><br>
+				<div>
+				<img src="/bookmall/img/score.png" style='width:100px;'>   
+				<b id="bookScore" style="font-size:30px;"></b>/5
 				</div>
+				</div>
+				<div id="bookReview" class="bbs">
+				</div>
+				<div class="bbs">
+					<c:if test="${!empty userInfo}">
+                    <form method="post" name="frm" id="frm" action="" enctype="multipart/form-data" >
+                       <input type="hidden" name="bookno" value="${data.bookno }">  
+                       <input type="hidden" name="userno" value="${userInfo.userno }"> 
+                        <table class="board_write">
+                            <colgroup>
+                                <col width="*" />
+                                <col width="100px" />
+                            </colgroup>
+                            <tbody>
+                            <tr>
+                                <td style="color:#000000;">
+                                	<input type="radio" name="score" value="5" checked>5점&nbsp;&nbsp;
+                                	<input type="radio" name="score" value="4" >4점&nbsp;&nbsp;
+                                	<input type="radio" name="score" value="3" >3점&nbsp;&nbsp;
+                                	<input type="radio" name="score" value="2" >2점&nbsp;&nbsp; 
+                                	<input type="radio" name="score" value="1" >1점&nbsp;&nbsp; 
+                                    <textarea name="content" id="content" placeholder="주제와 무관한 댓글, 악플 등의 글은 임의 삭제될 수 있습니다." style="height:50px;" width:100%;"></textarea> <!-- 서버로 전송 댓글내-->
+                                </td>
+                                <td>
+                                    <div class="btnSet"  style="text-align:right;">
+                                        <a class="btn2" href="javascript:goSave();">저장 </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                      </form>
+                    </c:if> 
+                 </div> 
          	</div>
          	
          	<!-- 도서 상세 정보 종료 -->

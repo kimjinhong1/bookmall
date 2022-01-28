@@ -91,6 +91,7 @@ function checkAll(){
                           		<td class="first"><input type="checkbox" name="check" id="check" value="${vo.no }"/></td>       
                                 <td>${(totCount-status.index) - ((sudaVo.page -1)*10)}</td>
                                 <td>
+                                	<c:if test="${vo.category == 0 }">공통</c:if>
                                 	<c:if test="${vo.category == 1 }">도서서평</c:if>
 	                            	<c:if test="${vo.category == 2 }">도서이벤트</c:if>
 	                            	<c:if test="${vo.category == 3 }">도서명언</c:if>
@@ -109,7 +110,10 @@ function checkAll(){
                                     ${CommonUtil.getNewIcon(vo.regdate, vo.new_icon) }
                                     </a>
                                 </td>
-                                <td class="name">${vo.name }</td>
+                                <td class="name">
+                                <c:if test="${vo.userno == 0}">관리자</c:if>
+                                ${vo.name }
+                                </td>
                                 <td class="date"><fmt:formatDate value="${vo.regdate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td class="readcount">${vo.readcount }</td>
                             </tr>

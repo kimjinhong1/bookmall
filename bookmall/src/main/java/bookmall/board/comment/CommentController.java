@@ -33,7 +33,7 @@ public class CommentController {
 	@GetMapping("/admin/comment/list.do")
 	public String listAdmin(Model model, CommentVo vo) { 
 		model.addAttribute("cList", service.selectList(vo)); 
-		return "include/commentList"; 
+		return "/admin/include/commentList"; 
 	}
 	
 	@GetMapping("/center/comment/delete.do")

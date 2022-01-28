@@ -33,7 +33,32 @@
 			 
 		ORDER BY top_notice DESC, gno DESC, ono ASC
 		LIMIT ${startIdx},${numchoose}	   
-	</select>    
+	</select>  
+	
+	<select id="getRownum" resultType="int" parameterType="bookmall.board.suda.SudaVo"> 
+		select rownum from (
+			select row_number() over () as rownum, no, title from board
+			<include refid = "boardWhere"/>
+			order by top_notice desc, gno desc, ono asc
+		) as r
+		where r.no=#{no};
+	</select> 
+	<select id="getNext" resultType="bookmall.board.suda.SudaVo" parameterType="bookmall.board.suda.SudaVo"> 
+		select no, title from (
+			select row_number() over () as rownum, no, title from board
+			<include refid = "boardWhere"/>
+			order by top_notice desc, gno desc, ono asc
+		) as r
+		where r.rownum=#{rownum}+1;
+	</select>   
+	<select id="getPrev" resultType="bookmall.board.suda.SudaVo" parameterType="bookmall.board.suda.SudaVo"> 
+		select no, title from (
+			select row_number() over () as rownum, no, title from board
+			<include refid = "boardWhere"/>
+			order by top_notice desc, gno desc, ono asc
+		) as r
+		where r.rownum=#{rownum}-1;
+	</select>  
 
 		<insert id = "insert" parameterType="bookmall.board.suda.SudaVo">
 		INSERT INTO board (

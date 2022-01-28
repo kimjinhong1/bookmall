@@ -28,26 +28,8 @@ public class SudaController {
 	@GetMapping("/admin/board/suda/index.do") // 매핑된경로 
 	public String index(Model model, SudaVo vo) {
 		int totCount = sudaservice.count(vo); 
-		int totPage = totCount/10;  
-		if (totCount % 10 > 0) totPage++; 
-		
-		int statIdx = (vo.getPage()-1)*10;
-		vo.setStartIdx(statIdx);
-		
-		List <SudaVo> list = sudaservice.selectAll(vo); 
-		model.addAttribute("list", list);
-		model.addAttribute("totPage",totPage);
-		model.addAttribute("totCount", totCount);
-		model.addAttribute("pageArea", CommonUtil.getPageAreaAdmin("index.do", vo.getPage(), totPage, 10));
-		return "/admin/board/suda/index"; // 리턴되는 jsp경로 
-	}  
-	
-	@GetMapping("/center/suda/index.do") // 매핑된경로 
-	public String indexUser(Model model, SudaVo vo) {
-		vo.setMode(1);
-		int totCount = sudaservice.count(vo); 
-		int totPage = totCount/10;  
-		if (totCount % 10 > 0) totPage++; 
+		int totPage = totCount/vo.getNumchoose();  
+		if (totCount % vo.getNumchoose() > 0) totPage++; 
 		
 		int statIdx = (vo.getPage()-1)*vo.getNumchoose();
 		vo.setStartIdx(statIdx);
@@ -56,7 +38,25 @@ public class SudaController {
 		model.addAttribute("list", list);
 		model.addAttribute("totPage",totPage);
 		model.addAttribute("totCount", totCount);
-		model.addAttribute("pageArea", CommonUtil.getPageArea("index.do", vo.getPage(), totPage, 10));
+		model.addAttribute("pageArea", CommonUtil.getPageAreaAdmin("index.do", vo.getPage(), totPage, vo.getNumchoose()));
+		return "/admin/board/suda/index"; // 리턴되는 jsp경로 
+	}  
+	
+	@GetMapping("/center/suda/index.do") // 매핑된경로 
+	public String indexUser(Model model, SudaVo vo) {
+		vo.setMode(1);
+		int totCount = sudaservice.count(vo); 
+		int totPage = totCount/vo.getNumchoose();  
+		if (totCount % vo.getNumchoose() > 0) totPage++; 
+		
+		int statIdx = (vo.getPage()-1)*vo.getNumchoose();
+		vo.setStartIdx(statIdx);
+		
+		List <SudaVo> list = sudaservice.selectAll(vo); 
+		model.addAttribute("list", list);
+		model.addAttribute("totPage",totPage);
+		model.addAttribute("totCount", totCount);
+		model.addAttribute("pageArea", CommonUtil.getPageArea("index.do", vo.getPage(), totPage, vo.getNumchoose()));
 		return "/center/suda/index"; // 리턴되는 jsp경로   
 	}  
 	
@@ -67,8 +67,15 @@ public class SudaController {
 	}
 	
 	@GetMapping("/center/suda/view.do") //상세 
-	public String viewUser(Model model, @RequestParam int sudano, HttpServletRequest request) {
+	public String viewUser(Model model, @RequestParam int sudano, HttpServletRequest request, SudaVo vo) {
+		vo.setNo(sudano);
+		int rownum = sudaservice.getRownumn(vo);
+		vo.setRownum(rownum);
+		SudaVo prev = sudaservice.getPrev(vo);
+		SudaVo next = sudaservice.getNext(vo);
 		model.addAttribute("data", sudaservice.view(sudano));
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
 		return "/center/suda/view";
 	}
 	
@@ -279,14 +286,41 @@ public class SudaController {
 		return "include/return";
 	}
 	
-	@GetMapping("/center/suda/reply.do")
+	@GetMapping("/admin/board/suda/reply.do")
 	public String reply(Model model, @RequestParam int sudano) {
+		model.addAttribute("data", sudaservice.edit(sudano));
+		return "admin/board/suda/reply";
+	}
+	
+	@PostMapping("/admin/board/suda/insertReply.do")
+	public String insertReply(SudaVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
+		int userno = ((UserVo)sess.getAttribute("userInfo")).getUserno(); // session -> userno
+		// vo set
+		vo.setUserno(userno);
+		int r = sudaservice.reply(vo);
+		System.out.println("r : "+r);
+		
+		// 정상적으로 등록되었습니다. alert 띄우고 
+		// index.do 로 이동 
+		if(r > 0) {
+		req.setAttribute("msg", "정상적으로 답변이 등록되었습니다");
+		req.setAttribute("url", "index.do");
+		} else {
+			req.setAttribute("msg", "답변 오류 ");
+			req.setAttribute("url", "reply.do?sudano="+vo.getNo());
+		}
+		
+		return "include/return";
+		}
+	
+	@GetMapping("/center/suda/reply.do")
+	public String replyUser(Model model, @RequestParam int sudano) {
 		model.addAttribute("data", sudaservice.edit(sudano));
 		return "center/suda/reply";
 	}
 	
 	@PostMapping("/center/suda/insertReply.do")
-	public String insertReply(SudaVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
+	public String insertReplyUser(SudaVo vo, HttpServletRequest req, MultipartFile file, HttpSession sess) {
 		int userno = ((UserVo)sess.getAttribute("userInfo")).getUserno(); // session -> userno
 		// vo set
 		vo.setUserno(userno);

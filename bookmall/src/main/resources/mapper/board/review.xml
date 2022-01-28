@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="review"> <!-- mapper파일의 이름 -->   
+
+	<sql id = "boardWhere">
+		<where>
+			<if test ="searchType ==''">   
+			 	content LIKE '%${searchWord}%' OR
+			 	bookno in (select bookno from book where btitle_first LIKE '%${searchWord}%' OR btitle_second LIKE '%${searchWord}%') OR
+			 	userno in (select userno from user where name LIKE '%${searchWord}%' ) 
+			 </if>
+			 <if test= "searchType == 'btitle'">
+			 	and bookno in (select bookno from book where btitle_first LIKE '%${searchWord}%' OR btitle_second LIKE '%${searchWord}%')
+			 </if>
+			 <if test= "searchType == 'name'">
+			 	and userno in (select userno from user where name LIKE '%${searchWord}%' ) 
+			 </if>
+			 <if test= "searchType == 'content'">
+			 	and content LIKE '%${searchWord}%'
+			 </if>
+		</where>
+	</sql>
+	
+	 <select id="selectList" resultType = "bookmall.book.review.ReviewVo" parameterType="bookmall.book.review.ReviewVo">
+		SELECT *, (select name from user where userno=review.userno) name FROM review
+		WHERE bookno=#{bookno} 
+		ORDER BY regdate DESC
+		LIMIT ${startIdx}, 10
+	</select>    
+
+	<insert id = "insert" parameterType="bookmall.book.review.ReviewVo"> 
+		INSERT INTO review (
+			content,userno, bookno, regdate, score
+		) VALUES (
+			#{content},#{userno}, #{bookno}, NOW(), #{score}
+			)   
+		<selectKey keyProperty="no" resultType="int" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert> 
+	
+	<delete id="delete" parameterType="int">    
+		DELETE FROM review WHERE no=#{no} 
+	</delete>
+	
+		<update id="update" parameterType="bookmall.book.review.ReviewVo">
+		UPDATE review SET 
+		content = #{content}, score = #{score}, userno = #{userno}, bookno = #{bookno}
+		WHERE no=#{no}
+	</update>
+	
+	<select id="count" resultType="int" parameterType="bookmall.book.review.ReviewVo"> 
+		SELECT COUNT(*) FROM review WHERE bookno=#{bookno} 
+	</select>  
+	  
+	<select id="score" resultType="double" parameterType="int"> 
+		SELECT round(avg(score),1) score FROM review where bookno=#{bookno};
+	</select> 
+	
+	<select id="countAdmin" resultType="int" parameterType="bookmall.book.review.ReviewVo"> 
+		SELECT COUNT(*) FROM review
+		<include refid = "boardWhere"/>
+	</select>
+	
+	<select id="selectListAdmin" resultType = "bookmall.book.review.ReviewVo" parameterType="bookmall.book.review.ReviewVo">
+		SELECT *, 
+			(select name from user where userno=review.userno) name,
+			(select concat('[', btitle_first, '] ', btitle_second) from book where bookno=review.bookno) btitle
+		FROM review
+		<include refid = "boardWhere"/>
+		ORDER BY regdate DESC
+		LIMIT ${startIdx}, 10  
+	</select>  
+
+</mapper>

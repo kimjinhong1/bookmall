@@ -63,4 +63,16 @@ public class SudaDao {
 	public int insertReply (SudaVo vo) {
 		return sqlSessionTemplate.insert("suda.insertReply", vo);
 	}
+	
+	public int getRownum (SudaVo vo) {
+		return sqlSessionTemplate.selectOne("suda.getRownum", vo);
+	}
+	
+	public SudaVo getNext (SudaVo vo) {
+		return sqlSessionTemplate.selectOne("suda.getNext", vo);
+	}
+	
+	public SudaVo getPrev (SudaVo vo) {
+		return sqlSessionTemplate.selectOne("suda.getPrev", vo);
+	}
 }
