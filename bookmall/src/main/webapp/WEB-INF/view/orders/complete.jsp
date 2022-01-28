@@ -45,7 +45,7 @@
 									<td bgColor="#ffffff">${order.addr1},${order.addr2}
 									</td>
 								</tr>
-								<c:if test="${order }">
+								<c:if test="${order.methodOfPayment == '무통장입금'}">
 								<tr>
 									<td align="left" width="23%" bgColor="#5f7994" style="padding-left:14px; color:#fff;" >결제 방법</td>
 									<td bgColor="#ffffff">${order.methodOfPayment}

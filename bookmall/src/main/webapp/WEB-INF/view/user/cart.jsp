@@ -175,7 +175,7 @@ $(function(){
 							
 							<tr>
 								<td>
-									<a href="/bookmall/order1.do" class="orderBtn" style="font-size:15px; float: right; color:red;">주문하기</a> 
+									<a href="/bookmall/order2.do" class="orderBtn" style="font-size:15px; float: right; color:red;">주문하기</a> 
 									<a href="/bookmall/main.do"  style="font-size:15px;float: left;"><< 쇼핑 계속하기</a>
 								</td>
 							</tr>
