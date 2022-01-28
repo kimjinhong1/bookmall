@@ -231,11 +231,6 @@ $(function(){
 									<td align="center" bgcolor="#FFFFFF"><fmt:formatNumber pattern="###,###,###" value="${book.salesprice}" />원</td> <!-- price -->
 									<td align="center" bgcolor="#FFFFFF">${book.bookcount }</td> <!-- count -->
 									
-									<td><input type="hidden" name="price" value="${book.price}"> <!-- 책 가격 --> 
-										<input type="hidden" name="discountrate" value="${book.discountrate}"> <!-- 할인율 --> 
-										<input type="hidden" name="bookcount" value="${book.bookcount }"> <!-- 수량 --> 
-										<input type="hidden" name="salesprice" value="${book.salesprice}"> <!-- 판매가 --> 
-										<input type="hidden" name="bookno" value="${book.bookno}"> <!-- 도서번호 --></td>
 								</tr>
 								<c:set var="sum" value="${sum + (book.salesprice * book.bookcount)}" />
 								<c:set var="sumCount" value="${sumCount + (book.bookcount)}" />
@@ -243,6 +238,10 @@ $(function(){
 						 		</tbody>
 							</table>
 						</div>
+								<input type="hidden" name="discountrate" value="${book.discountrate}"> <!-- 할인율 --> 
+								<input type="hidden" name="bookcount" value="${book.bookcount }"> <!-- 수량 --> 
+								<input type="hidden" name="salesprice" value="${book.salesprice}"> <!-- 판매가 --> 
+								<input type="hidden" name="bookno" value="${book.bookno}"> <!-- 도서번호 -->
 
 						<!--예상총액/장바구니 이동버튼-->
 						<table style="margin-left: auto; margin-right: auto; width: 1200px;">

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import bookmall.cart.CartDto;
+import bookmall.cart.CartService;
 import bookmall.user.UserVo;
 
 
@@ -17,6 +19,9 @@ public class OrderController {
 	
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	CartService cartService;
 		
 	// test
 	@RequestMapping("/test.do")
@@ -54,9 +59,9 @@ public class OrderController {
 	
 	// 장바구니 상품 구매하기
 	@RequestMapping("/order2.do")
-	public String order2(CartVo cv, Model model, HttpServletRequest req, UserVo vo, HttpSession sess) {
+	public String order2(CartDto cv, Model model, HttpServletRequest req, UserVo vo, HttpSession sess) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	
-		System.out.println("cartnos:"+cv.getCartnos());
+		System.out.println("cartno:"+cv.getCartno());
 		model.addAttribute("bookList", orderService.bookListSelect(cv));
 		model.addAttribute("loginUser", orderService.userSelect(vo));
 		
@@ -80,7 +85,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/orderInsertAjax.do")
-	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartVo cv, AddrListVo alv, HttpSession sess, int paid_amount, String paymentStatus) {
+	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartDto dto, AddrListVo alv, HttpSession sess, int paid_amount, String paymentStatus) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		int r = orderService.insert(vo);
 		vo.setPaid_amount(paid_amount);
@@ -99,14 +104,13 @@ public class OrderController {
 		System.out.println("salesprice:"+salesprice.length);
 //		CartVo cvo;
 		for (int i=0; i<bookno.length; i++) {
-			CartVo cvo = new CartVo();
-			cvo.setOrderno(vo.getOrderno());
-			cvo.setBookno(Integer.parseInt(bookno[i]));
-			cvo.setBookcount(Integer.parseInt(bookcount[i]));
-			cvo.setPrice(Integer.parseInt(price[i]));
-			cvo.setSalesprice(Integer.parseInt(salesprice[i]));
-			cvo.setTotal_price(Integer.parseInt(bookcount[i]) * Integer.parseInt(salesprice[i]));
-			bli += orderService.bookListInsert(cvo);		// 정상적으로 결제되었습니다. alert 띄우고 
+			CartDto cdto = new CartDto();
+			cdto.setOrderno(vo.getOrderno());
+			cdto.setBookno(Integer.parseInt(bookno[i]));
+			cdto.setBookcount(Integer.parseInt(bookcount[i]));
+			cdto.setSalesprice(Integer.parseInt(salesprice[i]));
+			cdto.setTotal_Price(Integer.parseInt(bookcount[i]) * Integer.parseInt(salesprice[i]));
+			bli += orderService.bookListInsert(cdto);		// 정상적으로 결제되었습니다. alert 띄우고 
 		}
 		if ( r > 0 && bli > 0) {  
 			model.addAttribute("result", vo.getOrderno()); 

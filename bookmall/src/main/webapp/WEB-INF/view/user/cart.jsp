@@ -81,11 +81,7 @@ $(function(){
 	});
 });
 	
-	$(function() {
-	      $(".orderBtn").click(function() {
-	         $("#cartspace").submit();
-	      })
-	   });
+	
 </script>
 </head>
 <body>
@@ -118,7 +114,7 @@ $(function(){
 									<td colspan="6"><center><b>담긴 상품이 없습니다.</b></center></td>
 								</tr>
 							</c:if>
-							<form name="cartspace" id="cartspace">
+							<form name="cartspace" id="cartspace" action="/bookmall/order2.do">
 							<input type="hidden" name="booktitle" value=${booktitle }>
 							<c:set var="totPrice" value="0"/>
 							<c:if test="${cartInfo ne null and not empty cartInfo}">
@@ -175,7 +171,7 @@ $(function(){
 							
 							<tr>
 								<td>
-									<a href="/bookmall/order2.do" class="orderBtn" style="font-size:15px; float: right; color:red;">주문하기</a> 
+									<a href="javascript:$('#cartspace').submit();" class="orderBtn" style="font-size:15px; float: right; color:red;">주문하기</a>
 									<a href="/bookmall/main.do"  style="font-size:15px;float: left;"><< 쇼핑 계속하기</a>
 								</td>
 							</tr>

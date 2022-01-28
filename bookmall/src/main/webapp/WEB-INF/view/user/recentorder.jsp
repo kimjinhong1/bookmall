@@ -149,7 +149,7 @@
 								<c:if test="${cartInfo ne null and not empty cartInfo}">
 									<c:forEach var="recentOrder" items="${recentOrderInfo}">
 										<td><a href=""
-											style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${orders.orderno}
+											style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${recentOrder.orderno}
 												<br>
 										</a> (recentOrder.order_date)</td>
 										<td><img src="/bookmall/img/book_1.png" width="100"></td>
