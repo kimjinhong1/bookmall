@@ -54,5 +54,15 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.addrSelect(vo);
 	}
 
+	@Override
+	public OrderVo orderSelect(OrderVo vo) {
+		return orderDao.orderSelect(vo);
+	}
+
+	@Override
+	public int deleteOrderCart(CartVo vo) {
+		return orderDao.deleteOrderCart(vo);
+	}
+
 }
 	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,11 +13,9 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<script src="/bookmall/js/orders.js"></script>
-<script src="/bookmall/js/main.js"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 </head>
-
 <body>
 <form name="custF"><!-- method="POST" -->
 		<%@ include file="/WEB-INF/view/include/header.jsp"%>
@@ -32,28 +31,30 @@
 					<!-- 주문 완료 -->
 							<table  style="width:800px; border:1px solid #d3d3d3;  align:center;"  >
 								<tr>
-									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >주문번호</td>
-									<td bgColor="#ffffff" >${s.orderno}
+									<td align="left" width="23%" bgColor="#5f7994" style="padding-left:14px; color:#fff;" >주문번호</td>
+									<td bgColor="#ffffff" >${order.orderno}
 									</td>
 								</tr>
 								<tr>
-									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >주문 접수일</td>
-									<td bgColor="#ffffff">${s} 2021년 12월 25일 토요일 16시 19분
+									<td align="left" width="23%" bgColor="#5f7994" style="padding-left:14px; color:#fff;" >주문 접수일</td>
+									<td bgColor="#ffffff">${order.order_date}
 									</td>
 								</tr>
 								<tr>
-									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >배송주소</td>
-									<td bgColor="#ffffff">${loginUser.addr1}
+									<td align="left" width="23%" bgColor="#5f7994" style="padding-left:14px; color:#fff;" >배송주소</td>
+									<td bgColor="#ffffff">${order.addr1},${order.addr2}
 									</td>
 								</tr>
+								<c:if test="${order }">
 								<tr>
-									<td class="popup" align="left" width="23%" bgColor="#edf5fc" style="padding-left: 14px;"><SPAN class="warning">*</SPAN>휴대전화번호</TD> <!-- receiver_phone -->
-									<td bgColor="#ffffff"><input type="text" name="receiver_phone" id="receiver_phone" value="${loginUser.tel}" size="15" maxlength="15" /></td>
-								</tr>
-								<tr>
-									<td align="left" width="23%" bgColor="#edf5fc" style="padding-left:14px;" >결제 수단</td>
-									<td bgColor="#ffffff" >${s} 신용카드(삼성카드)
+									<td align="left" width="23%" bgColor="#5f7994" style="padding-left:14px; color:#fff;" >결제 방법</td>
+									<td bgColor="#ffffff">${order.methodOfPayment}
 									</td>
+								</tr>
+								</c:if>
+								<tr>
+									<td align="left" width="23%" bgColor="#5f7994" style="padding-left:14px; color:#fff;" >결제 금액</td>
+									<td bgColor="#ffffff"><fmt:formatNumber pattern="###,###,###" value="${order.paid_amount}" />원</td>
 								</tr>
 								</table>
 							</div>

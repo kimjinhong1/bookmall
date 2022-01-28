@@ -17,6 +17,7 @@ public class CartVo {
 	
 	// bookVo 조인
 	private String btitle_first;
+	private String btitle_second;
 	private int discountrate;
 	private int salesprice;
 

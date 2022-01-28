@@ -78,6 +78,15 @@ public class OrderDao {
 		return sqlSessionTemplate.selectList("orders.addrSelect", vo);
 	}
 	
+	// 주문정보 가져오기
+	public OrderVo orderSelect(OrderVo vo) {
+		return sqlSessionTemplate.selectOne("orders.orderSelect", vo);
+	}
+	
+	public int deleteOrderCart(CartVo vo) {
+		return sqlSessionTemplate.delete("orders.deleteOrderCart", vo);
+	}
+	
 	
 	
 }

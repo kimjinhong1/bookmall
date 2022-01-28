@@ -26,8 +26,7 @@
 	</div>	
 		<form name="f" method="post" align="left" onsubmit="return check();">
 			<b>ㆍ</b>아래의 주소를 클릭하시면 자동으로 주소가 입력됩니다.
-			<a class="button" href="/bookmall/addrInsert.do" onclick="" >새 주소 등록</a><a> /</a>
-			<a class="button" href="마이 페이지 배송 주소록 관리로 이동" target="_blank">주소록 관리</a><br>
+			<a class="button" href="http://localhost:8080/bookmall/addr/addressList.do" target="_blank">주소록 관리</a><br>
 			<b>ㆍ</b>우편번호나 부정확한 주소로 인해 배송 사고가 발생할 위험이 있는 주소는 표시되지 않습니다.
 			<table  style="width:100%; border:0; cellspacing:0; cellpadding:0; class:address_list;">
 				<tbody><tr align="center" bgcolor="F0F0F0">

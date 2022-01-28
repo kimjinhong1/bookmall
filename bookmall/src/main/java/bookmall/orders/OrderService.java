@@ -14,4 +14,6 @@ public interface OrderService {
 	List<CartVo> bookListSelect(CartVo vo);
 	UserVo userSelect(UserVo vo);
 	List<AddrListVo> addrSelect(AddrListVo vo);
+	OrderVo orderSelect(OrderVo vo);
+	int deleteOrderCart(CartVo vo);
 }

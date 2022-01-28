@@ -27,10 +27,12 @@ public class OrderController {
 	public String test2() {
 		return "orders/test2"; 
 	}
-//	아임포트 test
-	@RequestMapping("/test3.do")
-	public String test3() {
-		return "orders/test3"; 
+	
+	@RequestMapping("/complete.do")
+	public String orderSelect(OrderVo vo, Model model, HttpSession sess) {
+		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
+		model.addAttribute("order", orderService.orderSelect(vo));
+		return "orders/complete"; 
 	}
 	
 	@RequestMapping("/addrList.do")
@@ -43,37 +45,46 @@ public class OrderController {
 	
 	// 한개 상품 구매하기
 	@RequestMapping("/order1.do")
-	public String order1(BookVo vo, Model model, HttpServletRequest req, UserVo uv, HttpSession sess) {
-		uv.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());		
-		model.addAttribute("result", orderService.bookSelect(vo));
-		model.addAttribute("loginUser", orderService.userSelect(uv));
+	public String order1(BookVo bv, Model model, HttpServletRequest req, UserVo vo, HttpSession sess) {
+		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	  	
+		model.addAttribute("result", orderService.bookSelect(bv));
+		model.addAttribute("loginUser", orderService.userSelect(vo));
 		return "orders/order1"; 
 	}
 	
 	// 장바구니 상품 구매하기
 	@RequestMapping("/order2.do")
-	public String order2(CartVo vo, Model model, HttpServletRequest req, UserVo uv, HttpSession sess) {
-		uv.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	
-		System.out.println("cartnos:"+vo.getCartnos());
-		model.addAttribute("bookList", orderService.bookListSelect(vo));
-		model.addAttribute("loginUser", orderService.userSelect(uv));
+	public String order2(CartVo cv, Model model, HttpServletRequest req, UserVo vo, HttpSession sess) {
+		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	
+		System.out.println("cartnos:"+cv.getCartnos());
+		model.addAttribute("bookList", orderService.bookListSelect(cv));
+		model.addAttribute("loginUser", orderService.userSelect(vo));
+		
+//		String[] bookList = req.getParameterValues("btitle_first"); // 배열로 전송된 cartno
+//		 
+//		
+//		for (int i=0; i<btitle_first.length; i++) {
+//			cnt += orderService.bookSelect(Integer.parseInt(btitle_first[1])); // 배열의 개수만큼 반복하면서 삭제
+//		}
+//		// 반복이 끝나면 cnt변수에는 삭제된 개수가 담김
+//		model.addAttribute("result", cnt);
+		
+		
 		return "orders/order2"; 
 	}
 	
 
-	@RequestMapping("/complete.do")
-	public String complete() {
-		return "orders/complete"; 
-	}
 	@RequestMapping("/cartOrder.do")
 	public String cartOrder() {
 		return "orders/cartOrder"; 
 	}
 	
 	@RequestMapping("/orderInsertAjax.do")
-	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartVo cv, AddrListVo alv, HttpSession sess) {
+	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartVo cv, AddrListVo alv, HttpSession sess, int paid_amount, String paymentStatus) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		int r = orderService.insert(vo);
+		vo.setPaid_amount(paid_amount);
+		vo.setPaymentStatus(paymentStatus);
 		int bli = 0;
 		
 		String[] bookno = req.getParameterValues("bookno");
@@ -98,19 +109,11 @@ public class OrderController {
 			bli += orderService.bookListInsert(cvo);		// 정상적으로 결제되었습니다. alert 띄우고 
 		}
 		if ( r > 0 && bli > 0) {  
-			model.addAttribute("result", '1'); 
+			model.addAttribute("result", vo.getOrderno()); 
 		} else { 
 			model.addAttribute("result", '0'); 
 		}
 		return "orders/result";
-//		if(r > 0 && bli > 0) {
-//		req.setAttribute("msg", "정상적으로 결제되었습니다");
-//		req.setAttribute("url", "main.do");
-//		} else {
-//			req.setAttribute("msg", "결제 오류 ");
-//		}
-//		System.out.println(r);
-//		System.out.println(bli);
 	}
 	
 //	주소록 등록
@@ -146,5 +149,16 @@ public class OrderController {
 		return "orders/addrInsert"; 
 	}
 	
+//	public void deleteOrderCart() {
+//		int userno = 1;
+//		int bookno = 1;
+//		
+//		CartVo vo = new CartVo();
+//		vo.setUserno(userno);
+//		vo.setBookno(bookno);
+//		
+//		.deleteOrderCart(vo);
+//		
+//	}
 	
 }
