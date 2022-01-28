@@ -4,14 +4,54 @@ public class CartDto {
 	
 	private int cartno;  // 장바구니 번호
 	private int userno; // 회원번호
+	private String cartnos;
 
 	private int bookno; //상품번호
 	private int bookcount; // 상품수량
+
+	//order
+	private int orderno;
 	
 	//book
 	private String btitle_first; // 책제목
 	private String btitle_second;// 책부재
 	private String author; // 글쓴이
+	private int salesprice;  //상품가격
+	private int discountrate; //할인금액
+	
+	// 추가
+	private int totalPrice; // 총금액 (테이블에는 없는 속성)
+	private int total_Price; // 총금액 (테이블에는 없는 속성)
+	
+
+	public String getCartnos() {
+		return cartnos;
+	}
+
+	public void setCartnos(String cartnos) {
+		this.cartnos = cartnos;
+	}
+
+	public int getOrderno() {
+		return orderno;
+	}
+
+	public void setOrderno(int orderno) {
+		this.orderno = orderno;
+	}
+
+	
+	
+	public int getTotal_Price() {
+		return total_Price;
+	}
+
+	public void setTotal_Price(int total_Price) {
+		this.total_Price = total_Price;
+	}
+
+	
+	
 	public String getBtitle_second() {
 		return btitle_second;
 	}
@@ -27,12 +67,6 @@ public class CartDto {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
-	private int salesprice;  //상품가격
-	private int discountrate; //할인금액
-
-	// 추가
-	private int totalPrice; // 총금액 (테이블에는 없는 속성)
 
 	public int getUserno() {
 		return userno;

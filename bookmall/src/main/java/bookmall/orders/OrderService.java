@@ -2,18 +2,19 @@ package bookmall.orders;
 
 import java.util.List;
 
+import bookmall.cart.CartDto;
 import bookmall.user.UserVo;
 
 public interface OrderService {
 
 	int insert(OrderVo vo);
 	int bookInsert(BookVo vo);
-	int bookListInsert(CartVo vo);
+	int bookListInsert(CartDto cdto);
 	int addrInsert(AddrListVo vo);
 	BookVo bookSelect(BookVo vo);
-	List<CartVo> bookListSelect(CartVo vo);
+	List<CartDto> bookListSelect(CartDto cv);
 	UserVo userSelect(UserVo vo);
 	List<AddrListVo> addrSelect(AddrListVo vo);
 	OrderVo orderSelect(OrderVo vo);
-	int deleteOrderCart(CartVo vo);
+	int deleteOrderCart(CartDto vo);
 }

@@ -232,7 +232,7 @@ $(function(){
                            <td align="center" bgcolor="#FFFFFF"><fmt:formatNumber pattern="###,###,###" value="${result.salesprice}" />원</td> <!-- price -->
                            <td align="center" bgcolor="#FFFFFF">1</td> <!-- count -->
                            
-                           <td><input type="hidden" name="price" value="${result.price}"> <!-- 책 가격 --> 
+                           <td>
                               <input type="hidden" name="discountrate" value="${result.discountrate}"> <!-- 할인율 --> 
                               <input type="hidden" name="bookcount" value=1> <!-- 수량 --> 
                               <input type="hidden" name="salesprice" value="${result.salesprice}"> <!-- 판매가 --> 
