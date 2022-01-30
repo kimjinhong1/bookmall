@@ -59,7 +59,7 @@ function goDelete(){
 										<td colspan="10">
 										<c:if test="${!empty data.filename_org}">
 												<div class="weidtFile">
-													<p><a href="/book/common/download.jsp?path=/upload/&org=${data.filename_org }&real=${data.filename_real}" target="_blank">${data.filename_org }</a></p>
+													<p><a href="/bookmall/common/download.jsp?path=/upload/&org=${data.filename_org }&real=${data.filename_real}" target="_blank">${data.filename_org }</a></p>
 												</div>
 										</c:if>
 										</td>
