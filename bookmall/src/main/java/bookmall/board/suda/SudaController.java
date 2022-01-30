@@ -69,6 +69,7 @@ public class SudaController {
 	@GetMapping("/center/suda/view.do") //상세 
 	public String viewUser(Model model, @RequestParam int sudano, HttpServletRequest request, SudaVo vo) {
 		vo.setNo(sudano);
+		vo.setMode(1);
 		int rownum = sudaservice.getRownumn(vo);
 		vo.setRownum(rownum);
 		SudaVo prev = sudaservice.getPrev(vo);
