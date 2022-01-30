@@ -29,18 +29,37 @@ public class AskController {
 	@Autowired
 	AskService askService;
 	
+	//문의내역 사용자페이지
 	@GetMapping("/ask/askindex.do") // 매핑된경로 
-	public String indexUser(Model model, AskVo vo) {
-		model.addAttribute("askList", askService.askList(vo));
+	public String indexUser(Model model, AskVo vo, HttpSession sess) {
+		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
+		vo.setPageRow(10);
 		
-		int startIdx = (vo.getPage()-1)*10;
-		vo.setStartIdx(startIdx);
+		int totCount = askService.count(vo); 
+		int totPage = totCount/vo.getPageRow();  
+		if (totCount % vo.getPageRow() > 0) totPage++; 
+		
+		int statIdx = (vo.getPage()-1)*vo.getPageRow();
+		vo.setStartIdx(statIdx);
+		
+		model.addAttribute("askList", askService.askList(vo));
+		model.addAttribute("pageArea", CommonUtil.getAskUserPageArea("askindex.do", vo.getPage(), totPage, vo.getPageRow()));
 		return "/ask/askindex"; // 리턴되는 jsp경로   
 	}
 	
+	//문의내역 관리자페이지
 	@GetMapping("/admin/board/ask/index.do") // 매핑된경로 
 	public String indexAdmin(Model model, AskVo vo) {
+		vo.setPageRow(10);
+		int totCount = askService.count(vo); 
+		int totPage = totCount/vo.getPageRow();  
+		if (totCount % vo.getPageRow() > 0) totPage++; 
+		
+		int statIdx = (vo.getPage()-1)*vo.getPageRow();
+		vo.setStartIdx(statIdx);
+		
 		model.addAttribute("askList", askService.askList(vo));
+		model.addAttribute("pageArea", CommonUtil.getAskPageArea("index.do", vo.getPage(), totPage, vo.getPageRow()));
 		return "/admin/board/ask/index"; // 리턴되는 jsp경로   
 	}
 	

@@ -28,26 +28,28 @@ public class MylistController {
 	@Autowired
 	MylistService mylistService;
 	
-	@GetMapping("/mylist/mylist.do") // 매핑된경로 
-	public String index(Model model, MylistVo vo) {
+	@GetMapping("/user/mylist.do") // 매핑된경로 
+	public String index(Model model, MylistVo vo, HttpSession sess) {
+		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
+		System.out.println("세션no:"+vo.getUserno());
 		model.addAttribute("dibsList", mylistService.listSelect(vo));
 		return "/user/mylist"; // 리턴되는 jsp경로   
 	}
 	
-	// 저장
-	@PostMapping("/mylist/insert.do")
-	public String insert(MylistVo vo, HttpServletRequest req, HttpSession sess) {
-		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
-		int r = mylistService.insert(vo);
-		if(r > 0) {
-		req.setAttribute("msg", "정상적으로 등록되었습니다");
-		req.setAttribute("url", "mylist.do");
-		} else {
-			req.setAttribute("msg", "등록 오류 ");
-			req.setAttribute("url", "");
-		}
-		
-		return "include/return";
+		@PostMapping("/mylist/insert.do")
+		@ResponseBody //메소드에서 리턴되는 값은 View 를 통해서 출력되지 않고 HTTP Response Body 에 직접 쓰여지게 됨
+		public String insertPOST(MylistVo vo, HttpServletRequest req) { //등록할 데이터를 전달받아야 하기 때문에 CartDto 타입의 파라미터 변수를 선언, 추가로 로그인 여부를 확인하기 위해 session 객체가 필요로 하기 때문에 HttpservletRequest 타입의 파라미터 변수선언
+			//로그인체크
+			HttpSession session = req.getSession();
+			UserVo uvo = (UserVo)session.getAttribute("userInfo");
+			if (uvo == null) {
+				return "0";
+			}
+			
+			//카트등록
+			vo.setUserno(uvo.getUserno());
+			int result = mylistService.insert(vo);
+			return result + "";
 		}
 
 	@PostMapping("/mylist/deleteAjax.do")

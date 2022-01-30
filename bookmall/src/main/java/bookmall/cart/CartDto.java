@@ -4,18 +4,69 @@ public class CartDto {
 	
 	private int cartno;  // 장바구니 번호
 	private int userno; // 회원번호
+	private String cartnos;
 
-	private int bookno; 
+	private int bookno; //상품번호
 	private int bookcount; // 상품수량
+
+	//order
+	private int orderno;
 	
 	//book
 	private String btitle_first; // 책제목
-	private int price;  //상품가격
+	private String btitle_second;// 책부재
+	private String author; // 글쓴이
+	private int salesprice;  //상품가격
 	private int discountrate; //할인금액
 	
-
 	// 추가
 	private int totalPrice; // 총금액 (테이블에는 없는 속성)
+	private int total_Price; // 총금액 (테이블에는 없는 속성)
+	
+
+	public String getCartnos() {
+		return cartnos;
+	}
+
+	public void setCartnos(String cartnos) {
+		this.cartnos = cartnos;
+	}
+
+	public int getOrderno() {
+		return orderno;
+	}
+
+	public void setOrderno(int orderno) {
+		this.orderno = orderno;
+	}
+
+	
+	
+	public int getTotal_Price() {
+		return total_Price;
+	}
+
+	public void setTotal_Price(int total_Price) {
+		this.total_Price = total_Price;
+	}
+
+	
+	
+	public String getBtitle_second() {
+		return btitle_second;
+	}
+
+	public void setBtitle_second(String btitle_second) {
+		this.btitle_second = btitle_second;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 	public int getUserno() {
 		return userno;
@@ -57,12 +108,12 @@ public class CartDto {
 		this.btitle_first = btitle_first;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getSalesprice() {
+		return salesprice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setSalesprice(int salesprice) {
+		this.salesprice = salesprice;
 	}
 
 	public int getDiscountrate() {
@@ -78,13 +129,13 @@ public class CartDto {
 	}
 	
 	public void initSaleTotal() {  //totalPrice를 초기화해주는 메서드
-		this.totalPrice = (this.price-this.discountrate)*this.bookcount;
+		this.totalPrice = (this.salesprice-this.discountrate)*this.bookcount;
 	}
 
 	@Override
 	public String toString() {
 		return "CartDto [cartno=" + cartno + ", userno=" + userno+ ", bookno=" + bookno + ", bookcount=" + bookcount
-				+ ", btitle_first=" + btitle_first + ", price=" + price + ", discountrate=" + discountrate
+				+ ", btitle_first=" + btitle_first + ", salesprice=" + salesprice + ", discountrate=" + discountrate
 				+ ", totalPrice=" + totalPrice + "]";
 	}
 

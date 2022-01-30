@@ -29,7 +29,8 @@ public class AddrController {
 	AddrService addListService;
 	
 	@GetMapping("/addr/addressList.do") // 매핑된경로 
-	public String index(Model model, AddrVo vo) {
+	public String index(Model model, AddrVo vo, HttpSession sess) {
+		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		model.addAttribute("addBook", addListService.listSelect(vo));
 		return "/addr/addressList"; // 리턴되는 jsp경로   
 	}

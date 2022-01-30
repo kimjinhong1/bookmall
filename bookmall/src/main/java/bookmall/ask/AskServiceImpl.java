@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bookmall.board.notice.NoticeVo;
+
 
 @Service
 public class AskServiceImpl implements AskService {
@@ -58,6 +60,11 @@ public class AskServiceImpl implements AskService {
 	@Override
 	public int delete(int askno) {
 		return askDao.delete(askno);
+	}
+	
+	@Override
+	public int count(AskVo vo) {
+		return askDao.count(vo);
 	}
 	
 }

@@ -62,15 +62,7 @@ $(".deleteClick").on('click', function() {
 					<!-- 내용 : s -->
 					<div id="bbs">
 						<div id="blist">
-						<p><span><strong>총 ${totCount }</strong>  |  ${AskVo.page }/${totPage }페이지</span>
-								<div class="search">
-									<select name="searchType" title="검색을 선택해주세요">
-										<option value="">전체</option>
-										<option value="title" <c:if test="${param.searchType=='title'}">selected</c:if>>제목</option>
-										<option value="content" <c:if test="${param.searchType=='content'}">selected</c:if>>내용</option>
-									</select>
-								</div>
-						</p>
+						<p><span><strong>총 ${totCount }</strong>  |  ${AskVo.page }/${totPage }페이지</span></p>
 							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리목록입니다.">
 								<colgroup>
 									<col class="w5" />

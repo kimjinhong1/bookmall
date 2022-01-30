@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +34,7 @@
 
 		// 삭제
 		$(".deleteClick").on('click', function() {
-			if (confirm('선택하신 문의사항을 삭제하시겠습니까?')) {
+			if (confirm('선택하신 상품을 삭제하시겠습니까?')) {
 				$.ajax({
 					type : 'post',
 					url : '/bookmall/mylist/deleteAjax.do', // <<-- 처리 요청 URL
@@ -45,22 +46,8 @@
 				});
 			}
 		});
-
-		$("#cartbtn").click(function() {
-			$.ajax({
-				url : '/bookmall/cart/add',
-				type : 'POST',
-				data : {
-					bookno : 99
-
-				},
-				success : function(result) {
-					alert('장바구니에 등록되었습니다.');
-					$(".bookcount").val("1");
-				}
-			})
-		});
 	});
+
 </script>
 </head>
 <body>
@@ -74,20 +61,21 @@
 				<div class="box">
 					<table class="type2">
 						<colgroup>
-							<col width="*" />
 							<col width="100px" />
 							<col width="100px" />
-							<col width="800px" />
 							<col width="100px" />
-							<col width="*" />
+							<col width="600px" />
+							<col width="100px" />
+							<col width="100px" />
 						</colgroup>
 						<thead>
 							<tr>
 								<th>선택</th>
-								<th>번호</th>
-								<th>제품</th>
+								<th>상품번호</th>
+								<th>상품</th>
 								<th>상세정보</th>
-								<th>기타</th>
+								<th>등록일</th>
+								<th></th>
 							</tr>
 						</thead>
 						<c:if test="${empty dibsList }">
@@ -100,20 +88,18 @@
 								<c:forEach var="mylist" items="${dibsList}">
 									<thead>
 										<tr>
-											<td><label> <input type="checkbox"
-													name="listno" value="${mylist.listno }"><br>
-											</label></td>
+											<td><label> <input type="checkbox"name="listno" value="${mylist.listno }"><br></label></td>
 											<td>${mylist.bookno}</td>
-											<td><img src="${book.bthumb_org }" width="80"><br>
+											<td><img src="" width="80"><br></td>
+											<td><b>${mylist.btitle_first } </b><br>
+											${mylist.btitle_second }<br>
+											${mylist.author} / ${mylist.publisher}
 											</td>
-											<td>${mylist.btitle_first } <br>${mylist.author} |
-												${mylist.publisher }
+											<td>
+											<fmt:formatDate value="${mylist.regdate }" pattern="yyyy-MM-dd" />
 											</td>
-											<td><a class="mylistwrite"
-												href="/bookmall/board/review.do"
-												style=" cursor: pointer; font-size: 13px;"><b>리뷰작성</b></a><br>
-											<br> <a id="cartbtn" name="cartinsert"
-												style=" cursor: pointer; font-size: 13px;"><b>장바구니담기</b></a>
+											<td>
+												<b><a href="/bookmall/book/detail.do?bookno=${mylist.bookno }">상품 상세보기</a></b>
 											</td>
 										</tr>
 									</thead>

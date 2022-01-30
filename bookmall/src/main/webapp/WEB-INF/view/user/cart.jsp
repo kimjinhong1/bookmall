@@ -62,6 +62,7 @@ $(function(){
 			success : function(res) {
 				if (res.trim() == '1') {
 					alert('수량이 변경되었습니다.');
+					location.reload();
 				}
 			}
 		})
@@ -79,6 +80,8 @@ $(function(){
 		}
 	});
 });
+	
+	
 </script>
 </head>
 <body>
@@ -96,12 +99,12 @@ $(function(){
 					<table class="table table-striped" style="border-bottom: 1px solid black">
 						<thead>
 							<tr>
-								<th scope="col" width="5%"></th>
-								<th scope="col" width="15%">제품</th>
-								<th scope="col" width="35%">상세</th>
-								<th scope="col" width="10%">수량</th>
-								<th scope="col" width="15%">단가</th>
-								<th scope="col" width="15%">금액</th>
+								<th scope="col" width="50px"></th>
+								<th scope="col" width="100px">제품</th>
+								<th scope="col" width="500px">상세</th>
+								<th scope="col" width="200px">단가</th>
+								<th scope="col" width="150px">수량</th>
+								<th scope="col" width="200px">금액</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -111,7 +114,9 @@ $(function(){
 									<td colspan="6"><center><b>담긴 상품이 없습니다.</b></center></td>
 								</tr>
 							</c:if>
-							<form name="cartspace" id="cartspace">
+							<form name="cartspace" id="cartspace" action="/bookmall/order2.do">
+							<input type="hidden" name="booktitle" value=${booktitle }>
+							<c:set var="totPrice" value="0"/>
 							<c:if test="${cartInfo ne null and not empty cartInfo}">
 								<c:forEach var="cart" items="${cartInfo}">
 									<tr>
@@ -121,23 +126,26 @@ $(function(){
 											</label>
 										</td>
 										<td> 
-											<a href="../prodDetail.do?bnum=${book.bookno}" target="_blank">
-											<img src="/bookmall/img/book_1.png" class="img-thumbnail" style="width: 100px; "></a>
+											<a href="book_detail.do?bookno=${cart.bookno}" target="_blank">
+											<img src="img/book_3.png" class="img-thumbnail" style="width: 100px; "></a>
 										</td>
 										<td> 
-											<a href="../prodDetail.do?bnum=${book.bookno}" target="_blank">
-											ㅇㄴㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+											<a href="book_detail.do?bookno=${cart.bookno }" target="_blank">
+											<center>${cart.btitle_first } </center>
+											<center> ${cart.btitle_second }</center>
+											<center>저자 : ${cart.author }</center>
 											</a>
 										</td>
-										<td>
-											<input type="number" class="bookcount" value="${cart.bookcount}" min="1" max="50" size="3">개
-											<a class="quantity_modify_btn" data-cartid="${cart.cartno}" style="cursor: pointer;">변경</a>
+										<td style="font-weight: bold;">
+											<center><fmt:formatNumber value="${cart.salesprice}" pattern="###,###" />원</center>
 										</td>
-										<td style="font-weight: bold; text-align: right;">
-											<fmt:formatNumber value="${cart.price}" pattern="###,###" />원
+										<td>
+											<center><input type="number" class="bookcount" value="${cart.bookcount}" min="1" max="50" size="3">개
+											<a class="quantity_modify_btn" data-cartid="${cart.cartno}" style="cursor: pointer;">변경</a></center>
 										</td>
 										<td style="font-weight: bold;text-align: right;">
-											<fmt:formatNumber value="${cart.totalPrice}" pattern="###,###" />원
+											<center><fmt:formatNumber value="${cart.salesprice * cart.bookcount}" pattern="###,###" /> 원</center>
+											<c:set var="totPrice" value="${cart.salesprice * cart.bookcount + totPrice}"/>
 										</td>
 									</tr>
 								</c:forEach>
@@ -146,10 +154,10 @@ $(function(){
 						</tbody>
 					</table>
 							<tr>
-								<td colspan="3">
-									<h5 style="float:right; font-size: 15px;"> 장바구니 총 액: 
+								<td>
+									<h5 style="float:right; font-size: 20px;"> 장바구니 총 액: 
 										<span class="text-danger"> 
-										<fmt:formatNumber value="${cartTotalPrice}" pattern="###,###" />원 
+										<fmt:formatNumber value="${totPrice}" pattern="###,###" />원 
 										</span>
 									</h5>
 								</td>
@@ -163,8 +171,8 @@ $(function(){
 							
 							<tr>
 								<td>
-									<a href="/bookmall/order1.do" style="font-size:15px; float: right; color:red;">주문하기</a> 
-									<a href="/bookmall/main.do" style="font-size:15px;float: left;"><< 쇼핑 계속하기</a>
+									<a href="javascript:$('#cartspace').submit();" class="orderBtn" style="font-size:15px; float: right; color:red;">주문하기</a> 
+									<a href="/bookmall/main.do"  style="font-size:15px;float: left;"><< 쇼핑 계속하기</a>
 								</td>
 							</tr>
 					</div>

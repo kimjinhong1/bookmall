@@ -102,7 +102,7 @@
 				                                    </c:if>
 				                                <a href="askview.do?askno=${ask.askno }" >${ask.title }</a></td>
 				                                <td class="date"><fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
-				                                <td> ${ask.status}</td>
+				                                <td>${ask.status}</td>
 		                         	 		</tr>
 		                          	  </c:forEach>  
                            	 	</c:if>
@@ -110,6 +110,9 @@
 	                        </tbody>
 	                    </table>
 			                <a href="javascript:;" class="deleteClick" style="cursor: pointer; font-weight: bold;">&nbsp;&nbsp;&nbsp;삭제</a>
+	                             <!-- 페이징 처리 -->
+									${pageArea }
+								<!-- //페이징 처리 -->
 			                <div class="request" style="text-align: right;">
 					        <a href="askwrite.do" style="font-size: 15px; font-weight: bold;" >1:1 문의하기</a>
 				        </div>

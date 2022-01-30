@@ -3,6 +3,7 @@ package bookmall.mylist;
 import java.util.List;
 
 import bookmall.board.suda.SudaVo;
+import bookmall.cart.CartDto;
 
 public interface MylistService {
 	
@@ -15,5 +16,8 @@ public interface MylistService {
 
 	/*마이리스트 추가*/
 	int insert(MylistVo vo);
+	
+	/*리스트 확인*/
+	public MylistVo checkList(MylistVo vo);
 	
 }

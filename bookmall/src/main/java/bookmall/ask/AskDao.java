@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bookmall.board.notice.NoticeVo;
 import bookmall.board.suda.SudaVo;
 
 @Repository  // MvcCinfig 에 스캔을 해서 @Repository 적기만해도 빈 객체 생성 
@@ -62,6 +63,10 @@ public class AskDao {
 	
 	public int update(AskVo askno) {
 		return sqlSessionTemplate.update("ask.update", askno);
+	}
+	
+	public int count(AskVo askno) {
+		return sqlSessionTemplate.selectOne("ask.count",askno);
 	}
 }
 

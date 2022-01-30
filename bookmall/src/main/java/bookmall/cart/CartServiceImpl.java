@@ -57,7 +57,11 @@ public class CartServiceImpl implements CartService {
 		return cartdao.checkCart(cartno);
 	}
 
-
+	//카트 금액합계
+	@Override
+	public int cartPrice(int cartno) {
+		return  cartdao.cartPrice(cartno);
+	}
 
 
 

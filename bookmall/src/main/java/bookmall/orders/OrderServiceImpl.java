@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bookmall.cart.CartDto;
 import bookmall.user.UserVo;
 
 
@@ -25,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public int bookListInsert(CartVo vo) {
+	public int bookListInsert(CartDto vo) {
 		return orderDao.bookListInsert(vo);
 	}
 	
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<CartVo> bookListSelect(CartVo vo) {
+	public List<CartDto> bookListSelect(CartDto vo) {
 		return orderDao.bookListSelect(vo);		
 	}
 
@@ -52,6 +53,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<AddrListVo> addrSelect(AddrListVo vo) {
 		return orderDao.addrSelect(vo);
+	}
+
+	@Override
+	public OrderVo orderSelect(OrderVo vo) {
+		return orderDao.orderSelect(vo);
+	}
+
+	@Override
+	public int deleteOrderCart(CartDto vo) {
+		return orderDao.deleteOrderCart(vo);
 	}
 
 }
