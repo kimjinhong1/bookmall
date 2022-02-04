@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AdminController {
@@ -53,6 +54,11 @@ public class AdminController {
 	@GetMapping("/admin/board/write.do")
 	public String boardWrite() {
 		return "admin/board/write"; 
+	}
+	
+	@RequestMapping("/admin/orders/totOrders.do")
+	public String totOrders() {
+		return "admin/orders/totOrders"; 
 	}
 	
 }

@@ -11,19 +11,30 @@ public class CartDto {
 
 	//order
 	private int orderno;
+	//order_Detail
+	private int exchangeno;		//주문상태(기본값:0, 취소:1, 반품:2, 환불:3)
 	
 	//book
 	private String btitle_first; // 책제목
 	private String btitle_second;// 책부재
 	private String author; // 글쓴이
 	private int salesprice;  //상품가격
+	
 	private int discountrate; //할인금액
 	
 	// 추가
 	private int totalPrice; // 총금액 (테이블에는 없는 속성)
-	private int total_Price; // 총금액 (테이블에는 없는 속성)
+	private int total_price; // 총금액 (테이블에는 없는 속성)
 	
+	
+	public int getExchangeno() {
+		return exchangeno;
+	}
 
+	public void setExchangeno(int exchangeno) {
+		this.exchangeno = exchangeno;
+	}
+	
 	public String getCartnos() {
 		return cartnos;
 	}
@@ -40,14 +51,13 @@ public class CartDto {
 		this.orderno = orderno;
 	}
 
-	
-	
 	public int getTotal_Price() {
-		return total_Price;
+		return total_price;
 	}
+	
 
-	public void setTotal_Price(int total_Price) {
-		this.total_Price = total_Price;
+	public void setTotal_Price(int total_price) {
+		this.total_price = total_price;
 	}
 
 	
