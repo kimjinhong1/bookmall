@@ -123,6 +123,7 @@ $(function(){
 										<td>
 											<label> 
 												<input type="checkbox" name="cartno" value="${cart.cartno }" id="1"  checked="on">
+												<input type="checkbox" name="cartnos" value="${cart.cartno }" id="1">
 											</label>
 										</td>
 										<td> 
@@ -172,7 +173,7 @@ $(function(){
 							
 							<tr>
 								<td>
-									<a href="javascript:$('#cartspace').submit();" class="orderBtn" style="font-size:15px; float: right; color:red;">주문하기</a> 
+									<a href="javascript:$('#cartspace').submit();" class="orderBtn" style="font-size:15px; float: right; color:red;">주문하기</a>
 									<a href="/bookmall/main.do"  style="font-size:15px;float: left;"><< 쇼핑 계속하기</a>
 								</td>
 							</tr>

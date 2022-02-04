@@ -6,10 +6,10 @@
 	<insert id="insert" parameterType="bookmall.orders.OrderVo" >
 		INSERT INTO orders (
 			userno, order_date, name, receiver_name, zipcode, addr1, addr2, receiver_phone, methodOfPayment, bankToDeposit
-			, nameOfDepositor, imp_uid, apply_num, creditCard, paid_amount, paymentStatus, canceledStatus
+			, nameOfDepositor, imp_uid, apply_num, creditCard, paid_amount, status
 		) VALUES (			
 			#{userno}, NOW(), #{name},#{receiver_name},#{zipcode},#{addr1},#{addr2},#{receiver_phone},#{methodOfPayment},#{bankToDeposit}
-			,#{nameOfDepositor}, #{imp_uid}, #{apply_num}, #{creditCard}, #{paid_amount}, #{paymentStatus}, #{canceledStatus}
+			,#{nameOfDepositor}, #{imp_uid}, #{apply_num}, #{creditCard}, #{paid_amount}, #{status}
 		)
 		<selectKey keyProperty="orderno" resultType="int" order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -17,21 +17,21 @@
 	</insert>
 	
 <!-- 바로구매 상품 정보 insert  -->
-	<insert id="bookInsert" parameterType="bookmall.orders.BookVo" >
+	<insert id="bookInsert" parameterType="bookmall.book.BookVo" >
 		INSERT INTO order_detail (
-			orderno, bookno, bookcount, price, salesprice, total_price
+			orderno, bookno, bookcount, salesprice, total_price
 		) VALUES (			
-			#{orderno}, #{bookno}, #{bookcount}, #{price}, #{salesprice}, #{total_price}
+			#{orderno}, #{bookno}, #{bookcount}, #{salesprice}, #{total_price}
 		)
 	</insert>
 	
 <!-- 장바구니 상품 정보 insert -->    
 	<insert id="bookListInsert" parameterType="bookmall.cart.CartDto">
 			INSERT INTO order_detail (
-				orderno, bookno, bookcount, price, salesprice, totalprice
+				orderno, bookno, bookcount, salesprice, total_price
 			)
 			VALUES (
-				#{orderno}, #{bookno}, #{bookcount}, #{price}, #{salesprice}, #{totalprice}
+				#{orderno}, #{bookno}, #{bookcount}, #{salesprice}, #{total_price}
 			)
 	</insert>
 <!-- 새 주소 insert -->    
@@ -53,8 +53,8 @@
 	</select>
 	
 <!-- 책정보 가져오기 -->
-	<select id="bookSelect" parameterType="bookmall.orders.BookVo" resultType="bookmall.orders.BookVo">
-		SELECT bookno, btitle_first, btitle_second, price, discountrate, salesprice 
+	<select id="bookSelect" parameterType="bookmall.book.BookVo" resultType="bookmall.book.BookVo">
+		SELECT bookno, btitle_first, btitle_second, discountrate, salesprice 
 		FROM book 
 		WHERE bookno = #{bookno} 
 	</select> 
@@ -64,7 +64,14 @@
 		SELECT a.cartno, a.bookcount, b.bookno, b.btitle_first, b.btitle_second, b.discountrate, b.salesprice
 		FROM cart a, book b
 		WHERE a.bookno = b.bookno
-		AND cartno IN (${cartno}) 
+		AND cartno = #{cartno}  
+	</select>
+	
+	<select id="cartnoSelect" parameterType="bookmall.cart.CartDto" resultType="bookmall.cart.CartDto">
+		SELECT a.cartno, a.bookcount, b.bookno, b.btitle_first, b.btitle_second, b.discountrate, b.salesprice
+		FROM cart a, book b
+		WHERE a.bookno = b.bookno
+		AND cartno IN (${cartnos})  
 	</select>
 	
 <!-- 주소록 가져오기 -->
@@ -74,9 +81,9 @@
 		WHERE userno = #{userno} 
 	</select>
 	
-<!-- 주문정보 가져오기 -->
+<!-- 주문완료정보 가져오기 -->
 	<select id="orderSelect" parameterType="bookmall.orders.OrderVo" resultType="bookmall.orders.OrderVo">
-		SELECT orderno, order_date, addr1, addr2, paid_amount, methodOfPayment
+		SELECT userno, orderno, order_date, addr1, addr2, paid_amount, methodOfPayment, bankToDeposit, nameOfDepositor, creditCard, name, receiver_name
 		FROM orders
 		WHERE orderno = #{orderno}
 		AND userno = #{userno}
@@ -86,6 +93,60 @@
 	<delete id="deleteOrderCart" parameterType="int">
 		DELETE FROM cart WHERE userno = #{userno} AND bookno = #{bookno}
 	</delete>
+
+
+
+<!-- 관리자  -->
+	<sql id = "ordersWhere">
+		<where>
+			<if test ="searchType ==''">   
+			 	(orderno LIKE '%${searchWord}%' OR name LIKE '%${searchWord}%' OR btitle_first LIKE '%${searchWord}%')
+			</if>
+			<if test= "searchType != null and searchType != ''">
+			 	${searchType} LIKE '%${searchWord}%'
+			</if>
+			<if test="searchState != null and searchState != '' ">
+				status = #{searchState}
+			</if>
+			<if test="searchPay != null and searchPay != '' ">
+				methodOfPayment = #{searchPay}   
+			</if>
+			<!-- <if test="searchExchangeno != null and searchExchangeno != ''">
+				AND exchangeno = ${searchExchangeno}
+			</if> -->
+			<!-- <if test ="payType == null or payType == '' ">
+			 	payType LIKE '%'
+			</if>
+			<if test="payType != null and payType != '' ">
+				methodOfPayment LIKE #{payType}
+			</if> -->
+		</where>
+	</sql>	
+		
+		
+	<!-- 관리자 주문 전체 목록 -->
+	<select id="totSelect" parameterType="bookmall.admin.orders.OrdersAdminVo" resultType="bookmall.admin.orders.OrdersAdminVo">
+		SELECT a.orderno, a.userno, a.order_date, a.name, a.creditCard, a.methodOfPayment, a.paid_amount, a.status, a.receiver_name
+			   , b.bookno
+			   , c.btitle_first, c.btitle_second
+		FROM orders a, order_detail b, book c
+		WHERE a.orderno = b.orderno
+		AND b.bookno = c.bookno
+		<include refid = "ordersWhere"/>
+		ORDER BY userno ASC, orderno ASC
+		LIMIT ${startIdx},${numchoose}
+	</select>	
 	
+<!--  주문 수량 체크 -->
+	<select id="count" resultType="int" parameterType="bookmall.admin.orders.OrdersAdminVo">
+		SELECT COUNT(*) FROM orders
+		<include refid="ordersWhere"/>
+	</select>
+	
+	<update id="update" parameterType="bookmall.admin.orders.OrdersAdminVo">
+		UPDATE orders SET 
+		status=#{status}
+		WHERE orderno=#{orderno}  
+	</update>
 
 </mapper>

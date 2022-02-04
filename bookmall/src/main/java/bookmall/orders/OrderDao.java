@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bookmall.book.BookVo;
 import bookmall.cart.CartDto;
 import bookmall.user.UserVo;
 
@@ -67,6 +68,10 @@ public class OrderDao {
 	// 장바구니에서 책정보 가져오기
 	public List<CartDto> bookListSelect(CartDto vo) {  
 		return sqlSessionTemplate.selectList("orders.bookListSelect", vo);
+	}
+	//cartno 가져오기
+	public List<CartDto> cartnoSelect(CartDto vo) {  
+		return sqlSessionTemplate.selectList("orders.cartnoSelect", vo);
 	}
 	
 	// 회원정보 가져오기

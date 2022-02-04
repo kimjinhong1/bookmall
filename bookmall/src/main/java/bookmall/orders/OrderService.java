@@ -2,6 +2,7 @@ package bookmall.orders;
 
 import java.util.List;
 
+import bookmall.book.BookVo;
 import bookmall.cart.CartDto;
 import bookmall.user.UserVo;
 
@@ -17,4 +18,5 @@ public interface OrderService {
 	List<AddrListVo> addrSelect(AddrListVo vo);
 	OrderVo orderSelect(OrderVo vo);
 	int deleteOrderCart(CartDto vo);
+	List<CartDto> cartnoSelect(CartDto vo);
 }

@@ -3,7 +3,7 @@
 <mapper namespace="cart"> <!-- mapper파일의 이름 -->
 
 	<!-- 카트 추가 -->
-	<insert id="addCart" parameterType="bookmall.orders.BookVo">
+	<insert id="addCart" parameterType="bookmall.book.BookVo">
 		insert into cart ( userno, bookno, bookcount)
 		values(#{userno}, #{bookno}, #{bookcount}) 
 	</insert>

@@ -7,8 +7,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import bookmall.book.BookVo;
 import bookmall.cart.CartDto;
 import bookmall.cart.CartService;
 import bookmall.user.UserVo;
@@ -33,10 +36,12 @@ public class OrderController {
 		return "orders/test2"; 
 	}
 	
-	@RequestMapping("/complete.do")
-	public String orderSelect(OrderVo vo, Model model, HttpSession sess) {
+	@RequestMapping("/complete.do")  
+	public String orderSelect(UserVo uv, OrderVo vo, Model model, HttpSession sess) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		model.addAttribute("order", orderService.orderSelect(vo));
+//		model.addAttribute("loginUser", orderService.userSelect(uv));  
+		
 		return "orders/complete"; 
 	}
 	
@@ -59,22 +64,23 @@ public class OrderController {
 	
 	// 장바구니 상품 구매하기
 	@RequestMapping("/order2.do")
-	public String order2(CartDto cv, Model model, HttpServletRequest req, UserVo vo, HttpSession sess) {
+	public String order2(CartDto cv, Model model,  HttpServletRequest req, UserVo vo, HttpSession sess) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	
-		System.out.println("cartno:"+cv.getCartno());
-		model.addAttribute("bookList", orderService.bookListSelect(cv));
-		model.addAttribute("loginUser", orderService.userSelect(vo));
-		
-//		String[] bookList = req.getParameterValues("btitle_first"); // 배열로 전송된 cartno
-//		 
+//		String[] cartnos = req.getParameterValues("cartno");
 //		
-//		for (int i=0; i<btitle_first.length; i++) {
-//			cnt += orderService.bookSelect(Integer.parseInt(btitle_first[1])); // 배열의 개수만큼 반복하면서 삭제
+//		System.out.println("cartno:"+cartnos.length);
+//		
+//		int cno = 0;
+//		for (int i=0; i<cartnos.length; i++) {
+//			CartDto cdto = new CartDto();
+//			cdto.setBookcount(Integer.parseInt(cartnos[i]));
+//			cno += orderService.bookListInsert(cdto);		
 //		}
-//		// 반복이 끝나면 cnt변수에는 삭제된 개수가 담김
-//		model.addAttribute("result", cnt);
 		
 		
+		model.addAttribute("bookList", orderService.bookListSelect(cv));
+		model.addAttribute("bookList", orderService.cartnoSelect(cv));
+		model.addAttribute("loginUser", orderService.userSelect(vo));
 		return "orders/order2"; 
 	}
 	
@@ -85,22 +91,19 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/orderInsertAjax.do")
-	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartDto dto, AddrListVo alv, HttpSession sess, int paid_amount, String paymentStatus) {
+	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartDto dto, AddrListVo alv, HttpSession sess, int paid_amount) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		int r = orderService.insert(vo);
 		vo.setPaid_amount(paid_amount);
-		vo.setPaymentStatus(paymentStatus);
 		int bli = 0;
 		
 		String[] bookno = req.getParameterValues("bookno");
 //		System.out.println(bookno[0]);
 //		System.out.println(bookno[1]);
 		String[] bookcount = req.getParameterValues("bookcount");
-		String[] price = req.getParameterValues("price");
 		String[] salesprice = req.getParameterValues("salesprice");
 		System.out.println("bookno:"+bookno.length);
 		System.out.println("bookcount:"+bookcount.length);
-		System.out.println("price:"+price.length);
 		System.out.println("salesprice:"+salesprice.length);
 //		CartVo cvo;
 		for (int i=0; i<bookno.length; i++) {
@@ -110,7 +113,7 @@ public class OrderController {
 			cdto.setBookcount(Integer.parseInt(bookcount[i]));
 			cdto.setSalesprice(Integer.parseInt(salesprice[i]));
 			cdto.setTotal_Price(Integer.parseInt(bookcount[i]) * Integer.parseInt(salesprice[i]));
-			bli += orderService.bookListInsert(cdto);		// 정상적으로 결제되었습니다. alert 띄우고 
+			bli += orderService.bookListInsert(cdto);		
 		}
 		if ( r > 0 && bli > 0) {  
 			model.addAttribute("result", vo.getOrderno()); 
@@ -149,16 +152,20 @@ public class OrderController {
 		return "orders/addrInsert"; 
 	}
 	
-//	public void deleteOrderCart() {
-//		int userno = 1;
-//		int bookno = 1;
+//	/*장바구니 품목삭제*/
+//	@PostMapping("/orders/deleteAjax.do")
+//	public String deleteAjax(UserVo vo, Model model, HttpServletRequest req, HttpSession sess) {
+//		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
+//		String[] cartno = req.getParameterValues("cartno"); // 배열로 전송된 cartno
 //		
-//		CartVo vo = new CartVo();
-//		vo.setUserno(userno);
-//		vo.setBookno(bookno);
-//		
-//		.deleteOrderCart(vo);
-//		
+//		int cnt = 0;
+//		for (int i=0; i<cartno.length; i++) {
+//			cnt += cartService.deleteCart(Integer.parseInt(cartno[i])); // 배열의 개수만큼 반복하면서 삭제
+//		}
+//		// 반복이 끝나면 cnt변수에는 삭제된 개수가 담김
+//		model.addAttribute("result", cnt);
+//		return "include/result";
 //	}
+	
 	
 }

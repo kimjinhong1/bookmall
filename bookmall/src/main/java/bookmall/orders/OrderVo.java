@@ -26,8 +26,7 @@ public class OrderVo {
 		private String creditCard;		//신용카드_카드사 card_name
 		
 		private String apply_num;		//승인번호
-		private String paymentStatus;	//결제상태
-		private String canceledStatus;  //취소상태
+		private String status;  		//결제/취소/교환/환불/반품 
 		private String imp_uid;			//고유Id
 		private int paid_amount; 		//결제금액
 
@@ -36,14 +35,9 @@ public class OrderVo {
 		//DB에는 없다.
 		private int salesprice; 		//판매가
 		private int totalPrice;         //총합 
-		private int bookCount;			//주문수량
-		
-		
-		public void initSaleTotal() {
-			this.totalPrice = this.salesprice*this.bookCount;
-		}
-
-
+		private int bookcount;			//주문수량
+		private int total_price; 
+		private int no;
 		
 		
 }
