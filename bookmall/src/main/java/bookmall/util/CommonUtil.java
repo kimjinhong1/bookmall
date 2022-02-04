@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+
 import bookmall.book.BookVo;
+import bookmall.search.SearchVo;
 import bookmall.user.UserVo;
 
 public class CommonUtil {
@@ -247,6 +249,45 @@ public class CommonUtil {
 			
 			ret += "</ul>\r\n"
 					+ "</div>";
+			return ret;
+			
+		}
+		
+		// 통합검색 paging
+		public static String getPageAreaSearch(String url, int curPage, int totPage, int pageRange, SearchVo vo) {
+			
+			// 페이지범위 
+			int startPage = (curPage-1)/pageRange*pageRange+1; // 시작 페이지 (가장 왼쪽 시작 번호)
+			int endPage = startPage + pageRange - 1; // 끝 페이지 (가장 오른쪽, 끝 번호)
+			
+			// 끝 페이지가 총 페이지 개수보다 클 때, 끝 페이지를 총 페이지로 맞춤
+			if (endPage > totPage) endPage = totPage;
+			
+			String ret="";
+			ret += "  <div class=\"page\">\r\n";
+			// 시작페이지가 10보다 클 때, ' < '  왼쪽에 추가, 11페이지에서 누르면 10페이지 이동
+			if (startPage >pageRange) {
+				ret += "					<a href=\""+url+"?page="+(startPage-1)+"\"> < </a>\r\n";
+			}
+			// 1~10 , 11~20.. 페이지번호 나열
+			for (int rp = startPage; rp <= endPage; rp++) {
+				if (rp ==curPage) {
+					ret += "<strong>"+rp+"</strong>";
+				} else {
+					if(vo.getSearchWord() == null || vo.getSearchType() == null) {
+						ret += "	                <a href='javascript:location.href=\""+url+"?page="+rp+"\";'";
+					} else {
+//						ret += "	                <a href='javascript:location.href=\""+url+"?page="+rp+"\";'";
+						ret += "	                <a href='javascript:location.href=\""+url+"?searchType="+vo.getSearchType()+"&searchWord="+vo.getSearchWord()+"&salesprice="+vo.getSalesprice()+"&pubdate="+vo.getPubdate()+"&"+"&page="+rp+"\";'";
+					}
+						ret += ">"+rp+"</a>\r\n";
+				}
+			}
+			// 총 페이지가 끝 페이지보다 클 때, ' > ' 오른쪽 추가, 10페이지에서 누르면 11페이지 이동
+			if (totPage > endPage) {
+				ret += "     	<a href=\""+url+"?page="+(endPage+1)+"\"> > </a>\r\n";
+			}
+			ret += "                    </div>";
 			return ret;
 			
 		}
