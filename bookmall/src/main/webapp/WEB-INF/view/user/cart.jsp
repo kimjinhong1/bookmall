@@ -122,7 +122,6 @@ $(function(){
 									<tr>
 										<td>
 											<label> 
-												<input type="checkbox" name="cartno" value="${cart.cartno }" id="1"  checked="on">
 												<input type="checkbox" name="cartnos" value="${cart.cartno }" id="1">
 											</label>
 										</td>
