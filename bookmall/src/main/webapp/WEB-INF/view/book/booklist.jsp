@@ -43,23 +43,23 @@
 					$("#bookcount").val(bc);
 				}
 			})
-		});
-	</script>
+			});
 
 
-<script>
-//장바구니 담기
 $(function() {
-	$("#cartbtn").click(function(){
+	$("#listbtn").click(function(){
 		$.ajax({
-			url: '/bookmall/cart/add',
+			url: '/bookmall/mylist/insert.do',
 			type: 'POST',
 			data: {
-				bookno : ${data.bookno}, btitle_first : ${vo.btitle_first}, salesprice: ${vo.salesprice}
-				
+				bookno : ${vo.bookno}, btitle_first : '${vo.btitle_first}', author: '${vo.author}', publisher: '${vo.publisher }'
 			},
 			success: function(result){
-				alert('장바구니에 등록되었습니다.');
+				if (result.trim() == "2") {
+					alert("이미 등록되었습니다.");
+				} else {
+					alert('마이리스트에 등록되었습니다.');
+				}
 			}
 		})
 	});
@@ -120,15 +120,14 @@ $(function() {
 						         	<input type="button" name="plusCount" id="plusCount" value="+" class="" ></a>
                                 </td>
                                 <td class="btnTop">
-                                	<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니에 담기</strong> </a>
+                                	<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니 담기</strong> </a>
                                 </td>
                                 <td class="btnMiddle">
                                 	<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>
                                 </td>
                                 <td class="btnBottom">
-                                	<a class="btns" href="#" onclick=""><strong>리스트에 담기</strong> </a>
+                                	<a id ="listbtn" name="mylistinsert" href="#"></a><strong>마이리스트 담기</strong> </a>
                                 </td>
-                            </tr>
                         </c:forEach>
                         </tbody>
                     </table>

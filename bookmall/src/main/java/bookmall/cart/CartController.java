@@ -19,6 +19,7 @@ public class CartController {
 	@Autowired
 	CartService cartService;
 
+	//장바구니 담기
 	@PostMapping("/cart/add")
 	@ResponseBody //메소드에서 리턴되는 값은 View 를 통해서 출력되지 않고 HTTP Response Body 에 직접 쓰여지게 됨
 	public String addCartPOST(CartDto cartdto, HttpServletRequest req) { //등록할 데이터를 전달받아야 하기 때문에 CartDto 타입의 파라미터 변수를 선언, 추가로 로그인 여부를 확인하기 위해 session 객체가 필요로 하기 때문에 HttpservletRequest 타입의 파라미터 변수선언
@@ -34,13 +35,7 @@ public class CartController {
 		int result = cartService.addCart(cartdto);
 		return result + "";
 	}
-	
-	@GetMapping("/cart/{userno}")
-	public String cartPageGet(@PathVariable("userno")CartDto userno, Model model) {
-		model.addAttribute("cartInfo", cartService.getSelectList(userno));
-		return "/cart";
-	}
-	
+
 	/* 장바구니 수량 수정 */
 	@PostMapping("/cart/update")
 	public String updateCartPOST(Model model,CartDto cartno) {
@@ -48,7 +43,7 @@ public class CartController {
 		model.addAttribute("result", r);
 		return "include/result";
 	}
-	
+	/*장바구니 목록*/
 	@GetMapping("/cart")
 	public String selectList (Model model, CartDto dto, HttpSession sess) {
 		int userno = ((UserVo)sess.getAttribute("userInfo")).getUserno();

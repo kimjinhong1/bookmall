@@ -46,7 +46,7 @@ public class MylistController {
 				return "0";
 			}
 			
-			//카트등록
+			//리스트등록
 			vo.setUserno(uvo.getUserno());
 			int result = mylistService.insert(vo);
 			return result + "";

@@ -122,15 +122,15 @@ $(function(){
 									<tr>
 										<td>
 											<label> 
-												<input type="checkbox" name="cartno" value="${cart.cartno }" id="1">
+												<input type="checkbox" name="cartno" value="${cart.cartno }" id="1"  checked="on">
 											</label>
 										</td>
 										<td> 
-											<a href="book_detail.do?bookno=${cart.bookno}" target="_blank">
-											<img src="img/book_3.png" class="img-thumbnail" style="width: 100px; "></a>
+											<a href="/bookmall/book/detail.do?bookno=${cart.bookno}" >
+											<img src=" /bookmall/img/${cart.bthumb_org}" class="img-thumbnail" style="width: 100px; "></a>
 										</td>
 										<td> 
-											<a href="book_detail.do?bookno=${cart.bookno }" target="_blank">
+											<a href="/bookmall/book/detail.do?bookno=${cart.bookno }" >
 											<center>${cart.btitle_first } </center>
 											<center> ${cart.btitle_second }</center>
 											<center>저자 : ${cart.author }</center>
@@ -161,10 +161,11 @@ $(function(){
 										</span>
 									</h5>
 								</td>
+								
+								
 								<td>
-									<input type="checkbox" id="checkall" value="전체선택">
-									<span style="background-color:white; border:none; font-size: 16px; font-weight: bold;">전체선택</span><br><br>
-									<a href="javascript:;" class="btn deleteClick"style="background-color:white; border:none; font-size: 16px; font-weight: bold; cursor: pointer;">삭제</a>
+									<input type="checkbox" id="checkall" style="cursor: pointer;"><label for = 'checkall'><b>전체선택</b></label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<a href="javascript:;" class="btn deleteClick"style="font-size: 16px; font-weight: bold; cursor: pointer;">삭제</a>
 								</td>
 								
 							</tr><br><br><br>

@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-		<div class="footer">
+		<div class="footer" >
     	<br><br>
-    	<div align="center">
+    	<div align="center"  >
 			<hr style="border: solid 0.5px #d3d3d3; width: 1200px"   >
 		</div>
             <div class="size">
-                <div class="info" >
+                <div class="info">
                     <p>김가네 서점 BookMall</p>
                     <p>서울특별시</p>
                     <p>02-123-4567 | 02-123-4568</p>
@@ -22,5 +22,5 @@
             <div><img src="<c:url value=""></c:url>"></div>
             <div><img src="<c:url value=""></c:url>"></div>
             <div><img src="<c:url value=""></c:url>"></div>
-            <div><img src="<c:url value="/img/quick_top.jpg"></c:url>" style="cursor:pointer;" class="goTop"></div>
+            <div style="position: fixed; bottom: 30px;right: 30px;"><img src="<c:url value="/img/top.png"></c:url>" style="cursor:pointer;" class="goTop"></div>
         </div>

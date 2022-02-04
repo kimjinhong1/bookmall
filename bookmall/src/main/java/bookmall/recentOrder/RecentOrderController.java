@@ -31,8 +31,10 @@ public class RecentOrderController {
 	@GetMapping("/user/recentorder.do") // 매핑된경로 
 	public String index(Model model, RecentOrderVo vo, HttpSession sess) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
+		vo.setPageRow(3);
+		
 		System.out.println("세션no:"+vo.getUserno());
-		model.addAttribute("orderList", recentOrderService.listSelect(vo));
+		model.addAttribute("recentOrderInfo", recentOrderService.listSelect(vo));
 		return "/user/recentorder"; // 리턴되는 jsp경로   
 	}
 	

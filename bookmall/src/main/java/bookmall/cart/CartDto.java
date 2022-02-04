@@ -18,11 +18,29 @@ public class CartDto {
 	private String author; // 글쓴이
 	private int salesprice;  //상품가격
 	private int discountrate; //할인금액
+	private String bthumb_org;
+	private String bthumb_real;
 	
 	// 추가
 	private int totalPrice; // 총금액 (테이블에는 없는 속성)
 	private int total_Price; // 총금액 (테이블에는 없는 속성)
 	
+	
+	public String getBthumb_org() {
+		return bthumb_org;
+	}
+
+	public void setBthumb_org(String bthumb_org) {
+		this.bthumb_org = bthumb_org;
+	}
+
+	public String getBthumb_real() {
+		return bthumb_real;
+	}
+
+	public void setBthumb_real(String bthumb_real) {
+		this.bthumb_real = bthumb_real;
+	}
 
 	public String getCartnos() {
 		return cartnos;
@@ -40,8 +58,6 @@ public class CartDto {
 		this.orderno = orderno;
 	}
 
-	
-	
 	public int getTotal_Price() {
 		return total_Price;
 	}

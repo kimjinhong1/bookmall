@@ -14,13 +14,13 @@
 <link rel="stylesheet" href="/bookmall/css/reset.css" />
 <link rel="stylesheet" href="/bookmall/css/com.css" />
 <link rel="stylesheet" href="/bookmall/css/contents.css" />
+<link rel="stylesheet" href="/bookmall/css/ask.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script type="text/javascript"
 	src="/bookmall/smarteditor/js/HuskyEZCreator.js"></script>
 <script src="/bookmall/js/common.js"></script>
-<link rel="stylesheet" href="/bookmall/css/ask.css" />
 <script src="https://malsup.github.io/jquery.form.js"></script> 
 <script>
 	var oEditors;
@@ -33,6 +33,7 @@
 				alert('문의내용이 등록되었습니다.');
 			}
 		});*/
+		
 	});
 	function goSave() {
 		if ($("#selectinquiry").val() == '') {
@@ -124,8 +125,8 @@
 								</td>
 							</tbody>
 						</table>
+						<br><br>
 						<table class="board_write"> <%-- 문의사항 작성 --%>
-						
 							<tbody>
 									<th>문의선택</th>
 									<td><select name="subject" id="selectinquiry"

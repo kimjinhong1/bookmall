@@ -11,7 +11,7 @@ public interface MylistService {
 	List<MylistVo> listSelect(MylistVo vo);
 	List<MylistVo> listMypage(MylistVo vo);
 	
-	/*문의내역 삭제*/
+	/*마이리스트 삭제*/
 	int delete(int listno);
 
 	/*마이리스트 추가*/

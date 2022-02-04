@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link href="<%=request.getContextPath()%>/css/admin/member.css" rel="stylesheet" type="text/css"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +28,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
-
 <script>
 	$(function() {
 		$("#spreadBtn02").click(function() {
@@ -40,7 +41,7 @@
 		$('#fromDate').datetimepicker({
 			language : 'ko', // 화면에 출력될 언어를 한국어로 설정
 			pickTime : true, // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션 생략
-			defalutDate : new Date()
+			defalutDate : NOW()
 		// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션 생략
 		});
 
@@ -50,133 +51,103 @@
 			defalutDate : new Date()
 		// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션 생략
 		});
+		
 	});
 </script>
-<script>
-	function move3() {
-		window.open('http://localhost:8080/bookmall/refund.do/', 'return',
-				'width=1200, height=750, menubar=no, status=no, toolbar=no');
-	}
-	function move2() {
-		window.open('http://localhost:8080/bookmall/exchange.do/', 'return',
-				'width=1200, height=750, menubar=no, status=no, toolbar=no');
-	}
-</script>
-
 
 </head>
 <body>
-	<div class="wrap">
-		<%@ include file="/WEB-INF/view/include/header.jsp"%>
-		<div class="sub">
-			<div class="sub_visual">
-				<div class="slogan">${userInfo.name }님의 최근주문내역</div>
-				<br> <br>
+<div class="wrap">
+	<%@ include file="/WEB-INF/view/include/header.jsp"%>
+<div class="sub">
+	<div class="sub_visual">
+		<div class="slogan">${userInfo.name }님의 최근주문내역</div>
+		<br> <br>
+	</div>
+	<div class="size">
+	<form name="searchForm" id="searchForm" action="recentorder.do"  method="get">
+		<div class="calendar">
+			※최근 1년간 주문내역을 조회하실 수 있습니다.<br> <br>
+			<div class="underClendar">
+			
+				<button name="search" class="date_range d-7" onclick="javascript:changeDt(7,0)"><span>최근1주일</span></button>
+				<button name="search" class="date_range m-1" onclick="javascript:changeDt(30,0)"><span>1개월</span></button>
+				<button name="search" class="date_range m-3" onclick="javascript:changeDt(60,0)"><span>3개월</span></button>
+				<button name="search" class="date_range m-6" onclick="javascript:changeDt(180,0)"><span>6개월</span></button>
+				
+				&nbsp;&nbsp;
+
+			<%-- 검색 시작날짜선택 --%> 				
+			<th><input id="startDate" type="date"></th>
+			
+			 ~ 
+			 <%-- 검색 마지막날짜선택 --%>
+			 <th><input id="endDate" type="date"></th>
+			
+			</div><br>
+			<div class=findorder>
+				<td><select name="searchType" id="searchType" style="width: 100px; height: 35px; ">
+						<option value="receiver_name" <c:if test="${param.searchType=='receiver_name'}">selected</c:if>>수령인</option>
+						<option value="receiver_phone" <c:if test="${param.searchType=='receiver_phone'}">selected</c:if>>연락처</option>
+					</select> 
+					<input id="searchWord" type="text" name="searchWord" value="${param.searchWord }"style=" width:300px; height:35px;">
+					<input type="submit" value="검색" style=" width:100px; height:32px; ">
+				</td>
 			</div>
-			<div class="size">
-				<div class="calendar">
-					※최근 1년간 주문내역을 조회하실 수 있습니다.<br> <br>
-					<button>
-						<span
-							style="display: inline-block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">최근1주일</span>
-					</button>
-					<button>
-						<span
-							style="display: inline-block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">1개월</span>
-					</button>
-					<button>
-						<span
-							style="display: inline-block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">3개월</span>
-					</button>
-					<button>
-						<span
-							style="display: inline-block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">6개월</span>
-					</button>
-					&nbsp;&nbsp;
-
-
-					<%-- 검색 시작날짜선택 --%>
-					<input id="startDate" type="date"
-						style="background-color: #ffffff; color: #808080; width: 160px; font-size: 15px; line-height: 30px;">
-					<td>~</td>
-					<%-- 검색 마지막날짜선택 --%>
-					<input id="endDate" type="date"
-						style="background-color: #ffffff; color: #808080; width: 160px; font-size: 15px; line-height: 30px;"><br>
-					<br>
-					<div class=findorder>
-						<td><select name="selectinquiry" id="selectinquiry"
-							style="width: 100px; height: 35px;">
-								<option value="1">주문전체</option>
-								<option value="2">주문번호</option>
-								<option value="3">주문자</option>
-						</select> <input id="findbox" type="text"
-							style="width: 480px; maxlength: 10; height: 35px; padding-top: 10px; padding-bottom: 10px">
-							<input type="submit" name="searchOrder" value="조회"
-							style="display: inline-block; background-color: #c8c8c8; color: white; height: 35px; width: 80px; font-size: 15px; line-height: 30px;";></input>
-						</td>
-					</div>
-				</div>
-						<div class="box">
-							<p class="title">
-							<div class="text"></div>
-							<table class="type">
-								<tbody>
-									<thead>
-										<tr>
-											<th scope="col" width="10%">주문번호</th>
-											<th scope="col" width="10%">상품</th>
-											<th scope="col" width="30%">상품정보</th>
-											<th scope="col" width="10%">상품금액</th>
-											<th scope="col" width="10%">수량</th>
-											<th scope="col" width="20%">결제금액</th>
-											<th scope="col" width="20%">주문상태</th>
-											<th scope="col" width="*%"></th>
-										</tr>
-									</thead>
-										<c:if test="${recentOrderInfo eq null or empty recentOrderInfo}">
-											<td colspan="9"><center><b>최근 주문내역이 없습니다.</b></center></td>
-										</c:if>
-								</tbody>
-							</table>
-						</div>
-					</div>
+		</div>
+		</form>
 				<div class="box">
 					<p class="title">
 					<div class="text"></div>
 					<table class="type">
 						<tbody>
-							<tr>
-								<c:if test="${cartInfo ne null and not empty cartInfo}">
-									<c:forEach var="recentOrder" items="${recentOrderInfo}">
-										<td><a href=""
-											style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${recentOrder.orderno}
-												<br>
-										</a> (recentOrder.order_date)</td>
-										<td><img src="/bookmall/img/book_1.png" width="100"></td>
-										<td>${recentOrder.btitle_first }<br>
-											${recentOrder.btitle_second }<br> ${recentOrder.author } |
-											${recentOrder.publisher}<br> <br>
-										</td>
-										<td>${recentOrder.salesprice}</td>
-										<td>${recentOrder.bookcount }</td>
-										<td>(${recentOrder.salesprice } * ${recentOrder.bookcount })</td>
-										<td><a class="btn" href="/bookmall/board/review.do"
-											style="border: 1px solid black;">리뷰작성</a><br> <br>
-											<a class="btn" href="javascript:;" onclick="move2()"
-											style="border: 1px solid black; cursor: pointer;">취소/환불</a><br>
-											<br> <a class="btn" href="javascript:;"
-											onclick="move3()"
-											style="border: 1px solid black; cursor: pointer;">반품/교환</a></td>
-									</c:forEach>
+							<thead>
+								<tr>
+									<th scope="col" width="100px">주문번호</th>
+									<th scope="col" width="100px">상품</th>
+									<th scope="col" width="300px">상품정보</th>
+									<th scope="col" width="100px">수령인</th>
+									<th scope="col" width="300px">배송주소</th>
+									<th scope="col" width="100px">연락처</th>
+									<th scope="col" width="100px">결제금액</th>
+									<th scope="col" width="100px">결제일</th>
+									<th scope="col" width="100px"></th>
+								</tr>
+							</thead>
+								<c:if test="${recentOrderInfo eq null or empty recentOrderInfo}">
+									<td colspan="9"><center><b>최근 주문내역이 없습니다.</b></center></td>
 								</c:if>
-							</tr>
-						</tbody>
-					</table>
+								<tr>
+									<c:if test="${recentOrderInfo ne null and not empty recentOrderInfo}">
+										<c:forEach var="recentOrder" items="${recentOrderInfo}">
+										<thead>
+											<td>${recentOrder.orderno}</td>
+											<td><img src="/bookmall/img/book_1.png" width="50"></td>
+											<td>${recentOrder.btitle_first }<br>
+												${recentOrder.btitle_second }<br> 
+												${recentOrder.author } | ${recentOrder.publisher}
+											</td>
+											<td>${recentOrder.receiver_name}</td>
+											<td>${recentOrder.zipcode}<br>
+												${recentOrder.addr1}<br>
+												${recentOrder.addr2}
+											</td>
+											<td>${recentOrder.receiver_phone}</td>
+											<td><fmt:formatNumber value="${recentOrder.paid_amount}" pattern="###,###" /></td>
+											<td><fmt:formatDate value="${recentOrder.order_date}" pattern="yyyy-MM-dd" /></td>
+											<td>
+												<a class="btn" href="/bookmall/refund/exchange.do?orderno=${recentOrder.orderno }" style="cursor: pointer;">반품/교환</a><br><br>
+												<a class="btn" href="/bookmall/refund/refund.do?orderno=${recentOrder.orderno }" style="cursor: pointer;">취소/환불</a></td>
+										</thead>
+										</c:forEach>
+									</c:if>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
-			
+			</div>
 		</div>
-	</div>
-</div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
 </body>
 </html>

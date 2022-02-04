@@ -273,12 +273,14 @@ public class UserController {
 	public String mypage(Model model, AskVo vo, MylistVo listvo, RecentOrderVo ordervo, HttpSession session) {
 		UserVo uvo = (UserVo)session.getAttribute("userInfo");
 		vo.setPageRow(5);
+		ordervo.setPageRow(3);
 
 		vo.setUserno(uvo.getUserno());
 		listvo.setUserno(uvo.getUserno());  
+		ordervo.setUserno(uvo.getUserno());  
 		model.addAttribute("askList", askService.askList(vo));
 		model.addAttribute("dibsList", mylistService.listMypage(listvo));
-		model.addAttribute("orderList", recentOrderService.orderMypage(ordervo));
+		model.addAttribute("recentOrderInfo", recentOrderService.orderMypage(ordervo));
 		return "user/mypage";
 	}
 	

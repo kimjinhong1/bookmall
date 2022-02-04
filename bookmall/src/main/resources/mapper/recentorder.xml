@@ -2,27 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="recentOrder"> <!-- mapper파일의 이름 -->
 
+	<sql id = "boardWhere">
+		<where> c.bookno = b.bookno AND a.orderno = c.orderno AND userno =#{userno}
+			 <if test= "searchType != null and searchType != ''"> <!-- searchType이 널이 아니고(and) 빈문자열이 아니면 아래 sql이 포함 -->
+			 	and ${searchType} LIKE '%${searchWord}%'
+			 </if>
+		 </where>
+	</sql>
 
 	<!-- 최근주문내역 목록 in 마이페이지 -->
 	<select id="orderMypage" resultType="bookmall.recentOrder.RecentOrderVo" parameterType="bookmall.recentOrder.RecentOrderVo">
 		select 
 		a.orderno, a.userno, a.paid_amount, a.order_date, a.receiver_name, a.zipcode, a.addr1, a.addr2, a.receiver_phone, a.order_date, 
-		b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author,
+		b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author,b.publisher,
         c.bookno
 		from orders a , book b , order_detail c
 		where c.bookno = b.bookno AND a.orderno = c.orderno
 		and userno =#{userno}
+		ORDER BY order_date DESC
+		LIMIT ${startIdx},3
 	</select>
 	
 	<!-- 최근주문내역 목록 -->
 	<select id="listSelect" resultType="bookmall.recentOrder.RecentOrderVo" parameterType="bookmall.recentOrder.RecentOrderVo">
 		select 
 		a.orderno, a.userno, a.paid_amount, a.order_date, a.receiver_name, a.zipcode, a.addr1, a.addr2, a.receiver_phone, a.order_date, 
-		b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author,
+		b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author, b.publisher,
         c.bookno
 		from orders a , book b , order_detail c
-		where c.bookno = b.bookno AND a.orderno = c.orderno
-		and userno =#{userno}
+		<include refid="boardWhere"/>
+		ORDER BY order_date DESC
 	</select>
 	
 </mapper>
