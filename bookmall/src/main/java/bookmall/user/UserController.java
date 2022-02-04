@@ -17,7 +17,6 @@ import bookmall.ask.AskService;
 import bookmall.ask.AskVo;
 import bookmall.mylist.MylistService;
 import bookmall.mylist.MylistVo;
-import bookmall.orders.OrderVo;
 import bookmall.recentOrder.RecentOrderService;
 import bookmall.recentOrder.RecentOrderVo;
 import bookmall.util.SendMail;
@@ -52,7 +51,7 @@ public class UserController {
 	// EmailId 중복체크
 	@GetMapping("/user/emailCheck.do")
 	public String emailCheck(Model model, @RequestParam String email) {
-		model.addAttribute("result", service.emailCheck(email));  //0 or 1 이 request에 저장
+		model.addAttribute("result", service.emailCheck(email)); // 이메일 중복 체크
 		return "include/result";
 	}
 	
@@ -273,12 +272,14 @@ public class UserController {
 	public String mypage(Model model, AskVo vo, MylistVo listvo, RecentOrderVo ordervo, HttpSession session) {
 		UserVo uvo = (UserVo)session.getAttribute("userInfo");
 		vo.setPageRow(5);
+		ordervo.setPageRow(3);
 
 		vo.setUserno(uvo.getUserno());
 		listvo.setUserno(uvo.getUserno());  
+		ordervo.setUserno(uvo.getUserno());  
 		model.addAttribute("askList", askService.askList(vo));
 		model.addAttribute("dibsList", mylistService.listMypage(listvo));
-		model.addAttribute("orderList", recentOrderService.orderMypage(ordervo));
+		model.addAttribute("recentOrderInfo", recentOrderService.orderMypage(ordervo));
 		return "user/mypage";
 	}
 	
