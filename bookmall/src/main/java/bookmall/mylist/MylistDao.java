@@ -39,7 +39,7 @@ public class MylistDao {
 		return sqlSessionTemplate.delete("mylist.delete",listno);
 	}
 	
-	//카트확인
+	
 	public MylistVo checkList(MylistVo vo) {
 		return sqlSessionTemplate.selectOne("mylist.checkList",vo);
 	}

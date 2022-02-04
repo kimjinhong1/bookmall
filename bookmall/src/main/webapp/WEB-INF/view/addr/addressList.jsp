@@ -96,6 +96,13 @@ $(function() {
 					</tr>
 					<tbody>
 						<form name="addspace" id="addspace">
+							<td></td>
+							<td><b>기본주소</b></td>
+							<td><b>${userInfo.name }</b></td>
+							<td><b>${userInfo.zipcode } 
+							<p>${userInfo.addr1}${userInfo.addr2}</p></b></td>
+							<td><b>${userInfo.tel }</b></td>
+							<td></td>
 								<c:forEach var="addBook" items="${addBook}">
 									<tr class="board_tr" data-addno="${addBook.addno}"
 										style="cursor: pointer; ">
@@ -118,7 +125,7 @@ $(function() {
 				</table>
 				<a href="javascript:;" class="deleteClick"style="cursor: pointer; font-weight: bold;">&nbsp;&nbsp;&nbsp;삭제</a>
                 <div class="request" style="text-align: right;">
-		        <a href="write.do" style="font-size: 15px; font-weight: bold; color: red;"> +새 주소 등록</a>
+		        <a href="write.do" style="font-size: 15px; font-weight: bold; "> +새 주소 등록</a>
 		        </div>
 		</div>
 	</div>

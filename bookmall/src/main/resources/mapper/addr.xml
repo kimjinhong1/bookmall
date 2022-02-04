@@ -18,9 +18,9 @@
 
 <!-- 주소 내역 -->
 	<select id="listSelect" resultType="bookmall.addr.AddrVo" parameterType="bookmall.addr.AddrVo">
-		SELECT * FROM addresslist 
-		WHERE userno = #{userno}
-		LIMIT ${startIdx},10
+	SELECT * FROM addresslist
+	WHERE userno = #{userno}
+	LIMIT ${startIdx},10 
 	</select>
 	
 <!-- 주소 추가 -->

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="/bookmall/css/reset.css"/>
-    <link rel="stylesheet" href="/bookmall/css/com.css"/>
+    <link rel="stylesheet" href="/bookmall/css/main.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
     <script src="/bookmall/js/common.js"></script>
@@ -29,55 +29,24 @@
     <div class="wrap">
         <%@ include file="/WEB-INF/view/include/header.jsp" %>
         <div class="visual">
-        	<img src="<c:url value="/img/main2.png" ></c:url>" width="1200px" height="300px">
-            <!-- 
+          <div class="size" style=" height: 500px">
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide" style="background-image: url('/bookmall/img/visual1.png');"></div>
-                  <div class="swiper-slide" style="background-image: url('/bookmall/img/visual2.png');"></div>
-                  <div class="swiper-slide" style="background-image: url('/bookmall/img/visual3.png');"></div>
-                  <div class="swiper-slide" style="background-image: url('/bookmall/img/visual4.png');"></div>
+                <div class="swiper-wrapper" >
+                  <div class="swiper-slide" style="background-image: url('/bookmall/img/banner6.png');" ></div>
+                  <div class="swiper-slide" style="background-image: url('/bookmall/img/banner7.png');"></div>
+                  <div class="swiper-slide" style="background-image: url('/bookmall/img/banner8.png');"></div>
+                  <div class="swiper-slide" style="background-image: url('/bookmall/img/banner9.png');"></div>
+                  <div class="swiper-slide" style="background-image: url('/bookmall/img/banner10.png');"></div>
                 </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next" style="color: black;"></div>
+                <div class="swiper-button-prev" style="color: black;"></div>
             </div>
-             -->
         </div>
-        <div class="container">
-            <div class="size">
-            	<div class="text">
-					<a href="" ><b>지금, 이 책 ▶</b></a>
-            	</div>
-					<div class="section">
-						<div class="nowBook"></div>
-							<a href=""><img src="/bookmall/img/book_1.png" width="192"></a><br>
-			                <p>구병모의 신작 장편소설</p> <!-- btitle_second -->
-			                <a href="">상아의 문으로</a> <!-- btitle_first -->
-			                <p>구병모 저 | 문학과지성사</p>  <!-- author, publisher -->
-							<p>9,800원</p> <!-- price -->
-	             	 </div>	
-	             	 <div class="section">
-						<div class="nowBook"></div>
-							<a href=""><img src="/bookmall/img/book_2.png" width="192"></a><br>
-			                <p>기록하는 순간 영감이 된다</p> <!-- btitle_second -->
-			                <a href="">별게 다 영감</a> <!-- btitle_first -->
-			                <p>이승희 저 | 북스톤</p>  <!-- author, publisher -->
-							<p>14,400원</p> <!-- price -->
-	             	 </div>	
-	             	 <div class="section">
-						<div class="nowBook"></div>
-							<a href=""><img src="/bookmall/img/book_3.png" width="192"></a><br>
-			                <p>시인 나태주 × 화가 유라</p> <!-- btitle_second -->
-			                <a href="">서로 다른 계절의 여행</a> <!-- btitle_first -->
-			                <p>나태주 글/유라 그림 | 북폴리오</p>  <!-- author, publisher -->
-							<p>13,500원</p> <!-- price -->
-	             	 </div>	
-			</div>
-		</div>	
+        </div>
 		<div class="container">
         	<div class="size">
                 <div class="text">
-					<a href=""><b>화제의 책 ▶</b></a>
+					<a href=""><b>오늘의 책 ▶</b></a>
             	</div>
 	                <div class="section">
 						<div class="nowBook"></div>
@@ -104,12 +73,10 @@
 							<p>13,500원</p> <!-- price -->
              	 	</div>	
              	 	</div>
-            </div>
-        </div>   
-		<div class="container">
+             	 	<div class="container">
         	<div class="size">
                 <div class="text">
-					<a href=""><b>Kim's Pick ▶</b></a>
+                <a href=""><b>오늘의 책 ▶</b></a>
             	</div>
 	                <div class="section">
 						<div class="nowBook"></div>
@@ -137,6 +104,7 @@
              	 	</div>	
             </div>
         </div>
+       </div>
        
         <%@ include file="/WEB-INF/view/include/footer.jsp" %>
     </div>

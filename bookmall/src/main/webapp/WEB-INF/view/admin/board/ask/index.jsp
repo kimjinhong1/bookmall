@@ -120,10 +120,10 @@ $(".deleteClick").on('click', function() {
 									<a class="wbtn" href="write.do"><strong>새 글 작성</strong> </a>
 								</div>
 							</div>
-							
 							<!-- 페이징 처리 -->
 							${pageArea }
 							<!-- //페이징 처리 -->
+							
 							
 							<!-- //search --> 
 						</div>

@@ -172,10 +172,11 @@ a:hover{color:#000;text-decoration:none;}
 }
 .visual .swiper {
     height:500px;
+	width:100%;
 }
 .swiper-slide {
    background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center top;
 }
 .divPop {
     position:absolute;
@@ -193,6 +194,8 @@ a:hover{color:#000;text-decoration:none;}
     height:250px;
     text-align: center;
 }
+
+
 .quickMenu {
     position:absolute;
     top:126px;
@@ -241,3 +244,17 @@ a:hover{color:#000;text-decoration:none;}
 delbtn {
 	color: black;
 }
+
+summary {
+    cursor: pointer;
+    list-style: none;
+  }
+  
+ .addspace td{
+ 	float: left;
+ 	background-color :#ffffff;
+ }
+ .addspace input[type='text'] {
+	 float: left;
+	 width: 500px;
+ }

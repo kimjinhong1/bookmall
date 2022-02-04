@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import bookmall.board.suda.SudaVo;
 import bookmall.cart.CartDto;
+import bookmall.user.UserService;
 import bookmall.user.UserVo;
 import bookmall.util.CommonUtil;
 
@@ -27,6 +28,10 @@ public class AddrController {
 	
 	@Autowired
 	AddrService addListService;
+	
+	@Autowired
+	UserService userService;
+	
 	
 	@GetMapping("/addr/addressList.do") // 매핑된경로 
 	public String index(Model model, AddrVo vo, HttpSession sess) {

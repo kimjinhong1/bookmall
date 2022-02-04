@@ -90,8 +90,10 @@
 										<tr>
 											<td><label> <input type="checkbox"name="listno" value="${mylist.listno }"><br></label></td>
 											<td>${mylist.bookno}</td>
-											<td><img src="" width="80"><br></td>
-											<td><b>${mylist.btitle_first } </b><br>
+											<td>
+											<img src=" /bookmall/img/${mylist.bthumb_org}" class="img-thumbnail" style="width: 100px; "><br></td>
+											<td>
+											<b>${mylist.btitle_first } </b><br>
 											${mylist.btitle_second }<br>
 											${mylist.author} / ${mylist.publisher}
 											</td>

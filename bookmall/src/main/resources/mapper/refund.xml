@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="refund"> <!-- mapper파일의 이름 -->
+
+	<sql id="refundWhere">
+		<where>
+			<if test="searchType ==''">
+				(title LIKE '%${searchWord}%' OR content LIKE '%${searchWord}%')
+			</if>
+			<if test="searchType != null and searchType != ''">
+				${searchType} LIKE '%${searchWord}%'
+			</if>
+			<if test="userno > 0">
+				AND userno =#{userno}
+			</if>
+		</where>
+	</sql>
+
+<!-- 반품 내역 -->
+	<select id="refundList" resultType="bookmall.refund.RefundVo" parameterType="bookmall.refund.RefundVo">
+	SELECT
+	a.orderno, a.creditCard, a.apply_num, a.imp_uid, a.paid_amount, a.order_date, a.exchangeno,
+	b.refundno, b.reason, b.division, b.regdate, b.receiver_name, b.tel1, b.tel2, b.tel3, b.zipcode,b.addr1, b.addr2, b.pick,b.status, b.orderno
+	FROM orders a , refund b
+	where a.orderno = b.orderno AND a.userno = #{userno} 
+	ORDER BY regdate DESC
+	</select>
+	
+	<insert id="insert" parameterType="bookmall.refund.RefundVo">
+		INSERT INTO refund (
+		refundno, receiver_name, tel1, tel2, tel3, orderno,
+		zipcode, addr1, addr2, regdate, reason, division, userno, pick, status
+		) values(
+		#{refundno}, #{receiver_name}, #{tel1}, #{tel2}, #{tel3}, #{orderno},
+		#{zipcode}, #{addr1}, #{addr2}, NOW(), #{reason}, #{division} ,#{userno} ,#{pick}, #{pick}
+
+		)
+	</insert>
+	
+	<insert id="insertEx" parameterType="bookmall.refund.RefundVo">
+		INSERT INTO refund (
+		refundno, receiver_name, tel1, tel2, tel3, orderno,
+		zipcode, addr1, addr2, regdate, reason, division, userno, status , pick, status
+		) values(
+		#{refundno}, #{receiver_name}, #{tel1}, #{tel2}, #{tel3}, #{orderno},
+		#{zipcode}, #{addr1}, #{addr2}, NOW(), #{reason}, #{division} ,#{userno} ,#{pick}, #{pick}
+		) 
+
+	</insert>
+	
+	<select id="view" parameterType="bookmall.refund.RefundVo" resultType="bookmall.refund.RefundVo">
+		SELECT * FROM refund WHERE refundno = #{xxx}		
+	</select>
+	
+	<update id="update" parameterType="bookmall.admin.orders.OrdersAdminVo">
+		UPDATE orders SET 
+		status=#{status}
+		WHERE orderno=#{orderno}
+	</update>
+
+	<select id="count" resultType="int" parameterType="bookmall.refund.RefundVo">
+		SELECT COUNT(*) FROM refund
+		<include refid="refundWhere"/>
+	</select> 
+</mapper>

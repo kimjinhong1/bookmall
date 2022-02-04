@@ -31,6 +31,38 @@
 	padding-bottom: 20px;
 }
 
+.underClendar span{
+	display: inline-block;
+	background-color: white; 
+	width: 70px; 
+	height: 30px; 
+	line-height: 30px;
+	cursor: pointer;
+	
+}
+.underClendar input {
+	height: 30px; 
+}
+
+.findorder input[id="searchbtn"] {
+	display: inline-block; 
+	background-color: #c8c8c8; 
+	color: white; 
+	height: 35px; 
+	width: 80px; 
+	font-size: 15px; 
+	line-height: 30px;
+	border: 1px solid black;
+	cursor: pointer;
+}
+
+.findorder input[id="findbox"]{
+	width: 480px;
+	maxlength: 10; 
+	height: 35px;
+	padding-top: 10px; 
+	padding-bottom: 10px;
+}
 .sub > .size .calendar>.findorder td{
 	text-align:center;
 	font-size: 15px;

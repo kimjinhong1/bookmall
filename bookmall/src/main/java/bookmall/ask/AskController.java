@@ -59,7 +59,7 @@ public class AskController {
 		vo.setStartIdx(statIdx);
 		
 		model.addAttribute("askList", askService.askList(vo));
-		model.addAttribute("pageArea", CommonUtil.getAskPageArea("index.do", vo.getPage(), totPage, vo.getPageRow()));
+		model.addAttribute("pageArea", CommonUtil.getPageAreaAdmin("index.do", vo.getPage(), totPage, vo.getPageRow()));
 		return "/admin/board/ask/index"; // 리턴되는 jsp경로   
 	}
 	

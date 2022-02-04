@@ -37,8 +37,8 @@ public class MylistServiceImpl implements MylistService {
 		if(checkList != null) {
 			return 2;
 		}
-		return mylistDao.insert(vo);
 		//장바구니 등록 & 에러시 0 반환
+		return mylistDao.insert(vo);
 	}
 	
 	@Override

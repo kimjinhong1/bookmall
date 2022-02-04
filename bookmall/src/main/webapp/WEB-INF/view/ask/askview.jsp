@@ -52,8 +52,8 @@ function goSave() {
 								<dd class="date">작성일 : ${askuser.regdate }</dd>
 							</dl>
 						</div>
-						<div class="content" style="font-size: 15px;">
-							${askuser.content }
+						<div class="content" style="font-size: 15px; height: 500px">
+							<td>${askuser.content }<td>
 						</div>
 						<dl class="file">
 							<dt>첨부파일</dt>

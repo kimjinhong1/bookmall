@@ -138,12 +138,12 @@ $(function() {
 			url: '/bookmall/cart/add',
 			type: 'POST',
 			data: {
-				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', salesprice: ${data.salesprice}
+				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', salesprice: ${data.salesprice} ,bookcount:$("#bookcount").val()
 				
 			},
 			success: function(result){
 				if (result.trim() == "2") {
-					alert("이미 등록되었습니다.");
+					alert("이미 장바구니에 담겨있는 상품입니다.");
 				} else {
 					alert('장바구니에 등록되었습니다.');
 				}
@@ -161,7 +161,7 @@ $(function() {
 			},
 			success: function(result){
 				if (result.trim() == "2") {
-					alert("이미 등록되었습니다.");
+					alert("이미 마이리스트에 등록 된 제품입니다.");
 				} else {
 					alert('마이리스트에 등록되었습니다.');
 				}
@@ -169,6 +169,8 @@ $(function() {
 		})
 	});
 });
+
+
 </script>  
 <body>
 <div class="wrap"> 	
@@ -198,7 +200,7 @@ $(function() {
          	<!-- 구매/장바구니 버튼 시작 -->
          	<div class="butSet clear">
 				<div class="buyBtn">
-					<input type="button" value="바로 구매" class="" onclick="">
+					<a href="http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount=${data.bookcount }">바로 구매</a>
 					<a id ="cartbtn" name="cartinsert" href="#">장바구니 담기</a>
 					<a id ="listbtn" name="mylistinsert" href="#">마이리스트 담기</a>
 				</div>

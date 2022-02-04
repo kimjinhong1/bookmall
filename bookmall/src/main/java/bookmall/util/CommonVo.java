@@ -9,6 +9,10 @@ public class CommonVo {
 	private String searchType;
 	private String searchWord;
 	private String searchCategory;
+	
+	private String searchState;
+	private String searchPay;
+	
 	private String orderCond;
 	private int startIdx; //limit 시작값
 	private int page; //사용자가 요청한 페이지 

@@ -18,4 +18,6 @@ public class MylistVo extends CommonVo {
 	private String publisher;
 	private int salesprice;
 	private Timestamp regdate;
+	private String bthumb_org;
+	private String bthumb_real;
 }

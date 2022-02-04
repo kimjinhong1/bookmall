@@ -3,7 +3,7 @@
 <mapper namespace="cart"> <!-- mapper파일의 이름 -->
 
 	<!-- 카트 추가 -->
-	<insert id="addCart" parameterType="bookmall.orders.BookVo">
+	<insert id="addCart" parameterType="bookmall.book.BookVo">
 		insert into cart ( userno, bookno, bookcount)
 		values(#{userno}, #{bookno}, #{bookcount}) 
 	</insert>
@@ -21,7 +21,8 @@
 	
 	<!-- 카트 목록 -->
 	<select id="selectList" resultType="bookmall.cart.CartDto">
-		select a.cartno, a.userno, a.bookno, a.bookcount, b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author
+		select a.cartno, a.userno, a.bookno, a.bookcount, 
+		b.btitle_first, b.salesprice, b.discountrate, b.btitle_second, b.author, b.bthumb_org, b.bthumb_real
 		from cart a left outer join book b on a.bookno = b.bookno
 		where userno = #{userno}	
 	</select>

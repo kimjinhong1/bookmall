@@ -51,6 +51,7 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 									 <a href ="/bookmall/user/remove.do">회원 탈퇴</a>
 									 <a href ="/bookmall/user/edit.do">회원정보 수정</a>
 									 <a href ="/bookmall/addr/addressList.do">나의 주소록</a>
+									 <a href ="/bookmall/refund/index.do">반품/교환내역</a>
 									 </div>
 							<br> <br>
 						</div>
@@ -62,154 +63,88 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
 					<div class="under">
 						<br> <br>
 						<div class="text"></div>
-							| 최근 주문내역<a href="/bookmall/user/recentorder.do" class="btn">자세히보기▶</a>
+							| 최근 주문내역<a href="/bookmall/user/recentorder.do" class="btn">전체보기▶</a>
 							<table class="type">
 								<tbody>
 									<thead>
 										<tr>
+											<th scope="col" width="10%">주문일</th>
 											<th scope="col" width="10%">주문번호</th>
-											<th scope="col" width="10%">상품</th>
-											<th scope="col" width="30%">상품정보</th>
-											<th scope="col" width="20%">상품금액</th>
-											<th scope="col" width="10%">수량</th>
-											<th scope="col" width="10%">결제금액</th>
-											<th scope="col" width="10%">주문상태</th>
+											<th scope="col" width="30%">주문내역</th>
+											<th scope="col" width="10%">수령인</th>
+											<th scope="col" width="20%">배송주소</th>
 										</tr>
 									</thead>
 										<c:if test="${recentOrderInfo eq null or empty recentOrderInfo}">
 											<td colspan="9"><center><b>최근 주문내역이 없습니다.</b></center></td>
 										</c:if>
-								</tbody>
-							</table>
 								<tbody>
 									<tr>
-										<c:if test="${cartInfo ne null and not empty cartInfo}">
-											<c:forEach var="recentOrder" items="${recentOrderInfo}">
-												<td><a href=""
-													style="color: black; font-size: 13px; background-color: white; border: 0px solid white">${orders.orderno}
-														<br>
-												</a> (recentOrder.order_date)</td>
-												<td><img src="/bookmall/img/book_1.png" width="100"></td>
-												<td>${recentOrder.btitle_first }<br>
-													${recentOrder.btitle_second }<br> ${recentOrder.author } |
-													${recentOrder.publisher}<br> <br>
-												</td>
-												<td>${recentOrder.price }</td>
-												<td>${recentOrder.bookcount }</td>
-												<td>(${recentOrder.salesprice } * ${recentOrder.bookcount })</td>
-											</c:forEach>
-										</c:if>
+									<c:if test="${recentOrderInfo ne null and not empty recentOrderInfo}">
+										<c:forEach var="recentOrder" items="${recentOrderInfo}">
+										<thead>
+											<td><fmt:formatDate value="${recentOrder.order_date}" pattern="yyyy-MM-dd" /></td>
+											<td>${recentOrder.orderno}</td>
+											<td>${recentOrder.btitle_first }<br>
+												${recentOrder.btitle_second }<br> 
+												${recentOrder.author } | ${recentOrder.publisher}
+											</td>
+											<td>${recentOrder.receiver_name}</td>
+											<td>${recentOrder.zipcode}<br>
+												${recentOrder.addr1}<br>
+												${recentOrder.addr2}
+											</td>
+										</thead>
+										</c:forEach>
+									</c:if>
 									</tr>
 								</tbody>
-							<br> <br>
+							</table>
+							<br>
 						</div>
 					</div>
 				</div>
-			<div class="size">
+		<div class="size">
 				<div class="box">
-						<p class="title">
-						<div class="under">
-							<div class="text"></div>
-							| 1:1문의내역<a href="/bookmall/ask/askindex.do" class="btn">전체보기▶</a>
-								<table class="type">
-										<thead>
-											<tr>
-												<th scope="col" width="10%">문의종류</th>
-												<th scope="col" width="30%">제목</th>
-												<th scope="col" width="10%">작성일</th>
-												<th scope="col" width="10%">답변상태</th>
-											</tr>
-										</thead>
-		                    		    <tbody>
-					                 		 <c:if test="${empty askList }">
-						                            <tr>
-						                                <td class="first" colspan="7"><b>문의내역이 없습니다.</b></td>
-						                            </tr> 
-					                        </c:if>
-				                    	    <c:if test="${!empty askList }">
-					                           <c:forEach var="ask" items="${askList }" varStatus="status">
-						                          	<tr style="font-size: 15px">
-						                                <td>${ask.subject }</td>
-						                                <td>
-						                                  	<a href="/bookmall/ask/askview.do?askno=${ask.askno }" style="float:left;text-align:left;"><center>${ask.title }</center></a>
-						                                </td>
-						                                <td class="date">
-						                                	<fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
-						                                <td>
-						                              	  ${ask.status}
-						                                </td>
-				                         	 		</tr>
-				                          	  	</c:forEach>  
-		                           			 </c:if>
-		                       		 </tbody>
-	                    		</table>
+				<p class="title">
+					<div class="under">
+						<br> <br>
+						<div class="text"></div>
+							| 1:1 문의내역<a href="/bookmall/ask/askindex.do" class="btn">전체보기▶</a>
+						<table class="type">
+								<thead>
+									<tr>
+										<th scope="col" width="10%">문의종류</th>
+										<th scope="col" width="30%">제목</th>
+										<th scope="col" width="10%">작성일</th>
+										<th scope="col" width="10%">답변상태</th>
+									</tr>
+								</thead>
+                    		    <tbody>
+			                 		 <c:if test="${empty askList }">
+				                            <tr>
+				                                <td class="first" colspan="7"><b>문의내역이 없습니다.</b></td>
+				                            </tr> 
+			                        </c:if>
+		                    	    <c:if test="${!empty askList }">
+			                           <c:forEach var="ask" items="${askList }" varStatus="status">
+				                          	<tr style="font-size: 10px">
+				                                <td>${ask.subject }</td>
+				                                <td>
+				                                  	<a href="/bookmall/ask/askview.do?askno=${ask.askno }" style="float:left;text-align:left; font-size: 13px;">${ask.title }</a>
+				                                </td>
+				                                <td class="date">
+				                                	<fmt:formatDate value="${ask.regdate}" pattern="yyyy-MM-dd" /></td>
+				                                <td>
+				                              	  ${ask.status}
+				                                </td>
+		                         	 		</tr>
+		                          	  	</c:forEach>  
+                           			 </c:if>
+                     		 </tbody>
+                   		</table>
 							<br> <br>
 						</div>
-					</div>
-				</div>
-			</div>
-		<div class="container">
-			<div class="size">
-				<div class="text2">|최근본목록</div>
-				<div class="banner">
-					<div class="swiper partner_slide">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide">
-								<div class="img">
-									<img src="/bookmall/img/book_1.png">
-									<p>기록하는 순간 영감이 된다</p>
-									<!-- btitle_second -->
-									<a href="">별게 다 영감</a>
-									<!-- btitle_first -->
-									<p>이승희 저 | 북스톤</p>
-									<!-- author, publisher -->
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="img">
-									<img src="/bookmall/img/book_2.png">
-									<p>구병모의 신작 장편소설</p>
-									<!-- btitle_second -->
-									<a href="">상아의 문으로</a>
-									<!-- btitle_first -->
-									<p>구병모 저 | 문학과지성사</p>
-									<!-- author, publisher -->
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="img">
-									<img src="/bookmall/img/book_3.png">
-									<p>시인 나태주 × 화가 유라</p>
-									<!-- btitle_second -->
-									<a href="">서로 다른 계절의 여행</a>
-									<!-- btitle_first -->
-									<p>나태주 글/유라 그림 | 북폴리오</p>
-									<!-- author, publisher -->
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="img">
-									<img src="/bookmall/img/book_4.png">
-									<p>시인 나태주 × 화가 유라</p>
-									<!-- btitle_second -->
-									<a href="">서로 다른 계절의 여행</a>
-									<!-- btitle_first -->
-									<p>나태주 글/유라 그림 | 북폴리오</p>
-									<!-- author, publisher -->
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="img">
-									<img src="/bookmall/img/book_5.png">
-									<p>방구석 이탈리아 미술 여행</p>
-									<!-- btitle_second -->
-									<a href="">90일 밤의 미술관 : 이탈리아</a>
-									<!-- btitle_first -->
-									<p>김덕선, 김성희 | 동양북스(동양books)</p>
-									<!-- author, publisher -->
-								</div>
-							</div>
-						</div><br><br>
 					</div>
 				</div>
 				<div class="container">
@@ -226,8 +161,8 @@ span {display:inline-block; width:100px; white-space:nowrap; overflow:hidden; te
                     	   		<c:if test="${!empty dibsList}">
 		                           <c:forEach var="mylist" items="${dibsList }" varStatus="status">
 		                          		 <th>
-					                        <a href="" ><img src=""></a><br>
-											<a href="">${mylist.btitle_first }</a>
+					                        <a href="/bookmall/book/detail.do?bookno=${mylist.bookno}" ><img src="/bookmall/img/${mylist.bthumb_org}" class="img-thumbnail" style="width: 80px; "></a><br>
+											<a href="/bookmall/book/detail.do?bookno=${mylist.bookno}" >${mylist.btitle_first }</a>
 											<p> ${mylist.btitle_second} </p>
 											<p>${mylist.author}  </p>
 										</th>
