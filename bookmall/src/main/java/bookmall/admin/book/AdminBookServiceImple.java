@@ -27,8 +27,8 @@ public class AdminBookServiceImple implements AdminBookService {
 	}
 
 	@Override
-	public int count(BookVo vo) {
-		return dao.count(vo);
+	public int bookCount(BookVo vo) {
+		return dao.bookCount(vo);
 	}
 
 	@Override
@@ -64,6 +64,16 @@ public class AdminBookServiceImple implements AdminBookService {
 	@Override
 	public int insertMapping(BookCategoryMappingVO vo) {
 		return dao.insertMapping(vo);
+	}
+
+	@Override
+	public List<BookVo> selectAdminList(BookVo vo) {
+		return dao.selectAdminList(vo);
+	}
+
+	@Override
+	public int AdminbookCount(BookVo vo) {
+		return dao.AdminbookCount(vo);
 	}
 
 

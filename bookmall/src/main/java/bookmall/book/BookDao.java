@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bookmall.bookcategory.BookCategoryVO;
+
 
 @Repository
 public class BookDao {
@@ -30,11 +32,6 @@ public class BookDao {
 		return sqlSession.selectList("book.selectList", vo);
 	}
 	
-	// 도서 갯수 카운팅
-	public int count(BookVo vo) {
-		return sqlSession.selectOne("book.count",vo);
-	}
-	
 	// 도서 목록에 필요한 카테고리 검색 정보
 	public List<HashMap<String, Object>> selectCateList(int bclassify, int blevel, int bcategoryno) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -43,5 +40,25 @@ public class BookDao {
 		map.put("bcategoryno", bcategoryno);
 
 		return sqlSession.selectList("book.cateList", map);
+	}
+	
+	// 도서 카테고리
+	public List<BookVo> cateNameList(BookVo vo) {
+		return sqlSession.selectList("book.cateNameList", vo);
+	}
+	
+	// 도서 메인 - 새로 나온 도서
+	public List<BookVo> selectNewBook(BookVo vo) {
+		return sqlSession.selectList("book.newBook", vo);
+	}
+	
+	// 도서 메인 - 새로 나온 도서
+	public List<BookVo> selectHotBook(BookVo vo) {
+		return sqlSession.selectList("book.hotBook", vo);
+	}
+	
+	// 도서 목록 - 도서 카운팅
+	public int bookCount(BookVo vo) {
+		return sqlSession.selectOne("book.bookCount", vo);
 	}
 }
