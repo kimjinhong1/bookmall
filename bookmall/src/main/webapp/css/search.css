@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+.container {
+	height : auto;
+}
+.bbs {
+	width : 80%;
+	top: 50%;
+    line-height: 1.5;
+    text-align: center;
+    display: inline;
+}
+.category_two {
+	border: 1px solid black;
+}
+.category_three {
+	border: 1px solid black;
+}
+/*
+.bbs dt {
+	border: 1px solid gold;
+	float:left;
+	width:30%;
+	padding:10px;
+}
+.bbs dd {
+	border: 1px solid red;
+	width:68%;
+}
+*/
+/*
+.search thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+.search dl dt {
+    width: 10%;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    background: #f3f6f7;
+}
+.search dl dd {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}*/
+
+/* 검색버튼 */
+
+
+
