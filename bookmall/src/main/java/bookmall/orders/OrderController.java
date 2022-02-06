@@ -7,10 +7,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import bookmall.addr.AddrVo;
 import bookmall.book.BookVo;
 import bookmall.cart.CartDto;
 import bookmall.cart.CartService;
@@ -46,7 +45,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/addrList.do")
-	public String addrList(AddrListVo vo, Model model, HttpSession sess) {
+	public String addrList(AddrVo vo, Model model, HttpSession sess) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		model.addAttribute("addrlist", orderService.addrSelect(vo));
 		return "orders/addrList"; 
@@ -56,7 +55,9 @@ public class OrderController {
 	// 한개 상품 구매하기
 	@RequestMapping("/order1.do")
 	public String order1(BookVo bv, Model model, HttpServletRequest req, UserVo vo, HttpSession sess) {
-		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	  	
+		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	 
+		
+//		model.addAttribute("result", bookcount);
 		model.addAttribute("result", orderService.bookSelect(bv));
 		model.addAttribute("loginUser", orderService.userSelect(vo));
 		return "orders/order1"; 
@@ -91,19 +92,22 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/orderInsertAjax.do")
-	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartDto dto, AddrListVo alv, HttpSession sess, int paid_amount) {
+	public String orderInsertAjax(OrderVo vo, Model model, HttpServletRequest req, BookVo bvo, CartDto dto, AddrVo alv, HttpSession sess, int paid_amount) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		int r = orderService.insert(vo);
 		vo.setPaid_amount(paid_amount);
 		int bli = 0;
+		int cnt = 0;
 		
 		String[] bookno = req.getParameterValues("bookno");
+		String[] cartno = req.getParameterValues("cartnos");
 //		System.out.println(bookno[0]);
 //		System.out.println(bookno[1]);
 		String[] bookcount = req.getParameterValues("bookcount");
 		String[] salesprice = req.getParameterValues("salesprice");
 		System.out.println("bookno:"+bookno.length);
 		System.out.println("bookcount:"+bookcount.length);
+		System.out.println("salesprice:"+salesprice.length);
 		System.out.println("salesprice:"+salesprice.length);
 //		CartVo cvo;
 		for (int i=0; i<bookno.length; i++) {
@@ -115,6 +119,13 @@ public class OrderController {
 			cdto.setTotal_Price(Integer.parseInt(bookcount[i]) * Integer.parseInt(salesprice[i]));
 			bli += orderService.bookListInsert(cdto);		
 		}
+		
+		if (cartno != null) {
+			for (int i=0; i<cartno.length; i++) {
+				cnt += orderService.deleteOrderCart(Integer.parseInt(cartno[i])); // 배열의 개수만큼 반복하면서 삭제
+			}
+		}
+//		
 		if ( r > 0 && bli > 0) {  
 			model.addAttribute("result", vo.getOrderno()); 
 		} else { 
@@ -125,7 +136,7 @@ public class OrderController {
 	
 //	주소록 등록
 	@RequestMapping("/writeInsert.do")
-	public String addrInsert(AddrListVo vo, HttpServletRequest req, HttpSession sess) {
+	public String addrInsert(AddrVo vo, HttpServletRequest req, HttpSession sess) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());	
 //		vo.setUserno(1);  
 		int r = orderService.addrInsert(vo);
@@ -147,7 +158,7 @@ public class OrderController {
 
 	
 	@RequestMapping("/addrInsert.do")
-	public String writeInsert(AddrListVo vo,HttpSession sess) {
+	public String writeInsert(AddrVo vo,HttpSession sess) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		return "orders/addrInsert"; 
 	}

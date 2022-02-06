@@ -225,7 +225,7 @@ $(function(){
 						</thead>
 						<thead>
 							<c:set var="sum" value="0" />
-							<c:set var="sumCount" value="0" />
+							<c:set var="BookSumCount" value="0" />
 							<c:forEach items="${bookList}" var="book">
 							<tr>
 								<td><img src="/bookmall/img/thanks_b.gif"></td>
@@ -240,21 +240,16 @@ $(function(){
 									<input type="hidden" name="bookcount" value="${book.bookcount }">
 									<input type="hidden" name="salesprice" value="${book.salesprice }">
 									<input type="hidden" name="bookno" value="${book.bookno}"> 
-									<input type="hidden" name="BookSumCount" value="${BookSumCount}"> <!-- 총 수량 -->
+									<input type="hidden" name="BookSumCount" value="${BookSumCount}">
+									<input type="hidden" name="cartnos" value="${book.cartno}">
 								</td>
 							</tr>		
 							</c:forEach>
 						</thead>
 					</table>
 					<!-- 예상총액/장바구니 이동버튼 -->
-					<table>  
-						<tr>
-							<td>총 결제 예상 금액(총 수량) :<font><fmt:formatNumber pattern="###,###,###" value="${sum }"/>원 (총 ${BookSumCount }개)</font></td>
-						</tr>  
-						<tr>
-							<td><a href="http://localhost:8080/bookmall/cart.do?userno=${loginUser.userno }"><strong>장바구니로 돌아가기</strong></a></td>
-						</tr>
-					</table>
+					<p>총 결제 예상 금액(총 수량) :<font><fmt:formatNumber pattern="###,###,###" value="${sum }"/>원 (총 ${BookSumCount }권)</font></p>
+					<p style="text-align:right; float:right"><a href="http://localhost:8080/bookmall/cart.do?userno=${loginUser.userno }"><strong>장바구니로 돌아가기</strong></a></p>
 				</div>
 			</div>
 			<br><br>
@@ -331,6 +326,7 @@ $(function(){
 		</div>
 	</div>
 	<input type="hidden" name="paid_amount" id="paid_amount" value="${sum }">  
+	<input type="hidden" name="bookname" id="bookname" value="${bookList[0].btitle_first } 포함 (총 ${BookSumCount}권)">
 	</form>
 	
 <!-- 아임포트 신용카드 -->
@@ -345,7 +341,7 @@ $(function(){
          pg: 'html5_inicis', // html5_inicis : 이니시스(웹표준결제)
          pay_method: 'card',
          merchant_uid: 'merchant_' + new Date().getTime(),
-         name: "${bookList[0].btitle_first } 그 외 ${BookSumCount}개",    //상품명
+         name: "${bookList[0].btitle_first } 포함 (총 ${BookSumCount }권)",    //상품명
          //가격
          amount: ${sum},      											// 가격 ${sum},
          buyer_email: '${loginUser.email }',      						// 이메일

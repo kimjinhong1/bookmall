@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import bookmall.addr.AddrVo;
 import bookmall.book.BookVo;
 import bookmall.cart.CartDto;
 import bookmall.user.UserVo;
@@ -49,7 +50,7 @@ public class OrderDao {
 		return r;
 	}
 //	새 주소록
-	public int addrInsert(AddrListVo vo) {
+	public int addrInsert(AddrVo vo) {
 		int r = -1;
 		try {
 			r = sqlSessionTemplate.insert("orders.addrInsert",vo);
@@ -80,7 +81,7 @@ public class OrderDao {
 	}
 	
 	// 주소록 가져오기
-	public List<AddrListVo> addrSelect(AddrListVo vo) {
+	public List<AddrVo> addrSelect(AddrVo vo) {
 		return sqlSessionTemplate.selectList("orders.addrSelect", vo);
 	}
 	
@@ -89,7 +90,7 @@ public class OrderDao {
 		return sqlSessionTemplate.selectOne("orders.orderSelect", vo);
 	}
 	
-	public int deleteOrderCart(CartDto vo) {
+	public int deleteOrderCart(int vo) {
 		return sqlSessionTemplate.delete("orders.deleteOrderCart", vo);
 	}
 	

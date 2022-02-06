@@ -35,6 +35,16 @@ public class BookVo {
 	private int bstatus;
 	private String categoryArrStr;
 	
+	private int bookcount;
+	
+	public int getBookcount() {
+		return bookcount;
+	}
+
+	public void setBookcount(int bookcount) {
+		this.bookcount = bookcount;
+	}
+
 	public String getCategoryArrStr() {
 		return categoryArrStr;
 	}

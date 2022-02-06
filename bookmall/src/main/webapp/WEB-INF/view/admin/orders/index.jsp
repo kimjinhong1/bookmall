@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>  
 <link rel="stylesheet" href="/bookmall/css/orders.css" />
+<link rel="stylesheet" href="/bookmall/css/admin/orders.css" />
 <link rel="stylesheet" href="/bookmall/css/com.css" />
 <link rel="stylesheet" href="/bookmall/css/admin.css" />
 
@@ -15,60 +16,79 @@
 
 <script src="/bookmall/js/common.js"></script>
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+	$(function() {
+		$("#spreadBtn02").click(function() {
+			if ($("#hiddenList01").is(":visible")) {
+				$("#hiddenList01").slideUp();
+			} else {
+				$("#hiddenList01").slideDown();
+			}
+		});
+		
+		
+		$(".date7").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date2 = date.getTime() - (7 * 24 * 60 * 60 * 1000);
+            date.setTime(date2);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
+		$(".dateM1").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date3 = date.getTime() - (30 * 24 * 60 * 60 * 1000);
+            date.setTime(date3);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
+		$(".dateM3").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date4 = date.getTime() - (60 * 24 * 60 * 60 * 1000);
+            date.setTime(date4);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
+		$(".dateM6").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date5 = date.getTime() - (180 * 24 * 60 * 60 * 1000);
+            date.setTime(date5);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
+	});
+</script>
 
 <script>
-function getDateStr(myDate){
-	var year = myDate.getFullYear();
-	var month = (myDate.getMonth() + 1);
-	var day = myDate.getDate();
-	
-	Month = (Month < 10) ? "0" + String(Month) : Month;
-	Day = (Day < 10) ? "0" + String(Day) : Day;
-	
-	return  year + '-' + month + '-' + day );
-}
-
-function today() {
-	  var d = new Date();
-	  return getDateStr(d);
-	}
-	
-function lastWeek() {
-	  var d = new Date();
-	  var dayOfMonth = d.getDate();
-	  d.setDate(dayOfMonth - 7);
-	  return getDateStr(d);
-	}
-
-function lastMonth() {
-	  var d = new Date();
-	  var monthOfYear = d.getMonth();
-	  d.setMonth(monthOfYear - 1);
-	  return getDateStr(d);
-	}
-	
 $(document).ready(function(){
-	console.log(today());
-	console.log(lastWeek());
-	console.log(lastMonth());
-});	
-
+    //btn_reset 을 클릭했을때의 함수
+    $( "#btn_reset").click(function () {
+        $( "#searchForm" ).each( function () {
+            this.reset();
+        });
+    });
+});
 </script>
 
-<script>
-function checkAll(){
-	if ($("#allChk").prop('checked')) {
-		$("input[name='check']").each(function(idx){
-			$("input[name='check']").eq(idx).prop("checked",true);
-		})
-	} else {
-		$("input[name='check']").each(function(idx){
-			$("input[name='check']").eq(idx).prop("checked",false);
-		})
-	}
-}
-
-</script>
 
 </head>
 <body> 
@@ -80,8 +100,8 @@ function checkAll(){
 		<!-- E N D :: headerArea-->
 		 
 		<!-- S T A R T :: containerArea--> 
-		<div id="container" align="center">
-			<div id="content">
+		<div id="container">
+			<div id="content" align="center">
 				<div class="con_tit" align="left">
 					<h2>전체주문목록</h2>
 				</div>
@@ -92,7 +112,7 @@ function checkAll(){
 						<div id="blist">
 						<form name="searchForm" id="searchForm" action="index.do"  method="get">
 						<input type="hidden" name="numchoose" id="numchoose" value="${ordersAdminVo.numchoose }" >
-							<table width="100%" hight="50px" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리목록입니다.">
+							<table>
 								<colgroup>
 									<col width="300px" />
 									<col width="auto" />
@@ -100,87 +120,72 @@ function checkAll(){
 								<thead>
 									<tr>
 										<th scope="row">검색어</th>
-										<td style="background-color:#fff; border-bottom: 1px solid #cccdd0;">
-										<select name="stype" id="selectinquiry" title="검색을 선택해주세요" style="width: 100px; height: 25px;">
-											<option value="" >전체</option>
-											<option value="orderno" <c:if test="${param.searchType=='orderno'}">selected</c:if>>주문번호</option>
-											<option value="name" <c:if test="${param.searchType=='name'}">selected</c:if>>주문자명</option>
-											<option value="btitle_first" <c:if test="${param.searchType=='btitle_first'}">selected</c:if>>주문상품</option>
+										<td>
+										<select name="searchType" title="검색을 선택해주세요">
+											<option value="" selected>전체</option>
+											<option value="orderno" <c:if test="${param.searchType==orderno}"></c:if>>주문번호</option>
+											<option value="name" <c:if test="${param.searchType=='name'}"></c:if>>주문자명</option>
+											<option value="bookname" <c:if test="${param.searchType=='bookname'}"></c:if>>주문상품명</option>
 										</select>
 										<input type="text" name="searchWord" value="${param.searchWord }" title="검색할 내용을 입력해주세요" />
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">주문상태</th>
-										<td style="background-color:#fff; border-bottom: 1px solid #cccdd0;"  >
-											<input name="searchState" type="radio" value="1" <c:if test="${param.searchState==1}">checked="checked"</c:if>/>입금대기
-											<input name="searchState" type="radio" value="2" <c:if test="${param.searchState==2}">checked="checked"</c:if>/>결제완료
-											<input name="searchState" type="radio" value="3" <c:if test="${param.searchState==3}">checked="checked"</c:if>/>상품준비중
-											<input name="searchState" type="radio" value="4" <c:if test="${param.searchState==4}">checked="checked"</c:if>/>출고완료
-											<input name="searchState" type="radio" value="5" <c:if test="${param.searchState==5}">checked="checked"</c:if>/>배송중
-											<input name="searchState" type="radio" value="6" <c:if test="${param.searchState==6}">checked="checked"</c:if>/>배송완료
-											<input name="searchState" type="radio" value="7" <c:if test="${param.searchState==7}">checked="checked"</c:if>/>주문취소요청
-											<input name="searchState" type="radio" value="8" <c:if test="${param.searchState==8}">checked="checked"</c:if>/>주문취소완료
-											<input name="searchState" type="radio" value="9" <c:if test="${param.searchState==9}">checked="checked"</c:if>/>교환요청
-											<input name="searchState" type="radio" value="10" <c:if test="${param.searchState==10}">checked="checked"</c:if>/>교환완료
-											<input name="searchState" type="radio" value="11" <c:if test="${param.searchState==11}">checked="checked"</c:if>/>반품신청
-											<input name="searchState" type="radio" value="12" <c:if test="${param.searchState==12}">checked="checked"</c:if>/>반품완료
-											<input name="searchState" type="radio" value="13" <c:if test="${param.searchState==13}">checked="checked"</c:if>/>환불신청
-											<input name="searchState" type="radio" value="14" <c:if test="${param.searchState==14}">checked="checked"</c:if>/>환불완료
+										<td>
+											<input type="radio" name="status" value="" checked="checked" >전체
+											<input type="radio" name="status" value="1" <c:if test="${param.status==1}">checked="checked"</c:if>/>입금대기
+											<input type="radio" name="status" value="2" <c:if test="${param.status==2}">checked="checked"</c:if>/>결제완료
+											<input type="radio" name="status" value="3" <c:if test="${param.status==3}">checked="checked"</c:if>/>상품준비중
+											<input type="radio" name="status" value="4" <c:if test="${param.status==4}">checked="checked"</c:if>/>출고완료
+											<input type="radio" name="status" value="5" <c:if test="${param.status==5}">checked="checked"</c:if>/>배송중
+											<input type="radio" name="status" value="6" <c:if test="${param.status==6}">checked="checked"</c:if>/>배송완료
+											<input type="radio" name="status" value="7" <c:if test="${param.status==7}">checked="checked"</c:if>/>주문취소요청
+											<input type="radio" name="status" value="8" <c:if test="${param.status==8}">checked="checked"</c:if>/>주문취소완료
+											<input type="radio" name="status" value="9" <c:if test="${param.status==9}">checked="checked"</c:if>/>교환요청
+											<input type="radio" name="status" value="10" <c:if test="${param.status==10}">checked="checked"</c:if>/>교환완료
+											<input type="radio" name="status" value="11" <c:if test="${param.status==11}">checked="checked"</c:if>/>반품신청
+											<input type="radio" name="status" value="12" <c:if test="${param.status==12}">checked="checked"</c:if>/>반품완료
+											<input type="radio" name="status" value="13" <c:if test="${param.status==13}">checked="checked"</c:if>/>환불신청
+											<input type="radio" name="status" value="14" <c:if test="${param.status==14}">checked="checked"</c:if>/>환불완료
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">기간</th>
-										<td style="background-color:#fff; border-bottom: 1px solid #cccdd0;">
-											<div>
-												<button>
-													<span
-														style="display: block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">최근1주일</span>
-												</button>
-												<button>
-													<span
-														style="display: block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">1개월</span>
-												</button>
-												<button>
-													<span
-														style="display: block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">3개월</span>
-												</button>
-												<button>
-													<span
-														style="display: block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer;">6개월</span>
-												</button>
+										<td>
+											<div class="underClendar">
+												<input type="button" name="order_date" class="date7" value="최근1주일">
+												<input type="button" name="order_date" class="dateM1" value="지난 1개월">
+												<input type="button" name="order_date" class="dateM3" value="지난 3개월">
+												<input type="button" name="order_date" class="dateM6" value="지난 6개월">
 												&nbsp;&nbsp;
-							
-							
-												<%-- 검색 시작날짜선택 --%>
-												<input id="startDate" type="date"
-													style="background-color: #ffffff; color: #808080; width: 160px; font-size: 15px; line-height: 30px;">
-												~
+												<%-- 검색 시작날짜선택 --%> 
+												<input id="startDate" name="startDate" type="date" value="${param.startDate }">
+												 ~ 
 												<%-- 검색 마지막날짜선택 --%>
-												<input id="endDate" type="date"
-													style="background-color: #ffffff; color: #808080; width: 160px; font-size: 15px; line-height: 30px;"><br>
-												<br>
-											</div>	
+												<input id="endDate" name="endDate" type="date" value="${param.endDate }">
+											 </div>
 										</td>
 									</tr>
 									<tr>
 										<th scope="row">결제방법</th>
-										<td style="background-color:#fff; border-bottom: 1px solid #cccdd0;" >
-											<input name="searchPay" type="radio" value="1" <c:if test="${param.searchPay=='무통장입금'}">checked="checked"</c:if>/>무통장입금
-											<input name="searchPay" type="radio" value="2"<c:if test="${param.searchPay=='신용카드'}">checked="checked"</c:if>/>신용카드
+										<td>
+											<input type="radio" name="methodOfPayment" value="" checked="checked" />전체
+											<input type="radio" name="methodOfPayment" value="무통장입금" <c:if test="${param.methodOfPayment=='무통장입금'}">checked="checked"</c:if>/>무통장입금
+											<input type="radio" name="methodOfPayment" value="신용카드" <c:if test="${param.methodOfPayment=='신용카드'}">checked="checked"</c:if>/>신용카드
 										</td>
 									</tr>
 								</thead>
-						</table>
-						<br><br>
-						<div class="obtn" style="text-align: content;">
-							<input type="submit" value="검색" style=" width:100px; height:32px; ">
-							<input type="submit" value="초기화" style=" width:100px; height:32px; ">
-						</div>
+							</table>
+							<br><br>
+							<div class="obtn">
+								<input type="submit" value="검색" >
+								<input type="button" id="btn_reset" value="초기화" >
+							</div>
 						</form>
 						<br><br>
 						<p align="left"><span><strong>총 ${totCount }</strong>  |  ${ordersAdminVo.page }/${totPage }페이지</span>
-							<span style="text-align:right;float:right">
+							<span style="text-align:right; float:right"> 
 								<select id="numsel" onchange="$('#numchoose').val($('#numsel').val());$('#searchForm').submit();">
 									<option value="10" <c:if test="${10 == ordersAdminVo.numchoose}">selected</c:if>>10개씩</option>
 									<option value="20" <c:if test="${20 == ordersAdminVo.numchoose}">selected</c:if>>20개씩</option>
@@ -188,94 +193,92 @@ function checkAll(){
 								</select>
 							</span>
 						</p>
-							
-							<table width="100%" border="0" cellspacing="0" cellpadding="0" summary="관리자 관리목록입니다.">
-								<colgroup>
-									<col class="w10" />
-									<col class="w10" />
-									<col class="w20" />
-									<col class="w10" />
-									<col class="w10" />
-									<col class="w10" />
-									<col class="w10" />
-									<col class="w10" />
-									<col class="" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">주문번호</th>
-										<th scope="col">주문일</th> 
-										<th scope="col">상품명</th> 
-										<th scope="col">주문자명</th> 
-										<th scope="col">주문금액</th> 
-										<th scope="col">결제방법</th> 
-										<th scope="col">주문상태</th> 
-										<th scope="col">사유</th> 
-										<th scope="col">적용</th> 
-									</tr>
-								</thead>
-								<tbody>
-								<c:if test="${empty  list}">
-		                            <tr>
-		                                <td class="first" colspan="8">조회된 주문이 없습니다.</td>
-		                            </tr> 
-		                        </c:if>
-								<c:if test="${!empty  list}">
-									<c:forEach items="${list }" var="vo" varStatus="status">
-									<tr>
-										<td>${vo.orderno }</td>
-										<td class="date"><fmt:formatDate value="${vo.order_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-										<td>${vo.btitle_first }<br>[${vo.btitle_second }]
-										<td>${vo.name }</td>
-										<td><fmt:formatNumber pattern="###,###,###" value="${vo.paid_amount }" />원</td>
-										<c:if test="${vo.methodOfPayment eq '무통장입금'}">
-											<td>${vo.methodOfPayment }</td>
-										</c:if>
-										<c:if test="${vo.methodOfPayment eq '신용카드'}">
-											<td>${vo.methodOfPayment }(${vo.creditCard })</td>
-										</c:if>
-										<td>
-										<form name="frm${status.index }" id="frm${status.index }" action="update.do" method="post">
-											<input type="hidden" name="orderno" id="orderno" value="${vo.orderno }"/>
-											<select name="status" id="status" style="width: 115px; height: 30px;">
-												<option value="1" <c:if test="${vo.status=='1'}">selected</c:if>>입금대기</option>
-												<option value="2" <c:if test="${vo.status=='2'}">selected</c:if>>결제완료</option>
-												<option value="3" <c:if test="${vo.status=='3'}">selected</c:if>>상품준비중</option>
-												<option value="4" <c:if test="${vo.status=='4'}">selected</c:if>>출고완료</option>
-												<option value="5" <c:if test="${vo.status=='5'}">selected</c:if>>배송중</option>
-												<option value="6" <c:if test="${vo.status=='6'}">selected</c:if>>배송완료</option>
-												<option value="7" <c:if test="${vo.status=='7'}">selected</c:if>>주문취소요청</option>
-												<option value="8" <c:if test="${vo.status=='8'}">selected</c:if>>주문취소완료</option>
-												<option value="9" <c:if test="${vo.status=='9'}">selected</c:if>>교환요청</option>
-												<option value="10" <c:if test="${vo.status=='10'}">selected</c:if>>교환완료</option>
-												<option value="11" <c:if test="${vo.status=='11'}">selected</c:if>>반품신청</option>
-												<option value="12" <c:if test="${vo.status=='12'}">selected</c:if>>반품완료</option>
-												<option value="13" <c:if test="${vo.status=='13'}">selected</c:if>>환불신청</option>
-												<option value="14" <c:if test="${vo.status=='14'}">selected</c:if>>환불완료</option>
-											</select>
-											</form>
-										</td>
-										<td>
-											사유 : 
-										</td>
-										<td>
-											<span style="display: block; background-color: white; width: 70px; height: 30px; line-height: 30px; cursor: pointer; align-content: center;" onclick="$('#frm${status.index }').submit();">적용</span>
-										</td>
-									</tr>
-									</c:forEach>
-								</c:if>	
-								</tbody>
-							</table>
-							<br><br>
-							
-							
-							<!-- 페이징 처리 -->
-							${pageArea }
-							<!-- //페이징 처리 -->
+						<table summary="관리자 관리목록입니다.">
+							<colgroup>
+								<col class="w8" />
+								<col class="w10" />
+								<col class="w15" />
+								<col class="w10" />
+								<col class="w10" />
+								<col class="w10" />
+								<col class="w12" />
+								<col class="w30" />
+								<col class="" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th scope="col">주문번호</th>
+									<th scope="col">주문일</th> 
+									<th scope="col">주문상품명</th> 
+									<th scope="col">주문자명</th> 
+									<th scope="col">주문금액</th> 
+									<th scope="col">결제방법</th> 
+									<th scope="col">주문상태</th> 
+									<th scope="col">사유</th> 
+									<th scope="col">적용</th> 
+								</tr>
+							</thead>
+							<tbody>
+							<c:if test="${empty  list}">
+	                            <tr>
+	                                <td class="first" colspan="9">조회된 주문이 없습니다.</td>
+	                            </tr> 
+	                        </c:if>
+							<c:if test="${!empty  list}">
+								<c:forEach items="${list }" var="vo" varStatus="status">
+								<tr>
+									<td>${vo.orderno }</td>
+									<td class="date"><fmt:formatDate value="${vo.order_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+									<td>${vo.bookname }
+									<td>${vo.name }</td>
+									<td><fmt:formatNumber pattern="###,###,###" value="${vo.paid_amount }" />원</td>
+									<c:if test="${vo.methodOfPayment eq '무통장입금'}">
+										<td>${vo.methodOfPayment }</td>
+									</c:if>
+									<c:if test="${vo.methodOfPayment eq '신용카드'}">
+										<td>${vo.methodOfPayment }(${vo.creditCard })</td>
+									</c:if>
+									<td>
+									<form name="frm${status.index }" id="frm${status.index }" action="update.do" method="post">
+										<input type="hidden" name="orderno" id="orderno" value="${vo.orderno }"/>
+										<select name="status" id="status" style="width: 115px; height: 30px;">
+											<option value="1" <c:if test="${vo.status=='1'}">selected</c:if>>입금대기</option>
+											<option value="2" <c:if test="${vo.status=='2'}">selected</c:if>>결제완료</option>
+											<option value="3" <c:if test="${vo.status=='3'}">selected</c:if>>상품준비중</option>
+											<option value="4" <c:if test="${vo.status=='4'}">selected</c:if>>출고완료</option>
+											<option value="5" <c:if test="${vo.status=='5'}">selected</c:if>>배송중</option>
+											<option value="6" <c:if test="${vo.status=='6'}">selected</c:if>>배송완료</option>
+											<option value="7" <c:if test="${vo.status=='7'}">selected</c:if>>주문취소요청</option>
+											<option value="8" <c:if test="${vo.status=='8'}">selected</c:if>>주문취소완료</option>
+											<option value="9" <c:if test="${vo.status=='9'}">selected</c:if>>교환요청</option>
+											<option value="10" <c:if test="${vo.status=='10'}">selected</c:if>>교환완료</option>
+											<option value="11" <c:if test="${vo.status=='11'}">selected</c:if>>반품신청</option>
+											<option value="12" <c:if test="${vo.status=='12'}">selected</c:if>>반품완료</option>
+											<option value="13" <c:if test="${vo.status=='13'}">selected</c:if>>환불신청</option>
+											<option value="14" <c:if test="${vo.status=='14'}">selected</c:if>>환불완료</option>
+										</select>
+										</form>
+									</td>
+									<td>
+										사유 : 
+									</td>
+									<td class="Sbtn">
+										<span onclick="$('#frm${status.index }').submit();">적용</span>
+									</td>
+								</tr>
+								</c:forEach>
+							</c:if>	
+							</tbody>
+						</table>
+						<br><br>
+						<!-- 페이징 처리 -->
+						${pageArea }
+						<!-- //페이징 처리 -->
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>	
+			</div>	
 		</div>
 	</div>
 </div>
+</body>

@@ -200,7 +200,7 @@ $(function() {
          	<!-- 구매/장바구니 버튼 시작 -->
          	<div class="butSet clear">
 				<div class="buyBtn">
-					<a href="http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount=${data.bookcount }">바로 구매</a>
+					<a href="javascript:location.href='http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount='+$('#bookcount').val();">바로 구매</a>
 					<a id ="cartbtn" name="cartinsert" href="#">장바구니 담기</a>
 					<a id ="listbtn" name="mylistinsert" href="#">마이리스트 담기</a>
 				</div>

@@ -55,7 +55,7 @@ public class CartController {
 	 /*장바구니 품목삭제*/
 	@PostMapping("/cart/deleteAjax.do")
 	public String deleteAjax(Model model, HttpServletRequest req) {
-		String[] cartno = req.getParameterValues("cartno"); // 배열로 전송된 cartno
+		String[] cartno = req.getParameterValues("cartnos"); // 배열로 전송된 cartno
 		
 		int cnt = 0;
 		for (int i=0; i<cartno.length; i++) {
