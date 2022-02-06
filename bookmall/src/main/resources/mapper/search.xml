@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="search"> <!-- mapper파일의 이름 -->
+	
+	<!-- 카테고리 조건 -->
+	<sql id = "categorywhere">
+		<where>
+			<if test="bparentno == 0 ">
+				bclassify = #{bclassify} AND blevel = 1
+			</if>
+			<if test="bparentno != 0 ">
+				bclassify = #{bclassify} AND blevel = 2 AND bparentno = #{bparentno}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 전체 카테고리 선택 -->
+	<select id="categorySelectList" parameterType="bookmall.search.SearchVo" resultType="bookmall.search.SearchVo">
+		SELECT 
+			bcategoryno ,
+			bcategoryname,
+			bclassify,
+			bparentno
+		FROM book_category
+		<include refid="categorywhere"/>
+	</select>
+	
+	<sql id = "searchwhere">
+		<where>
+			<!-- 검색 타입 -->
+			<if test="searchType == 'all'">
+				(btitle_first like '%${searchWord}%' or
+			 	btitle_second like '%${searchWord}%' or 
+				author like '%${searchWord}%' or 
+				publisher like '%${searchWord}%')
+			</if>
+			<if test="searchType == 'btitle'">
+				(btitle_first like '%${searchWord}%' or
+			 	btitle_second like '%${searchWord}%')
+			</if>
+			<if test="searchType == 'author'">
+				(author like '%${searchWord}%')
+			</if>
+			<if test="searchType == 'publisher'">
+				(publisher like '%${searchWord}%')
+			</if>
+			<!-- 가격 -->
+			<if test="salesprice == 1">
+				and (<![CDATA[salesprice < 10000]]>)
+			</if>
+			<if test="salesprice == 2">
+				and (<![CDATA[salesprice BETWEEN 10000 AND 20000]]>)
+			</if>
+			<if test="salesprice == 3">
+				and (<![CDATA[salesprice BETWEEN 20000 AND 40000]]>)
+			</if>
+			<if test="salesprice == 4">
+				and (<![CDATA[salesprice > 40000]]>)
+			</if> 
+			<!-- 날짜 -->
+			<if test="pubdate == 1">
+				and (str_to_date(pubdate, '%Y-%m-%d') 
+				between date_add(CURDATE(), INTERVAL -1 MONTH) AND CURDATE())
+			</if>
+			<if test="pubdate == 2">
+				and (str_to_date(pubdate, '%Y-%m-%d') 
+				between date_add(CURDATE(), INTERVAL -3 MONTH) AND CURDATE())
+			</if>
+			<if test="pubdate == 3">
+				and (str_to_date(pubdate, '%Y-%m-%d') 
+				between date_add(CURDATE(), INTERVAL -12 MONTH) AND CURDATE())
+			</if>
+			<!-- 카테고리 -->
+			<if test="bparentnoS != null or bcategorynoS != null ">
+				and
+			</if>
+			<if test="bparentnoS != null ">
+				<foreach collection="bparentnoS" item="item" open="(" close=")" separator="or">
+					bc.bparentno = #{item}
+				</foreach>
+			</if>
+			<if test="bcategorynoS != null "> 
+				<if test="bparentnoS != null">
+					or  
+				</if>
+				<foreach collection="bcategorynoS" item="item" open="(" close=")" separator="or">
+					bc.bcategoryno = #{item}
+				</foreach>
+			</if>
+				group by b.bookno
+				
+		</where>
+	</sql>
+	
+	<!-- 검색 -->
+	<select id="selectBookList" parameterType="bookmall.search.SearchVo" resultType="bookmall.search.SearchVo">
+		SELECT
+			*
+		FROM book AS b 
+		INNER JOIN book_category_mapping as bcm
+		ON b.bookno = bcm.bookno
+		INNER JOIN book_category as bc
+		ON bcm.bcategoryno = bc.bcategoryno
+		<include refid="searchwhere"/>
+		ORDER BY b.bookno DESC
+		LIMIT ${startIdx}, 10
+	</select>  
+	
+	<!--  검색 도서수량 체크-->
+	<select id="countBook" resultType="int" parameterType="bookmall.search.SearchVo">
+		SELECT count(S.bookno) 
+		FROM 
+		(SELECT b.bookno, count(*) 
+		FROM book AS b 
+		INNER JOIN book_category_mapping as bcm 
+		ON b.bookno = bcm.bookno 
+		INNER JOIN book_category as bc 
+		ON bcm.bcategoryno = bc.bcategoryno 
+		<include refid="searchwhere"/>
+		) as S
+		
+	</select> 
+	
+</mapper>
