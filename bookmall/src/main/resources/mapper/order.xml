@@ -95,7 +95,6 @@
 	</delete>
 
 
-
 	<!-- 관리자  -->
 	<sql id = "ordersWhere">
 		<where>
@@ -147,5 +146,5 @@
 		status=#{status}
 		WHERE orderno=#{orderno}  
 	</update>
-
+	
 </mapper>

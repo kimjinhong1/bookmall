@@ -2,11 +2,10 @@ package bookmall.book;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
-import bookmall.bookcategory.BookCategoryMappingVO;
+import bookmall.util.NLCommonVo;
 
-public class BookVo {
+public class BookVo extends NLCommonVo {
 
 	private int bookno;
 	private String isbn;
@@ -30,11 +29,13 @@ public class BookVo {
 	private String bthumb_real;
 	private int bstack;
 	private Timestamp regdate;
+	
+	
+
 	private Timestamp moddate;
 	private int salesprice;
 	private int bstatus;
 	private String categoryArrStr;
-	
 	private int bookcount;
 	
 	public int getBookcount() {
@@ -45,6 +46,7 @@ public class BookVo {
 		this.bookcount = bookcount;
 	}
 
+	
 	public String getCategoryArrStr() {
 		return categoryArrStr;
 	}
@@ -253,6 +255,103 @@ public class BookVo {
 	public String getModdate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(this.moddate);
+	}
+	
+	// 카테고리 정보
+	private int bcategoryno;
+	private int bparentno;
+	private int blevel;
+	private String bcategoryname;
+	private int bclassify;
+	
+	public int getBcategoryno() {
+		return bcategoryno;
+	}
+
+	public void setBcategoryno(int bcategoryno) {
+		this.bcategoryno = bcategoryno;
+	}
+
+	public int getBparentno() {
+		return bparentno;
+	}
+
+	public void setBparentno(int bparentno) {
+		this.bparentno = bparentno;
+	}
+
+	public int getBlevel() {
+		return blevel;
+	}
+
+	public void setBlevel(int blevel) {
+		this.blevel = blevel;
+	}
+
+	public String getBcategoryname() {
+		return bcategoryname;
+	}
+
+	public void setBcategoryname(String bcategoryname) {
+		this.bcategoryname = bcategoryname;
+	}
+
+	public int getBclassify() {
+		return bclassify;
+	}
+
+	public void setBclassify(int bclassify) {
+		this.bclassify = bclassify;
+	}
+	
+	// 카테고리 정보
+	private int blev1;
+	private int blev2;
+	private String blev1name;
+	private String blev2name;
+
+	public int getBlev1() {
+		return blev1;
+	}
+
+	public void setBlev1(int blev1) {
+		this.blev1 = blev1;
+	}
+
+	public int getBlev2() {
+		return blev2;
+	}
+
+	public void setBlev2(int blev2) {
+		this.blev2 = blev2;
+	}
+
+	public String getBlev1name() {
+		return blev1name;
+	}
+
+	public void setBlev1name(String blev1name) {
+		this.blev1name = blev1name;
+	}
+
+	public String getBlev2name() {
+		return blev2name;
+	}
+
+	public void setBlev2name(String blev2name) {
+		this.blev2name = blev2name;
+	}
+
+	// 도서 목록 정렬
+	private String listOrder;
+
+
+	public String getListOrder() {
+		return listOrder;
+	}
+
+	public void setListOrder(String listOrder) {
+		this.listOrder = listOrder;
 	}
 	
 }

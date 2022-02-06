@@ -138,12 +138,12 @@ $(function() {
 			url: '/bookmall/cart/add',
 			type: 'POST',
 			data: {
-				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', salesprice: ${data.salesprice} ,bookcount:$("#bookcount").val()
+				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', salesprice: ${data.salesprice}
 				
 			},
 			success: function(result){
 				if (result.trim() == "2") {
-					alert("이미 장바구니에 담겨있는 상품입니다.");
+					alert("이미 등록되었습니다.");
 				} else {
 					alert('장바구니에 등록되었습니다.');
 				}
@@ -161,7 +161,7 @@ $(function() {
 			},
 			success: function(result){
 				if (result.trim() == "2") {
-					alert("이미 마이리스트에 등록 된 제품입니다.");
+					alert("이미 등록되었습니다.");
 				} else {
 					alert('마이리스트에 등록되었습니다.');
 				}
@@ -169,8 +169,6 @@ $(function() {
 		})
 	});
 });
-
-
 </script>  
 <body>
 <div class="wrap"> 	
@@ -178,22 +176,49 @@ $(function() {
     <%@ include file="/WEB-INF/view/include/header.jsp" %>
     <!-- HEADER 종료 -->
     <input type="hidden" name="bookno" value="${data.bookno }">
+    
+    	<!-- 도서 목록 캡션 시작 -->   
+		<hr>
+		<caption>
+		<br><h2>도서 정보</h2>
+		</caption>
+		<hr>
+        <!-- 도서 목록 캡션 종료 -->
+        
+        
     	 <!-- 도서 기본 정보 시작 -->
-    	 <span style="align:center"><h3>도서 정보</h3></span>
-    	 <hr>
          <div class="bookNormalInfo">
-         	<img src="/bookmall/upload/${data.bthumb_real }" width="130"></a><br>
-         	<a><h3>${data.btitle_first}</h3>${data.btitle_second }</a><br>
-         	<a>${data.author } | ${data.publisher } | ${data.pubdate }</a><br>
-         	<a>별점 &nbsp;&nbsp;&nbsp;| 판매 지수 : 500</a><br>
+         	<div class="col-md-5">
+				<img src="/bookmall/upload/${data.bthumb_real }" width="130"><br>
+			</div>
+			
+			<div class="col-md-6">
+				<p><span class="badge badge-danger">>${data.btitle_first}_${data.btitle_second }</span>
+				<p> <b>저자 </b> : ${data.author } 
+				<p> <b>출판사 </b> : ${data.publisher } 
+				<p> <b>출간일 </b> : ${data.pubdate }
+				<p>별점 &nbsp;&nbsp;&nbsp;| 판매 지수 : 500
+				<p> <b>판매가 </b> : ${data.salesprice}
+				<p>
+				수량 선택 : 
+	         	<input type="button" name="minusCount" id="minusCount" value="-" class="">
+	         		<input type="text" name="bookcount" id="bookcount" value="1" readonly>
+	         	<input type="button" name="plusCount" id="plusCount" value="+" class="" >
+			  	<p>
+				 	<a href="#" class="btn btn-info"> 바로 구매 &raquo;</a>
+				 	<a id ="cartbtn" name="cartinsert" href="#"> 장바구니 담기 &raquo;</a>
+				 	<a id ="listbtn" name="mylistinsert" href="#"> 마이리스트 담기 &raquo;</a>
+			</div>
+			
+			
+         	
+         	<a></a><br>
+         	<a></a><br>
          	<hr>
-         	<a>정가 : ${data.price }</a><br>
-         	<span style="color:red" ><b>판매가 : ${data.salesprice}</b></span><br>
+         	<a></a><br>
+         	
          	<hr>
-         	<a>수량 선택 : 
-         	<input type="button" name="minusCount" id="minusCount" value="-" class="">
-         		<input type="text" name="bookcount" id="bookcount" value="1" readonly>
-         	<input type="button" name="plusCount" id="plusCount" value="+" class="" ></a>
+         	<a></a>
          </div>	
          <!-- 도서 기본 정보 종료 -->
          
