@@ -8,8 +8,8 @@ $(function() {
 	
        
 	//퀵메뉴
-	var quick_left = $(".menu > ul:first-child").position().left + 1350;
-	var quick_top = $(".menu > ul:first-child").position().top + 10;
+	var quick_left = $(".menu > ul:first-child").position().left + 1200;
+	var quick_top = $(".menu > ul:first-child").position().top + 40;
 	//console.log(quick_left);
 	$(".quickMenu").css({
 	    top : quick_top,

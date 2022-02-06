@@ -3,6 +3,15 @@
 <!-- mapper파일의 이름 -->
 <mapper namespace="book"> 
 
+	<!-- 코드의 중복을 줄이기 위해 -->
+	<sql id = "boardWhere">
+		<where>
+			<if test ="searchType ==''">   
+			 	
+			 </if>
+		</where>
+	</sql>
+	
 	<!-- 도서 하나만 선택 -->
 	<select id="selectOne" parameterType="int" resultType="bookmall.book.BookVo">
 		SELECT *
@@ -12,181 +21,9 @@
 	
 	<!-- 도서 목록 -->
 	<select id="selectList" resultType="bookmall.book.BookVo" parameterType="bookmall.book.BookVo">
-		SELECT b.*,
-					(SELECT IFNULL(SUM(count), 0) 
-					FROM order_detail AS od
-					WHERE od.bookno = b.bookno
-					) AS sales,
-		           (SELECT IFNULL(AVG(r.score), 0)
-		            FROM review AS r
-		            WHERE r.bookno = b.bookno
-		            GROUP BY r.bookno
-		            ) AS score,
-		            (SELECT COUNT(r.bookno)
-		            FROM review AS r
-		            WHERE r.bookno = b.bookno
-		            GROUP BY r.bookno
-		            ) AS review_count
-		FROM book AS b
-		WHERE NOT bstatus = 1
-		<if test = "searchWord != null and searchWord != ''">
-			AND (
-					b.btitle_first LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.btitle_second LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.author LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%')
-				)
-		</if>
-		<if test = "blevel == 1">
-			AND b.bookno IN (SELECT bookno 
-							FROM book_category_mapping
-							WHERE bcategoryno IN (SELECT bcategoryno
-													FROM book_category
-													WHERE bparentno = #{bcategoryno}))
-		</if>
-		<if test = "blevel == 2">
-			AND b.bookno IN (SELECT bookno
-							FROM book_category_mapping
-							WHERE bcategoryno = #{bcategoryno})	
-		</if>
-		<if test='listOrder != null'>
-			<choose>
-				<when test='listOrder == "sales"'>
-					ORDER BY sales DESC
-				</when>
-				<when test='listOrder == "score"'>
-					ORDER BY score DESC
-				</when>
-				<when test='listOrder == "newBook"'>
-					ORDER BY pubdate DESC
-				</when>
-				<when test='listOrder == "lowPrice"'>
-					ORDER BY salesprice ASC
-				</when>
-				<when test='listOrder == "highPrice"'>
-					ORDER BY salesprice DESC
-				</when>
-				<when test='listOrder == "review_count"'>
-					ORDER BY review_count DESC
-				</when>
-			</choose>
-		</if>
-		<if test='listOrder == null'>
-			ORDER BY sales DESC
-		</if>
-		LIMIT ${startIdx}, ${numchoose}
-	</select>
-	
-	<!-- (관리자) 도서 목록 -->
-	<select id="selectAdminList" resultType="bookmall.book.BookVo" parameterType="bookmall.book.BookVo">
-		SELECT *
-		FROM book AS b
-		<where>
-			<if test='searchType == "all" and searchWord != null and searchWord != ""'>
-				AND (
-					b.btitle_first LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.btitle_second LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.author LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%')
-				)
-			</if>
-			<if test='searchType == "btitle" and searchWord != null and searchWord != ""'>
-				AND (
-					b.btitle_first LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.btitle_second LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-				)
-			</if>
-			<if test='searchType == "author" and searchWord != null and searchWord != ""'>
-				AND (
-					b.author LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%')
-				)
-			</if>
-		</where>
-		ORDER BY b.bookno ASC
-		LIMIT ${startIdx}, ${numchoose}
-	</select>
-	
-	<!-- 페이징 처리를 위한 도서 카운트 -->
-	<select id="bookCount" resultType="int" parameterType="bookmall.book.BookVo">
-		SELECT COUNT(*)
-		FROM(SELECT b.*,
-					(SELECT IFNULL(SUM(count), 0) 
-					FROM order_detail AS od
-					WHERE od.bookno = b.bookno
-					) AS sales,
-		           (SELECT IFNULL(AVG(r.score), 0)
-		            FROM review AS r
-		            WHERE r.bookno = b.bookno
-		            GROUP BY r.bookno
-		            ) AS score,
-		            (SELECT COUNT(r.bookno)
-		            FROM review AS r
-		            WHERE r.bookno = b.bookno
-		            GROUP BY r.bookno
-		            ) AS review_count
-			FROM book AS b
-		WHERE NOT bstatus = 1
-		<if test = "searchWord != null and searchWord != ''">
-			AND (
-					b.btitle_first LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.btitle_second LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.author LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%')
-				)
-		</if>
-		<if test = "blevel == 1">
-			AND b.bookno IN (SELECT bookno 
-							FROM book_category_mapping
-							WHERE bcategoryno IN (SELECT bcategoryno
-													FROM book_category
-													WHERE bparentno = #{bcategoryno}))
-		</if>
-		<if test = "blevel == 2">
-			AND b.bookno IN (SELECT bookno
-							FROM book_category_mapping
-							WHERE bcategoryno = #{bcategoryno})	
-		</if>
-		) AS book
-	</select>
-	
-	<!-- (관리자) 페이징 처리를 위한 도서 카운트 -->
-	<select id="AdminbookCount" resultType="int" parameterType="bookmall.book.BookVo">
-		SELECT COUNT(*)
-		FROM book As b
-		<where>
-			<if test='searchType == "all" and searchWord != null and searchWord != ""'>
-				AND (
-					b.btitle_first LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.btitle_second LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.author LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%')
-				)
-			</if>
-			<if test='searchType == "btitle" and searchWord != null and searchWord != ""'>
-				AND (
-					b.btitle_first LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-					OR b.btitle_second LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%') 
-				)
-			</if>
-			<if test='searchType == "author" and searchWord != null and searchWord != ""'>
-				AND (
-					b.author LIKE CONCAT('%', #{searchWord, jdbcType=VARCHAR}, '%')
-				)
-			</if>
-		</where>
-	</select>
-	
-	<!-- 새로 나온 도서 -->
-	<select id="newBook" parameterType="bookmall.book.BookVo" resultType="bookmall.book.BookVo">
 		SELECT *
 		FROM book
-		WHERE NOT bstatus = 1 AND classify = #{classify}
-		ORDER BY pubdate DESC
-		LIMIT 4;
-	</select>
-	
-	<!-- 인기 있는 도서 -->
-	<select id="hotBook" parameterType="bookmall.book.BookVo" resultType="bookmall.book.BookVo">
-		SELECT *
-		FROM book
-		WHERE NOT bstatus = 1 AND classify = #{classify}
-		LIMIT 6;
+		WHERE NOT bstatus = 1
 	</select>
 	
 	<!-- 도서 상세 정보 - 카테고리 -->
@@ -202,26 +39,10 @@
 							WHERE bookno = #{bookno});
 	</select>
 	
-	
-	<!-- 카테고리 명 -->
-	<select id="cateNameList" resultType="bookmall.book.BookVo" parameterType="bookmall.book.BookVo">
-		SELECT
-			a.bcategoryno AS blev1, 
-			b.bcategoryno AS blev2, 
-			a.bcategoryname AS blev1name, 
-			b.bcategoryname AS blev2name, 
-			a.bclassify AS bclassify
-		FROM (
-			SELECT bcategoryno, bcategoryname, bclassify 
-			FROM book_category 
-			WHERE blevel = 1 AND bclassify = #{bclassify}
-		) AS a
-		JOIN (
-			SELECT bcategoryno, bparentno, bcategoryname 
-			FROM book_category 
-			WHERE blevel = 2 AND bclassify = #{bclassify}
-		) AS b
-		ON a.bcategoryno = b.bparentno;
+	<!-- 페이징 처리를 위한 갯수 카운팅 -->
+	<select id="count" resultType="int" parameterType="bookmall.book.BookVo">
+		SELECT COUNT(*) 
+		FROM book
 	</select>
 	
 	<!-- (관리자) 도서 등록시 필요한 카테고리 검색 -->
@@ -305,8 +126,6 @@
 	</update>
 	
 	<select id="isbnCheck" parameterType="String" resultType="int">
-		SELECT COUNT(*) 
-		FROM book 
-		WHERE isbn = #{isbn}
+		SELECT COUNT(*) FROM book WHERE isbn = #{isbn}
 	</select>
 </mapper>

@@ -4,7 +4,7 @@
 	<div class="size">
 		<div class="login" style="text-align: right; background-color:#5f7994; color: white; font-size: 12px;">
 			<c:if test="${empty userInfo }"> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="/bookmall/user/login.do" style="color: white;">로그인  |</a> 
+                    <a href="/bookmall/user/login.do" style="color: white;">로그인|</a> 
                     <a href="/bookmall/user/join.do"  style="color: white;">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 </c:if>
                 <c:if test="${!empty userInfo }">
@@ -29,13 +29,13 @@
 <div class="menu" >
 	<ul class="depth1">
 	    <li>
-	        <a href="/bookmall/search/index.do">통합검색</a>
+	        <a href="">통합검색</a>
 	    </li>
 	    <li>
-	        <a href="/bookmall/book/mainbook.do?bc=0">국내도서</a>	        
+	        <a href="/bookmall/book/korean.do">국내도서</a>	        
 	    </li>
 	    <li>
-	        <a href="/bookmall/book/mainbook.do?bc=1">해외도서</a>
+	        <a href="/bookmall/book/abroad.do">해외도서</a>
 	    </li>
 	    <li>
 	        <a href="">게시판</a>

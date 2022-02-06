@@ -426,7 +426,7 @@
                                 <span class="email_check"><a href="javascript:;" id="emailCheckBtn"  class="btn bgGray" style=" width:auto; clear:none;">E-Mail 인증</a></span>
                             </td>
                         </tr>
-                        <!-- 인증번호 입력창 -->
+                        
                         <tr class="hide" style="display: none;"> <!-- 처음에 숨김 -->
                             <th><small class="star">*</small> 인증번호</th>
                             <td>

@@ -194,6 +194,7 @@ $(function(){
 	<input type="hidden" name="apply_num" id="apply_num" value="">
 	<input type="hidden" name="creditCard" id="creditCard" value="">
 	<input type="hidden" name="status" id="status" value="1">  <!-- 무통장:1, 신용카드:2 -->
+	<input type="hidden" name="bookname" id="bookname" value="${result.btitle_first } (총 ${param.bookcount}권)">
 	
 	
 	<div class="wrap">
@@ -228,27 +229,21 @@ $(function(){
 								<td><img src="/bookmall/img/thanks_b.gif"></td>
 								<td>${result.btitle_first} [${result.btitle_second}]</td>
 								<td><fmt:formatNumber pattern="###,###,###" value="${result.salesprice}" />원</td>
-								<td>1</td> <!-- ${result.bookcount } -->
+								<td>${param.bookcount }</td> <!-- ${result.bookcount } -->
 							</tr>
-							<c:set var="sum" value="${sum + (result.salesprice * 3)}" />
+							<c:set var="sum" value="${sum + (result.salesprice * param.bookcount)}" />
 						</thead>
 						<tr>
 							<td>		
-								<input type="hidden" name="bookcount" value=1> <!-- 수량 --> 
+								<input type="hidden" name="bookcount" value="${param.bookcount}">
 								<input type="hidden" name="salesprice" value="${result.salesprice}">
-								<input type="hidden" name="bookno" value="${result.bookno}">
+								<input type="hidden" name="bookno" value="${param.bookno}">
 							</td>
 						</tr>
 					</table>
 					<!-- 예상총액/장바구니 이동버튼 -->
-					<table>  
-						<tr>
-							<td>총 결제 예상 금액(총 수량) :<font><fmt:formatNumber pattern="###,###,###" value="${sum }"/>원 (총 개)</font></td>
-						</tr>
-						<tr>	
-							<td><a href="/bookmall/cart.do?userno=${loginUser.userno }"><strong>장바구니로 돌아가기</strong></a></td>
-						</tr>
-					</table>
+					<p>총 결제 예상 금액(총 수량) :<font><fmt:formatNumber pattern="###,###,###" value="${sum }"/>원 (총 ${param.bookcount}권)</font></p>
+					<p style="text-align:right; float:right"><a href="/bookmall/cart.do?userno=${loginUser.userno }"><strong>장바구니로 돌아가기</strong></a></p>
 				</div>
 			</div>     
 			<br><br>

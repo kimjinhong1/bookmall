@@ -4,13 +4,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%@ include file="/WEB-INF/view/admin/include/headHtml.jsp" %>
-
-<script>
-	//도서 검색 
-	function goSearch(){
-		window.location = "/bookmall/admin/book/index.do?page=1&searchType="+$("#searchType").val()+"&searchWord="+$("#searchWord").val();
-	}
-</script>
 </head>
 <body> 
 <div id="wrap">
@@ -48,7 +41,7 @@
 										<th scope="col">도서명</th> 
 										<th scope="col">저자</th> 
 										<th scope="col">출판사</th> 
-										<th scope="col">도서상태</th>
+										<th scope="col">카테고리</th>
 										<th scope="col">상세정보</th>
 									</tr>
 								</thead>
@@ -57,10 +50,10 @@
 									<tr>
 										<td class="first"><input type="checkbox" name="no" id="no" value=""/></td>
 										<td>${vo.isbn } </td>
-										<td>${vo.btitle_first }_${vo.btitle_second }</td>
+										<td>${vo.btitle_first }${vo.btitle_second }</td>
 										<td>${vo.author }</td>
 										<td>${vo.publisher }</td>
-										<td><c:if test="${vo.bstatus == 0}">노출</c:if><c:if test="${vo.bstatus == 1}">비노출</c:if></td>
+										<td>카테고리</td>
 										<td><input type="button" value="상세정보" onclick="location.href='/bookmall/admin/book/detail.do?bookno=${vo.bookno}';"></td>
 									</tr>
 									</c:forEach>
@@ -78,19 +71,24 @@
 							<!--//btn-->
 							<!-- 페이징 처리 -->
 							<div class='page'>
-								${pageArea }
+								<strong>1</strong>
+								<a href="">2</a>
+								<a href="">3</a>
+								<a href="">4</a>
 							</div>
-							<!-- 도서 검색 시작 -->
-							<div class="search">
-								<select name="searchType" id="searchType" title="검색을 선택해주세요">
-									<option value="all">전체</option>
-									<option value="btitle">제목</option>
-									<option value="author">저자</option>
-								</select>
-								<input type="text" name="searchWord" id="searchWord" value="" title="검색할 내용을 입력해주세요" />
-								<input type="image" src="<%=request.getContextPath()%>/img/admin/btn_search.gif" class="sbtn" alt="검색" onClick="goSearch();" />
-							</div>
-							<!-- 도서 검색 종료 --> 
+							<!-- //페이징 처리 -->
+							<form name="searchForm" id="searchForm" action="index.do"  method="post">
+								<div class="search">
+									<select name="stype" title="검색을 선택해주세요">
+										<option value="all">전체</option>
+										<option value="title">제목</option>
+										<option value="contents">내용</option>
+									</select>
+									<input type="text" name="sval" value="" title="검색할 내용을 입력해주세요" />
+									<input type="image" src="<%=request.getContextPath()%>/img/admin/btn_search.gif" class="sbtn" alt="검색" />
+								</div>
+							</form>
+							<!-- //search --> 
 						</div>
 						<!-- //blist -->
 					</div>
@@ -103,7 +101,6 @@
 		</div>
 		<!--//container --> 
 		<!-- E N D :: containerArea-->
-		<div>${pageArea }</div>
 	</div>
 	<!--//canvas -->
 </div>
