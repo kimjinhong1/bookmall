@@ -113,13 +113,10 @@ function delcate(cate) {
 }
 
 function searchBtn(rp) {
-	if (typeof rp !== 'undifined') {
-		var rp = 1;
-	}
-	if ($("#searchWord").val().trim() == '') {
-		alert("검색어를 입력해주세요.");
-		return
-	}
+	//if ($("#searchWord").val().trim() == '') {
+	//	alert("검색어를 입력해주세요.");
+	//	return
+	//}
 	console.log('검색시작');
 	console.log($("#searchForm").serialize()+"&page="+rp+"&"+$("#searchForm_Condition").serialize());
 	$.ajax({
@@ -139,60 +136,72 @@ function searchBtn(rp) {
 			console.log(booklist)
 			console.log(totCount)
 			//페이징 처리
-			var startPage = (page-1)/10*10+1;
+			var startPage = Math.floor((page-1)/10)*10+1;
+			console.log("startPage:"+startPage)
 			var endPage = startPage + 10 - 1;
 			if (endPage > totPage) endPage = totPage;
 			
 			var search = "";
 			
 			//search += '<div class="size">'
-			search += '<table class="list">'
-			search += '<caption>도서 목록</caption>'
+			search += '<table class="booklist">'
 			search += '<colgroup>'
-			search += '<col width="10px" />'
+			search += '<col width="200px" />'
+			search += '<col width="200px" />'
+			search += '<col width="200px" />'
+			search += '<col width="120px" />'
+			search += '<col width="180px" />'
 			search += '<col width="100px" />'
-			search += '<col width="250px" />'
-			search += '<col width="100px" />'
-			search += '<col width="100px" />'
-			search += '<col width="50px" />'
+			search += '<col width="200px" />'
 			search += '</colgroup>'
+			search += '<thead>'
+			search += '<tr>'
+			search += '<th scope="col" class="first"></th>'
+			search += '<th scope="col">도서명</th>'
+			search += '<th scope="col">저자 | 출판사 | 출간일</th>'
+			search += '<th scope="col">가격</th>'
+			search += '<th scope="col">리뷰 | 별점</th>'
+			search += '<th scope="col">수량선택</th>'
+			search += '<th scope="col">상품담기</th>'
+			search += '</tr>'
+			search += '</thead>'
 			search += '<tbody>'
-				if (booklist == "") {
-					search += '검색결과가 없습니다.'
+				if (booklist != "") {
+					for(var i=0; i < booklist.length; i++) {
+						search += '<div class="salesBook">'
+						search += '<tr class="board_tr" data-boardno="'+booklist[i].bookno+'" style="cursor: pointer;">'
+						search += '<td class="bookimg">'
+						search += '<a href="/bookmall/book/detail.do?bookno='+booklist[i].bookno+'" >'
+						search += '<img src="/bookmall/upload/'+booklist[i].bthumb_real+'" width="150"></a>'
+						search += '</td>'
+						search += '<td class="txt_l" style="text-align: center;">'
+						search += '<a href="/bookmall/book/detail.do?bookno='+booklist[i].bookno+'" ><h2>'+booklist[i].btitle_first+'</h2>'+booklist[i].btitle_second+'</a>'
+						search += '</td>'
+						search += '<td>'+booklist[i].author+' 저 <br> '+booklist[i].publisher+' <br> '+booklist[i].pubdate+'</td>'
+						search += '<td>'+booklist[i].salesprice+' 원  </td>'
+						search += '<td class="review"> 회원 리뷰('+booklist[i].review_count+'건)<br> 별점</td>'
+						search += '별점 : '+booklist[i].review_score+' </td>'
+						search += '<td>	<a>수량 선택 <br>'
+						search += '<input type="button" name="minusCount_'+booklist[i].bookno+'" id="minusCount_'+booklist[i].bookno+'" value="-" class="" data-bno"'+booklist[i].bookno+'">'
+						search += '<input type="text" name="bookCount_'+booklist[i].bookno+'" id="bookCount_'+booklist[i].bookno+'" value="1" style="width:30px;" readonly>'
+						search += '<input type="button" name="plusCount_'+booklist[i].bookno+'" id="plusCount_'+booklist[i].bookno+'" value="+" class="" data-bno"'+booklist[i].bookno+'"></a>'
+						search += '</td>'
+						search += '<td class="btnTop">'
+						search += '<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니에 담기</strong> </a>'
+						search += '<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>'
+						search += '<a class="btns" href="#" onclick=""><strong>리스트에 담기</strong> </a>'
+						search += '</td>'
+						search += '</tr>'
+						search += '</div>'
+					}
 				}
-				for(var i=0; i < booklist.length; i++) {
-					search += '<tr class="board_tr" data-boardno="'+booklist[i].bookno+'" style="cursor: pointer;">'
-					search += '<td class="first">'
-					search += '<input type="checkbox" name="bookno" id="bookno" value="">'
-					search += '</td>'
-					search += '<td class="bookimg">'
-					search += '<a href="/bookmall/book/detail.do?bookno='+booklist[i].bookno+'" >'
-					search += '<img src="/bookmall/upload/'+booklist[i].bthumb_real+'" width="150"></a></td>'
-					search += '<td class="txt_l" style="text-align:left;"><h2><a href="/bookmall/book/detail.do?bookno='+booklist[i].bookno+'" >'+booklist[i].btitle_first+'</h2>'+booklist[i].btitle_second+'</a></td>'
-					search += '<td>'+booklist[i].author+' 저 | '+booklist[i].publisher+' | '+booklist[i].pubdate+'</td>'
-					search += '<td>'+booklist[i].salesprice+' 원  </td>'
-					search += '<td class="review"> 회원 리뷰(건) | 별점</td>'
-					search += '<td class="bintroduce">'+booklist[i].bintroduce+'</td>'
-					search += '<td>	<a>수량 선택 :'
-					search += '<input type="button" name="minusCount" id="minusCount" value="-" class="">'
-					search += '<input type="text" name="bookcount" id="bookcount" value="1" maxlength="10" readonly>'
-					search += '<input type="button" name="plusCount" id="plusCount" value="+" class="" ></a>'
-					search += '</td>'
-					search += '<td class="btnTop">'
-					search += '<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니에 담기</strong> </a>'
-					search += '</td>'
-					search += '<td class="btnMiddle">'
-					search += '<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>'
-					search += '</td>'
-					search += '<td class="btnBottom">'
-					search += '<a class="btns" href="#" onclick=""><strong>리스트에 담기</strong> </a>'
-					search += '</td>'
-					search += '</tr>'
+				if (booklist == "") {
+					search += '해당 도서 목록이 존재 하지 않습니다.';
 				}
 			search += '</tbody>'
 			search += '</table>'
+			// 페이징 처리
 			search += '<div>'
-			
 			for (var rp = startPage; rp <= endPage; rp++) {
 				search += '<a href="#" onclick="searchBtn('+rp+'); return false;" class="page-btn">' + rp + '</a>';
 				//search += "	                <a href='javascript:location.href=\""+url+"&page="+rp+"\";'";
@@ -214,6 +223,30 @@ $(function(){
 	 $("#initialization").click(function() { 
          $("#searchForm_Condition_Add").empty();   
      }); 
+	 
+	// 도서 수량 변경 - 버튼 이벤트
+	$("input[id^='minusCount']").click(function() {
+		var bno = $(this).data("bno");
+		if($("#bookcount_"+bno).val() <= 1) {
+			alert("최소 수량은 1권입니다.");
+		} else {
+			var bc = $("#bookcount_"+bno).val();
+			bc--;
+			$("#bookcount_"+bno).val(bc);
+		}
+	});
+	
+	// 도서 수량 변경 + 버튼 이벤트
+	$("input[id^='plusCount']").click(function() {
+		var bno = $(this).data("bno");
+		if($("#bookcount_"+bno).val() >= 100) {
+			alert("최대 수량은 100권입니다.");
+		} else {
+			var bc = $("#bookcount_"+bno).val();
+			bc++;
+			$("#bookcount_"+bno).val(bc);
+		}
+	});
 
 });
 
@@ -238,9 +271,9 @@ $(function(){
 							                <option value="author" <c:if test="${param.searchType=='author'}">selected</c:if>>저자</option>
 							                <option value="publisher" <c:if test="${param.searchType=='publisher'}">selected</c:if>>출판사</option>
 						                </select>&nbsp;&nbsp;
-							    		<input type="text" id="searchWord" name="searchWord" value="" style=" width:300px;  height:32px; border-radius: 20px 8px 20px 8px;">&nbsp;&nbsp;
-							    		<button type="button" onclick="searchBtn();">
-							    			<img  src="<%=request.getContextPath()%>/img/search.png" style=" width:25px; height:25px; ">
+							    		<input type="text" id="searchWord" name="searchWord" value="" style=" width:300px;  height:32px; border-radius: 20px 8px 20px 8px;">&nbsp;
+							    		<button type="button" onclick="searchBtn(1);">
+							    			<img  src="<%=request.getContextPath()%>/img/search.png" style=" width:45px; height:25px; ">
 							    		</button>
 							    	</dd>
 						    	</dl>

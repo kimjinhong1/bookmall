@@ -201,7 +201,7 @@
     	    var naverLogin = new naver.LoginWithNaverId({
     	        clientId: "KTq9CxuHYQBTJfayX1oz",
     	        callbackUrl: "http://localhost:8080/bookmall/user/naverCallback.do",
-    	        isPopup: true,
+    	        isPopup: false,
     	        loginButton: {color: "green", type: 3, height: 45}
     	    });
     	    naverLogin.init();
@@ -224,15 +224,15 @@
                                 <ul>
                                     <li><input type="text" id="email" name="email" placeholder="이메일" autocomplete="off"></li>
                                     <li><input type="password" id="pwd" name="pwd" placeholder="비밀번호" autocomplete="off"></li>
-                                    <li><label><input type="checkbox" name="saveEmail" id="saveEmail"/> 아이디저장</label></li>
+                                    <li><label><input type="checkbox" name="saveEmail" id="saveEmail"/> E-mail 저장</label></li>
                                 </ul>
                                 <div class="login_btn"><input type="submit" value="로그인" alt="로그인" /></div>
                             </fieldset>
                             
-                            <div class="btnSet clear">
+                            <div class="btnSet clear" >
                                 <div>
-                                    <a href="join.do" class="btn">회원가입</a> 
-                                    <a href="searchId.do" class="btn">이메일/비밀번호 찾기</a>
+                                    <a href="join.do" class="btn" style="background-color: aqua;">회원가입</a> 
+                                    <a href="searchId.do" class="btn" style="background-color: aqua;">이메일/비밀번호 찾기</a>
                                 </div>
                             </div>
                                                         

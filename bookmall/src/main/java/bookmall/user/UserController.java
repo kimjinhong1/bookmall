@@ -177,7 +177,7 @@ public class UserController {
 	}
 	
 	// social 로그인
-	@RequestMapping(value="/user/snsLogin/{userId}", method=RequestMethod.POST)
+	@RequestMapping(value="/user/snsLogin/{userId}", method=RequestMethod.GET)
 	public String snsLogin( @PathVariable String userId, HttpSession sess, UserVo vo, Model model ) throws Exception{
 	    vo.setIdentifier(userId); 
 	    if (service.socialLogin(vo, sess)) {
