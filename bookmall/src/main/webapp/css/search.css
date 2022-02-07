@@ -13,8 +13,7 @@
 	width : 50%;
 	top: 50%;
     line-height: 1.5;
-    background-color: #e1eaf4;
-    border-radius: 30px;
+    background-color: #b7c4d0;
 }
 
 .initialization {
@@ -23,11 +22,11 @@
 }
 
 .category_two {
-	border: 3px solid #004080;
+	border: 0.5px solid #000;
 	background-color: #fff;
 }
 .category_three {
-	border: 3px solid #004080;
+	border: 0.5px solid #000;
 	background-color: #fff;
 }
 
@@ -40,9 +39,10 @@
 
 
 .allcate {
-	background-color: #afcbf5;
+	border: 0.5px dashed #fff;
 	border-radius: 5px;
-	border: 1px solid #8db6f1;  
+	cursor: pointer;
+	color : black;
 }
 /*
 .bbs dt {

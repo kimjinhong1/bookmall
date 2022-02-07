@@ -11,7 +11,7 @@
 					WHERE r.bookno = b.bookno
 					GROUP BY r.bookno
 					) AS review_score,
-					(SELECT IFNULL(SUM(count), 0)
+					(SELECT IFNULL(SUM(bookcount), 0)
 					FROM order_detail AS od
 					WHERE od.bookno = b.bookno
 					) AS sales
@@ -22,7 +22,7 @@
 	<!-- 도서 목록 -->
 	<select id="selectList" resultType="bookmall.book.BookVo" parameterType="bookmall.book.BookVo">
 		SELECT b.*,
-					(SELECT IFNULL(SUM(count), 0) 
+					(SELECT IFNULL(SUM(bookcount), 0) 
 					FROM order_detail AS od
 					WHERE od.bookno = b.bookno
 					) AS sales,
@@ -122,7 +122,7 @@
 	<select id="bookCount" resultType="int" parameterType="bookmall.book.BookVo">
 		SELECT COUNT(*)
 		FROM(SELECT b.*,
-					(SELECT IFNULL(SUM(count), 0) 
+					(SELECT IFNULL(SUM(bookcount), 0) 
 					FROM order_detail AS od
 					WHERE od.bookno = b.bookno
 					) AS sales,

@@ -141,7 +141,10 @@ function searchBtn(rp) {
 			console.log("startPage:"+startPage)
 			var endPage = startPage + 10 - 1;
 			if (endPage > totPage) endPage = totPage;
-			
+			//var number = booklist[0].review_score;
+			var number = 2;
+			console.log(booklist[0].review_score.toFixed(1));
+
 			var search = "";
 			
 			//search += '<div class="size">'
@@ -180,16 +183,15 @@ function searchBtn(rp) {
 						search += '</td>'
 						search += '<td>'+booklist[i].author+' 저 <br> '+booklist[i].publisher+' <br> '+booklist[i].pubdate+'</td>'
 						search += '<td>'+booklist[i].salesprice+' 원  </td>'
-						search += '<td class="review"> 회원 리뷰('+booklist[i].review_count+'건)<br> 별점</td>'
-						search += '별점 : '+booklist[i].review_score+' </td>'
+						search += '<td class="review"> 회원 리뷰('+booklist[i].review_count+'건)<br> 별점 : '+booklist[i].review_score.toFixed(1)+'</td>'
 						search += '<td>	<a>수량 선택 <br>'
 						search += '<input type="button" name="minusCount_'+booklist[i].bookno+'" id="minusCount_'+booklist[i].bookno+'" value="-" class="" data-bno"'+booklist[i].bookno+'">'
 						search += '<input type="text" name="bookCount_'+booklist[i].bookno+'" id="bookCount_'+booklist[i].bookno+'" value="1" style="width:30px;" readonly>'
 						search += '<input type="button" name="plusCount_'+booklist[i].bookno+'" id="plusCount_'+booklist[i].bookno+'" value="+" class="" data-bno"'+booklist[i].bookno+'"></a>'
 						search += '</td>'
 						search += '<td class="btnTop">'
-						search += '<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니에 담기</strong> </a>'
-						search += '<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>'
+						search += '<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니에 담기</strong> </a><br>'
+						search += '<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a><br>'
 						search += '<a class="btns" href="#" onclick=""><strong>리스트에 담기</strong> </a>'
 						search += '</td>'
 						search += '</tr>'
@@ -311,11 +313,11 @@ $(function(){
 								<dl id="category_all" class="category_all" style="float : left;">
 									<!-- 전체분류 -->
 									<dd id="category_one" class="category_one" style="float : left; margin-right: 30px;">
-										<span class="allcate" onclick="category_one(${vo.korea});" style="font-size: 20px;">국내 도서</span><br><br>
-										<span class="allcate" onclick="category_one(${vo.foreign});" style="font-size: 20px">외국 도서</span><br>
+										<span class="allcate" onclick="category_one(${vo.korea});" style="font-size: 18px;">국내 도서</span><br><br>
+										<span class="allcate" onclick="category_one(${vo.foreign});" style="font-size: 18px">외국 도서</span><br>
 									</dd>
 									<!-- 대분류 -->
-									<dd id="category_two" class="category_two" style="float : left; margin-right: 30px; overflow: auto; width: 200px; height: 200px; ">
+									<dd id="category_two" class="category_two" style="float : left; margin-right: 30px; overflow: auto; width: 200px; height: 180px; border-radius: 8px;">
 										<!-- 전체 분류 미 선택 시  -->
 										<span id="category_two_defalt" class="category_two_defalt" >
 											<br>
@@ -327,7 +329,7 @@ $(function(){
 										</span>
 									</dd>
 									<!-- 중분류 -->
-									<dd id="category_three" class="category_three" style="float : left; margin-right: 30px; overflow: auto; width: 200px; height: 200px;">
+									<dd id="category_three" class="category_three" style="float : left; margin-right: 30px; overflow: auto; width: 200px; height: 180px;border-radius: 8px;">
 										<!-- 전체 분류 미 선택 시  -->
 										<span id="category_three_defalt" class="category_three_defalt" >
 											<br>
@@ -348,7 +350,7 @@ $(function(){
 				    			<img  src="<%=request.getContextPath()%>/img/rerere.png" style=" width:25px; height:25px; ">
 				    		</button>
 				    		&nbsp;&nbsp;
-							<div id="searchForm_Condition_Add" class="searchForm_Condition_Add" style="overflow: auto; width: 470px; height: 100px;border: 1px solid black;"></div>
+							<div id="searchForm_Condition_Add" class="searchForm_Condition_Add" style="overflow: auto; width: 600px; height: 100px;border: 1px solid black; background-color: #fff;border-radius: 30px;"></div>
 						</form>
 						</div>
 					</div>

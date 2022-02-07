@@ -95,7 +95,17 @@
 	<!-- 검색 -->
 	<select id="selectBookList" parameterType="bookmall.search.SearchVo" resultType="bookmall.search.SearchVo">
 		SELECT
-			*
+			*,
+			(SELECT COUNT(r.bookno)
+		            FROM review AS r
+		            WHERE r.bookno = b.bookno
+		            GROUP BY r.bookno
+		            ) AS review_count,
+		    (SELECT AVG(score)
+		            FROM review AS r
+		            WHERE r.bookno = b.bookno
+		            GROUP BY r.bookno
+		            ) AS review_score
 		FROM book AS b 
 		INNER JOIN book_category_mapping as bcm
 		ON b.bookno = bcm.bookno
