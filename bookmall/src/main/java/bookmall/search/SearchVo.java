@@ -57,4 +57,5 @@ public class SearchVo extends CommonVo {
 	// 페이징
 	private int totCount;
 	
+
 }

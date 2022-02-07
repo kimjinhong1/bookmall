@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SearchDao {
-	
+	 
 	@Autowired
 	SqlSessionTemplate sqlSessionTemplate;
 	

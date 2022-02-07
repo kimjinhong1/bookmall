@@ -91,7 +91,7 @@
 				
 		</where>
 	</sql>
-	
+	 
 	<!-- 검색 -->
 	<select id="selectBookList" parameterType="bookmall.search.SearchVo" resultType="bookmall.search.SearchVo">
 		SELECT

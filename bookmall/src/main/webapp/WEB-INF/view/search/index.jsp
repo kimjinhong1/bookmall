@@ -203,10 +203,10 @@ function searchBtn(rp) {
 				}
 			search += '</tbody>'
 			search += '</table>'
-			// 페이징 처리
+			// 페이징 처리 
 			search += '<div>'
 			for (var rp = startPage; rp <= endPage; rp++) {
-				search += '<a href="#" onclick="searchBtn('+rp+'); return false;" class="page-btn">' + rp + '</a>';
+				search += '<a href="#" onclick="searchBtn('+rp+'); return false;" class="page-btn">' + rp + '</a>&nbsp;&nbsp;';
 				//search += "	                <a href='javascript:location.href=\""+url+"&page="+rp+"\";'";
 				//if (rp ==page) search += "class='current'";
 				//search += ">"+rp+"</a>\r\n"; 

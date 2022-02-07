@@ -20,7 +20,7 @@ public class SearchController {
 		model.addAttribute("vo", vo);
 		return "search/index";
 	}
-	
+	 
 	//검색 실행
 	@GetMapping("/search/search.do")
 	@ResponseBody
