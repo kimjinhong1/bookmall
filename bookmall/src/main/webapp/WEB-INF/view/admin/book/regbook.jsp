@@ -221,13 +221,11 @@
  	 	
  	 	// 카테고리 중분류 변경 이벤트
  	 	function changeCateList(bclassify, blevel, bcategoryno) {
- 	 		
  	 		var param = {
  	 				'bclassify': bclassify,
  	 				'blevel': blevel,
  	 				'bcategoryno': bcategoryno
  	 				};
- 	 		
  	 		$.ajax({
 				url: 'selectCateList.do',
 				method: 'GET',
@@ -236,13 +234,10 @@
 				async: false,
 				success: function(res) {
 					$('#selectChild').empty();
-					
 					var html = '';
-					
 					$.each(res, function(i, val) {
 						html += '<option data-bclassify="' + val.bclassify + '" data-blevel="' + val.blevel + '" value="' + val.bcategoryno + '">' + val.bcategoryname + '</option>';
 					});
-					
 					$('#selectChild').append(html);
 				}
 			});
