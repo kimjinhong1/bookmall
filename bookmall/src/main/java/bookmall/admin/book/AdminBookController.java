@@ -1,7 +1,6 @@
 package bookmall.admin.book;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import bookmall.book.BookVo;
 import bookmall.bookcategory.BookCategoryMappingVO;
-import bookmall.util.CommonUtil;
 
 @Controller
 public class AdminBookController {
@@ -30,46 +28,10 @@ public class AdminBookController {
 	
 	// (관리자) 도서 관리 - 목록 페이지
 	@GetMapping("/admin/book/index.do")
-	public String bookIndex(Model model, HttpServletRequest req, BookVo vo,
-							@RequestParam(required = false) Integer page,
-							@RequestParam(required = false) String searchType,
-							@RequestParam(required = false) String searchWord) {
+	public String bookIndex(Model model, HttpServletRequest req, BookVo vo) {
 		
-		if(page != null) {
-			vo.setPage(page);
-		}
-		
-		if(searchType != null) {
-			vo.setSearchWord(searchType);
-		}
-		
-		if(searchWord != null) {
-			vo.setSearchWord(searchWord);
-		}
-		
-		// 총 도서 수
-		int totCount = service.AdminbookCount(vo); 
-		
-		// 총 페이지 수
-		int totPage = totCount / 10; // ex) 31개면 3페이지
-		if (totCount % 10 > 0) 
-			totPage++; //나눠서 나머지 있으면 1페이지 추가
-		
-		//시작 인덱스 값 구하기, 10개씩 나오게, 1페이지 0~9, 2페이지 10~19
-		int startIdx = (vo.getPage() - 1) * 10; //초기값 1이므로 0
-		vo.setStartIdx(startIdx);
-		
-		List<BookVo> list = new ArrayList<BookVo>();
-		
-		if(totCount > 0) {
-			list = service.selectAdminList(vo);
-		} 
-		
-		model.addAttribute("totPage", totPage);	
-		model.addAttribute("totCount", totCount);
+		List<BookVo> list = service.selectList(vo);
 		model.addAttribute("list", list);
-		model.addAttribute("pageArea", CommonUtil.getAdminBookListPageArea("index.do", vo.getPage(), totPage, 10, vo));
-		
 		return "admin/book/index";
 	}
 	

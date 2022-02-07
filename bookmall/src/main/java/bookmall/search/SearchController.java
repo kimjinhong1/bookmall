@@ -1,17 +1,13 @@
 package bookmall.search;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import bookmall.util.CommonUtil;
-
 @Controller
 public class SearchController {
 	
@@ -31,7 +27,6 @@ public class SearchController {
 	public Map<String, Object> search(Model model, SearchVo vo) {
 		
 		Map<String, Object> result = new HashMap<String, Object>();
-
 		// 총 페이지 수
 		int totCount = service.countBook(vo);
 		int totPage = totCount / 10;

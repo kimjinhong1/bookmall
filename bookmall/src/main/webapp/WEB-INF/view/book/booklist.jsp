@@ -216,7 +216,6 @@
                                 	<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a> <br>
                                 	<a id ="listbtn" name="mylistinsert" href="#"><strong>마이리스트 담기</strong> </a>
                                 </td>
-                            </tr>
 							</div>
                         </c:forEach>
                         </c:if>

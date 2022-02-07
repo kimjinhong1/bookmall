@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bookmall.addr.AddrVo;
 import bookmall.book.BookVo;
 import bookmall.cart.CartDto;
 import bookmall.user.UserVo;
@@ -32,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public int addrInsert(AddrListVo vo) {
+	public int addrInsert(AddrVo vo) {
 		return orderDao.addrInsert(vo);
 	}
 	
@@ -57,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<AddrListVo> addrSelect(AddrListVo vo) {
+	public List<AddrVo> addrSelect(AddrVo vo) {
 		return orderDao.addrSelect(vo);
 	}
 
@@ -67,7 +68,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int deleteOrderCart(CartDto vo) {
+	public int deleteOrderCart(int vo) {
 		return orderDao.deleteOrderCart(vo);
 	}
 

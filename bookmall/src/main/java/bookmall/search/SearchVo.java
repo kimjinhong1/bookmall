@@ -20,7 +20,7 @@ public class SearchVo extends CommonVo {
 	private int korea = 0;
 	private int foreign = 1;
 
-	
+
 	public int getBcategoryno() {
 		return bcategoryno;
 	}

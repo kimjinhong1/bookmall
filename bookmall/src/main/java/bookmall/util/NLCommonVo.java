@@ -4,17 +4,10 @@ public class NLCommonVo {
 	private String searchType;
 	private String searchWord;
 	private String searchCategory;
-	private String orderCond;
-	private int startIdx; //limit 시작값
-	private int page; //사용자가 요청한 페이지 
-	private String tablename; // table gubun
-	private int numchoose;
 	
-	public NLCommonVo() {  //초기값 1페이지 
-		page = 1;
-		numchoose = 10;
-	}
-
+	private String searchState;
+	private String searchPay;
+	
 	public String getSearchType() {
 		return searchType;
 	}
@@ -37,6 +30,22 @@ public class NLCommonVo {
 
 	public void setSearchCategory(String searchCategory) {
 		this.searchCategory = searchCategory;
+	}
+
+	public String getSearchState() {
+		return searchState;
+	}
+
+	public void setSearchState(String searchState) {
+		this.searchState = searchState;
+	}
+
+	public String getSearchPay() {
+		return searchPay;
+	}
+
+	public void setSearchPay(String searchPay) {
+		this.searchPay = searchPay;
 	}
 
 	public String getOrderCond() {
@@ -77,5 +86,25 @@ public class NLCommonVo {
 
 	public void setNumchoose(int numchoose) {
 		this.numchoose = numchoose;
+	}
+
+	public int getPageRow() {
+		return pageRow;
+	}
+
+	public void setPageRow(int pageRow) {
+		this.pageRow = pageRow;
+	}
+
+	private String orderCond;
+	private int startIdx; //limit 시작값
+	private int page; //사용자가 요청한 페이지 
+	private String tablename; // table gubun
+	private int numchoose;
+	private int pageRow;
+	
+	public NLCommonVo() {  //초기값 1페이지 
+		page = 1;
+		numchoose = 10;
 	}
 }

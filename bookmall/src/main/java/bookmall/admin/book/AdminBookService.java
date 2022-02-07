@@ -10,9 +10,7 @@ import bookmall.bookcategory.BookCategoryMappingVO;
 public interface AdminBookService {
 
 	List<BookVo> selectList(BookVo vo);
-	List<BookVo> selectAdminList(BookVo vo);
-	int bookCount(BookVo vo);
-	int AdminbookCount(BookVo vo);
+	int count(BookVo vo);
 	int insert(BookVo vo);
 	BookVo selectOne(int bookno);
 	int update(BookVo vo);

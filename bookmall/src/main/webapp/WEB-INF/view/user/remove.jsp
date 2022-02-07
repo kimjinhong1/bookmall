@@ -167,7 +167,12 @@
                 </form>
                 <div class="btnSet clear">
                     <div>
+                    	<c:if test="${userInfo.user_type == 1}">
                     	<a href="javascript:;" class="btn" onclick="goSave();">탈퇴하기</a>
+                    	</c:if>
+                    	<c:if test="${userInfo.user_type != 1}">
+                    	<a href="javascript:;" class="btn" onclick="goSave();">연결끊기</a>
+                    	</c:if>
                     	<a href="javascript:;" class="btn" onclick="history.back();">취소</a></div>
                 </div>
             </div>

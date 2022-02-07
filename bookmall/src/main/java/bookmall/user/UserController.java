@@ -17,6 +17,7 @@ import bookmall.ask.AskService;
 import bookmall.ask.AskVo;
 import bookmall.mylist.MylistService;
 import bookmall.mylist.MylistVo;
+import bookmall.orders.OrderVo;
 import bookmall.recentOrder.RecentOrderService;
 import bookmall.recentOrder.RecentOrderVo;
 import bookmall.util.SendMail;
@@ -51,7 +52,7 @@ public class UserController {
 	// EmailId 중복체크
 	@GetMapping("/user/emailCheck.do")
 	public String emailCheck(Model model, @RequestParam String email) {
-		model.addAttribute("result", service.emailCheck(email)); // 이메일 중복 체크
+		model.addAttribute("result", service.emailCheck(email));  //0 or 1 이 request에 저장
 		return "include/result";
 	}
 	

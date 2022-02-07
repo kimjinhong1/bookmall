@@ -29,10 +29,11 @@ public class OrderVo {
 		private String status;  		//결제/취소/교환/환불/반품 
 		private String imp_uid;			//고유Id
 		private int paid_amount; 		//결제금액
+		private String bookname;		//주문상품이름(대표 1권)
 
 		
 		
-		//DB에는 없다.
+		//DB 없는 상품
 		private int salesprice; 		//판매가
 		private int totalPrice;         //총합 
 		private int bookcount;			//주문수량

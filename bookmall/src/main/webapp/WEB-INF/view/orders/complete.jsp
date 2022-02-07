@@ -58,12 +58,12 @@
           						<td><fmt:formatDate value="${order.order_date}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                  			</tr>
                  			<tr>
-                 			<th scope="row">주문인</th>
-          						<td>${order.name}</td>
+                 			<th scope="row">주문인(수령인)</th>
+          						<td>${order.name}(${order.receiver_name})</td>
                  			</tr>
                  			<tr>
-                 			<th scope="row">수령인</th>
-          						<td>${order.receiver_name}</td>
+                 			<th scope="row">주문상품</th>
+          						<td>${order.bookname}</td>
                  			</tr>
                  			<tr>
 							<th scope="row">배송 주소</th>

@@ -46,11 +46,11 @@
 						<div align="center" style="padding: 0px;">
 							<a href="javascript:detailView('${list.zipcode }', '${list.address }', '${list.address2 }')">선택하기</a>
 						</div>
-					<input type="hidden" name="addrno" value="${list.addrno }">
+					<input type="hidden" name="addno" value="${list.addno }">
 					<input type="hidden" name="zipcode" value="${list.zipcode }">
-					<input type="hidden" name="add1" value="${list.address }">
-					<input type="hidden" name="add2" value="${list.address2 }">
-					<input type="hidden" name="add2" value="${list.division }">
+					<input type="hidden" name="address" value="${list.address }">
+					<input type="hidden" name="address2" value="${list.address2 }">
+					<input type="hidden" name="division" value="${list.division }">
 					</td>
 				</tr>
 			</c:forEach>		
