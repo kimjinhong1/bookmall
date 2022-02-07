@@ -240,11 +240,7 @@ $(function() {
 		         	<tr>
 		         		<td>*상품담기 : </td>
 		         		<td>
-<<<<<<< HEAD
 		         			<a href="javascript:location.href='http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount='+$('#bookcount').val();">바로 구매</a>
-=======
-		         			<a href="#" class="btn btn-secondary"> 바로 구매 &raquo;</a>
->>>>>>> branch 'master' of https://github.com/kimjinhong1/bookmall.git
 				 			<a id ="cartbtn" name="cartinsert" href="#" class="btn btn-primary"> 장바구니 담기 &raquo;</a>
 				 			<a id ="listbtn" name="mylistinsert" href="#" class="btn btn-success"> 마이리스트 담기 &raquo;</a>
 				 		</td>
@@ -290,11 +286,7 @@ $(function() {
 				
 	         	<!-- 구매/장바구니 버튼 시작 -->
 	         	<!-- <div class="butSet clear" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
-<<<<<<< HEAD
 					<a href="javascript:location.href='http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount='+$('#bookcount').val();">바로 구매</a>
-=======
-					<a href="#" class="btn btn-info"> 바로 구매 &raquo;</a>
->>>>>>> branch 'master' of https://github.com/kimjinhong1/bookmall.git
 				 	<a id ="cartbtn" name="cartinsert" href="#" class="btn btn-info"> 장바구니 담기 &raquo;</a>
 				 	<a id ="listbtn" name="mylistinsert" href="#" class="btn btn-info"> 마이리스트 담기 &raquo;</a>
 				</div> -->

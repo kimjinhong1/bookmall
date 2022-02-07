@@ -59,7 +59,7 @@
 	
 	 <!--주문상품 개수 총합  -->
 	<select id="memberbuycount" parameterType="bookmall.user.UserVo" resultType="int">
-		SELECT ifnull(sum(count),0) AS member_buy_count
+		SELECT ifnull(sum(bookcount),0) AS member_buy_count
 		FROM order_detail
 		WHERE orderno
 		IN (SELECT orderno FROM orders WHERE userno = #{userno})
@@ -72,12 +72,11 @@
 			b.isbn AS isbn,
 			b.btitle_first AS btitle_first,
 			b.btitle_second AS btitle_second,
-			od.count AS count,
+			od.bookcount AS bookcount,
 			od.price AS price,
 			o.order_date AS order_date,
 			o.methodOfPayment AS methodOfPayment,
-			o.paymentStatus AS paymentStatus,
-			o.canceledStatus AS canceledStatus
+			o.status AS status,
 		FROM order_detail AS od 
 		LEFT OUTER JOIN book AS b
 			ON  od.bookno = b.bookno

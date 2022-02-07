@@ -98,7 +98,6 @@
    <!-- 관리자  -->
    <sql id = "ordersWhere">
          <if test ="searchType ==''">   
-<<<<<<< HEAD
              and (a.orderno = '${searchWord}' OR name LIKE '%${searchWord}%' OR bookname LIKE '%${searchWord}%' )
          </if>
          <if test ="searchType =='a.orderno' and searchWord != '' and searchWord != null">
@@ -128,37 +127,6 @@
    <select id="totSelect" parameterType="bookmall.admin.orders.OrdersAdminVo" resultType="bookmall.admin.orders.OrdersAdminVo">
       SELECT a.orderno, a.userno, a.name, a.order_date, a.creditCard, a.methodOfPayment, a.paid_amount, a.status, a.receiver_name, a.bookname
             , (select reason from refund where orderno=a.orderno limit 1) reason
-=======
-             and (a.orderno = ${searchWord} OR name LIKE '%${searchWord}%' OR bookname LIKE '%${searchWord}%' )
-         </if>
-         <if test ="searchType =='a.orderno' and searchWord != '' and searchWord != null">
-            and a.orderno = ${searchWord}
-         </if>
-         <if test ="searchType !='a.orderno'">
-            <if test= "searchType != null and searchType != ''">
-                and ${searchType} LIKE '%${searchWord}%'
-            </if>
-         </if>
-         <if test="status != null and status != '' ">  
-            and a.status LIKE #{status}
-         </if>
-         <if test="methodOfPayment != null and methodOfPayment != '' ">
-            and methodOfPayment = #{methodOfPayment}   
-         </if>
-         
-         <!-- 날짜 -->
-         <if test="startDate != null and startDate != '' and endDate != null and endDate != ''"> 
-            and order_date BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'
-         </if>
-         
-   </sql>   
-      
-      
-   <!-- 관리자 주문 전체 목록 -->
-   <select id="totSelect" parameterType="bookmall.admin.orders.OrdersAdminVo" resultType="bookmall.admin.orders.OrdersAdminVo">
-      SELECT a.orderno, a.userno, a.name, a.order_date, a.creditCard, a.methodOfPayment, a.paid_amount, a.status, a.receiver_name, a.bookname
-            , (select reason from refund where orderno=a.orderno) reason
->>>>>>> branch 'master' of https://github.com/kimjinhong1/bookmall.git
       FROM orders a 
       WHERE 1=1
       <include refid = "ordersWhere"/>
