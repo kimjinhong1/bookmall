@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,14 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 </head>
+<c:if test="${param.error == 'access_denied' }">
+<script>
+	alert('필수정보에 동의하셔야 가입가능합니다.');
+	location.href="login.do";
+</script>
+</c:if>
+<c:if test="${param.error != 'access_denied' }">
+
 <body>
 <script type="text/javascript">
 	var naver_id_login = new naver_id_login("KTq9CxuHYQBTJfayX1oz", "http://localhost:8080/bookmall/main.do");
@@ -60,19 +69,18 @@ function naverSignInCallback() {
                           },
 	                  success : function(JSONData){
 	                     alert("회원가입이 정상적으로 되었습니다., 입력되지않은 정보를 입력해주세요");
-	                     window.close();
-	                     top.opener.$("#social").attr("method","POST").attr("action","/bookmall/user/snsLogin/"+identifier).attr("target","_parent").submit();
+	                     //$("#social").attr("method","POST").attr("action","/bookmall/user/snsLogin/"+identifier).submit();
+	                     location.href="/bookmall/user/snsLogin/"+identifier;
 	                  },
 	                  error : function() {
 	                	  alert("꺼져야함");
-	                	  window.close();
 	                  }
 	              })
 	          }
 	          if(idChk==1){ //DB에 아이디가 존재할 경우 => 로그인
 	              console.log("로그인");
-	              window.close();
-	              top.opener.$("#social").attr("method","POST").attr("action","/bookmall/user/snsLogin/"+identifier).attr("target","_parent").submit();
+	              //$("#social").attr("method","POST").attr("action","/bookmall/user/snsLogin/"+identifier).submit();
+	              location.href="/bookmall/user/snsLogin/"+identifier;
 	          }
 	      }
 	      
@@ -84,6 +92,7 @@ function naverSignInCallback() {
 </script>
 <form name="defaultForm">
 </form>
+</c:if>
 
 </body>
 </html>

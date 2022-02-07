@@ -145,7 +145,12 @@
     <%@include file="/WEB-INF/view/include/header.jsp" %>
     	<div class="sub">
             <div class="size">
+            	<c:if test="${userInfo.user_type == 1}">
                 <h3 class="sub_title">회원 탈퇴</h3>
+                </c:if>
+                <c:if test="${userInfo.user_type != 1}">
+                <h3 class="sub_title">회원 연동 해제</h3>
+                </c:if>
                 <form name="frm" id="frm" action="delete.do" method="post">
                 <table class="board_write">
                     <caption>회원 탈퇴</caption>
@@ -155,10 +160,14 @@
                     </colgroup>
                     <tbody>
                     	<c:if test="${userInfo.user_type == 1}">
+                    	<p style="font-size: 17px; text-align: center;">회원 탈퇴 시 기존 정보는 복구되지 않습니다.</p>
                         <tr>
                             <th><small class="star">*</small> 현재 비밀번호 </th>
                             <td><input type="password" name="pwd" id="pwd" style="float:left;" maxlength="50" ><span class="ptxt"><small id="check_pwd" style="font-size: 15px;"></small></span></td>
                         </tr>
+                        </c:if>
+                        <c:if test="${userInfo.user_type != 1}">
+                            <p style="font-size: 17px; text-align: center;">연결을 끊으면 기존 정보는 복구되지 않습니다.</p>
                         </c:if>
                     </tbody>
                 </table>
@@ -167,7 +176,12 @@
                 </form>
                 <div class="btnSet clear">
                     <div>
+                    	<c:if test="${userInfo.user_type == 1}">
                     	<a href="javascript:;" class="btn" onclick="goSave();">탈퇴하기</a>
+                    	</c:if>
+                    	<c:if test="${userInfo.user_type != 1}">
+                    	<a href="javascript:;" class="btn" onclick="goSave();">연결끊기</a>
+                    	</c:if>
                     	<a href="javascript:;" class="btn" onclick="history.back();">취소</a></div>
                 </div>
             </div>

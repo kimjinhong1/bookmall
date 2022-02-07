@@ -370,7 +370,10 @@ public class CommonUtil {
 			return ret;
 			
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/kimjinhong1/bookmall.git
 		
 		
 }

@@ -113,7 +113,11 @@ function delcate(cate) {
 }
 
 function searchBtn(rp) {
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> branch 'master' of https://github.com/kimjinhong1/bookmall.git
 	//if ($("#searchWord").val().trim() == '') {
 	//	alert("검색어를 입력해주세요.");
 	//	return

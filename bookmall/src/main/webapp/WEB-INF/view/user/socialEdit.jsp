@@ -209,6 +209,12 @@
                             <th><small class="star">*</small> 이메일</th>
                             <td>
                                 <span style="color: black;">${user.email }</span>
+                                <c:if test="${userInfo.user_type == 2 }">
+			                		<img alt="카카오아이콘" src="<%=request.getContextPath()%>/img/kakaologo.jpg" width="18" height="16">
+			                	</c:if>
+			                	<c:if test="${userInfo.user_type == 3 }">
+			                		<img alt="네이버아이콘" src="<%=request.getContextPath()%>/img/naverlogo.jpg" width="18" height="16">
+			                	</c:if>
                             </td>
                         </tr>
                         <tr>

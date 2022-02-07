@@ -34,8 +34,13 @@
 	    <li>
 	        <a href="/bookmall/book/mainbook.do?bc=0">국내도서</a>	        
 	    </li>
+<<<<<<< HEAD
 	    <li>
 	        <a href="/bookmall/book/mainbook.do?bc=1">국외도서</a>
+=======
+	    <li>
+	        <a href="/bookmall/book/mainbook.do?bc=1">국외도서</a>
+>>>>>>> branch 'master' of https://github.com/kimjinhong1/bookmall.git
 	    </li>
 	    <li>
 	        <a href="">게시판</a>

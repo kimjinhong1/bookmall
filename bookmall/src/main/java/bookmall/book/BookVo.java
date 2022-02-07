@@ -31,6 +31,7 @@ public class BookVo extends NLCommonVo {
 	private Timestamp regdate;
 	
 	
+	
 
 	private Timestamp moddate;
 	private int salesprice;
@@ -344,8 +345,7 @@ public class BookVo extends NLCommonVo {
 
 	// 도서 목록 정렬
 	private String listOrder;
-
-
+	
 	public String getListOrder() {
 		return listOrder;
 	}
@@ -353,5 +353,40 @@ public class BookVo extends NLCommonVo {
 	public void setListOrder(String listOrder) {
 		this.listOrder = listOrder;
 	}
+	
+	// 도서 리뷰 정보
+	private double review_score;
+	private int review_count;
+
+
+	public double getReview_score() {
+		return review_score;
+	}
+
+	public void setReview_score(double review_score) {
+		this.review_score = review_score;
+	}
+
+	public int getReview_count() {
+		return review_count;
+	}
+
+	public void setReview_count(int review_count) {
+		this.review_count = review_count;
+	}
+	
+	// 도서 판매량 체크
+	private int sales;
+
+
+	public int getSales() {
+		return sales;
+	}
+
+	public void setSales(int sales) {
+		this.sales = sales;
+	}
+	
+	
 	
 }
