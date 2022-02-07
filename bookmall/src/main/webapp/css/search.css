@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+.container {
+	height : auto;
+}
+
+.con_tit {
+	width : 100%;
+	text-align: center;
+	}
+.bbs {
+	display :inline-block;
+	width : 50%;
+	top: 50%;
+    line-height: 1.5;
+    background-color: #b7c4d0;
+}
+
+.initialization {
+	display: inline;
+	float: left;
+}
+
+.category_two {
+	border: 0.5px solid #000;
+	background-color: #fff;
+}
+.category_three {
+	border: 0.5px solid #000;
+	background-color: #fff;
+}
+
+.bcategoryno2_ {
+	text-align :left;
+	border-radius: 30px;
+	background-color: #9dbbdb;
+	color : #fff;
+}
+
+
+.allcate {
+	border: 0.5px dashed #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	color : black;
+}
+/*
+.bbs dt {
+	border: 1px solid gold;
+	float:left;
+	width:30%;
+	padding:10px;
+}
+.bbs dd {
+	border: 1px solid red;
+	width:68%;
+}
+*/
+/*
+.search thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+.search dl dt {
+    width: 10%;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    background: #f3f6f7;
+}
+.search dl dd {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+}*/
+
+/* 검색버튼 */
+
+
+

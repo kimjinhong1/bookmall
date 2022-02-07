@@ -31,18 +31,13 @@
 	padding-bottom: 20px;
 }
 
-.underClendar span{
-	display: inline-block;
-	background-color: white; 
-	width: 70px; 
+
+.underClendar  input {
 	height: 30px; 
-	line-height: 30px;
-	cursor: pointer;
-	
+	background-color: white;
+	border: 1px solid black	;
 }
-.underClendar input {
-	height: 30px; 
-}
+
 
 .findorder input[id="searchbtn"] {
 	display: inline-block; 
@@ -162,6 +157,10 @@
     margin:1%;
 }
 
+.xbtn input {
+	float: right;
+	margin-right: 35px;
+}
 
 
 	

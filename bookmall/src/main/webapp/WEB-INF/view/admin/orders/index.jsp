@@ -82,9 +82,13 @@
 $(document).ready(function(){
     //btn_reset 을 클릭했을때의 함수
     $( "#btn_reset").click(function () {
-        $( "#searchForm" ).each( function () {
-            this.reset();
-        });
+        //$( "#searchForm" )[0].reset();
+        $("#searchType").val("");
+        $("#searchWord").val("");
+        $("input[name='status']").eq(0).prop('checked',true);
+        $("#startDate").val("");
+        $("#endDate").val("");
+        $("input[name='methodOfPayment']").eq(0).prop('checked',true);
     });
 });
 </script>
@@ -121,13 +125,13 @@ $(document).ready(function(){
 									<tr>
 										<th scope="row">검색어</th>
 										<td>
-										<select name="searchType" title="검색을 선택해주세요">
+										<select name="searchType" id="searchType" title="검색을 선택해주세요">
 											<option value="" selected>전체</option>
-											<option value="orderno" <c:if test="${param.searchType==orderno}"></c:if>>주문번호</option>
-											<option value="name" <c:if test="${param.searchType=='name'}"></c:if>>주문자명</option>
-											<option value="bookname" <c:if test="${param.searchType=='bookname'}"></c:if>>주문상품명</option>
+											<option value="a.orderno" <c:if test="${param.searchType=='a.orderno'}">selected</c:if>>주문번호</option>
+											<option value="name" <c:if test="${param.searchType=='name'}">selected</c:if>>주문자명</option>
+											<option value="bookname" <c:if test="${param.searchType=='bookname'}">selected</c:if>>주문상품명</option>
 										</select>
-										<input type="text" name="searchWord" value="${param.searchWord }" title="검색할 내용을 입력해주세요" />
+				 						<input type="text" name="searchWord" id="searchWord" value="${param.searchWord }" title="검색할 내용을 입력해주세요" />
 										</td>
 									</tr>
 									<tr>
@@ -160,10 +164,10 @@ $(document).ready(function(){
 												<input type="button" name="order_date" class="dateM6" value="지난 6개월">
 												&nbsp;&nbsp;
 												<%-- 검색 시작날짜선택 --%> 
-												<input id="startDate" name="startDate" type="date" value="${param.startDate }">
+												<input id="startDate" name="startDate" id="startDate" type="date" value="${param.startDate }">
 												 ~ 
 												<%-- 검색 마지막날짜선택 --%>
-												<input id="endDate" name="endDate" type="date" value="${param.endDate }">
+												<input id="endDate" name="endDate" id="endDate" type="date" value="${param.endDate }">
 											 </div>
 										</td>
 									</tr>
@@ -232,12 +236,14 @@ $(document).ready(function(){
 									<td>${vo.bookname }
 									<td>${vo.name }</td>
 									<td><fmt:formatNumber pattern="###,###,###" value="${vo.paid_amount }" />원</td>
+									<td>
 									<c:if test="${vo.methodOfPayment eq '무통장입금'}">
-										<td>${vo.methodOfPayment }</td>
+										${vo.methodOfPayment }
 									</c:if>
 									<c:if test="${vo.methodOfPayment eq '신용카드'}">
-										<td>${vo.methodOfPayment }(${vo.creditCard })</td>
+										${vo.methodOfPayment }(${vo.creditCard })
 									</c:if>
+									</td>
 									<td>
 									<form name="frm${status.index }" id="frm${status.index }" action="update.do" method="post">
 										<input type="hidden" name="orderno" id="orderno" value="${vo.orderno }"/>
@@ -260,7 +266,7 @@ $(document).ready(function(){
 										</form>
 									</td>
 									<td>
-										사유 : 
+										<p>${vo.reason }</p> 
 									</td>
 									<td class="Sbtn">
 										<span onclick="$('#frm${status.index }').submit();">적용</span>

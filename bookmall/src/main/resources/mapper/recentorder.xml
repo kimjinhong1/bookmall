@@ -7,6 +7,10 @@
 			 <if test= "searchType != null and searchType != ''"> <!-- searchType이 널이 아니고(and) 빈문자열이 아니면 아래 sql이 포함 -->
 			 	and ${searchType} LIKE '%${searchWord}%'
 			 </if>
+		<!-- 날짜 -->
+  		 <if test="startDate != null and startDate != '' and endDate != null and endDate != ''"> 
+  		 	 and order_date BETWEEN '${startDate} 00:00:00' AND '${endDate} 23:59:59'
+         </if>
 		 </where>
 	</sql>
 

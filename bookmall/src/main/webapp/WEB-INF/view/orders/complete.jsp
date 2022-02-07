@@ -101,7 +101,7 @@
 		<br><br>
 		 <!-- 버튼 -->
           	<div class="oBtn">
-          		<a href="javascript:;" class="btn deleteClick">홈으로 가기</a>
+          		<a href="main.do">홈으로 가기</a>
            	</div>			
      </div>
 </div>	

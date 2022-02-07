@@ -25,4 +25,7 @@ public class OrdersAdminVo extends CommonVo {
 	private String startDate;
 	private String endDate;
 	
+	// refund
+	private String reason;
+	
 }

@@ -19,7 +19,7 @@
 <!-- 반품 내역 -->
 	<select id="refundList" resultType="bookmall.refund.RefundVo" parameterType="bookmall.refund.RefundVo">
 	SELECT
-	a.orderno, a.creditCard, a.apply_num, a.imp_uid, a.paid_amount, a.order_date, a.exchangeno,
+	a.orderno, a.creditCard, a.apply_num, a.imp_uid, a.paid_amount, a.order_date,
 	b.refundno, b.reason, b.division, b.regdate, b.receiver_name, b.tel1, b.tel2, b.tel3, b.zipcode,b.addr1, b.addr2, b.pick,b.status, b.orderno
 	FROM orders a , refund b
 	where a.orderno = b.orderno AND a.userno = #{userno} 
@@ -55,7 +55,7 @@
 	<update id="update" parameterType="bookmall.admin.orders.OrdersAdminVo">
 		UPDATE orders SET 
 		status=#{status}
-		WHERE orderno=#{orderno}
+		WHERE orderno=#{orderno}  
 	</update>
 
 	<select id="count" resultType="int" parameterType="bookmall.refund.RefundVo">

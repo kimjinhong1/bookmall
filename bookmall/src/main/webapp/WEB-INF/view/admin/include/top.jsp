@@ -86,11 +86,10 @@ $(window).load(function(){
 						<li><a href="<%=request.getContextPath()%>/admin/review/list.do"><span>리뷰게시판</span></a></li>
 						<li><a href="<%=request.getContextPath()%>/admin/board/ask/index.do"><span>1:1문의</span></a></li>
 						<li><a href="<%=request.getContextPath()%>/admin/board/refund/index.do"><span>반품/교환</span></a></li>
-						<li><a href="<%=request.getContextPath()%>/admin/orders/index.do"><span>주문관리</span></a></li>
 					</ul>
 					</div>
 				</li>
-				<li><a href="<%=request.getContextPath()%>/admin/admin/index.do" class="parent"><span>관리자관리</span></a></li>
+				<li><a href="<%=request.getContextPath()%>/admin/orders/index.do" class="parent"><span>주문관리</span></a></li>
 			</ul>
 		</div>
 		<!--//gnb-->

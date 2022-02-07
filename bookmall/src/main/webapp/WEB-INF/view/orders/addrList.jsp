@@ -4,13 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="/bookmall/css/order.css" />
+<link rel="stylesheet" href="/bookmall/css/com.css" />
+
 <meta charset="UTF-8">
 <title>주소록 목록</title>
 <script>
-	function detailView(zipcode, addr1, addr2) {
+	function detailView(zipcode, address, address2) {
 		window.opener.document.custF.zipcode.value = zipcode;
-		window.opener.document.custF.addr1.value = addr1;
-		window.opener.document.custF.addr2.value = addr2;
+		window.opener.document.custF.addr1.value = address;
+		window.opener.document.custF.addr2.value = address2;
 		//window.opener.document.custF.submit();    //폼 전송
 		self.close();    //자식창 닫기
 	}
@@ -18,45 +22,65 @@
 
 
 </head>
-<body> 
+<body>
 	<div align="center">
 		<hr color="#d3d3d3" width="100%">
 		<h2>배송 주소록</h2>
 		<hr color="#d3d3d3" width="100%">
-	</div>	
-		<form name="f" method="post" align="left" onsubmit="return check();">
-			<b>ㆍ</b>아래의 주소를 클릭하시면 자동으로 주소가 입력됩니다.
-			<a class="button" href="http://localhost:8080/bookmall/addr/addressList.do" target="_blank">주소록 관리</a><br>
-			<b>ㆍ</b>우편번호나 부정확한 주소로 인해 배송 사고가 발생할 위험이 있는 주소는 표시되지 않습니다.
-			<table  style="width:100%; border:0; cellspacing:0; cellpadding:0; class:address_list;">
-				<tbody><tr align="center" bgcolor="F0F0F0">
-					<td style="width:100px" bgcolor="F0F0F0">별칭/이름</td>
-					<td style="width:auto" bgcolor="F0F0F0">배송주소</td>
-					<td style="width:100px">선택하기</td>
-				</tr></tbody>
-			</table>
-			<table>
-			<c:forEach items="${addrlist}" var="list">
-				<tr>
-					<td style="width:100px;" >
-						<a href="javascript:detailView('${list.zipcode }', '${list.address }', '${list.address2 }')">${list.division }</a>
-					<td style="width:540px;" >
-						<a href="javascript:detailView('${list.zipcode }', '${list.address }', '${list.address2 }')"><br>주 소 : ${list.zipcode }<br>${list.address }<br>${list.address2 }<span class="info1"></span></a></td>							
-					<td style="width:100px;" >
-						<div align="center" style="padding: 0px;">
-							<a href="javascript:detailView('${list.zipcode }', '${list.address }', '${list.address2 }')">선택하기</a>
-						</div>
-					<input type="hidden" name="addno" value="${list.addno }">
-					<input type="hidden" name="zipcode" value="${list.zipcode }">
-					<input type="hidden" name="address" value="${list.address }">
-					<input type="hidden" name="address2" value="${list.address2 }">
-					<input type="hidden" name="division" value="${list.division }">
-					</td>
-				</tr>
-			</c:forEach>		
-			</table>
-			<br>
-			<input type="button" value="창닫기" onclick="window.close()">
-		</form>
+	</div>
+	<table style="width:100%; border:0; cellspacing:0; cellpadding:0; class:address_list;">
+	    <colgroup>
+	        <col width="5%" />
+	        <col width="10%" />
+	        <col width="5%"/>
+	    </colgroup>
+		<thead>
+		    <tr>
+		        <th>별칭/이름</th>
+		        <th>주소</th>
+		        <th>전화번호</th>
+		    </tr>
+		</thead>
+		<tbody>
+	    <c:forEach items="${addrlist}" var="list" varStatus="status">
+	        <tr id="board_tr"data-addno="${list.addno}">
+	        	<td>
+		            <input type="hidden" name="division" value="${list.division}" />
+		            <input type="hidden" name="name" value="${list.name}" />
+		            <input type="hidden" name="zipcode" value="${list.zipcode}" />
+		            <input type="hidden" name="address" value="${list.address}" />
+		            <input type="hidden" name="address2" value="${list.address2}" />
+		            <input type="hidden" name="tel1" value="${list.tel1}" />
+		            <input type="hidden" name="tel2" value="${list.tel2}" />
+		            <input type="hidden" name="tel3" value="${list.tel3}" />
+	            </td>
+	        </tr>
+	    </c:forEach>	                  	
+	    	<c:if test="${empty addrlist }">
+                   <tr>
+                       <td class="first" colspan="6">등록된 주소가 없습니다.</td>
+                   </tr> 
+               </c:if>
+	    </tbody>
+			<form name="f" id="addspace" onsubmit="return check();">
+				<c:forEach items="${addrlist}" var="list">
+					<tr class="board_tr" data-addno="${list.addno}"
+						style="cursor: pointer; ">
+						<tr style="font-size: 15px; height: 60px; ">
+						<td><center>
+							<a href="javascript:detailView('${list.zipcode}','${list.address}','${list.address2}')">${list.division}/${list.name}</a> 
+						<center></td>
+						<td><center>
+						<a href="javascript:detailView('${list.zipcode}','${list.address}','${list.address2}')">${list.zipcode}<br>${list.address} ${list.address2}</a> 
+						<center></td>
+						<td><center>${list.tel1}-${list.tel2 }-${list.tel3 }</center></td>
+					</tr>
+				</c:forEach>
+			</form>
+		</tbody>
+	</table>
+	<div class="xbtn">
+		<input type="button" value="창닫기" onclick="window.close()">
+	</div>
 </body>
 </html>

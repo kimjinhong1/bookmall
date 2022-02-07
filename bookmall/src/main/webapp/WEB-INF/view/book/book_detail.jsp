@@ -47,7 +47,7 @@
 			})
 		});
 	</script>
-</head>
+
 <script>
 function goSave() {
     $.ajax({ 
@@ -138,7 +138,7 @@ $(function() {
 			url: '/bookmall/cart/add',
 			type: 'POST',
 			data: {
-				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', salesprice: ${data.salesprice}
+				bookno : ${data.bookno}, btitle_first : '${data.btitle_first}', salesprice: ${data.salesprice}, bookcount:$("#bookcount").val()
 				
 			},
 			success: function(result){
@@ -170,6 +170,7 @@ $(function() {
 	});
 });
 </script>  
+</head>
 <body>
 <div class="wrap"> 	
    	<!-- HEADER 시작 -->
@@ -178,11 +179,11 @@ $(function() {
     <input type="hidden" name="bookno" value="${data.bookno }">
     
     	<!-- 도서 목록 캡션 시작 -->   
-		<hr>
-		<caption>
-		<br><h2>도서 정보</h2>
-		</caption>
-		<hr>
+		
+			<div class="container">
+			<hr>
+				<br><h1>도서 정보</h1>
+			<hr>
         <!-- 도서 목록 캡션 종료 -->
         
         
@@ -192,79 +193,173 @@ $(function() {
 				<img src="/bookmall/upload/${data.bthumb_real }" width="130"><br>
 			</div>
 			
-			<div class="col-md-6">
-				<p><span class="badge badge-danger">>${data.btitle_first}_${data.btitle_second }</span>
-				<p> <b>저자 </b> : ${data.author } 
-				<p> <b>출판사 </b> : ${data.publisher } 
-				<p> <b>출간일 </b> : ${data.pubdate }
-				<p>별점 &nbsp;&nbsp;&nbsp;| 판매 지수 : 500
-				<p> <b>판매가 </b> : ${data.salesprice}
-				<p>
-				수량 선택 : 
-	         	<input type="button" name="minusCount" id="minusCount" value="-" class="">
-	         		<input type="text" name="bookcount" id="bookcount" value="1" readonly>
-	         	<input type="button" name="plusCount" id="plusCount" value="+" class="" >
-			  	<p>
-				 	<a href="#" class="btn btn-info"> 바로 구매 &raquo;</a>
-				 	<a id ="cartbtn" name="cartinsert" href="#"> 장바구니 담기 &raquo;</a>
-				 	<a id ="listbtn" name="mylistinsert" href="#"> 마이리스트 담기 &raquo;</a>
-			</div>
-			
-			
-         	
-         	<a></a><br>
-         	<a></a><br>
-         	<hr>
-         	<a></a><br>
-         	
-         	<hr>
-         	<a></a>
-         </div>	
-         <!-- 도서 기본 정보 종료 -->
-         
-         	<!-- 구매/장바구니 버튼 시작 -->
-         	<div class="butSet clear">
-				<div class="buyBtn">
-					<a href="javascript:location.href='http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount='+$('#bookcount').val();">바로 구매</a>
-					<a id ="cartbtn" name="cartinsert" href="#">장바구니 담기</a>
-					<a id ="listbtn" name="mylistinsert" href="#">마이리스트 담기</a>
+			<div class="col-md-6" style="width: 750px; height: 635px; float: right; padding-top: 10px; text-align: center;" >
+				<table style="float: left; width: 750px; height: 635px; ">
+					<tr style="padding-top: 3px; padding-left: 5px;">
+						<td>*도서명 : </td>
+						<td><b>${data.btitle_first }</b>&nbsp;${data.btitle_second }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*저자 : </td>
+						<td>${data.author }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*출판사 : </td>
+						<td>${data.publisher }</td>
+					</tr>
+					<c:if test="${data.translator ne '' }">
+					<tr style="padding-top: 3px;">
+						<td>*번역가 : </td>
+						<td>${data.translator }</td>
+					</tr>
+					</c:if>
+					<tr style="padding-top: 3px; ">
+						<td>*출간일 : </td>
+						<td>${data.pubdate }</td>
+					</tr>
+					<tr style="padding-top: 3px; ">
+						<td>*별점 : </td>
+						<td>${data.review_score }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*판매 지수 : </td>
+						<td>${data.sales }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*판매가 : </td>
+						<td>${data.salesprice }&nbsp;원</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*수량선택 : </td>
+						<td>
+							<input type="button" name="minusCount" id="minusCount" value="-" class="">
+		         			<input type="text" name="bookcount" id="bookcount" value="1" style="text-align: center;"readonly>
+		         			<input type="button" name="plusCount" id="plusCount" value="+" class="" >	
+		         		</td>
+		         	</tr>
+		         	<tr>
+		         		<td>*상품담기 : </td>
+		         		<td>
+		         			<a href="javascript:location.href='http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount='+$('#bookcount').val();">바로 구매</a>
+				 			<a id ="cartbtn" name="cartinsert" href="#" class="btn btn-primary"> 장바구니 담기 &raquo;</a>
+				 			<a id ="listbtn" name="mylistinsert" href="#" class="btn btn-success"> 마이리스트 담기 &raquo;</a>
+				 		</td>
+				 	</tr>
+				</table>
+				<%-- <div class="btitle" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<p align="left"><font size="6em"><b>${data.btitle_first }</b></font> &nbsp;&nbsp;&nbsp;<font size="3em">${data.btitle_second }</font>
 				</div>
+				
+				<div class="author" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<p align="left"><font size="6em"><b>저자 :  </b></font><font size="3em"> ${data.author }</font> 
+				</div>
+				
+				<div class="publisher" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<p align="left"><font size="6em"><b>출판사 : </b></font><font size="3em"> ${data.publisher }</font> 
+				</div>
+				
+				<div class="pubdate" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<p align="left"><font size="6em"><b>출간일 : </b></font><font size="3em"> ${data.pubdate }</font> 
+				</div>
+				
+				<div class="review_score" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<p align="left"><font size="6em"><b>별점 : </b></font> &nbsp;&nbsp;&nbsp;
+					<font size="3em"> ${data.review_score }</font> 
+				</div>
+				
+				<div class="sales" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<p align="left"><font size="6em"><b>판매 지수 : </b></font> &nbsp;&nbsp;&nbsp;
+					<font size="3em"> ${data.sales }&nbsp;권</font> 
+				</div>
+				
+				<div class="salesprice" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<p align="left"><font size="6em"><b>판매가 : </b></font><font size="3em" style="color:red;"> ${data.salesprice }&nbsp;원</font> 
+				</div>
+				
+				<div class="bookCountBtn" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px; padding-bottom: 20px;">
+					<p align="left"><font size="6em"><b>수량 선택 : </b></font> &nbsp;&nbsp;&nbsp; 
+		         		<input type="button" name="minusCount" id="minusCount" value="-" class="">
+		         		<input type="text" name="bookcount" id="bookcount" value="1" readonly>
+		         		<input type="button" name="plusCount" id="plusCount" value="+" class="" >	
+				</div> --%>
+				
+				
+	         	<!-- 구매/장바구니 버튼 시작 -->
+	         	<!-- <div class="butSet clear" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+					<a href="javascript:location.href='http://localhost:8080/bookmall/order1.do?bookno=${data.bookno }&bookcount='+$('#bookcount').val();">바로 구매</a>
+				 	<a id ="cartbtn" name="cartinsert" href="#" class="btn btn-info"> 장바구니 담기 &raquo;</a>
+				 	<a id ="listbtn" name="mylistinsert" href="#" class="btn btn-info"> 마이리스트 담기 &raquo;</a>
+				</div> -->
+				<!-- 구매/장바구니 버튼 종료 -->
 			</div>
-         	<!-- 구매/장바구니 버튼 종료 -->
+         	<!-- 도서 기본 정보 종료 -->
          	
          	<!-- 도서 정보/리뷰/배송환불 이동 버튼 시작 -->
-			<div class="viewSet clear">
-				<div class="viewBtn">
-					<a href="#bookDetailInfo" class="btn">도서 정보</a>
-					<a href="#bookReviewInfo" class="btn">리뷰</a>
-					<a href="#bookDeliveryInfo" class="btn">배송/반품/교환</a>
-				</div>
+         	
+         	<hr>
+			<div class="infoMoveBtn" style="width: 1200px; height: 40px; float: center; ">
+				<ul class="viewBtn">
+					<li>
+						<a href="#bookDetailInfo">도서 정보</a>
+					</li>
+					<li>
+						<a href="#bookReview">리뷰</a>
+					</li>
+					<li>
+						<a href="#bookDeliveryInfo">배송/반품/교환</a>
+					</li>
+				</ul>
 			</div>
+			<hr>
+			
 			<!-- 도서 정보/리뷰/배송환불 이동 버튼 종료 -->
 			
 			<!-- 도서 상세 정보 시작 -->
 			<a name="bookDetailInfo"></</a>
-         	<div class="bookDetailInfo">
-         		<a><h2>품목 정보</h2></a><br>
-         		<a>출간일 : ${data.pubdate }</a><br>
-         		<a>쪽수, 무게, 크기 : ${data.bpages }쪽 | ${data.bweight }g | ${data.bwidth } * ${data.bvertical } * ${data.bheight }mm </a><br>
-         		<a>ISBN13 : ${data.isbn }</a><br>
-         		
-         		<a><h2>관련 분류</h2></a><br>
-         		<c:forEach items="${list }" var="cate">
-	         		<c:if test="${data.classify eq 0}">국내도서 ></c:if>
-	         		<c:if test="${data.classify eq 1}">국외도서 ></c:if>
-	         		${cate.parentname} >	
-         			${cate.bcategoryname }<br>
-         		</c:forEach>
+			<a><h2>품목 정보</h2></a><br>
+			
+         		<table class="bookDetailInfo">
+	         		<tr>
+	         			<td>출간일</td>
+	         			<td>${data.pubdate }</td>
+	         		</tr>
+	         		<tr>
+	         			<td>쪽수</td>
+	         			<td>${data.bpages }&nbsp; 쪽</td>
+	         		</tr>
+	         		<tr>
+	         			<td>무게</td>
+	         			<td>${data.bweight }&nbsp; g</td>
+	         		</tr>
+	         		<tr>
+	         			<td>크기</td>
+	         			<td>${data.bwidth } * ${data.bvertical } * ${data.bheight }&nbsp;mm</td>
+	         		</tr>
+	         		<tr>
+	         			<td>ISBN13</td>
+	         			<td>${data.isbn }</td>
+	         		</tr>
+	         		<tr>
+	         			<td>관련 분류</td>
+	         			<td><c:forEach items="${list }" var="cate">
+				         		<c:if test="${data.classify eq 0}">국내도서 ></c:if>
+				         		<c:if test="${data.classify eq 1}">국외도서 ></c:if>
+				         		${cate.parentname} >	
+			         			${cate.bcategoryname }<br>
+			         		</c:forEach>
+			         	</td>
+			         </tr>
+         		</table>
          		<hr>
          		
-         		<a><h2>책 소개</h2></a><br>
+         		<a><h2>도서 소개</h2></a><br>
+         		<hr>
          		<div class="bookInfo">
          			${data.bintroduce }
          		</div>
-				<hr>
+				
 				<a><h2>목차</h2></a>
+				<hr>
 				<div class="bookIndex">
 					${data.bindex }
 				</div>         	
@@ -278,6 +373,7 @@ $(function() {
 				</div>
 				<div id="bookReview" class="bbs">
 				</div>
+				
 				<div class="bbs">
 					<c:if test="${!empty userInfo}">
                     <form method="post" name="frm" id="frm" action="" enctype="multipart/form-data" >
@@ -309,22 +405,54 @@ $(function() {
                       </form>
                     </c:if> 
                  </div> 
+                 
+                <!-- 배송/반품/교환 시작 -->
+                <a name="bookDeliveryInfo"></</a>
+                <a><h2>배송/반품/교환 안내</h2></a>
+         		<table class="bookDelivery">
+	         		<span style="color:blue">배송 안내</span>
+		         		<tr>
+		         			<td>배송 구분</td>
+		         			<td>김가네 배송 / 배송비 : 무료배송</td>
+		         		</tr>
+		        </table>
+		        <table class="bookDelivery">
+					<span style="color:blue">반품 안내</span>
+						<tr>
+							<td>반품 방법</td>
+							<td>마이페이지 > 반품 신청</td>
+						</tr>
+						<tr>
+							<td>반품 가능기간</td>
+							<td>출고 완료 후 10일 이내의 주문 상품</td>
+						</tr>
+						<tr>
+							<td>반품 비용</td>
+							<td>김가네에서 반품 비용 전액 부담</td>
+						</tr>
+				</table>
+				<table class="bookDelivery">
+					<span style="color:blue">교환 안내</span>
+						<tr>
+							<td>교환 방법</td>
+							<td>마이페이지 > 교환 신청</td>
+						</tr>
+						<tr>
+							<td>교환 가능기간</td>
+							<td>출고 완료 후 10일 이내의 주문 상품</td>
+						</tr>
+						<tr>
+							<td>교환 비용</td>
+							<td>김가네에서 교환 비용 전액 부담</td>
+						</tr>
+         		</table>
+         			
+         		 <!-- 배송/반품/교환 종료-->  
          	</div>
-         	
          	<!-- 도서 상세 정보 종료 -->
          	
-         	<!-- 배송/반품/교환 시작 -->
-         	<a name="bookDeliveryInfo"></</a>
-         	<div class="bookDelivery">
-         		<a><h2>배송/반품/교환</h2></a>
-         		<span style="color:blue">배송 안내</span><br>
-         			배송 시 주의 사항<br>
-         		<span style="color:blue">반품 안내</span><br>
-         			반품 시 주의 사항<br>
-         		<span style="color:blue">교환 안내</span><br>
-         			교환 시 주의 사항<br>
+ 
          	</div>
-         </div>
  
         <!-- FOOTER 시작 -->
         <%@ include file="/WEB-INF/view/include/footer.jsp" %>

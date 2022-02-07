@@ -1,0 +1,164 @@
+
+.addr {
+    width:100%;
+    margin : 0 auto;
+    align-content: center;
+}
+.addr hr {
+	background-color:#5f7994;
+	width:100%;
+	
+}
+
+.addr h2 {
+	font: bold;
+	
+}
+
+.addrform form {
+	align-content:left;
+}
+
+.box {
+	text-align: center;
+	line-height: 1.5;
+	margin: 5px 0px 0px 0px;
+	font-size: 15px;
+	border: 0.5px solid #5f7994;
+}
+
+.list {
+	text-align: center;
+	line-height: 1.5;
+	margin: 5px 0px 0px 0px;
+	font-size: 15px;
+	border: 0.5px solid #5f7994;
+}
+
+
+
+.orders > .orders_visual {
+	position:relative;
+	background-size: cover;
+}
+
+.orders > .orders_visual span {
+	color:red;
+}
+
+.username {
+	text-align:center;
+	font-size:35px;
+	line-height:100px;
+	color:black;
+	width:100%;
+	padding-top: 50px;
+}
+
+.orders {
+    position: relative;
+}
+
+.orders > .size {
+	width: 1200px;
+	margin: 0 auto;
+	font-size: 15px;
+}
+
+.size p {
+	font-weight: bold;
+}
+
+.size font {
+	color: #cc3333;
+}
+
+.list {
+	border-collapse: collapse;
+	text-align: center;
+	line-height: 1.5;
+	margin: 5px 0px 0px 0px;
+	font-size: 15px;
+	border: 0.5px solid #5f7994;
+	width: 1200px;
+	
+}
+
+.list thead {
+	background: #fff;
+	color: white;
+	height:20px;
+}
+
+.list thead th {
+	padding: 5px;
+	font-weight: normal;
+	vertical-align: top;
+	color: #ffffff;
+	background-color: #5f7994;
+	border-bottom: black;
+}
+
+.list td {
+	padding: 2px;
+	max-width: 100px;
+	overflow: hidden;
+	vertical-align: middle;
+	color: black;
+}
+
+.orders > .size2 {
+	width: 1200px;
+	margin: 0 auto;
+	font-size: 15px;
+	text-align: left;
+}
+
+.size2 p {
+	font-weight: bold;
+}
+
+.size2 font {
+	color: #f2291f;
+}
+
+.list2 {
+	border-collapse: collapse;
+	text-align: left;
+	line-height: 1.5;
+	margin: 5px 0px 0px 0px;
+	font-size: 15px;
+	border: 0.5px solid #808080;
+	width: 1200px;
+}
+
+.list2 thead th {
+	padding: 5px;
+	border-bottom: black;
+	font-weight: normal;
+	padding-left: 14px;
+	color: #ffffff;
+	background-color: #5f7994;
+}
+
+.list2 td {
+	padding-left: 14px;
+}
+
+/* 무통장입금 클릭 시 계좌번호/입금자명 나오기 */
+.bank {
+	display: none;
+	margin: 10px 0px 0px 0px;
+}
+
+.oBtn {
+	text-align: center;
+	
+}
+
+
+
+
+
+
+

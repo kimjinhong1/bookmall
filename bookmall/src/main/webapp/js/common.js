@@ -8,8 +8,8 @@ $(function() {
 	
        
 	//퀵메뉴
-	var quick_left = $(".menu > ul:first-child").position().left + 1200;
-	var quick_top = $(".menu > ul:first-child").position().top + 40;
+	var quick_left = $(".menu > ul:first-child").position().left + 1350;
+	var quick_top = $(".menu > ul:first-child").position().top + 10;
 	//console.log(quick_left);
 	$(".quickMenu").css({
 	    top : quick_top,
@@ -56,7 +56,7 @@ function setEditor(holder){
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
 		elPlaceHolder: holder,
-		sSkinURI: "/project/smarteditor/SmartEditor2Skin.html",	
+		sSkinURI: "/bookmall/smarteditor/SmartEditor2Skin.html",	
 		htParams : {
 			bUseToolbar : true,				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 			bUseVerticalResizer : true,		// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)

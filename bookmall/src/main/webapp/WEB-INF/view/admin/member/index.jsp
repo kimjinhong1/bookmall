@@ -66,9 +66,9 @@ function detail_Btn(clicked_id){
 					    </tbody>
 					</table>
 					</form>
-					<h3 style="font-size:20px; margin-left: 160px; margin-bottom: 10px">회원 목록 </h3>
+					<h3 style="font-size:20px; margin-left: 220px; margin-bottom: 10px">회원 목록 </h3>
 					<hr style="width: 75%; margin-left: auto; margin-right: auto;">
-					<p style="margin-left: 160px; margin-top: 40px; margin-bottom: 1px;">
+					<p style="margin-left: 220px; margin-top: 40px; margin-bottom: 1px;">
 					<span >
 						<strong>
 							총 회원수 : ${totCount }명

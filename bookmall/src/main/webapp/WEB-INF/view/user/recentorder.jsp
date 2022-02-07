@@ -37,21 +37,44 @@
 				$("#hiddenList01").slideDown();
 			}
 		});
-		//선언한 TextBox에 DateTimePicker 위젯을 적용
-		$('#fromDate').datetimepicker({
-			language : 'ko', // 화면에 출력될 언어를 한국어로 설정
-			pickTime : true, // 사용자로부터 시간 선택을 허용하려면 true를 설정하거나 pickTime 옵션 생략
-			defalutDate : NOW()
-		// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션 생략
-		});
-
-		$('#toDate').datetimepicker({
-			language : 'ko',
-			pickTime : true,
-			defalutDate : new Date()
-		// 기본값으로 오늘 날짜를 입력한다. 기본값을 해제하려면 defaultDate 옵션 생략
-		});
 		
+		
+		$(".date7").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date2 = date.getTime() - (7 * 24 * 60 * 60 * 1000);
+            date.setTime(date2);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
+		$(".dateM1").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date3 = date.getTime() - (30 * 24 * 60 * 60 * 1000);
+            date.setTime(date3);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
+		$(".dateM3").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date4 = date.getTime() - (60 * 24 * 60 * 60 * 1000);
+            date.setTime(date4);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
+		$(".dateM6").click(function() {
+			var date = new Date();
+	        var today = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+	        var date5 = date.getTime() - (180 * 24 * 60 * 60 * 1000);
+            date.setTime(date5);
+            var result = date.getFullYear() + "-" + ("0" + (date.getMonth()+1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+            $("#startDate").val(result);
+            $("#endDate").val(today);
+		})
 	});
 </script>
 
@@ -69,21 +92,16 @@
 		<div class="calendar">
 			※최근 1년간 주문내역을 조회하실 수 있습니다.<br> <br>
 			<div class="underClendar">
-			
-				<button name="search" class="date_range d-7" onclick="javascript:changeDt(7,0)"><span>최근1주일</span></button>
-				<button name="search" class="date_range m-1" onclick="javascript:changeDt(30,0)"><span>1개월</span></button>
-				<button name="search" class="date_range m-3" onclick="javascript:changeDt(60,0)"><span>3개월</span></button>
-				<button name="search" class="date_range m-6" onclick="javascript:changeDt(180,0)"><span>6개월</span></button>
-				
+				<input type="button" name="order_date" class="date7" value="최근1주일">
+				<input type="button" name="order_date" class="dateM1" value="지난 1개월">
+				<input type="button" name="order_date" class="dateM3" value="지난 3개월">
+				<input type="button" name="order_date" class="dateM6" value="지난 6개월">
 				&nbsp;&nbsp;
-
-			<%-- 검색 시작날짜선택 --%> 				
-			<th><input id="startDate" type="date"></th>
-			
+			<%-- 검색 시작날짜선택 --%> 
+			<th><input id="startDate" name="startDate" type="date" value="${param.startDate }"></th>
 			 ~ 
 			 <%-- 검색 마지막날짜선택 --%>
-			 <th><input id="endDate" type="date"></th>
-			
+			 <th><input id="endDate" name="endDate" type="date" value="${param.endDate }"></th>
 			</div><br>
 			<div class=findorder>
 				<td><select name="searchType" id="searchType" style="width: 100px; height: 35px; ">

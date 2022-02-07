@@ -145,7 +145,8 @@ $(function(){
             $("#receiver_phone").focus();
             return false;
          }
-      }
+      }  
+         
 </script>
 
 <!-- 결제방법선택 -->
@@ -162,13 +163,19 @@ $(function(){
 
 <script>
    $(function() {
+	   showSelect('무통장입금');
       $(".orderBtn").click(function() {
          var con = addressCheck();
          if (con == false) return;
-         if ($("input[name='methodOfPayment']:checked").val() == "신용카드") {
-            requestPay();
-         } else { 
-        	 $.ajax({
+         if ($("input[name='methodOfPayment']:checked").val() == "무통장입금") {
+        	 console.log("nameOfDepositor:"+$("#nameOfDepositor").val());
+             if ($("#nameOfDepositor").val()=='') {
+        	 	alert('입금자명을 입력해 주세요');
+             
+             	$("#nameOfDepositor").focus();
+	             return false;
+             }
+             $.ajax({
                  url: 'orderInsertAjax.do', // 예: https://www.myservice.com/payments/complete
                  method: "POST",
                  data : $("#frm").serialize(),
@@ -181,6 +188,8 @@ $(function(){
                  	}
                   }
              });
+         } else if ($("input[name='methodOfPayment']:checked").val() == "신용카드") {
+            requestPay();
          }
             
       })
@@ -243,7 +252,6 @@ $(function(){
 					</table>
 					<!-- 예상총액/장바구니 이동버튼 -->
 					<p>총 결제 예상 금액(총 수량) :<font><fmt:formatNumber pattern="###,###,###" value="${sum }"/>원 (총 ${param.bookcount}권)</font></p>
-					<p style="text-align:right; float:right"><a href="/bookmall/cart.do?userno=${loginUser.userno }"><strong>장바구니로 돌아가기</strong></a></p>
 				</div>
 			</div>     
 			<br><br>
@@ -303,11 +311,11 @@ $(function(){
 		            <!-- 결제수단 -->
 		            <section>
 		               <fieldset>
-		                  <input type="radio" name="methodOfPayment" id="bank" value="무통장입금" onclick="showSelect(this.value)">무통장입금
+		                  <input type="radio" name="methodOfPayment" id="bank" value="무통장입금" onclick="showSelect(this.value)" checked>무통장입금
 		                  <input type="radio" name="methodOfPayment" id="card" value="신용카드" onclick="showSelect(this.value)">신용카드
 		                  <div class="bank" id="settle_bank">
 		                     <label>입금 계좌번호 :</label><input type="hidden" name="bankToDeposit" id="bankToDeposit" value="국민은행 658102-01-312772 bookmall">국민은행 658102-01-312772 bookmall<br>
-		                     <label>입금자명</label><input type="text" name="nameOfDepositor" id="nameOfDepositor">
+		                     <label> *입금자명</label><input type="text" name="nameOfDepositor" id="nameOfDepositor">
 		                  </div>
 		               </fieldset>
 		            </section>
@@ -315,7 +323,7 @@ $(function(){
             	</div>
             </div> 
             <div class="oBtn">
-               <button class="orderBtn">결제하기</button>
+               <button class="orderBtn">결제하기</button>  
             </div>
 		</div>
 	</div>
@@ -338,7 +346,7 @@ $(function(){
          https://docs.iamport.kr/implementation/payment 참고
          --%>
          name: "${result.btitle_first } : ${result.btitle_second }",  	 //상품명
-         amount: ${result.salesprice },      							 // 가격 ${result.salesprice }
+         amount: ${sum },      							 // 가격 ${result.salesprice }
          buyer_email: '${loginUser.email }',							 // 이메일
          buyer_name: '${loginUser.name }',      						 // 이름
          buyer_tel: '${loginUser.tel }',        						 // 연락처
