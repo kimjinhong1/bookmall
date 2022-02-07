@@ -28,11 +28,21 @@ public class AdminBookDao {
 		return sqlSession.selectList("book.selectList", vo);
 	}
 	
-	// 도서 갯수 카운팅
-	public int count(BookVo vo) {
-		return sqlSession.selectOne("book.count",vo);
+	// (관리자) 도서 리스트 출력
+	public List<BookVo> selectAdminList(BookVo vo) {
+		return sqlSession.selectList("book.selectAdminList", vo);
 	}
-
+	
+	// 도서 갯수 카운팅
+	public int bookCount(BookVo vo) {
+		return sqlSession.selectOne("book.bookCount", vo);
+	}
+	
+	// (관리자) 도서 갯수 카운팅
+	public int AdminbookCount(BookVo vo) {
+		return sqlSession.selectOne("book.AdminbookCount", vo);
+	}
+	
 	// 도서 등록
 	public int insert(BookVo vo) {
 		int r = -1;
@@ -96,4 +106,5 @@ public class AdminBookDao {
 	public int insertMapping(BookCategoryMappingVO vo) {
 		return sqlSession.insert("book.insertMapping", vo);
 	}
+	
 }

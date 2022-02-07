@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import bookmall.book.BookVo;
 import bookmall.user.UserVo;
 
 public class CommonUtil {
@@ -287,6 +288,85 @@ public class CommonUtil {
 			}
 			// div 태그 종료
 			ret += "                    </div>";
+			return ret;
+			
+		}
+		
+		// 도서 목록 페이징
+		public static String getBookListPageArea(String url, int curPage, int totPage, int pageRange, BookVo vo) {
+			// 페이지범위 
+			int startPage = (curPage - 1) / pageRange * pageRange + 1; // 시작페이지 
+			int endPage = startPage + pageRange - 1; // 종료페이지 
+			if (endPage > totPage) 
+				endPage = totPage;
+			
+			String ret = "";
+			ret += " <div class=\"page\">\r\n";
+			
+			if (startPage > pageRange) {
+				ret += "<a href=\""+url+"?bc="+vo.getBclassify()+"&blev="+vo.getBlevel()+"&cano="+vo.getBcategoryno()+"&page="+(startPage-1)+"&numchoose="+vo.getNumchoose()+"\"> < </a>\r\n";
+			}
+			
+			// 1~10 , 11~20.. 페이지번호 나열
+			for (int rp = startPage; rp <= endPage; rp++) {
+				if (rp == curPage) {
+					ret += "<strong>" + rp + "</strong>";
+				} else {
+					if(vo.getSearchWord() == null || vo.getSearchWord().equals("")) {
+						ret += "<a href='javascript:location.href=\""+url+"?bc="+vo.getBclassify()+"&blev="+vo.getBlevel()+"&cano="+vo.getBcategoryno()+"&page="+rp+"&numchoose="+vo.getNumchoose()+"\";'";
+					} else {
+						ret += "<a href='javascript:location.href=\""+url+"?bc="+vo.getBclassify()+"&blev="+vo.getBlevel()+"&cano="+vo.getBcategoryno()+"&page="+rp+"&numchoose="+vo.getNumchoose()+"&searchWord="+vo.getSearchWord()+"\";'";
+					}
+						ret += ">" + rp + "</a>\r\n";
+				}
+			}
+			
+			if (totPage > endPage) {
+				ret += "<a href=\""+url+"?bc="+vo.getBclassify()+"&blev="+vo.getBlevel()+"&cano="+vo.getBcategoryno()+"&page="+(endPage+1)+"&numchoose="+vo.getNumchoose()+"\"> > </a>\r\n";
+			}
+
+			ret += "</ul>\r\n"
+				+ "</div>";
+			
+			return ret;
+		}
+		
+		// (관리자) - 도서 목록 페이징
+		public static String getAdminBookListPageArea(String url, int curPage, int totPage, int pageRange, BookVo vo) {
+			// 페이지범위 
+			int startPage = (curPage - 1) / pageRange * pageRange + 1; // 시작페이지 
+			int endPage = startPage + pageRange - 1; // 종료페이지 
+			if (endPage > totPage) 
+				endPage = totPage;
+			
+			String ret = "";
+			ret += " <div class=\"page\">\r\n";
+			
+			if (startPage > pageRange) {
+				ret += "<a href=\""+url+"?page="+(startPage-1)+"\"> < </a>\r\n";
+			}
+			
+			// 1~10 , 11~20.. 페이지번호 나열
+			for (int rp = startPage; rp <= endPage; rp++) {
+				if (rp == curPage) {
+					ret += "<strong>" + rp + "</strong>";
+				} else {
+					if(vo.getSearchWord() == null || vo.getSearchWord().equals("")) {
+						ret += "<a href='javascript:location.href=\""+url+"?page="+rp+"\";'";
+					} else {
+						ret += "<a href='javascript:location.href=\""+url+"?page="+rp+"&searchType="+vo.getSearchType()+"&searchWord="+vo.getSearchWord()+"\";'";
+					}
+						ret += ">" + rp + "</a>\r\n";
+				}
+			}
+			
+			if (totPage > endPage) {
+				ret += "<a href=\""+url+"?page="+(endPage+1)+"\"> > </a>\r\n";
+			}
+
+			ret += "</ul>\r\n"
+				+ "</div>";
+			
 			return ret;
 			
 		}

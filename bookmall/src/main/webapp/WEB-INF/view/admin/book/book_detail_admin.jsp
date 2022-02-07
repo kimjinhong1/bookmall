@@ -30,8 +30,8 @@
 				<div class="con">
 					<!-- 내용 : s -->
 						<div class="container">
-							<div class="bbs">
-								<p>현재 재고 수 : ${data.bstack }
+							<div class="bbs" >
+								<p><h3>현재 재고 수 : ${data.bstack }</h3></p> <br>
 								<a href="update.do?bookno=${data.bookno}" class="btn btn-warning"> 수정하기 &raquo;</a>
 								<form name="frm" id="frm" action="delete.do" method="post" enctype="multipart/form-data">
 									<input type="hidden" name="bookno" value="${data.bookno }">
@@ -39,40 +39,59 @@
 								</form>
 							</div>
 							<div class="row">
-								<div class="col-md-5">
-									<img src="" style="width: 300px; height: 500px;">
+								<div class="col-md-5" style="border: 1px; width: 400px; height: 635px; float: left; padding-top: 10px; margin-right: 10px;">
+									<img src="/bookmall/upload/${data.bthumb_real }" style="width: 300px; height: 500px;">
 								</div>
-								<div class="col-md-6">
-									<h3>ISBN : ${data.isbn }</h3>   
-									<p>도서명 : ${data.btitle_first } ${data.btitle_second }
-									<p>저자 : ${data.author }
+								<div class="col-md-6" style="width: 800px; height: 635px; float: left; padding-top: 10px;">
+								<div class="isbn" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>ISBN :</b> ${data.isbn }</font>
+								</div>
+								<div class="btitle" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>도서명 : </b></font><font size="3em"><b>${data.btitle_first }</b>&nbsp;&nbsp;&nbsp;${data.btitle_second }</font>
+								</div>
+								<div class="author" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>저자명 :</b> ${data.author }</font>
 									<c:if test="${data.translator ne ''} ">
-										<p>번역가 : ${data.translator }
+										<p align="left"><font size="6em"><b>번역가 :</b> ${data.translator }</font>
 									</c:if>
-									<p>출판사 : ${data.publisher }
-									<p>가격 : ${data.price }
-									<p>판매가 : ${data.salesprice }
-									<p>도서분류 : <c:if test="${data.classify eq 0}"> 국내도서 </c:if> <c:if test="${data.classify eq 1}"> 국외도서</c:if>
-									<p>카테고리 : <br>
-									<c:forEach items="${list }" var="cate">
-						         		&nbsp;&nbsp;&nbsp;${cate.parentname} >	
-					         			${cate.bcategoryname }<br>
-					         		</c:forEach>
-									<p>페이지수 : ${data.bpages }쪽
-									<p>무게 : ${data.bweight }(g)
-									<p>크기 : ${data.bwidth } * ${data.bvertical } * ${data.bheight } (mm)				
 								</div>
+								<div class="publisher" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>출판사 :</b> ${data.publisher }</font>
+								</div>
+								<div class="price" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>가격 :</b> ${data.price }</font>
+								</div>
+								<div class="salesprice" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>판매가 :</b> ${data.salesprice }</font>
+								</div>
+								<div class="bookInfo" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>도서 규격 : </b></font>
+									<font size="3em">
+											${data.bpages }&nbsp;(쪽) |&nbsp;&nbsp; ${data.bweight }&nbsp;(g) |&nbsp;&nbsp; ${data.bwidth } * ${data.bvertical } * ${data.bheight }&nbsp;(mm)
+									</font>
+								</div>		
+								<div class="catego" style="width: 750px; height: 30px; padding-top: 15px; padding-left: 20px;">
+									<p align="left"><font size="6em"><b>카테고리 : </b> </font>
+									<div class="cateInfo" style="width: 750px; height: 30px; padding-top: 5px; padding-left: 20px;">
+										<font size="3em">
+											<c:forEach items="${list }" var="cate">
+											<c:if test="${data.classify eq 0}">국내도서 ></c:if>
+				         					<c:if test="${data.classify eq 1}">국외도서 ></c:if>
+							         		&nbsp;&nbsp;${cate.parentname} >	
+						         			${cate.bcategoryname }<br>
+						         		</c:forEach>
+										</font>
+									</div>
+								</div>
+									
+								</div><div style="clear:both;"></div>
 								<div class="bintroduce">
-									<p>도서 소개<hr>
-									<textarea name="bintroduce" id="bintroduce" style="width:100%;" readonly>
+									<p><h3>도서 소개</h3><hr>
 										${data.bintroduce }
-									</textarea>
 								</div>
-								<div class="bindex">
-									<p>도서 목차<hr>
-									<textarea name="bindex" id="bindex" style="width:100%;" readonly>
+								<div class="bindex" style="padding-top: 10px;">
+									<p><h3>도서 목차</h3><hr>
 										${data.bindex }
-									</textarea>
 								</div>
 					<!-- //bbs --> 
 					<!-- 내용 : e -->

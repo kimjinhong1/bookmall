@@ -82,7 +82,8 @@
 					$("#salesprice").val('0');
 				}
 			})
-
+		
+		// 할인율 변경시 판매가격 변동
 		$('#discountrate').change(function() {
 			if ($("#price") != '') {
 					$("#salesprice").val($("#price").val() * ((100 - $("#discountrate").val()) / 100));
@@ -126,7 +127,6 @@
  	 	
  	 	// 카테고리 추가 버튼 클릭 이벤트  
 		$('#plusCateBtn').click(function(){
-			console.log("$('#categoryName').data('cateCnt') : " + $('#categoryName').data('cateCnt'));
 			
 			// 카테고리를 4개 이상 추가 할 경우 
 			if($('#categoryName').data('cateCnt') >= 3) {
@@ -178,14 +178,6 @@
 			catenoArrStr += bcategoryno;
 			$('#categoryList').val(catenoArrStr);
 			
-			// (삭제할 것) 인서트시 선택된 카테고리 넘버, 스트링 배열로 넘겨준다.
-			//console.log('catenoArrStr : '+ catenoArrStr);
-			
-			var arr = catenoArrStr.split(",");
-			
-			for(var i = 0; i < arr.length; i++) {
-				console.log("카테고리 번호 : " + arr[i]);
-			}
 			
 			$('#selectCateList').find('option:checked').removeAttr('selected');
 			$('#selectChild').empty();
@@ -303,42 +295,42 @@
 						<h2>도서관리 - [도서 등록]</h2>
 					</div>
 					<!-- //con_tit -->
-					<div class="con">
+					<div class="con" >
 						<form name="frm" id="frm" action="insert.do" method="post" enctype="multipart/form-data">
 							<input type="hidden" value="" id="categoryList" name="categoryList">
-							<table class="book_insert">
+							<table class="book_insert" style="width: 100%; text-align: left;">
 								<tbody>
 									<tr>
 										<th><small class="star">*</small> ISBN13</th>
-										<td><input type="text" name="isbn" id="isbn" class="inNextBtn" style="float: left;" maxlength="13" placeholder="ISBN번호를 13자리 입력해주세요.(숫자만)"></td>
+										<td><input type="text" name="isbn" id="isbn" class="inNextBtn" style="float: left; width: 300px;" maxlength="13" placeholder="ISBN번호를 13자리 입력해주세요.(숫자만)"></td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 도서명</th>
-										<td><input type="text" name="btitle_first" id="btitle_first" style="float: left;" maxlength="50" placeholder="대제목을 입력해주세요"> 
-											<input type="text" name="btitle_second" id="btitle_second" style="float: left;" maxlength="50" placeholder="소제목을 입력해주세요"></td>
+										<td><input type="text" name="btitle_first" id="btitle_first" style="float: left; width: 200px; padding-top: 5px;" maxlength="50" placeholder="대제목을 입력해주세요"> 
+											<input type="text" name="btitle_second" id="btitle_second" style="float: left; width: 200px; padding-top: 5px;" maxlength="50" placeholder="소제목을 입력해주세요"></td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 저자</th>
-										<td><input type="text" name="author" id="author" style="float: left;" maxlength="20" placeholder="저자를 입력해주세요">
+										<td><input type="text" name="author" id="author" style="float: left; width: 200px; padding-top: 5px;" maxlength="20" placeholder="저자를 입력해주세요">
 										</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 출판사</th>
-										<td><input type="text" name="publisher" id="publisher" style="float: left;" maxlength="20" placeholder="출판사를 입력해주세요">
+										<td><input type="text" name="publisher" id="publisher" style="float: left; width: 200px; padding-top: 5px;" maxlength="20" placeholder="출판사를 입력해주세요">
 										</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 출간일</th>
-										<td><input type="text" name="pubdate" id="pubdate" style="float: left;" maxlength="20" placeholder="출간일을 선택해주세요."></td>
+										<td><input type="text" name="pubdate" id="pubdate" style="float: left; width: 200px; padding-top: 5px;" maxlength="20" placeholder="출간일을 선택해주세요."></td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 가격</th>
-										<td><input type="text" name="price" id="price" style="float: left;" maxlength="20" placeholder="가격을 입력해주세요.">
+										<td><input type="text" name="price" id="price" style="float: left; width: 200px; padding-top: 5px;" maxlength="20" placeholder="가격을 입력해주세요.">
 										</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 할인율</th>
-										<td><input type="number" name="discountrate" id="discountrate" style="float: left;" min="0" max="100" maxlength="15" placeholder="할인율을 입력해주세요."> 
+										<td><input type="number" name="discountrate" id="discountrate" style="float: left; width: 200px; padding-top: 5px;" min="0" max="100" maxlength="15" placeholder="할인율을 입력해주세요."> 
 										<select style="width: 100px; margin-right: 10px" name="selectDiscountrate" id="selectDiscountrate">
 												<option value="101" selected>직접입력</option>
 												<option value="0">0%</option>
@@ -351,14 +343,13 @@
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 판매가</th>
-										<td><input type="text" name="salesprice" id="salesprice"
-											style="float: left;" maxlength="20" readonly>원</td>
+										<td><input type="text" name="salesprice" id="salesprice" style="float: left; width: 200px; padding-top: 5px;" maxlength="20" readonly>원</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 도서분류</th>
 										<td>
 											<div>
-												&nbsp; <input type="radio" name="classify" id="classify0" value="0">&nbsp; 
+												<input type="radio" name="classify" id="classify0" value="0">&nbsp; 
 													<span style="font-size: 16px; color: #000000;">국내도서</span>
 												&nbsp;&nbsp;&nbsp; <input type="radio" name="classify" id="classify1" value="1">&nbsp; 
 													<span style="font-size: 16px; color: #000000;">국외도서</span>
@@ -368,21 +359,21 @@
 									<tr class="hide" id="hide">
 										<!-- 처음에 숨김 -->
 										<th><small class="star">*</small> 번역가</th>
-										<td><input type="text" name="translator" id="translator" class="inNextBtn" style="float: left;" placeholder="번역한 이를 입력해주세요."></td>
+										<td><input type="text" name="translator" id="translator" class="inNextBtn" style="float: left; width: 200px; padding-top: 5px;" placeholder="번역한 이를 입력해주세요."></td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 카테고리</th>
 										<td>
-										<select style="width: 100px; margin-right: 10px" name="selectClassify" id="selectClassify" disabled>
+										<select style="width: 100px; margin-right: 10px;" name="selectClassify" id="selectClassify" disabled>
 												<option value="" selected disabled>전체</option>
 												<option value="0">국내도서</option>
 												<option value="1">국외도서</option>
 										</select>
 										
-										<select style="width: 100px; margin-right: 10px" name="selectCateList" id="selectCateList">
+										<select style="width: 100px; margin-right: 10px; " name="selectCateList" id="selectCateList">
 												
 										</select>
-										<select style="width: 100px; margin-right: 10px" name="selectChild" id="selectChild">
+										<select style="width: 100px; margin-right: 10px; " name="selectChild" id="selectChild">
 												
 										</select>
 											<a href="javascript:void(0);" id="plusCateBtn" class="btns"><strong>추가</strong></a>
@@ -392,52 +383,58 @@
 									<tr>
 										<th><small class="star">*</small> 선택된 카테고리</th>
 										<td>
-											<label id="categoryName" data-cate-cnt="0" data-selected-category="[]">없음</label>
+											<label id="categoryName" style="width: 200px; padding-top: 5px;"data-cate-cnt="0" data-selected-category="[]">없음</label>
 										</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 페이지 수</th>
-										<td><input type="text" name="bpages" id="bpages" style="float: left;" maxlength="20" placeholder="페이지를 입력해주세요.">(쪽)</td>
+										<td><input type="text" name="bpages" id="bpages" style="float: left; width: 200px; padding-top: 5px;" maxlength="20" placeholder="페이지를 입력해주세요.">(쪽)</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 무게</th>
-										<td><input type="text" name="bweight" id="bweight" style="float: left;" maxlength="20" placeholder="무게를 입력해주세요.">(g)
+										<td><input type="text" name="bweight" id="bweight" style="float: left; width: 200px; padding-top: 5px;" maxlength="20" placeholder="무게를 입력해주세요.">(g)
 										</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 크기</th>
-										<td><input type="text" name="bwidth" id="bwidth" style="float: left;" maxlength="5" placeholder="가로">
-											<input type="text" name="bvertical" id="bvertical" style="float: left;" maxlength="5" placeholder="세로">
-											<input type="text" name="bheight" id="bheight" style="float: left;" maxlength="5" placeholder="높이">(mm)
+										<td><input type="text" name="bwidth" id="bwidth" style="float: left; padding-top: 5px;" maxlength="5" placeholder="가로">
+											<input type="text" name="bvertical" id="bvertical" style="float: left; padding-top: 5px;" maxlength="5" placeholder="세로">
+											<input type="text" name="bheight" id="bheight" style="float: left; padding-top: 5px;" maxlength="5" placeholder="높이">(mm)
 										</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 재고</th>
-										<td><input type="text" name="bstack" id="bstack" style="float: left;" maxlength="20" placeholder="재고를 입력해주세요.">
+										<td><input type="text" name="bstack" id="bstack" style="float: left; padding-top: 5px;" maxlength="20" placeholder="재고를 입력해주세요.">
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="">*도서 소개</label></th>
-										<td colspan="30"><textarea id="bintroduce" name="bintroduce" title="내용을 입력해주세요" rows="10" cols="100"></textarea>
+										<th scope="row">
+											<label for="">*도서 소개</label>
+										</th>
+										<td colspan="30">
+											<textarea id="bintroduce" name="bintroduce" title="내용을 입력해주세요" style="width: 100%"></textarea>
 										</td>
 									</tr>
 									<tr>
-										<th scope="row"><label for="">*도서 목차</label></th>
-										<td colspan="30"><textarea id="bindex" name="bindex" title="내용을 입력해주세요" rows="10" cols="100"></textarea></td>
+										<th scope="row">
+											<label for="">*도서 목차</label>
+										</th>
+										<td colspan="30">
+											<textarea id="bindex" name="bindex" title="내용을 입력해주세요" style="width: 100%"></textarea>
+										</td>
 									</tr>
 									<tr>
 										<th><small class="star">*</small> 썸네일 등록</th>
-										<td colspan="10"><input type="file" id="bthumb_org" name="bthumb_org_file" class="w100" title="첨부파일을 업로드 해주세요." />
+										<td colspan="10">
+											<input type="file" id="bthumb_org" name="bthumb_org_file" class="w100" title="첨부파일을 업로드 해주세요." />
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</form>
 						<div class="btn">
-							<div class="btnLeft">
+							<div class="btnLeft" style="float: right; padding-top: 10px;">
 								<a href="javascript:;" class="btns" onclick="goSave();"><strong>등록</strong></a>
-							</div>
-							<div class="btnRight">
 								<a class="btns" href="index.do"><strong>취소</strong></a>
 							</div>
 						</div>

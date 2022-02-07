@@ -17,102 +17,103 @@
 <script src="/bookmall/js/common.js"></script>
 <script>
 function category_one(bclassify) {
-	$.ajax ({
-		url : 'category2.do',
-		data : {
-			bclassify : bclassify
-		},
-		datatype : "JSON",
-		async:false,
-		success:function(res) {
-			$('#category_two_select').empty();
-			$('#category_two_defalt').empty();
-			$('#category_three_select').empty();
-			$('#category_three_defalt').empty();
-			$('#category_three_defalt').append("<span >대분류를 선택 해 주세요</span>");
-			
-			var html = "";
-			html += "<h2 style='background-color: #004080; color:#fff;'>대분류</h2>";
-			for(var i=0; i < res.length; i++) {
-				html += '<span class="bcategoryno" id="bcategoryno_'+res[i].bcategoryno+'" value="'+res[i].bcategoryno+'" onclick="category_two('+res[i].bclassify+', '+res[i].bcategoryno+', \''+res[i].bcategoryname+'\');">'+res[i].bcategoryname+"</span><br>"
-			}
-			
-			$("#category_two_select").append(html);
-			
-		},
-		error : function(error) {
-			console.log("error!")
-		}
-	});
+   $.ajax ({
+      url : 'category2.do',
+      data : {
+         bclassify : bclassify
+      },
+      datatype : "JSON",
+      async:false,
+      success:function(res) {
+         $('#category_two_select').empty();
+         $('#category_two_defalt').empty();
+         $('#category_three_select').empty();
+         $('#category_three_defalt').empty();
+         $('#category_three_defalt').append("<span >대분류를 선택 해 주세요</span>");
+         
+         var html = "";
+         html += "<h2 style='background-color: #004080; color:#fff;'>대분류</h2>";
+         for(var i=0; i < res.length; i++) {
+            html += '<span class="bcategoryno" id="bcategoryno_'+res[i].bcategoryno+'" value="'+res[i].bcategoryno+'" onclick="category_two('+res[i].bclassify+', '+res[i].bcategoryno+', \''+res[i].bcategoryname+'\');">'+res[i].bcategoryname+"</span><br>"
+         }
+         
+         $("#category_two_select").append(html);
+         
+      },
+      error : function(error) {
+         console.log("error!")
+      }
+   });
 }
 
 function category_two(bclassify, bparentno, bcategoryname) {
-	$.ajax ({
-		url : 'category2.do',
-		data : {
-			bclassify : bclassify,
-			bparentno : bparentno
-		},
-		datatype : "JSON",
-		async:false,
-		success:function(res) {
-			$('#category_three_defalt').empty();
-			//var checkColor;
-			$('#category_three_select').empty();
-			
-			var html = "";
-			var select ="";
-			
-			html += "<h2 style='background-color: #004080; color:#fff;'>중분류</h2>";
-			for(var i=0; i < res.length; i++) {
-				html += '<span id="bcategoryno_'+res[i].bcategoryno+'" onclick="category_three('+bparentno+', '+res[i].bcategoryno+', \''+res[i].bcategoryname+'\');">'+ res[i].bcategoryname+"</span><br>"
-			}
-			
-			$("#category_three_select").append(html);
-			
-			// 대분류 카테고리 선택 유무
-			if($("#bcategoryno2_"+bparentno).length) {
-				//$("#bcategoryno_"+bparentno).css('color','black');
-				$("#bcategoryno2_"+bparentno).remove();
-				return;
-			} else {
-				//$("#bcategoryno_"+bparentno).css('color','red');
-				select += '<span class="bcategoryno2_" id="bcategoryno2_'+bparentno+'"><input type="hidden" name="bparentnoS"  value="'+bparentno+'" >'+bcategoryname+'<button style="color:red;" onclick="delcate('+bparentno+')">&nbsp;X</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;'
-				//select +=
-			}
-			$("#searchForm_Condition_Add").append(select);
-			
-			
-		},
-		error : function(error) {
-			console.log("error!")
-		}
-	});
+   $.ajax ({
+      url : 'category2.do',
+      data : {
+         bclassify : bclassify,
+         bparentno : bparentno
+      },
+      datatype : "JSON",
+      async:false,
+      success:function(res) {
+         $('#category_three_defalt').empty();
+         //var checkColor;
+         $('#category_three_select').empty();
+         
+         var html = "";
+         var select ="";
+         
+         html += "<h2 style='background-color: #004080; color:#fff;'>중분류</h2>";
+         for(var i=0; i < res.length; i++) {
+            html += '<span id="bcategoryno_'+res[i].bcategoryno+'" onclick="category_three('+bparentno+', '+res[i].bcategoryno+', \''+res[i].bcategoryname+'\');">'+ res[i].bcategoryname+"</span><br>"
+         }
+         
+         $("#category_three_select").append(html);
+         
+         // 대분류 카테고리 선택 유무
+         if($("#bcategoryno2_"+bparentno).length) {
+            //$("#bcategoryno_"+bparentno).css('color','black');
+            $("#bcategoryno2_"+bparentno).remove();
+            return;
+         } else {
+            //$("#bcategoryno_"+bparentno).css('color','red');
+            select += '<span class="bcategoryno2_" id="bcategoryno2_'+bparentno+'"><input type="hidden" name="bparentnoS"  value="'+bparentno+'" >'+bcategoryname+'<button style="color:red;" onclick="delcate('+bparentno+')">&nbsp;X</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;'
+            //select +=
+         }
+         $("#searchForm_Condition_Add").append(select);
+         
+         
+      },
+      error : function(error) {
+         console.log("error!")
+      }
+   });
 }
 
 function category_three(bparentno, bcategoryno, bcategoryname) {
-	var select ="";
-	// 카테고리
-	var no = '+bcategoryno+'
-	// 중분류 카테고리 선택 유무
-	if($("#bcategoryno2_"+bcategoryno).length) {
-		//$("#bcategoryno_"+bcategoryno).css('color','black');
-		$("#bcategoryno2_"+bcategoryno).remove();
-		return;
-	} else {
-		//$("#bcategoryno_"+bcategoryno).css('color','red');
-		select += '<span class="bcategoryno2_" id="bcategoryno2_'+bcategoryno+'"><input type="hidden" name="bcategorynoS"  value="'+bcategoryno+'">'+bcategoryname+'<button style="color:red;" onclick="delcate('+bcategoryno+')">&nbsp;X</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;'
-		// 중분류 선택시 해당 상위 대분류 선택에서 제외
-		$("#bcategoryno2_"+bparentno).remove();
-	}
-	$("#searchForm_Condition_Add").append(select);
+   var select ="";
+   // 카테고리
+   var no = '+bcategoryno+'
+   // 중분류 카테고리 선택 유무
+   if($("#bcategoryno2_"+bcategoryno).length) {
+      //$("#bcategoryno_"+bcategoryno).css('color','black');
+      $("#bcategoryno2_"+bcategoryno).remove();
+      return;
+   } else {
+      //$("#bcategoryno_"+bcategoryno).css('color','red');
+      select += '<span class="bcategoryno2_" id="bcategoryno2_'+bcategoryno+'"><input type="hidden" name="bcategorynoS"  value="'+bcategoryno+'">'+bcategoryname+'<button style="color:red;" onclick="delcate('+bcategoryno+')">&nbsp;X</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;'
+      // 중분류 선택시 해당 상위 대분류 선택에서 제외
+      $("#bcategoryno2_"+bparentno).remove();
+   }
+   $("#searchForm_Condition_Add").append(select);
 }
 
 function delcate(cate) {
-	$("#bcategoryno2_"+cate).remove();
+   $("#bcategoryno2_"+cate).remove();
 }
 
 function searchBtn(rp) {
+
 	//if ($("#searchWord").val().trim() == '') {
 	//	alert("검색어를 입력해주세요.");
 	//	return
@@ -210,17 +211,17 @@ function searchBtn(rp) {
 			}
 			search += '</div>'
 
-			$("#search_data").append(search);
-		},
-		error : function(data) {
-			console.log("error!")
-		}
-	});
+         $("#search_data").append(search);
+      },
+      error : function(data) {
+         console.log("error!")
+      }
+   });
 }
 
 $(function(){
-	 // 선택 카테고리 초기화
-	 $("#initialization").click(function() { 
+    // 선택 카테고리 초기화
+    $("#initialization").click(function() { 
          $("#searchForm_Condition_Add").empty();   
      }); 
 	 

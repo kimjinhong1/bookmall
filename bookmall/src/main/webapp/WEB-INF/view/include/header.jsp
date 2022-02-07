@@ -32,10 +32,10 @@
 	        <a href="/bookmall/search/index.do">통합검색</a>
 	    </li>
 	    <li>
-	        <a href="/bookmall/book/korean.do">국내도서</a>	        
+	        <a href="/bookmall/book/mainbook.do?bc=0">국내도서</a>	        
 	    </li>
 	    <li>
-	        <a href="/bookmall/book/abroad.do">해외도서</a>
+	        <a href="/bookmall/book/mainbook.do?bc=1">국외도서</a>
 	    </li>
 	    <li>
 	        <a href="">게시판</a>
