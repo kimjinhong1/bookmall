@@ -77,7 +77,7 @@ function category_two(bclassify, bparentno, bcategoryname) {
             return;
          } else {
             //$("#bcategoryno_"+bparentno).css('color','red');
-            select += '<span class="bcategoryno2_" id="bcategoryno2_'+bparentno+'"><input type="hidden" name="bparentnoS"  value="'+bparentno+'" >'+bcategoryname+'<button style="color:red;" onclick="delcate('+bparentno+')">&nbsp;X</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;'
+            select += '<span class="bcategoryno2_" id="bcategoryno2_'+bparentno+'"><input type="hidden" name="bparentnoS"  value="'+bparentno+'" >'+bcategoryname+'<button style="color:red;" onclick="delcate('+bparentno+')">&nbsp;X</button>&nbsp;</span>&nbsp;&nbsp;&nbsp;'
             //select +=
          }
          $("#searchForm_Condition_Add").append(select);
@@ -101,7 +101,8 @@ function category_three(bparentno, bcategoryno, bcategoryname) {
       return;
    } else {
       //$("#bcategoryno_"+bcategoryno).css('color','red');
-      select += '<span class="bcategoryno2_" id="bcategoryno2_'+bcategoryno+'"><input type="hidden" name="bcategorynoS"  value="'+bcategoryno+'">'+bcategoryname+'<button style="color:red;" onclick="delcate('+bcategoryno+')">&nbsp;X</button>&nbsp;&nbsp;</span>&nbsp;&nbsp;'
+      
+      select += '<span class="bcategoryno2_" id="bcategoryno2_'+bcategoryno+'"><input type="hidden" name="bcategorynoS"  value="'+bcategoryno+'">'+bcategoryname+'<button style="color:red;" onclick="delcate('+bcategoryno+')">&nbsp;X</button>&nbsp;</span>&nbsp;&nbsp;&nbsp;'
       // 중분류 선택시 해당 상위 대분류 선택에서 제외
       $("#bcategoryno2_"+bparentno).remove();
    }
@@ -275,7 +276,7 @@ $(function(){
 						                </select>&nbsp;&nbsp;
 							    		<input type="text" id="searchWord" name="searchWord" value="" style=" width:300px;  height:32px; border-radius: 20px 8px 20px 8px;">&nbsp;
 							    		<button type="button" onclick="searchBtn(1);">
-							    			<img  src="<%=request.getContextPath()%>/img/search.png" style=" width:45px; height:25px; ">
+							    			<img  src="<%=request.getContextPath()%>/img/search.png" style=" width:25px; height:25px; ">
 							    		</button>
 							    	</dd>
 						    	</dl>

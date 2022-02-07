@@ -56,7 +56,7 @@ public class UserController {
 		return "include/result";
 	}
 	
-	// EmailId 인증
+	// Email 인증
 	@GetMapping("/user/emailAuth.do")
 	public String emailAuth(Model model, HttpSession sess, @RequestParam String email) {
 		String auth = SendMail.random(); //인증 코드 생성

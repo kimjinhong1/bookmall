@@ -19,12 +19,14 @@
     <script src="/bookmall/js/common.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     <script>
-    	$(function() {    		
+    	$(function() {  
+    		
     		$("#emailCheckBtn").click(function(){
     			if ($("#email1").val().trim() == '') {
     				alert('이메일을 입력해 주세요');
     				$("#email1").focus();
     			} else {
+    				// E-Mail 중복 확인
     				$.ajax({
     					url : 'emailCheck.do',
     					data : {
@@ -37,7 +39,7 @@
     							$("#email1").val("");
     							$("#email1").focus();
     						} else {
-    							// (인증번호)이메일 발송
+    							// 중복 확인 후 해당 이메일로 인증번호 발송
     							$.ajax({
 			    					url : 'emailAuth.do',
 			    					data : {
