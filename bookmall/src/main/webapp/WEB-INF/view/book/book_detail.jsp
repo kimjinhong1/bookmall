@@ -189,12 +189,64 @@ $(function() {
         
     	 <!-- 도서 기본 정보 시작 -->
          <div class="bookNormalInfo">
-         	<div class="col-md-5" style="border: 1px; width: 450px; height: 635px; float: left; padding-top: 10px;">
-				<img src="/bookmall/upload/${data.bthumb_real }" style="width: 448px; height: 643px;"><br>
+         	<div class="col-md-5" style="border: 1px; width: 450px; height: 635px; float: left; padding-top: 5px;">
+				<img src="/bookmall/upload/${data.bthumb_real }" style="width: 448px; height: 630px;"><br>
 			</div>
 			
-			<div class="col-md-6" style="width: 750px; height: 635px; float: right; padding-top: 10px;" >
-				<div class="btitle" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+			<div class="col-md-6" style="width: 750px; height: 635px; float: right; padding-top: 10px; text-align: center;" >
+				<table style="float: left; width: 750px; height: 635px; ">
+					<tr style="padding-top: 3px; padding-left: 5px;">
+						<td>*도서명 : </td>
+						<td><b>${data.btitle_first }</b>&nbsp;${data.btitle_second }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*저자 : </td>
+						<td>${data.author }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*출판사 : </td>
+						<td>${data.publisher }</td>
+					</tr>
+					<c:if test="${data.translator ne '' }">
+					<tr style="padding-top: 3px;">
+						<td>*번역가 : </td>
+						<td>${data.translator }</td>
+					</tr>
+					</c:if>
+					<tr style="padding-top: 3px; ">
+						<td>*출간일 : </td>
+						<td>${data.pubdate }</td>
+					</tr>
+					<tr style="padding-top: 3px; ">
+						<td>*별점 : </td>
+						<td>${data.review_score }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*판매 지수 : </td>
+						<td>${data.sales }</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*판매가 : </td>
+						<td>${data.salesprice }&nbsp;원</td>
+					</tr>
+					<tr style="padding-top: 3px;">
+						<td>*수량선택 : </td>
+						<td>
+							<input type="button" name="minusCount" id="minusCount" value="-" class="">
+		         			<input type="text" name="bookcount" id="bookcount" value="1" style="text-align: center;"readonly>
+		         			<input type="button" name="plusCount" id="plusCount" value="+" class="" >	
+		         		</td>
+		         	</tr>
+		         	<tr>
+		         		<td>*상품담기 : </td>
+		         		<td>
+		         			<a href="#" class="btn btn-secondary"> 바로 구매 &raquo;</a>
+				 			<a id ="cartbtn" name="cartinsert" href="#" class="btn btn-primary"> 장바구니 담기 &raquo;</a>
+				 			<a id ="listbtn" name="mylistinsert" href="#" class="btn btn-success"> 마이리스트 담기 &raquo;</a>
+				 		</td>
+				 	</tr>
+				</table>
+				<%-- <div class="btitle" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
 					<p align="left"><font size="6em"><b>${data.btitle_first }</b></font> &nbsp;&nbsp;&nbsp;<font size="3em">${data.btitle_second }</font>
 				</div>
 				
@@ -229,18 +281,15 @@ $(function() {
 		         		<input type="button" name="minusCount" id="minusCount" value="-" class="">
 		         		<input type="text" name="bookcount" id="bookcount" value="1" readonly>
 		         		<input type="button" name="plusCount" id="plusCount" value="+" class="" >	
-				</div>
+				</div> --%>
 				
-				<div class="" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
-
-				</div>
 				
 	         	<!-- 구매/장바구니 버튼 시작 -->
-	         	<div class="butSet clear" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
+	         	<!-- <div class="butSet clear" style="width: 750px; height: 60px; padding-top: 5px; padding-left: 20px;">
 					<a href="#" class="btn btn-info"> 바로 구매 &raquo;</a>
 				 	<a id ="cartbtn" name="cartinsert" href="#" class="btn btn-info"> 장바구니 담기 &raquo;</a>
 				 	<a id ="listbtn" name="mylistinsert" href="#" class="btn btn-info"> 마이리스트 담기 &raquo;</a>
-				</div>
+				</div> -->
 				<!-- 구매/장바구니 버튼 종료 -->
 			</div>
          	<!-- 도서 기본 정보 종료 -->

@@ -136,7 +136,7 @@
             <div class="cateSelectBox" style="padding-top: 15px;">
 				<input type="text" value="" id="searchWord" style="width:400px;" placeholder="검색어를 입력해주세요." >
 				<button type="button" onclick="goSearch();">
-					<img  src="<%=request.getContextPath()%>/img/search.png" style=" width:25px; height:25px; ">	
+					<img  src="<%=request.getContextPath()%>/img/search.png" style=" width:35px; height:25px; ">	
 				</button>
 			</div>
 			<!-- 카테고리 내 검색 종료 -->
@@ -149,7 +149,7 @@
             	<a href="javascript:void(0);" name="listOrder" data-list-order="newBook">신상품순</a>
             	<a href="javascript:void(0);" name="listOrder" data-list-order="lowPrice">최저가순</a>
             	<a href="javascript:void(0);" name="listOrder" data-list-order="highPrice">최고가순</a>
-            	<a href="javascript:void(0);" name="listOrder" data-list-order="review_count">리뷰개수순</h3></a>
+            	<a href="javascript:void(0);" name="listOrder" data-list-order="review_count">리뷰개수순</a>
             	
             	<select style="width: 100px; margin-right: 10px" name="numchoose" id="numchoose">
 					<option value="10" <c:if test="${param.numchoose=='10' }">selected</c:if>>10개씩</option>
