@@ -52,7 +52,7 @@
 				                <a href="/bookmall/book/detail.do?bookno=${vo.bookno }"><b>${vo.btitle_first }</b></a> <!-- btitle_first -->
 				                <p>${vo.author } 저</p>  <!-- author -->
 				                <p>${vo.publisher }</p> <!-- publisher -->
-								<p><b>${vo.salesprice }(원)</b></p> <!-- salesprice -->
+								<p><b>${vo.salesprice }&nbsp;원</b></p> <!-- salesprice -->
 							</div>
 		             	</div>	
 		             </c:forEach>
@@ -69,10 +69,21 @@
 							<div class="hotBook">
 								<!-- <p style="text-align:left"><b>사회/정치</b></p><br> -->
 								<a href="/bookmall/book/detail.do?bookno=${hot.bookno }"><img src="/bookmall/upload/${hot.bthumb_real }" width="200" height="300" align="left" float="left" ></a>
-				                <a href="/bookmall/book/detail.do?bookno=${hot.bookno }"><b>${hot.btitle_first }</b></a><br> <!-- btitle_first -->
-				                <p>${hot.author } 저</p> <!-- author -->
-				                <p>${hot.publisher }</p><br>  <!-- publisher -->
-								<p><b>${hot.salesprice }(원)</b></p> <!-- salesprice -->
+								<div class="hotBooktitle" style="padding-top: 20px; height: 300px;">
+					                <a href="/bookmall/book/detail.do?bookno=${hot.bookno }"><b>${hot.btitle_first }</b></a><br> <!-- btitle_first -->
+					                
+					                <div class="hotBookAuthor" style="padding-top: 5px; height: 300px;">
+					            		<p>${hot.author } 저</p> <!-- author -->
+					            		
+					            		<div class="hotBookPublisher" style="padding-top: 5px; height: 300px;">
+					            			<p>${hot.publisher }</p><br>  <!-- publisher -->
+					            			
+					            			 <div class="hotBookPrice" style="padding-top: 5px; height: 300px;">    
+										     	<p><b>${hot.salesprice }(원)</b></p> <!-- salesprice -->
+											 </div>
+					           			</div>
+					            	</div>
+					            </div>
 							</div>
 	             	 	</div>
 	             	</c:forEach>

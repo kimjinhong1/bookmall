@@ -9,8 +9,8 @@
 	<c:if test="${oldnum == ''}">
 		<a href="/bookmall/book/mainbook.do?bc=0">국내도서</a>
 	</c:if>
-	<c:if test="${oldnum == '27' && vo.blev1 == '348'}">
-		<a href="/bookmall/book/mainbook.do?bc1">국외도서</a>
+	<c:if test="${oldnum == '27' and vo.blev1 == '348'}">
+		<a href="/bookmall/book/mainbook.do?bc=1">국외도서</a>
 	</c:if>
 		
 		<c:if test="${vo.blev1 != oldnum}">

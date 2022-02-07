@@ -170,50 +170,50 @@
 				<div class="con">
 					<form name="frm" id="frm" action="edit.do" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="bookno" value="${data.bookno }">
-					<table class="book_insert">
+					<table class="book_insert" style="width: 100%; text-align: left;">
 					<tbody>
 						<tr>
 							<th><small class="star">*</small> ISBN13</th>
                             <td>
-                                <input type="text" name="isbn" id="isbn" class="inNextBtn" style="float:left;" maxlength="13" value="${data.isbn }" readonly> 
+                                <input type="text" name="isbn" id="isbn" class="inNextBtn" style="float:left; width: 300px;" maxlength="13" value="${data.isbn }" readonly> 
                             </td>
 						</tr>
 						<tr>
                             <th><small class="star">*</small> 도서명 </th>
                             <td>
-                            	<input type="text" name="btitle_first" id="btitle_first" style="float:left;" maxlength="50" value="${data.btitle_first }">
-                            	<input type="text" name="btitle_second" id="btitle_second" style="float:left;" maxlength="50" value="${data.btitle_second }">
+                            	<input type="text" name="btitle_first" id="btitle_first" style="float:left; width: 200px; padding-top: 5px;" maxlength="50" value="${data.btitle_first }">
+                            	<input type="text" name="btitle_second" id="btitle_second" style="float:left; width: 200px; padding-top: 5px;" maxlength="50" value="${data.btitle_second }">
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 저자 </th>
                             <td>
-                            	<input type="text" name="author" id="author" style="float:left;" maxlength="20" value="${data.author }" placeholder="저자를 입력해주세요"> 
+                            	<input type="text" name="author" id="author" style="float:left; width: 200px; padding-top: 5px;" maxlength="20" value="${data.author }" placeholder="저자를 입력해주세요"> 
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 출판사 </th>
                             <td>
-                            	<input type="text" name="publisher" id="publisher" style="float:left;" maxlength="20" value="${data.publisher }" placeholder="출판사를 입력해주세요"> 
+                            	<input type="text" name="publisher" id="publisher" style="float:left; width: 200px; padding-top: 5px;" maxlength="20" value="${data.publisher }" placeholder="출판사를 입력해주세요"> 
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 출간일 </th>
                             <td>
-                            	<input type="text" name="pubdate" id="pubdate" style="float:left;" maxlength="20" value="${data.pubdate }" placeholder="출간일을 선택해주세요.">
+                            	<input type="text" name="pubdate" id="pubdate" style="float:left; width: 200px; padding-top: 5px;" maxlength="20" value="${data.pubdate }" placeholder="출간일을 선택해주세요.">
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 가격 </th>
                             <td>
-                            	<input type="text" name="price" id="price" style="float:left;" maxlength="20" value="${data.price }" placeholder="가격을 입력해주세요.">
+                            	<input type="text" name="price" id="price" style="float:left; width: 200px; padding-top: 5px;" maxlength="20" value="${data.price }" placeholder="가격을 입력해주세요.">
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 할인율 </th>
                             <td>
-                            	<input type="number" name="discountrate" id="discountrate" style="float:left;" min="0" max="100" maxlength="15" placeholder="할인율을 입력해주세요." value="${data.discountrate }"> 
-                            	<select style="width:100px;margin-right:10px" name="selectDiscountrate" id="selectDiscountrate">
+                            	<input type="number" name="discountrate" id="discountrate" style="float:left; width: 200px; padding-top: 5px;" min="0" max="100" maxlength="15" placeholder="할인율을 입력해주세요." value="${data.discountrate }"> 
+                            	<select style="width: 100px; margin-right: 10px" name="selectDiscountrate" id="selectDiscountrate">
 									 <option value="101" selected>직접입력</option>
 									 <option value="0">0%</option>
 									 <option value="5">5%</option>
@@ -226,7 +226,7 @@
                         <tr>
                             <th><small class="star">*</small> 판매가 </th>
                             <td>
-                            	<input type="text" name="salesprice" id="salesprice" value="${data.salesprice }"style="float:left;" maxlength="20" readonly>원 
+                            	<input type="text" name="salesprice" id="salesprice" value="${data.salesprice }"style="float:left; width: 200px; padding-top: 5px;" maxlength="20" readonly>원 
                             </td>
                         </tr>
                         <tr>
@@ -244,7 +244,7 @@
                         <tr class="hide" id="hide"> <!-- 처음에 숨김 -->
                             <th><small class="star">*</small> 번역가 </th>
                             <td>
-                                <input type="text" name="translator" id="translator" class="inNextBtn" style="float:left;" value="${data.translator }" placeholder="번역한 이를 입력해주세요.">
+                                <input type="text" name="translator" id="translator" class="inNextBtn" style="float: left; width: 200px; padding-top: 5px;" value="${data.translator }" placeholder="번역한 이를 입력해주세요.">
                             </td>
                         </tr>
                         <tr>
@@ -256,39 +256,41 @@
                         <tr>
                             <th><small class="star">*</small> 페이지 수 </th>
                             <td>
-                            	<input type="text" name="bpages" id="bpages" style="float:left;" maxlength="20" value="${data.bpages }"placeholder="페이지를 입력해주세요.">(쪽) 
+                            	<input type="text" name="bpages" id="bpages" style="float:left; width: 200px; padding-top: 5px;" maxlength="20" value="${data.bpages }"placeholder="페이지를 입력해주세요.">(쪽) 
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 무게 </th>
                             <td>
-                            	<input type="text" name="bweight" id="bweight" style="float:left;" maxlength="20" value="${data.bweight }"placeholder="무게를 입력해주세요.">(g) 
+                            	<input type="text" name="bweight" id="bweight" style="float:left; width: 200px; padding-top: 5px;" maxlength="20" value="${data.bweight }"placeholder="무게를 입력해주세요.">(g) 
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 크기 </th>
                             <td>
-                            	<input type="text" name="bwidth" id="bwidth" style="float:left;" maxlength="5" value="${data.bwidth }"placeholder="가로">
-                            	<input type="text" name="bvertical" id="bvertical" style="float:left;" maxlength="5" value="${data.bvertical }"placeholder="세로">
-                            	<input type="text" name="bheight" id="bheight" style="float:left;" maxlength="5" value="${data.bheight }"placeholder="높이">(mm) 
+                            	<input type="text" name="bwidth" id="bwidth" style="float: left; padding-top: 5px;" maxlength="5" value="${data.bwidth }"placeholder="가로">
+                            	<input type="text" name="bvertical" id="bvertical" style="float: left; padding-top: 5px;" maxlength="5" value="${data.bvertical }"placeholder="세로">
+                            	<input type="text" name="bheight" id="bheight" style="float: left; padding-top: 5px;" maxlength="5" value="${data.bheight }"placeholder="높이">(mm) 
                             </td>
                         </tr>
                         <tr>
                             <th><small class="star">*</small> 재고 </th>
                             <td>
-                            	<input type="text" name="bstack" id="bstack" style="float:left;" maxlength="20" value="${data.bstack }"placeholder="재고를 입력해주세요."> 
+                            	<input type="text" name="bstack" id="bstack" style="float:left; padding-top: 5px;" maxlength="20" value="${data.bstack }"placeholder="재고를 입력해주세요."> 
                             </td>
                         </tr>
                         <tr>
-							<th scope="row"><label for="">*내용</label></th>
+							<th scope="row">
+								<label for="">*도서 소개</label>
+							</th>
 							<td colspan="30">
-								<textarea id="bintroduce" name="bintroduce" title="내용을 입력해주세요" rows="10" cols="100">${data.bintroduce }</textarea>	
+								<textarea id="bintroduce" name="bintroduce" title="내용을 입력해주세요" style="width: 100%;">${data.bintroduce }</textarea>	
 							</td>
 						</tr>
 						<tr>
-							<th scope="row"><label for="">*목차</label></th>
+							<th scope="row"><label for="">*도서 목차</label></th>
 							<td colspan="30">
-								<textarea id="bindex" name="bindex" title="내용을 입력해주세요" rows="10" cols="100">${data.bindex }</textarea>	
+								<textarea id="bindex" name="bindex" title="내용을 입력해주세요" style="width: 100%;">${data.bindex }</textarea>	
 							</td>
 						</tr>
 						<tr>
@@ -301,10 +303,8 @@
 					</table>
 					</form>
 					<div class="btn">
-						<div class="btnLeft">
+						<div class="btnLeft" style="float: right; padding-top: 10px;">
 							<a href="javascript:;" class="btns" onclick="goSave();"><strong>수정</strong></a>
-						</div>
-						<div class="btnRight">
 							<a class="btns" href="javascript:window.history.back();"><strong>취소</strong></a>
 						</div>
 					</div>

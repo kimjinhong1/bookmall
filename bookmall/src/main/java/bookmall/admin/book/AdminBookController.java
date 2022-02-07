@@ -113,12 +113,9 @@ public class AdminBookController {
 				System.out.println(e.getMessage());
 			}
 		}
-		
-		System.out.println(req.getParameter("categoryList"));
+
 		int r = service.insert(vo);
-		
-		// 정상적으로 등록되었습니다. alert 띄우고 
-		// index.do 로 이동 
+
 		if(r > 0) {
 			
 			// 도서 정보 INSERT 이후, 도서-카테-매핑 테이블에도 INSERT

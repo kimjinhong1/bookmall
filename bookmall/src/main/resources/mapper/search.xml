@@ -28,7 +28,7 @@
 	<sql id = "searchwhere">
 		<where>
 			<!-- 검색 타입 -->
-			<if test="searchType == 'all' ">
+			<if test="searchType == 'all'">
 				(btitle_first like '%${searchWord}%' or
 			 	btitle_second like '%${searchWord}%' or 
 				author like '%${searchWord}%' or 
@@ -79,7 +79,7 @@
 					bc.bparentno = #{item}
 				</foreach>
 			</if>
-			<if test="bcategorynoS != null ">
+			<if test="bcategorynoS != null "> 
 				<if test="bparentnoS != null">
 					or  
 				</if>

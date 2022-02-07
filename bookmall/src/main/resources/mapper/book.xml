@@ -5,8 +5,17 @@
 
 	<!-- 도서 하나만 선택 -->
 	<select id="selectOne" parameterType="int" resultType="bookmall.book.BookVo">
-		SELECT *
-		FROM book
+		SELECT b.*,
+					(SELECT ROUND(AVG(score), 1)
+					FROM review AS r
+					WHERE r.bookno = b.bookno
+					GROUP BY r.bookno
+					) AS review_score,
+					(SELECT IFNULL(SUM(count), 0)
+					FROM order_detail AS od
+					WHERE od.bookno = b.bookno
+					) AS sales
+		FROM book AS b
 		WHERE bookno = #{bookno}
 	</select>
 	
@@ -17,7 +26,7 @@
 					FROM order_detail AS od
 					WHERE od.bookno = b.bookno
 					) AS sales,
-		           (SELECT IFNULL(AVG(r.score), 0)
+		            (SELECT ROUND(AVG(score), 1)
 		            FROM review AS r
 		            WHERE r.bookno = b.bookno
 		            GROUP BY r.bookno
@@ -26,7 +35,12 @@
 		            FROM review AS r
 		            WHERE r.bookno = b.bookno
 		            GROUP BY r.bookno
-		            ) AS review_count
+		            ) AS review_count,
+		            (SELECT ROUND(AVG(score), 1)
+		            FROM review AS r
+		            WHERE r.bookno = b.bookno
+		            GROUP BY r.bookno
+		            ) AS review_score
 		FROM book AS b
 		WHERE NOT bstatus = 1
 		<if test = "searchWord != null and searchWord != ''">
@@ -51,22 +65,22 @@
 		<if test='listOrder != null'>
 			<choose>
 				<when test='listOrder == "sales"'>
-					ORDER BY sales DESC
+					ORDER BY sales DESC, score DESC
 				</when>
 				<when test='listOrder == "score"'>
-					ORDER BY score DESC
+					ORDER BY score DESC, review_count DESC
 				</when>
 				<when test='listOrder == "newBook"'>
-					ORDER BY pubdate DESC
+					ORDER BY pubdate DESC, sales DESC
 				</when>
 				<when test='listOrder == "lowPrice"'>
-					ORDER BY salesprice ASC
+					ORDER BY salesprice ASC, sales DESC
 				</when>
 				<when test='listOrder == "highPrice"'>
-					ORDER BY salesprice DESC
+					ORDER BY salesprice DESC, sales DESC
 				</when>
 				<when test='listOrder == "review_count"'>
-					ORDER BY review_count DESC
+					ORDER BY review_count DESC, sales DESC
 				</when>
 			</choose>
 		</if>

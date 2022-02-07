@@ -122,9 +122,9 @@
        
 		<!-- 도서 목록 캡션 시작 -->   
 		<hr>
-		<caption>
-		<br><h2>도서 목록</h2>
-		</caption>
+			<caption>
+			<br><h2>도서 목록</h2>
+			</caption>
 		<hr>
         <!-- 도서 목록 캡션 종료 -->
         
@@ -133,21 +133,23 @@
         <!-- 카테고리 종료 -->
             
             <!-- 카테고리 내 검색 시작 -->
-            <div class="cateSelectBox">
-				<input type="text" value="" id="searchWord" placeholder="검색어를 입력해주세요.">
-				<input type="button" onClick="goSearch();" value="도서검색">
+            <div class="cateSelectBox" style="padding-top: 15px;">
+				<input type="text" value="" id="searchWord" style="width:400px;" placeholder="검색어를 입력해주세요." >
+				<button type="button" onclick="goSearch();">
+					<img  src="<%=request.getContextPath()%>/img/search.png" style=" width:25px; height:25px; ">	
+				</button>
 			</div>
 			<!-- 카테고리 내 검색 종료 -->
 			
             <!-- 도서 목록 정렬 시작 -->
             <div class="listOrder">
             	
-            	<a href="javascript:void(0);" name="listOrder" data-list-order="sales"><h3>판매량순</h3></a>
-            	<a href="javascript:void(0);" name="listOrder" data-list-order="score"><h3>평점순</h3></a>
-            	<a href="javascript:void(0);" name="listOrder" data-list-order="newBook"><h3>신상품순</h3></a>
-            	<a href="javascript:void(0);" name="listOrder" data-list-order="lowPrice"><h3>최저가순</h3></a>
-            	<a href="javascript:void(0);" name="listOrder" data-list-order="highPrice"><h3>최고가순</h3></a>
-            	<a href="javascript:void(0);" name="listOrder" data-list-order="review_count"><h3>리뷰개수순</h3></a>
+            	<a href="javascript:void(0);" name="listOrder" data-list-order="sales">판매량순</a>
+            	<a href="javascript:void(0);" name="listOrder" data-list-order="score">평점순</a>
+            	<a href="javascript:void(0);" name="listOrder" data-list-order="newBook">신상품순</a>
+            	<a href="javascript:void(0);" name="listOrder" data-list-order="lowPrice">최저가순</a>
+            	<a href="javascript:void(0);" name="listOrder" data-list-order="highPrice">최고가순</a>
+            	<a href="javascript:void(0);" name="listOrder" data-list-order="review_count">리뷰개수순</h3></a>
             	
             	<select style="width: 100px; margin-right: 10px" name="numchoose" id="numchoose">
 					<option value="10" <c:if test="${param.numchoose=='10' }">selected</c:if>>10개씩</option>
@@ -159,14 +161,27 @@
             		<!-- 도서 목록 시작 -->
                     <table class="booklist">
                         <colgroup>
-                            <col width="100px" />
-                            <col width="300px" />
                             <col width="200px" />
+                            <col width="200px" />
+                            <col width="200px" />
+                            <col width="120px" />
+                            <col width="180px" />
                             <col width="100px" />
-                            <col width="50px" />
+                            <col width="200px" />
                         </colgroup>
+                        <thead>
+							<tr>
+								<th scope="col" class="first"></th>
+								<th scope="col">도서명</th>
+								<th scope="col">저자 | 출판사 | 출간일</th> 
+								<th scope="col">가격</th> 
+								<th scope="col">리뷰 | 별점</th> 
+								<th scope="col">수량선택</th>
+								<th scope="col">상품담기</th>
+							</tr>
+						</thead>
                         <tbody>
-
+			
                         <c:if test="${list != null && fn:length(list) > 0 }">
                         <c:forEach var="vo" items="${list}" varStatus="status">
                         	<div class="salesBook">
@@ -175,36 +190,33 @@
                            			<a href="/bookmall/book/detail.do?bookno=${vo.bookno }" >
                            				<img src="/bookmall/upload/${vo.bthumb_real }" width="150"></a>
                            		</td>
-                                <td class="txt_l" style="text-align:left;">
+                                <td class="txt_l" style="text-align: center;">
                                     <a href="/bookmall/book/detail.do?bookno=${vo.bookno }" ><h2>${vo.btitle_first }</h2>${vo.btitle_second }</a>
                                 </td>
                                 <td>
-                               		${vo.author } 저 | ${vo.publisher } | ${vo.pubdate }
+                               		${vo.author } 저 <br>
+                               		${vo.publisher } <br> 
+                               		${vo.pubdate }
                                 </td>
                                 <td>
                                 	${vo.salesprice } 원 
                                 </td>
                                 <td class="review">
-                                    회원 리뷰(건) | 별점
-                                </td>
-                                <td class="bintroduce">
-                                	${vo.bintroduce}
+                                    회원 리뷰(${vo.review_count }건)<br>
+                                    별점 : ${vo.review_score }
                                 </td>
                                 <td>
-                                	<a>수량 선택 : 
+                                	<a>수량 선택 <br> 
 						         	<input type="button" name="minusCount_${vo.bookno }" id="minusCount_${vo.bookno }" value="-" class="" data-bno="${vo.bookno }">
 						         		<input type="text" name="bookcount_${vo.bookno }" id="bookcount_${vo.bookno }" value="1" style="width: 30px;" readonly>
 						         	<input type="button" name="plusCount_${vo.bookno }" id="plusCount_${vo.bookno }" value="+" class="" data-bno="${vo.bookno }"></a>
                                 </td>
                                 <td class="btnTop">
-                                	<a id ="cartbtn" name="cartinsert" href="#"></a><strong>장바구니 담기</strong> </a>
+                                	<a id ="cartbtn" name="cartinsert" href="#"><strong>장바구니 담기</strong> </a> <br>
+                                	<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a> <br>
+                                	<a id ="listbtn" name="mylistinsert" href="#"><strong>마이리스트 담기</strong> </a>
                                 </td>
-                                <td class="btnMiddle">
-                                	<a class="btns" href="#" onclick=""><strong>바로 주문하기</strong> </a>
-                                </td>
-                                <td class="btnBottom">
-                                	<a id ="listbtn" name="mylistinsert" href="#"></a><strong>마이리스트 담기</strong> </a>
-                                </td>
+                            </tr>
 							</div>
                         </c:forEach>
                         </c:if>
