@@ -16,7 +16,7 @@
 		<c:if test="${vo.blev1 != oldnum}">
 			<div class='cate1'>
 			<a href="/bookmall/book/booklist.do?bc=${vo.bclassify }&blev=1&cano=${vo.blev1 }" data-blev="1" data-cano="${vo.blev1 }">
-				<em>${vo.blev1name }</em>
+				<em><b>${vo.blev1name }</b></em>
 			</a>
 			<a href="#;" class="cate2Slide" data-blev="${vo.blev1 }">+</a>
 			</div>
