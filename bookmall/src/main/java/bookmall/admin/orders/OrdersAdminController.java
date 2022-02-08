@@ -21,6 +21,7 @@ public class OrdersAdminController {
 	@Autowired
 	OrdersAdminService ordersService;
 
+	//문의내역 관리자페이지
 	@RequestMapping("/admin/orders/index.do")
 	public String ordersAdmin(OrdersAdminVo vo, Model model, HttpServletRequest req) {
 //		model.addAttribute("totSelect", ordersService.totSelect(vo));
@@ -41,10 +42,15 @@ public class OrdersAdminController {
 		return "admin/orders/index"; 
 	}
 	
+	//주문상태 적용
 	@RequestMapping("/admin/orders/update.do")
 	public String updateAdmin(Model model, OrdersAdminVo vo, HttpServletRequest req) {
 		int r = ordersService.update(vo);
-		if(r > 0) {
+		int x = ordersService.refundUpdate(vo);
+		
+		// 정상적으로 등록되었습니다. alert 띄우고 
+		// index.do 로 이동 
+		if(r > 0 && x > 0) {
 			model.addAttribute("msg","정상적으로 수정되었습니다.");
 			model.addAttribute("url","index.do"); // 성공 했을때 상세페이지 이동 
 		}else {

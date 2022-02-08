@@ -98,38 +98,44 @@ public class RefundController {
 
 	// 문의사항 저장
 	@PostMapping("/refund/insert.do")
-	public String insert(RefundVo vo, HttpServletRequest req, HttpSession sess) {
+	public String insert(RefundVo vo, HttpServletRequest req, HttpSession sess, Model model) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		
 		int r = refundService.insert(vo);
+		int x = refundService.update(vo);
 		
 		// 정상적으로 등록되었습니다. alert 띄우고 
 		// index.do 로 이동 
-		if(r > 0) {
-		req.setAttribute("msg", "취소/환불 신청이 완료 되었습니다");
-		req.setAttribute("url", "index.do");
+		if(r > 0 && x > 0) {
+			req.setAttribute("msg", "취소/환불 신청이 완료 되었습니다");
+			req.setAttribute("url", "index.do");
+			model.addAttribute("url","index.do");
 		} else {
 			req.setAttribute("msg", "등록 오류 ");
 			req.setAttribute("url", "refund.do");
+			model.addAttribute("url", "refund.do");
 		}
 		
 		return "include/return";
 		}
 	// 문의사항 저장
 	@PostMapping("/refund/insertEx.do")
-	public String insertEx(RefundVo vo, HttpServletRequest req, HttpSession sess) {
+	public String insertEx(RefundVo vo, HttpServletRequest req, HttpSession sess, Model model) {
 		vo.setUserno(((UserVo)sess.getAttribute("userInfo")).getUserno());
 		
 		int r = refundService.insert(vo);
+		int x = refundService.update(vo);
 		
 		// 정상적으로 등록되었습니다. alert 띄우고 
 		// index.do 로 이동 
-		if(r > 0) {
+		if(r > 0 && x > 0) {
 			req.setAttribute("msg", "반품/교환 신청이 완료 되었습니다");
 			req.setAttribute("url", "index.do");
+			model.addAttribute("url","index.do");
 		} else {
 			req.setAttribute("msg", "등록 오류 ");
 			req.setAttribute("url", "exchange.do");
+			model.addAttribute("url", "refund.do");
 		}
 		
 		return "include/return";

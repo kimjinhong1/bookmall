@@ -29,5 +29,10 @@ public class OrdersAdminServiceImpl implements OrdersAdminService{
 	public int update(OrdersAdminVo vo) {
 		return ordersAdminDao.update(vo);
 	}
+	
+	@Override
+	public int refundUpdate(OrdersAdminVo vo) {
+		return ordersAdminDao.refundUpdate(vo);
+	}
 
 }

@@ -2,9 +2,6 @@ package bookmall.refund;
 
 import java.util.List;
 
-import bookmall.board.notice.NoticeVo;
-import bookmall.board.suda.SudaVo;
-
 public interface RefundService {
 	
 	/*교환,반품 내역*/
@@ -19,5 +16,8 @@ public interface RefundService {
 	
 	/*페이지 카운트*/
 	int count(RefundVo vo);
+	
+	/*주문상태*/
+	int update(RefundVo vo);
 	
 }

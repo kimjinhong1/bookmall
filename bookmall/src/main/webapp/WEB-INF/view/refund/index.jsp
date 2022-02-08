@@ -58,6 +58,7 @@
 								</tr>
 							</c:if>
 							<form name="refundspace" id="refundspace">
+							<input type="hidden" name="status" value="${refund.pick }">
 								<c:if test="${!empty refundList  }">
 									<c:forEach var="refund" items="${refundList}">
 										<thead>
@@ -80,10 +81,14 @@
 											<td>
 												결제일시<br><fmt:formatDate value="${refund.order_date }" pattern="yyyy-MM-dd" /><br><br>
 												신청일시<br><fmt:formatDate value="${refund.regdate }" pattern="yyyy-MM-dd" /></td>
-											<td><c:if test="${refund.pick == 7}">취소신청완료</c:if>
-												<c:if test="${refund.pick == 9}">반품신청완료</c:if>
-												<c:if test="${refund.pick == 11}">교환신청완료</c:if>
-												<c:if test="${refund.pick == 13}">환불신청완료</c:if></td>
+											<td><c:if test="${refund.pick == 7}">취소신청</c:if>
+												<c:if test="${refund.pick == 8}">취소완료</c:if>
+												<c:if test="${refund.pick == 9}">반품신청</c:if>
+												<c:if test="${refund.pick == 10}">반품완료</c:if>
+												<c:if test="${refund.pick == 11}">교환신청</c:if>
+												<c:if test="${refund.pick == 12}">교환완료</c:if>
+												<c:if test="${refund.pick == 13}">환불신청</c:if>
+												<c:if test="${refund.pick == 14}">환불완료</c:if></td>
 										</thead>
 									</c:forEach>
 								</c:if>

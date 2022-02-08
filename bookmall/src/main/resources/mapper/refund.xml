@@ -52,9 +52,9 @@
 		SELECT * FROM refund WHERE refundno = #{xxx}		
 	</select>
 	
-	<update id="update" parameterType="bookmall.admin.orders.OrdersAdminVo">
+	<update id="update" parameterType="bookmall.refund.RefundVo">
 		UPDATE orders SET 
-		status=#{status}
+		status=#{pick}
 		WHERE orderno=#{orderno}  
 	</update>
 

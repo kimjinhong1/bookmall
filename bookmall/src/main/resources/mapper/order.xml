@@ -147,4 +147,10 @@
       WHERE orderno=#{orderno}  
    </update>
    
+   <update id="refundUpdate" parameterType="bookmall.admin.orders.OrdersAdminVo">
+		UPDATE refund SET 
+		pick=#{status}
+		WHERE orderno=#{orderno}  
+	</update>
+   
 </mapper>

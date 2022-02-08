@@ -40,4 +40,9 @@ public class RefundServiceImpl implements RefundService {
 		return refundDao.count(vo);
 	}
 	
+	@Override
+	public int update(RefundVo vo) {
+		return refundDao.update(vo);
+	}
+	
 }

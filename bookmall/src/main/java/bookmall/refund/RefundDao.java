@@ -49,8 +49,8 @@ public class RefundDao {
 		return sqlSessionTemplate.selectOne("refund.view",refundno);
 	}
 	
-	public int update(RefundVo askno) {
-		return sqlSessionTemplate.update("ask.update", askno);
+	public int update(RefundVo vo) {
+		return sqlSessionTemplate.update("refund.update", vo);
 	}
 	
 	public int count(RefundVo vo) {
