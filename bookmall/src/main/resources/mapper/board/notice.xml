@@ -30,7 +30,7 @@
 		LIMIT ${startIdx},10
 	</select>
 	
-		<insert id = "insert" parameterType="bookmall.board.notice.NoticeVo">
+	<insert id = "insert" parameterType="bookmall.board.notice.NoticeVo">
 		INSERT INTO notice (
 			title, regdate, content, filename_org, filename_real
 		) values(
