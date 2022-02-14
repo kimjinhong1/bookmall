@@ -52,7 +52,7 @@ public class UserController {
 	// EmailId 중복체크
 	@GetMapping("/user/emailCheck.do")
 	public String emailCheck(Model model, @RequestParam String email) {
-		model.addAttribute("result", service.emailCheck(email));  //0 or 1 이 request에 저장
+		model.addAttribute("result", service.emailCheck(email));  
 		return "include/result";
 	}
 	
@@ -181,7 +181,7 @@ public class UserController {
 	public String snsLogin( @PathVariable String userId, HttpSession sess, UserVo vo, Model model ) throws Exception{
 	    vo.setIdentifier(userId); 
 	    if (service.socialLogin(vo, sess)) {
-	    	// 추가정보 입력 ( 정보없으면 추가정보 입력으로 보내버림)
+	    	// 추가정보 입력 ( 정보없으면 추가정보 입력으로 보냄)
 	    	if( (((UserVo)sess.getAttribute("userInfo")).getAddr1() == null) ||
 	    			(((UserVo)sess.getAttribute("userInfo")).getAddr2() == null) ||
 	    			(((UserVo)sess.getAttribute("userInfo")).getZipcode() == null) ||

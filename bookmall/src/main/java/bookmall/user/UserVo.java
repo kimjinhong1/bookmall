@@ -34,17 +34,19 @@ public class UserVo extends CommonVo {
 	// 주문
 	private String orderno;			//주문번호
 	private int totalPrice;			//주문총액
+	private String status;
 	private String paymentStatus;	//결제상태(미결제, 결제완료, 결제취소)
 	private String canceledStatus;  //취소상태
 	private Timestamp order_date;	//주문날짜
-	private int methodOfPayment;    //결제방법
+	private String methodOfPayment;    //결제방법
 	
 	private int member_buy_count; // 회원 총 구매 상품 수
 	private int member_buy_price; // 회원 총 구매 금액
 	// 주문디테일
 	private int order_detailno;
-    private int count; 
+    private int bookcount; 
     private int price; 
+    private int salesprice; 
     private int o_d_count; // 주문 디테일 개수
     private int total_price; // 주문 디테일 총 가격
     

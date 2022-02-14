@@ -114,12 +114,13 @@ function delcate(cate) {
 }
 
 function searchBtn(rp) {
-	//if ($("#searchWord").val().trim() == '') {
-	//	alert("검색어를 입력해주세요.");
-	//	return
-	//}
-	console.log('검색시작');
-	console.log($("#searchForm").serialize()+"&page="+rp+"&"+$("#searchForm_Condition").serialize());
+	if ($("#searchWord").val().trim() == '') {
+		alert(" 검색어를 입력해 주세요.");
+		$("#searchWord").focus();
+		return;
+	}
+	//console.log('검색시작');
+	//console.log($("#searchForm").serialize()+"&page="+rp+"&"+$("#searchForm_Condition").serialize());
 	$.ajax({
 		type : "get",
 		data : 
@@ -132,19 +133,11 @@ function searchBtn(rp) {
 			var totCount = data.totCount;
 			var totPage = data.totPage;
 			var page = data.page;
-			//var pageArea = data.pageArea;
-			console.log("성공")
-			console.log(booklist)
-			console.log(totCount)
 			//페이징 처리
 			var startPage = Math.floor((page-1)/10)*10+1;
-			console.log("startPage:"+startPage)
 			var endPage = startPage + 10 - 1;
 			if (endPage > totPage) endPage = totPage;
-			//var number = booklist[0].review_score;
 			var number = 2;
-			console.log(booklist[0].review_score.toFixed(1));
-
 			var search = "";
 			
 			//search += '<div class="size">'

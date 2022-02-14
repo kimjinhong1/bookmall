@@ -134,6 +134,13 @@ $(function() {
  
 $(function() {
 	$("#cartbtn").click(function(){
+		var userInfo = "<c:out value='${userInfo}'/>";
+		
+		if (userInfo == '') {
+			alert("로그인 후 가능합니다.")
+			location.href = '/bookmall/user/login.do';
+			return;
+		}
 		$.ajax({
 			url: '/bookmall/cart/add',
 			type: 'POST',
@@ -148,11 +155,18 @@ $(function() {
 					alert('장바구니에 등록되었습니다.');
 				}
 			}
-		})
+		}) 
 	});
 });
 $(function() {
 	$("#listbtn").click(function(){
+		var userInfo = "<c:out value='${userInfo}'/>";
+		
+		if (userInfo == '') {
+			alert("로그인 후 가능합니다.")
+			location.href = '/bookmall/user/login.do';
+			return;
+		}
 		$.ajax({
 			url: '/bookmall/mylist/insert.do',
 			type: 'POST',

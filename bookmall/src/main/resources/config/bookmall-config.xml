@@ -76,6 +76,18 @@
 			<mvc:mapping path="/center/suda/update.do"/>
 			<mvc:mapping path="/center/suda/reply.do"/>
 			<mvc:mapping path="/center/suda/insertReply.do"/>
+			<mvc:mapping path="/order1.do"/>
+			<mvc:mapping path="/mylist/insert.do"/>
+			<mvc:mapping path="/cart.do"/>
+			<mvc:mapping path="/cart/add"/>
+			<mvc:mapping path="/ask/askindex.do"/>
+			<mvc:mapping path="/user/mypage.do"/>
+			<mvc:mapping path="/user/remove.do"/>
+			<mvc:mapping path="/user/edit.do"/>
+			<mvc:mapping path="/user/nickedit.do"/>
+			<mvc:mapping path="/user/pwdedit.do"/>
+			<mvc:mapping path="/addr/addressList.do"/>
+			<mvc:mapping path="/refund/index.do"/>
 			<bean class="bookmall.main.LoginInterceptor"/>
 		</mvc:interceptor>
 		<mvc:interceptor>

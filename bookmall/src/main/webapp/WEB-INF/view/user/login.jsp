@@ -49,11 +49,8 @@
     	        	Kakao.init('2098e03da186e9b37098442fd1828311');
     	        };
     	    } catch(e) {};
-    		
     		// SDK 초기화 여부를 판단합니다.
     	    console.log(Kakao.isInitialized());
-    	 	// 토큰 할당하기
-            //Kakao.Auth.setAccessToken(ACCESS_TOKEN);
     	 	// 로그인 시도
 		    Kakao.Auth.login({
 		    	 success: function(authObj) {
@@ -62,9 +59,7 @@
 		                 url: '/v2/user/me',
 		                 success: function(res) {
 		                	 console.log(res);
-		                	 res.id += "@kakao";
-		                	 
-		                	 console.log(res.id);
+		                	 res.id += "@kakao"; // 식별자 값
 		                	 
 		                	 // 이메일 선택 동의를 안했을 시 true
 		                	 if (res.kakao_account.email == undefined) {

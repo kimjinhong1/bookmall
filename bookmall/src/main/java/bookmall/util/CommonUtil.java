@@ -144,9 +144,9 @@ public class CommonUtil {
 					ret += "<strong>"+rp+"</strong>";
 				} else {
 					if(vo.getSearchWord() == null || vo.getSearchType() == null) {
-						ret += "	                <a href='javascript:location.href=\""+url+"?page="+rp+"\";'";
+						ret += "<a href='javascript:location.href=\""+url+"?page="+rp+"\";'";
 					} else {
-						ret += "	                <a href='javascript:location.href=\""+url+"?user_type="+vo.getUser_type()+"&state="+vo.getState()+"&searchType="+vo.getSearchType()+"&searchWord="+vo.getSearchWord()+"&page="+rp+"\";'";
+						ret += "<a href='javascript:location.href=\""+url+"?user_type="+vo.getUser_type()+"&state="+vo.getState()+"&searchType="+vo.getSearchType()+"&searchWord="+vo.getSearchWord()+"&page="+rp+"\";'";
 					}
 						ret += ">"+rp+"</a>\r\n";
 				}

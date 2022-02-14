@@ -10,7 +10,7 @@
 		LIMIT ${startIdx}, 10  
 	</select>
 	
-	<sql id="memberWhere">  <!-- 코드 중복 줄임 -->
+	<sql id="memberWhere">  
 		<where>
 			<if test ="user_type == '0' or user_type == null or user_type == '' ">
 			 	user_type LIKE '%'
@@ -73,10 +73,10 @@
 			b.btitle_first AS btitle_first,
 			b.btitle_second AS btitle_second,
 			od.bookcount AS bookcount,
-			od.price AS price,
+			od.salesprice AS salesprice,
 			o.order_date AS order_date,
 			o.methodOfPayment AS methodOfPayment,
-			o.status AS status,
+			o.status AS status
 		FROM order_detail AS od 
 		LEFT OUTER JOIN book AS b
 			ON  od.bookno = b.bookno

@@ -38,7 +38,7 @@
 	        <a href="/bookmall/book/mainbook.do?bc=1">국외도서</a>
 	    </li>
 	    <li>
-	        <a href="">게시판</a>
+	        <a href="/bookmall/center/suda/index.do">게시판</a>
 	        <ul class="depth2">
 	            <li><a href="/bookmall/center/suda/index.do">수다게시판</a></li>
 	        </ul>

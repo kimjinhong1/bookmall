@@ -20,9 +20,8 @@
 
 <body>
 <script type="text/javascript">
+
 	var naver_id_login = new naver_id_login("KTq9CxuHYQBTJfayX1oz", "http://localhost:8080/bookmall/main.do");
-	// 접근 토큰 값 출력
-	//alert(naver_id_login.oauthParams.access_token);
 	
 	// 네이버 사용자 프로필 조회
 	naver_id_login.get_naver_userprofile("naverSignInCallback()");
@@ -32,7 +31,6 @@ function naverSignInCallback() {
 	var email = naver_id_login.getProfileData('email');
 	var name = naver_id_login.getProfileData('name');
 	var nickname = naver_id_login.getProfileData('nickname');
-	
 	var gender = naver_id_login.getProfileData('gender');
 	if (gender == 'F') {
 		gender = 2;

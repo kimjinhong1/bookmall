@@ -390,16 +390,10 @@ function zipcode() {
 		    <tr data-userno="${vo.userno }">
 		        <td>${vo.isbn }</td>
 		        <td>${vo.btitle }</td>
-		        <td>${vo.count }</td>
-		        <td>${vo.price }</td>
+		        <td>${vo.bookcount }</td>
+		        <td>${vo.salesprice }</td>
 		        <td>${vo.order_date }</td>
-		        <td>
-		        	<c:choose>
-		        		<c:when test="${vo.methodOfPayment == 1 }">무통장입금</c:when>
-		        		<c:when test="${vo.methodOfPayment == 2 }">신용카드</c:when>
-		        		<c:when test="${vo.methodOfPayment == 3 }">네이버페이</c:when>
-		        	</c:choose>
-		        </td>
+		        <td>${vo.methodOfPayment }</td>
 		    </tr>
 		    </c:forEach>
 		</c:if>
